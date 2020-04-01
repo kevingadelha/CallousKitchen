@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="LightTheme" parent="AppTheme">
+        <item name="textColor">#000000</item>
+        <item name="metaTextColor">#606060</item>
+        <item name="bgColor">#E1E1E1</item>
+        <item name="bgColorLight">#F6F6F6</item>
+    </style>
+
+    <style name="DarkTheme" parent="AppTheme">
+        <item name="textColor">#fdfdfd</item>
+        <item name="metaTextColor">#aeaeae</item>
+        <item name="bgColor">#1B1B1B</item>
+        <item name="bgColorLight">#252525</item>
+    </style>
+
 </resources>
