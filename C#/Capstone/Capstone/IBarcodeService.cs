@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Capstone
+{
+    [ServiceContract]
+    public interface IBarcodeService
+    {
+        [OperationContract]
+        Task<string> GetBarcodeData(string barcode);
+        [OperationContract]
+        Task<bool> AddItem(string barcode, string name, int userId, int count);
+        [OperationContract]
+        Task<bool> EditItem(int id, int count);
+        [OperationContract]
+        Task<bool> RemoveItem(int id);
+    }
+}
