@@ -3,4 +3,5 @@
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="kitchen_name">kitchen name</string>
+    <string name="email">Email</string>
 </resources>
