@@ -1,0 +1,16 @@
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Capstone.dll.config
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Capstone.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Capstone.pdb
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.SqlServer.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Newtonsoft.Json.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.xml
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.SqlServer.xml
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Newtonsoft.Json.xml
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.CopyComplete
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.pdb
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\System.Net.Http.Extensions.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\System.Net.Http.Formatting.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\System.Net.Http.Primitives.dll

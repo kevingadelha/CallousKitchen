@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="46d8c2ee7e6a4fc686fd0cfb351fd31d" Name="Diagram1">
+        <EntityTypeShape EntityType="CallousHippoModel.Diet" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CallousHippoModel.DietTag" Width="1.5" PointX="4" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CallousHippoModel.ProductTag" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CallousHippoModel.Tag" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CallousHippoModel.User" Width="1.5" PointX="5.75" PointY="7.25" IsExpanded="true" />
+        <AssociationConnector Association="CallousHippoModel.FK_DietTag_Diet" ManuallyRouted="false" />
+        <AssociationConnector Association="CallousHippoModel.FK_User_Diet" ManuallyRouted="false" />
+        <AssociationConnector Association="CallousHippoModel.FK_DietTag_Tag" ManuallyRouted="false" />
+        <AssociationConnector Association="CallousHippoModel.FK_ProductTag_Tag" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CallousHippoModel.Inventory" Width="1.5" PointX="8" PointY="7.125" />
+        <AssociationConnector Association="CallousHippoModel.FK_Inventory_User" />
+        <EntityTypeShape EntityType="CallousHippoModel.Product" Width="1.5" PointX="0.75" PointY="7" />
+        <AssociationConnector Association="CallousHippoModel.FK_Inventory_Product" />
+        <AssociationConnector Association="CallousHippoModel.FK_ProductTag_Product" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
