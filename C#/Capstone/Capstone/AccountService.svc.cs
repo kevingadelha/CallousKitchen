@@ -28,9 +28,9 @@ namespace Capstone
             }
 
         }
-        public bool LoginAccount(string email, string pass)
+        public int LoginAccount(string userName, string pass)
         {
-            return (db.Users.Where(x => x.Email == email && x.Password == pass).Count() == 1);
+            return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.UserId??-1);
         }
     }
 }

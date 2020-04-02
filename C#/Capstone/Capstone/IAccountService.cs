@@ -20,6 +20,6 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        bool LoginAccount(string email, string pass);
+        int LoginAccount(string userName, string pass);
     }
 }
