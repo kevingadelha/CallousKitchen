@@ -199,7 +199,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61283</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:61283/</IISUrl>
+          <IISUrl>http://localhost:59869/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
