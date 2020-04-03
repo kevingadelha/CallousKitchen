@@ -110,6 +110,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountLogin_Result.cs">
+      <DependentUpon>DataContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="AccountService.svc.cs">
       <DependentUpon>AccountService.svc</DependentUpon>
     </Compile>
@@ -118,6 +121,9 @@
     <Compile Include="App_Code\Initializer.cs" />
     <Compile Include="BarcodeService.svc.cs">
       <DependentUpon>BarcodeService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAccount_Result.cs">
+      <DependentUpon>DataContext.tt</DependentUpon>
     </Compile>
     <Compile Include="DataContext.Context.cs">
       <AutoGen>True</AutoGen>

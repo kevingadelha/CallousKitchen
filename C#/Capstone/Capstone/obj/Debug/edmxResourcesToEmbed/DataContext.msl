@@ -67,5 +67,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AccountLogin" FunctionName="CallousHippoModel.Store.AccountLogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CallousHippoModel.AccountLogin_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="GuiltLevel" ColumnName="GuiltLevel" />
+          <ScalarProperty Name="DietId" ColumnName="DietId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CreateAccount" FunctionName="CallousHippoModel.Store.CreateAccount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CallousHippoModel.CreateAccount_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="GuiltLevel" ColumnName="GuiltLevel" />
+          <ScalarProperty Name="DietId" ColumnName="DietId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

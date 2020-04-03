@@ -148,6 +148,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AccountLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CreateAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="DietId" Type="int" Mode="In" />
+          <Parameter Name="GuiltLevel" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="CallousHippoModelStoreContainer">
           <EntitySet Name="Diet" EntityType="Self.Diet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DietTag" EntityType="Self.DietTag" Schema="dbo" store:Type="Tables" />
@@ -324,6 +335,17 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductTag" EntitySet="ProductTags" />
           </AssociationSet>
+          <FunctionImport Name="AccountLogin" ReturnType="Collection(CallousHippoModel.AccountLogin_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CreateAccount" ReturnType="Collection(CallousHippoModel.CreateAccount_Result)">
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="DietId" Mode="In" Type="Int32" />
+            <Parameter Name="GuiltLevel" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Inventory">
           <Key>
@@ -383,6 +405,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="AccountLogin_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="GuiltLevel" Nullable="false" />
+          <Property Type="Int32" Name="DietId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="CreateAccount_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="GuiltLevel" Nullable="false" />
+          <Property Type="Int32" Name="DietId" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -455,6 +493,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AccountLogin" FunctionName="CallousHippoModel.Store.AccountLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallousHippoModel.AccountLogin_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="GuiltLevel" ColumnName="GuiltLevel" />
+                <ScalarProperty Name="DietId" ColumnName="DietId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CreateAccount" FunctionName="CallousHippoModel.Store.CreateAccount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallousHippoModel.CreateAccount_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="GuiltLevel" ColumnName="GuiltLevel" />
+                <ScalarProperty Name="DietId" ColumnName="DietId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
