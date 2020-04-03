@@ -143,6 +143,17 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="AccountLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="CreateAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Username" Type="varchar" Mode="In" />
+    <Parameter Name="Email" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+    <Parameter Name="DietId" Type="int" Mode="In" />
+    <Parameter Name="GuiltLevel" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="CallousHippoModelStoreContainer">
     <EntitySet Name="Diet" EntityType="Self.Diet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DietTag" EntityType="Self.DietTag" Schema="dbo" store:Type="Tables" />

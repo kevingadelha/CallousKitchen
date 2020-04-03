@@ -13,7 +13,7 @@ namespace Capstone
     public interface IAccountService
     {
         [OperationContract]
-        bool CreateAccount(string username, string pass, string email);
+        bool CreateAccount(string username, string pass, string email, int guiltLevel, int dietId);
         [OperationContract]
         bool LoginAccount(string email, string pass);
     }

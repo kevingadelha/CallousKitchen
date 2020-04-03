@@ -15,22 +15,25 @@ namespace Capstone
     {
         private CallousHippoEntities db = new CallousHippoEntities();
 
-        public bool CreateAccount(string username, string pass, string email) {
-            if (db.Users.Where(x => x.Email == email && x.Username == username).Count() != 0)
-            {
-                return false;
-            }
-            else {
-                User user = new User { Username = username, DietId = 1, Email = email, Password = pass, GuiltLevel = 1 };
-                db.Users.Add(user);
-                db.SaveChanges();
-                return true;
-            }
+        public bool CreateAccount(string username, string pass, string email , int guiltLevel, int dietId) {
+            /*    if (db.Users.Where(x => x.Email == email && x.Username == username).Count() != 0)
+                {
+                    return false;
+                }
+                else {
+                    User user = new User { Username = username, DietId = 1, Email = email, Password = pass, GuiltLevel = 1 };
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return true;
+                }
+                */
+            return (db.CreateAccount(username, email, pass, dietId, guiltLevel).FirstOrDefault() != null);
 
         }
         public bool LoginAccount(string email, string pass)
         {
-            return (db.Users.Where(x => x.Email == email && x.Password == pass).Count() == 1);
+            // return db.AccountLogin(email, pass).FirstOrDefault().Value;
+            return db.AccountLogin(email, pass).FirstOrDefault() != null;
         }
     }
 }
