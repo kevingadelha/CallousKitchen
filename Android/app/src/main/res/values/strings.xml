@@ -4,4 +4,10 @@
     <string name="password">password</string>
     <string name="kitchen_name">kitchen name</string>
     <string name="email">Email</string>
+    <string name="create_one">Create One</string>
+    <string name="no_account">No account?</string>
+    <string name="login">login</string>
+    <string name="create_account">Create Account</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
 </resources>

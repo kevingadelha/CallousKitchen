@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val txtName = findViewById<EditText>(R.id.editTextUsername)
         val txtPassword = findViewById<EditText>(R.id.editTextPassword)
+        val btnCreateAccount = findViewById<Button>(R.id.btnCreateAccount)
 
         btnLogin.setOnClickListener{
             // validate username and password
@@ -48,6 +49,12 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+        }
+
+        btnCreateAccount.setOnClickListener{
+            // go to create account activity
+            val intent = Intent(this@MainActivity, CreateAccountActivity::class.java)
+            startActivity(intent)
         }
     }
 }

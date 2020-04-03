@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorAccent"
-            android:text="Create"
+            android:text="@string/create"
             android:textColor="?attr/textColor" />
 
         <Button
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorDarkBtn"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textColor="?attr/textColor" />
 
     </LinearLayout>
