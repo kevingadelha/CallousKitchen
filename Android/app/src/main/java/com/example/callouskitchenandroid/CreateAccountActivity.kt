@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.android.volley.Response
+import org.json.JSONObject
 
 class CreateAccountActivity : AppCompatActivity() {
 
@@ -27,9 +29,26 @@ class CreateAccountActivity : AppCompatActivity() {
                 // passwords match?
                 if (txtPassword.text.toString() == txtConfirmPassword.text.toString())
                 {
-                    // todo: use the service to create an account
+
                     val username = txtUsername.text.toString()
                     val password = txtPassword.text.toString()
+
+                    ServiceHandler.callAccountService(
+                        "CreateAccount",hashMapOf("userName" to username,"pass" to password),this,
+                        Response.Listener { response ->
+                            val json = JSONObject(response.toString())
+                            val userId = json.getInt("CreateAccountResult")
+
+                            if (userId != -1){
+                                ServiceHandler.userId = userId
+                                val intent = Intent(this@CreateAccountActivity, KitchenListActivity::class.java)
+                                startActivity(intent)
+                            }
+                            else{
+                                Toast.makeText(applicationContext,"Username exists", Toast.LENGTH_LONG).show()
+                            }
+
+                        })
 
                 }
                 else
