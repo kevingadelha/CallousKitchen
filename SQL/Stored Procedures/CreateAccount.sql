@@ -1,16 +1,19 @@
 USE [CallousHippo]
 GO
-/****** Object:  StoredProcedure [dbo].[CreateAccount]    Script Date: 4/2/2020 2:17:31 PM ******/
+
+/****** Object:  StoredProcedure [dbo].[CreateAccount]    Script Date: 4/3/2020 5:05:14 PM ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
+
 -- =============================================
 -- Author:		<Peter Szadurski>
 -- Create date: 
 -- Description:	
 -- =============================================
-ALTER PROCEDURE [dbo].[CreateAccount] 
+CREATE OR ALTER PROCEDURE [dbo].[CreateAccount] 
 	-- Add the parameters for the stored procedure here
 	@Username varchar(25),
 	@Email varchar(255), @Password varchar(255), @DietId int, @GuiltLevel int
@@ -26,10 +29,11 @@ BEGIN
 	Begin
 		Insert into [User] (Username, [Password], Email, DietId, GuiltLevel)
 		Values (@Username, @Password, @Email, @DietId, @GuiltLevel)
-		return 0;
 	End
-	else
-		Begin
-			Return 1;
-		End
+	Select * from [User] where (Username = @Username and 
+	[Password] = @Password and Email = @Email and 
+	DietId = @DietId and GuiltLevel = @GuiltLevel)
+
 END
+GO
+
