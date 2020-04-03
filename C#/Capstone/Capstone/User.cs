@@ -19,7 +19,16 @@ namespace Capstone
         {
             this.Inventories = new HashSet<Inventory>();
         }
-    
+
+        public User(string username, string email, string password)
+        {
+            Username = username;
+            Email = email;
+            Password = password;
+            DietId = 1;
+            GuiltLevel = 1;
+        }
+
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
@@ -30,5 +39,10 @@ namespace Capstone
         public virtual Diet Diet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inventory> Inventories { get; set; }
+
+        public override string ToString()
+        {
+            return $"{{{nameof(UserId)}={UserId.ToString()}, {nameof(Username)}={Username}, {nameof(Email)}={Email}, {nameof(Password)}={Password}, {nameof(GuiltLevel)}={GuiltLevel.ToString()}, {nameof(DietId)}={DietId.ToString()}, {nameof(Diet)}={Diet}, {nameof(Inventories)}={Inventories}}}";
+        }
     }
 }
