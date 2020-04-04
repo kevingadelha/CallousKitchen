@@ -50,6 +50,13 @@ var kitchenId : Int = 0
             intent.putExtra("kitchenId",kitchenId)
             startActivity(intent)
         }
+
+        val btnKitchen = findViewById<Button>(R.id.btnOpenInventory)
+
+        btnKitchen.setOnClickListener{
+            val intent = Intent(this@InventoryActivity, KitchenListActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showAllFood() {

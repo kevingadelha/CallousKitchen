@@ -11,6 +11,10 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.json.JSONObject
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class ServiceHandler {
@@ -43,6 +47,11 @@ class ServiceHandler {
         fun callAccountService(method : String, parameters : HashMap<String,Any?>, context: Context, response : Response.Listener<JSONObject>)
         {
             callService("AccountService.svc",method,parameters,context, response)
+        }
+
+        fun serializeDate(date : LocalDate) : String{
+            val basic = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            return "/Date("+date.format(basic)+"T00:00:00.1-04:00)/"
         }
     }
 
