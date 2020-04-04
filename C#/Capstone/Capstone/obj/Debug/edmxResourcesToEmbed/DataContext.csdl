@@ -135,6 +135,17 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="ProductTag" EntitySet="ProductTags" />
     </AssociationSet>
+    <FunctionImport Name="AccountLogin" ReturnType="Collection(CallousHippoModel.AccountLogin_Result)">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="CreateAccount" ReturnType="Collection(CallousHippoModel.CreateAccount_Result)">
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="DietId" Mode="In" Type="Int32" />
+      <Parameter Name="GuiltLevel" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Inventory">
     <Key>
@@ -194,4 +205,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="AccountLogin_Result">
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+    <Property Type="Int32" Name="GuiltLevel" Nullable="false" />
+    <Property Type="Int32" Name="DietId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="CreateAccount_Result">
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="255" />
+    <Property Type="Int32" Name="GuiltLevel" Nullable="false" />
+    <Property Type="Int32" Name="DietId" Nullable="false" />
+  </ComplexType>
 </Schema>

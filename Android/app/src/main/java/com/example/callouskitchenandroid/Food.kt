@@ -10,6 +10,7 @@ class Food: Serializable {
     var quantity: Int = 0;
     var barcode: Int = 0
     var expiryDate: LocalDate = LocalDate.parse("2020-01-01")
+    var quantity: Double = 0.0
 
     constructor(id: Int, name: String, quantity: Int = 1, barcode: Int = 0)
     {

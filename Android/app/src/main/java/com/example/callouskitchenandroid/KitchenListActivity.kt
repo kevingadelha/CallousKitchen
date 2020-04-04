@@ -4,14 +4,45 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
+import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
+import org.json.JSONObject
 
 class KitchenListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kitchen_list)
+        //This totally won't work yet
+        ServiceHandler.callAccountService(
+            "GetKitchens",hashMapOf("userId" to ServiceHandler.userId),this,
+            Response.Listener { response ->
 
+                val json = JSONObject(response.toString())
+                val kitchensJson = json.getJSONArray("GetKitchensResult")
+                var kitchens: ArrayList<Kitchen> = arrayListOf<Kitchen>()
+
+                for (i in 0 until kitchensJson.length()) {
+
+                    var kitchenJson: JSONObject = kitchensJson.getJSONObject(i)
+                    val foodArray = kitchenJson.getJSONArray("FoodItems")
+                    var foods: ArrayList<Food> = arrayListOf<Food>()
+
+                    for (i in 0 until foodArray.length()) {
+
+                        var foodJson: JSONObject = foodArray.getJSONObject(i)
+                        var food = Food(foodJson.getInt("id"),foodJson.getString("name"))
+                        food.quantity = foodJson.getDouble("quantity")
+                        foods.add(food)
+
+                    }
+                    kitchens.add(Kitchen(kitchenJson.getInt("id"),kitchenJson.getString("name"),foods))
+
+                }
+                val kitchenListAdapter = KitchenListAdapter(this, kitchens)
+                listView.adapter = kitchenListAdapter
+            })
         showAllKitchens()
 
         // Get add button
@@ -29,6 +60,8 @@ class KitchenListActivity : AppCompatActivity() {
         var kitchens: ArrayList<Kitchen> = ArrayList<Kitchen>()
         kitchens.add(Kitchen(1, "Home Kitchen"))
         kitchens.add(Kitchen(2, "New Kitchen"))
+
+
 
         val kitchenListAdapter = KitchenListAdapter(this, kitchens)
         listView.adapter = kitchenListAdapter

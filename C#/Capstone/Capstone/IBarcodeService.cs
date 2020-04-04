@@ -14,9 +14,9 @@ namespace Capstone
         [OperationContract]
         Task<string> GetBarcodeData(string barcode);
         [OperationContract]
-        Task<bool> AddItem(string barcode, string name, int userId, int count);
+        Task<bool> AddFood(int kitchenId, string name, int quantity);
         [OperationContract]
-        Task<bool> EditItem(int id, int count);
+        Task<bool> EditItem(int id, int quantity);
         [OperationContract]
         Task<bool> RemoveItem(int id);
     }
