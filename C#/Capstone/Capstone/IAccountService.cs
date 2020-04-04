@@ -53,7 +53,7 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        Task<bool> AddFood(int kitchenId, string name, int quantity);
+        Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate);
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]

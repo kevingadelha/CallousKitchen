@@ -85,10 +85,10 @@ namespace Capstone
             OpenFoodFacts openFoodFacts = new OpenFoodFacts();
             return openFoodFacts.LoadBarcode(barcode);
         }
-        public async Task<bool> AddFood(int kitchenId, string name, int quantity)
+        public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
-                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity }));
+                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate }));
             await db.SaveChangesAsync();
             return true;
         }

@@ -10,13 +10,14 @@ import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 
 class InventoryActivity : AppCompatActivity() {
-
+var kitchenId : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inventory)
+        kitchenId = intent.getIntExtra("kitchenId",0)
 
         ServiceHandler.callAccountService(
-            "GetInventory",hashMapOf("kitchenId" to intent.getIntExtra("kitchenId",0)),this,
+            "GetInventory",hashMapOf("kitchenId" to kitchenId),this,
             Response.Listener { response ->
 
                 val json = JSONObject(response.toString())
@@ -45,6 +46,7 @@ class InventoryActivity : AppCompatActivity() {
 
         btnAddFood.setOnClickListener{
             val intent = Intent(this@InventoryActivity, AddFoodActivity::class.java)
+            intent.putExtra("kitchenId",kitchenId)
             startActivity(intent)
         }
     }

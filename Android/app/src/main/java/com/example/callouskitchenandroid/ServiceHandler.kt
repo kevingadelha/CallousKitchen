@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import org.json.JSONObject
 
 
@@ -23,17 +24,22 @@ class ServiceHandler {
         //The name of the service with extension, the name of the method, the parameters where the string
         //is the parameter name and any is the value, for context use this and use response as your listener
         //I really tried to eliminate the listener and return the response as a string, but it's not possible
-        fun callService(service : String, method : String, parameters : HashMap<String,Any>, context: Context, response : Response.Listener<JSONObject>)
+        fun callService(service : String, method : String, parameters : HashMap<String,Any?>, context: Context, response : Response.Listener<JSONObject>)
         {
             val queue = Volley.newRequestQueue(context)
             val url = "$baseUrl/$service/$method"
-            val jsonObject = JSONObject(Gson().toJson(parameters))
+
+            var jsonObject = JSONObject()
+            for ((key, value) in parameters){
+                jsonObject.put(key,value)
+            }
+            println("the json request is $jsonObject")
             val request = JsonObjectRequest(Request.Method.POST, url, jsonObject,
                 response,
                 Response.ErrorListener { println("request failed") })
             queue.add(request)
         }
-        fun callAccountService(method : String, parameters : HashMap<String,Any>, context: Context, response : Response.Listener<JSONObject>)
+        fun callAccountService(method : String, parameters : HashMap<String,Any?>, context: Context, response : Response.Listener<JSONObject>)
         {
             callService("AccountService.svc",method,parameters,context, response)
         }
