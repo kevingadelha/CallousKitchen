@@ -7,6 +7,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.android.volley.Response
+import kotlinx.android.synthetic.main.activity_kitchen_list.*
+import org.json.JSONObject
 
 class DeleteFoodActivity : AppCompatActivity() {
 
@@ -29,12 +32,18 @@ class DeleteFoodActivity : AppCompatActivity() {
             val quantityString = txtFoodQuantity.text.toString()
             if (!quantityString.isNullOrEmpty())
             {
-                val quantity = quantityString.toDouble()
+                ServiceHandler.callAccountService(
+                    "RemoveItem",hashMapOf("id" to food.id),this,
+                    Response.Listener { response ->
 
-                // todo: delete the food with the service
+                        val json = JSONObject(response.toString())
+                        val kitchensJson = json.getBoolean("RemoveItemResult")
+                        println(kitchensJson.toString())
 
-                val intent = Intent(this@DeleteFoodActivity, InventoryActivity::class.java)
-                startActivity(intent)
+                        val intent = Intent(this@DeleteFoodActivity, InventoryActivity::class.java)
+                        startActivity(intent)
+                    })
+
             }
             else
             {

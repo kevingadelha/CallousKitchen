@@ -20,6 +20,7 @@ class ServiceHandler {
         //So I'm putting them here for now
         //The user's id
         var userId = -1
+        var lastKitchenId = -1
         val baseUrl = "http://10.0.2.2:59869"
         //The name of the service with extension, the name of the method, the parameters where the string
         //is the parameter name and any is the value, for context use this and use response as your listener

@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.android.volley.Response
+import org.json.JSONObject
 
 class EatFoodActivity : AppCompatActivity() {
 
@@ -31,10 +33,18 @@ class EatFoodActivity : AppCompatActivity() {
             {
                 val quantity = quantityString.toDouble()
 
-                // todo: eat the food with the service
+                ServiceHandler.callAccountService(
+                    "EatFood",hashMapOf("id" to food.id, "quantity" to quantity),this,
+                    Response.Listener { response ->
 
-                val intent = Intent(this@EatFoodActivity, InventoryActivity::class.java)
-                startActivity(intent)
+                        val json = JSONObject(response.toString())
+                        val kitchensJson = json.getBoolean("EatFoodResult")
+                        println(kitchensJson.toString())
+
+
+                        val intent = Intent(this@EatFoodActivity, InventoryActivity::class.java)
+                        startActivity(intent)
+                    })
             }
             else
             {

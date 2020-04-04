@@ -14,8 +14,9 @@ var kitchenId : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inventory)
-        kitchenId = intent.getIntExtra("kitchenId",0)
-
+        //weird hack because the kitchenId was getting reset when going to inventory from add food
+        kitchenId = intent.getIntExtra("kitchenId",ServiceHandler.lastKitchenId)
+        ServiceHandler.lastKitchenId = kitchenId
         ServiceHandler.callAccountService(
             "GetInventory",hashMapOf("kitchenId" to kitchenId),this,
             Response.Listener { response ->
@@ -56,8 +57,6 @@ var kitchenId : Int = 0
         var foods: ArrayList<Food> = arrayListOf<Food>()
         foods.add(Food(1, "Banana", 2.0))
         foods.add(Food(2, "Chips", 1.0))
-
-        // todo: actually get the food from the database
 
         val foodListAdapter = FoodListAdapter(this, foods)
         listViewFood.adapter = foodListAdapter

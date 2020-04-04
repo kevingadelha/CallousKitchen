@@ -92,10 +92,19 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> EditItem(int id, int quantity)
+        public async Task<bool> EatFood(int id, int quantity)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
             item.Quantity = quantity;
+            await db.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate)
+        {
+            var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
+            item.Name = name;
+            item.Quantity = quantity;
+            item.ExpiryDate = expiryDate;
             await db.SaveChangesAsync();
             return true;
         }

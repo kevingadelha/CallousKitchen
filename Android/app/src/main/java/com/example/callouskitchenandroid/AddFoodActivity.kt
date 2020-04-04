@@ -10,7 +10,6 @@ import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_add_food.view.*
 import org.json.JSONObject
 import org.json.JSONObject.NULL
-import java.sql.Date
 
 class AddFoodActivity : AppCompatActivity() {
 

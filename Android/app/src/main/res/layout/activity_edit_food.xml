@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorAccent"
-            android:text="Add"
+            android:text="Edit"
             android:textColor="?attr/textColor" />
 
         <Button
