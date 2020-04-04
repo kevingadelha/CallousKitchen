@@ -15,7 +15,7 @@ namespace Capstone.Classes
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Barcode { get; set; }
-		public DateTime ExpiryDate { get; set; }
+		public Nullable<DateTime> ExpiryDate { get; set; }
 		public double Quantity { get; set; }
 	}
 
@@ -29,7 +29,7 @@ namespace Capstone.Classes
 		[DataMember]
 		public string Barcode { get; set; }
 		[DataMember]
-		public DateTime ExpiryDate { get; set; }
+		public Nullable<DateTime> ExpiryDate { get; set; }
 		[DataMember]
 		public double Quantity { get; set; }
 		public SerializableFood(Food food)

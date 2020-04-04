@@ -37,7 +37,7 @@ namespace Capstone
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         List<SerializableKitchen> GetKitchens(int userId);
         [OperationContract]
-        [WebInvoke(Method = "GET", RequestFormat = WebMessageFormat.Json,
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         List<SerializableFood> GetInventory(int kitchenId);
 
@@ -68,6 +68,6 @@ namespace Capstone
 
         [OperationContract]
         [WebInvoke(Method = "GET")]
-        List<SerializableKitchen> Test();
+        List<SerializableFood> Test();
     }
 }

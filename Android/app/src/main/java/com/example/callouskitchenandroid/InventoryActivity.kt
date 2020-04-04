@@ -39,7 +39,7 @@ class InventoryActivity : AppCompatActivity() {
             })
 
 
-        showAllFood()
+        //showAllFood()
 
         val btnAddFood = findViewById<Button>(R.id.btnAddFood)
 

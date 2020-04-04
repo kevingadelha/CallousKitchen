@@ -108,9 +108,9 @@ namespace Capstone
         }
 
         //I'm just going to leave this test method here since I keep needing it
-        public List<SerializableKitchen> Test()
+        public List<SerializableFood> Test()
         {
-            return db.Users.Where(x => x.Id == 2).FirstOrDefault().Kitchens.Select(o => new SerializableKitchen(o)).ToList();
+            return db.Kitchens.Where(x => x.Id == 1).FirstOrDefault().Inventory.Select(o => new SerializableFood(o)).ToList();
         }
     }
 }
