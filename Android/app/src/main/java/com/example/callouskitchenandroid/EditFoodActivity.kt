@@ -35,9 +35,9 @@ class EditFoodActivity : AppCompatActivity() {
             else {
                 // todo: edit the food with the service
                 val quantityString = txtFoodQuantity.text.toString()
-                var quantity: Int = 1
+                var quantity: Double = 1.0
                 if (!quantityString.isNullOrEmpty())
-                    quantity = quantityString.toInt()
+                    quantity = quantityString.toDouble()
 
                 val intent = Intent(this@EditFoodActivity, InventoryActivity::class.java)
                 startActivity(intent)

@@ -29,7 +29,7 @@ class DeleteFoodActivity : AppCompatActivity() {
             val quantityString = txtFoodQuantity.text.toString()
             if (!quantityString.isNullOrEmpty())
             {
-                val quantity = quantityString.toInt()
+                val quantity = quantityString.toDouble()
 
                 // todo: delete the food with the service
 

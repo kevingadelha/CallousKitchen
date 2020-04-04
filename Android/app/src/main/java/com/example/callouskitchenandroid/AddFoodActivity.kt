@@ -31,9 +31,9 @@ class AddFoodActivity : AppCompatActivity() {
             {
                 // todo: add the food with the service
                 val quantityString = txtFoodQuantity.text.toString()
-                var quantity: Int = 1
+                var quantity: Double = 1.0
                 if (!quantityString.isNullOrEmpty())
-                    quantity = quantityString.toInt()
+                    quantity = quantityString.toDouble()
 
                 val food = Food(1, foodName, quantity)
 

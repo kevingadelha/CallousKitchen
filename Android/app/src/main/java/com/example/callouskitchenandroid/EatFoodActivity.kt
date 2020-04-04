@@ -29,7 +29,7 @@ class EatFoodActivity : AppCompatActivity() {
             val quantityString = txtFoodQuantity.text.toString()
             if (!quantityString.isNullOrEmpty())
             {
-                val quantity = quantityString.toInt()
+                val quantity = quantityString.toDouble()
 
                 // todo: eat the food with the service
 
