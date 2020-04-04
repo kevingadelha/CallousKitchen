@@ -26,24 +26,13 @@ class KitchenListActivity : AppCompatActivity() {
                 for (i in 0 until kitchensJson.length()) {
 
                     var kitchenJson: JSONObject = kitchensJson.getJSONObject(i)
-                    val foodArray = kitchenJson.getJSONArray("FoodItems")
-                    var foods: ArrayList<Food> = arrayListOf<Food>()
-
-                    for (i in 0 until foodArray.length()) {
-
-                        var foodJson: JSONObject = foodArray.getJSONObject(i)
-                        var food = Food(foodJson.getInt("id"),foodJson.getString("name"))
-                        food.quantity = foodJson.getDouble("quantity")
-                        foods.add(food)
-
-                    }
-                    kitchens.add(Kitchen(kitchenJson.getInt("id"),kitchenJson.getString("name"),foods))
+                    kitchens.add(Kitchen(kitchenJson.getInt("Id"),kitchenJson.getString("Name")))
 
                 }
                 val kitchenListAdapter = KitchenListAdapter(this, kitchens)
                 listView.adapter = kitchenListAdapter
             })
-        showAllKitchens()
+        //showAllKitchens()
 
         // Get add button
         val btnAddKitchen = findViewById<Button>(R.id.btnAddKitchen)

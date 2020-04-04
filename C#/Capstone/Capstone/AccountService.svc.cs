@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Capstone;
 using Capstone.Apis;
 using Capstone.Classes;
+using Newtonsoft.Json;
 
 namespace Capstone
 {
@@ -18,26 +19,6 @@ namespace Capstone
     public class AccountService : IAccountService
     {
         private CallousHipposDb db = new CallousHipposDb();
-        public void Test()
-        {
-            User user = new User { Username = "username", Email = "email", Password = "pass", GuiltLevel = 1 };
-            User returnedUser = db.Users.Add(user);
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Debug.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Debug.WriteLine($"- Property: \"{ve.PropertyName}\", Value: \"{eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName)}\", Error: \"{ve.ErrorMessage}\"");
-                    }
-                }
-            }
-        }
 
         public int CreateAccountWithEmail(string userName, string pass, string email) {
             if (db.Users.Where(x => x.Email == email && x.Username == userName).Count() != 0)
@@ -78,6 +59,24 @@ namespace Capstone
             return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.Id??-1);
         }
 
+        public int AddKitchen(int userId, string name)
+        {
+            Kitchen kitchen = db.Kitchens.Add(new Kitchen() { Name = name });
+            db.Users.Where(x => x.Id == userId).FirstOrDefault().Kitchens.Add(kitchen);
+            db.SaveChanges();
+            return kitchen.Id;
+        }
+        public List<SerializableKitchen> GetKitchens(int userId)
+        {
+            return db.Users.Where(x => x.Id == userId).FirstOrDefault()?.Kitchens?
+                .Select(o => new SerializableKitchen(o)).ToList();
+        }
+        public List<SerializableFood> GetInventory(int kitchenId)
+        {
+            return db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault()?.Inventory?
+                .Select(o => new SerializableFood(o)).ToList();
+        }
+
 
 
 
@@ -106,6 +105,12 @@ namespace Capstone
             db.Foods.Remove(item);
             await db.SaveChangesAsync();
             return true;
+        }
+
+        //I'm just going to leave this test method here since I keep needing it
+        public List<SerializableKitchen> Test()
+        {
+            return db.Users.Where(x => x.Id == 2).FirstOrDefault().Kitchens.Select(o => new SerializableKitchen(o)).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -25,11 +26,20 @@ namespace Capstone
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         int LoginAccount(string userName, string pass);
+
+
         [OperationContract]
-        [WebInvoke(Method = "GET")]
-        void Test();
-
-
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        int AddKitchen(int userId, string name);
+        [OperationContract]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<SerializableKitchen> GetKitchens(int userId);
+        [OperationContract]
+        [WebInvoke(Method = "GET", RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<SerializableFood> GetInventory(int kitchenId);
 
 
 
@@ -52,5 +62,12 @@ namespace Capstone
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         Task<bool> RemoveItem(int id);
+
+
+
+
+        [OperationContract]
+        [WebInvoke(Method = "GET")]
+        List<SerializableKitchen> Test();
     }
 }

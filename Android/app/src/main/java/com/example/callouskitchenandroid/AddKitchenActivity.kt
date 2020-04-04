@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.android.volley.Response
+import org.json.JSONObject
 
 class AddKitchenActivity : AppCompatActivity() {
 
@@ -22,11 +24,17 @@ class AddKitchenActivity : AppCompatActivity() {
             // Validate the kitchen name
             if (!(txtKitchenName.text.isNullOrEmpty()))
             {
-                // todo: add kitchen using web service
+                ServiceHandler.callAccountService(
+                    "AddKitchen",hashMapOf("userId" to ServiceHandler.userId,"name" to txtKitchenName.text.toString()),this,
+                    Response.Listener { response ->
+                        val json = JSONObject(response.toString())
+                        val kitchenId = json.getInt("AddKitchenResult")
+                        // go to food inventory
+                        val intent = Intent(this@AddKitchenActivity, InventoryActivity::class.java)
+                        intent.putExtra("kitchenId",kitchenId)
+                        startActivity(intent)
 
-                // go to food inventory
-                val intent = Intent(this@AddKitchenActivity, InventoryActivity::class.java)
-                startActivity(intent)
+                    })
             }
             else {
                 Toast.makeText(applicationContext, "Please enter a kitchen name", Toast.LENGTH_LONG).show()
