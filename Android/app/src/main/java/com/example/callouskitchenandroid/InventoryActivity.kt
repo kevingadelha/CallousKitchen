@@ -25,8 +25,8 @@ class InventoryActivity : AppCompatActivity() {
     private fun showAllFood() {
         // test foods
         var foods: ArrayList<Food> = arrayListOf<Food>()
-        foods.add(Food(1, "Banana"))
-        foods.add(Food(2, "Chips"))
+        foods.add(Food(1, "Banana", 2))
+        foods.add(Food(2, "Chips", 1))
 
         // todo: actually get the food from the database
 

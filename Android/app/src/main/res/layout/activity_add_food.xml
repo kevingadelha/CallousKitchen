@@ -22,28 +22,52 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editTextKitchenName"
+            android:id="@+id/editAddFoodName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/textColor"
             android:ems="10"
-            android:hint="@string/kitchen_name"
+            android:hint="food name"
             android:inputType="textPersonName"
             android:textSize="16sp"
             android:textColor="?attr/textColor"
             android:textColorHint="?attr/metaTextColor" />
 
+        <EditText
+            android:id="@+id/editAddFoodQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/textColor"
+            android:ems="10"
+            android:hint="quantity"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/metaTextColor" />
+
+        <EditText
+            android:id="@+id/editTextAddFoodExpiry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/textColor"
+            android:ems="10"
+            android:inputType="date"
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"
+            android:hint="expiry date"
+            android:textColorHint="?attr/metaTextColor"/>
+
         <Button
-            android:id="@+id/btnCreateKitchen"
+            android:id="@+id/btnAddFoodItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorAccent"
-            android:text="@string/create"
+            android:text="Add"
             android:textColor="?attr/textColor" />
 
         <Button
-            android:id="@+id/btnCancelCreateKitchen"
+            android:id="@+id/btnCancelAddFood"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

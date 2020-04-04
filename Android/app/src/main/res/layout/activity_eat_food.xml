@@ -4,6 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/bgColor"
     tools:context=".EatFoodActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:background="?attr/bgColorLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewFoodTitleEat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="TextView"
+            android:textColor="?attr/textColor"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editEatFoodQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/textColor"
+            android:ems="10"
+            android:hint="quantity"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/metaTextColor" />
+
+        <Button
+            android:id="@+id/btnEatFoodItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Eat"
+            android:textColor="?attr/textColor" />
+
+        <Button
+            android:id="@+id/btnCancelEatFood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorDarkBtn"
+            android:text="@string/cancel"
+            android:textColor="?attr/textColor" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

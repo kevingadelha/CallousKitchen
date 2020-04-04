@@ -18,7 +18,7 @@ class FoodListAdapter(private val context: Activity,
 
         // change the text to match the food name
         val txtFood = rowView.findViewById<TextView>(R.id.textViewFoodTitle)
-        txtFood.text = foods[position].name
+        txtFood.text = foods[position].name + " x" + foods[position].quantity
 
         // set on click events for edit, eat, and delete
         val btnEdit = rowView.findViewById<ImageButton>(R.id.imgBtnEditFood)
