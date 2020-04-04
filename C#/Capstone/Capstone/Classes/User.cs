@@ -34,7 +34,7 @@ namespace Capstone.Classes
         [DataMember]
         public int GuiltLevel { get; set; }
         [DataMember]
-        public List<Kitchen> Kitchens { get; set; }
+        public List<SerializableKitchen> Kitchens { get; set; }
         [DataMember]
         public List<string> DietTags { get; set; }
         public SerializableUser(User user)
@@ -44,7 +44,7 @@ namespace Capstone.Classes
             Email = user.Email;
             Password = user.Password;
             GuiltLevel = user.GuiltLevel;
-            Kitchens = user.Kitchens;
+            Kitchens = user.Kitchens.Select(o => new SerializableKitchen(o)).ToList();
             DietTags = user.DietTags;
 		}
 	}

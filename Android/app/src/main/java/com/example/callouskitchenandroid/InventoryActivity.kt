@@ -30,6 +30,7 @@ var kitchenId : Int = 0
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
                         var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
                         food.quantity = foodJson.getDouble("Quantity")
+                        food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                         foods.add(food)
 
                     }

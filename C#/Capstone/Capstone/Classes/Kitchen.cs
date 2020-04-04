@@ -24,12 +24,12 @@ namespace Capstone.Classes
 		[DataMember]
 		public string Name { get; set; }
 		[DataMember]
-		public List<Food> Inventory { get; set; }
+		public List<SerializableFood> Inventory { get; set; }
 		public SerializableKitchen(Kitchen kitchen)
 		{
 			Id = kitchen.Id;
 			Name = kitchen.Name;
-			Inventory = kitchen.Inventory;
+			Inventory = kitchen.Inventory.Select(o => new SerializableFood(o)).ToList();
 		}
 	}
 }

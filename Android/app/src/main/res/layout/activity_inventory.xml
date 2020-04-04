@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/colorAccent"
-            android:text="Inventory"
+            android:text="Kitchens"
             android:textColor="?attr/textColor"
             android:textSize="24sp" />
 

@@ -72,6 +72,6 @@ namespace Capstone
 
         [OperationContract]
         [WebInvoke(Method = "GET")]
-        List<SerializableFood> Test();
+        List<SerializableUser> Test();
     }
 }

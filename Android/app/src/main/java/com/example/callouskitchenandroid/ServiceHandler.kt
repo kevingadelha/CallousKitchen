@@ -11,7 +11,10 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.json.JSONObject
+import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.HashMap
@@ -50,8 +53,26 @@ class ServiceHandler {
         }
 
         fun serializeDate(date : LocalDate) : String{
-            val basic = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            return "/Date("+date.format(basic)+"T00:00:00.1-04:00)/"
+
+            var dateStart = date.atStartOfDay()
+            //Adds 4 hours in seconds to make up for timezone differences
+            //I don't know what the rest of the numbers and dashes mean but they might be important
+            //The first three zeros are actually important though as they change it milliseconds
+            return "/Date("+(dateStart.toEpochSecond(ZoneOffset.UTC)+14400000).toString()+"000-00-00T00:00:00.0-00:00)/"
+        }
+
+        //this is the hackiest thing in the worl
+        fun deSerializeDate(date : String) : LocalDate?{
+            if (date.isNullOrEmpty() || date == "null"){
+                return null
+            }
+            //get the miliseconds since 1970 from the string
+            var epoch = date.substring(6,date.length-10)
+            //convert that to a date
+            var wrongDate = LocalDateTime.ofEpochSecond(epoch.toLong(),0,ZoneOffset.UTC).toLocalDate()
+            //This offset needs to happen foor some reason
+            return wrongDate.minusDays(166)
+
         }
     }
 
