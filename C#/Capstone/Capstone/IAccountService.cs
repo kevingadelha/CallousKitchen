@@ -73,5 +73,6 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "GET")]
         List<SerializableUser> Test();
+
     }
 }

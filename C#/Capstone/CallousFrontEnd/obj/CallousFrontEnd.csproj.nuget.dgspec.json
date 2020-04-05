@@ -1,0 +1,107 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {}
+  },
+  "projects": {
+    "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
+        "projectName": "CallousFrontEnd",
+        "projectPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
+                "projectPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[2.10.1, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "System.ServiceModel.Duplex": {
+              "target": "Package",
+              "version": "[4.4.*, )"
+            },
+            "System.ServiceModel.Http": {
+              "target": "Package",
+              "version": "[4.4.*, )"
+            },
+            "System.ServiceModel.NetTcp": {
+              "target": "Package",
+              "version": "[4.4.*, )"
+            },
+            "System.ServiceModel.Security": {
+              "target": "Package",
+              "version": "[4.4.*, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj",
+        "projectName": "CapstoneService",
+        "projectPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    }
+  }
+}

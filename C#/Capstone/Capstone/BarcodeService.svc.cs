@@ -42,5 +42,9 @@ namespace Capstone
             return true;
         }
 
+        public string TestMethod() {
+            return "ok";
+        }
+
     }
 }

@@ -121,5 +121,6 @@ namespace Capstone
         {
             return db.Users.ToList().Select(o => new SerializableUser(o)).ToList();
         }
+
     }
 }

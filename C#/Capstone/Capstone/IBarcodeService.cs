@@ -19,5 +19,7 @@ namespace Capstone
         Task<bool> EditItem(int id, int quantity);
         [OperationContract]
         Task<bool> RemoveItem(int id);
+        [OperationContract]
+        string TestMethod();
     }
 }
