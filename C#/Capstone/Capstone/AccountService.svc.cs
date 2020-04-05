@@ -13,6 +13,7 @@ using Capstone.Classes;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
 
 namespace Capstone
 {
@@ -21,6 +22,8 @@ namespace Capstone
     public class AccountService : IAccountService
     {
         private CallousHipposDb db = new CallousHipposDb();
+
+        public object KeyDerivationPrf { get; private set; }
 
         public int CreateAccountWithEmail(string userName, string pass, string email)
         {
@@ -132,7 +135,7 @@ namespace Capstone
 
         
         //returns true if email is valid, false if invalid
-        public static bool IsValidEmail(string email)
+        public bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
                 return false;
@@ -177,7 +180,7 @@ namespace Capstone
             }
 
 
-            //check if normalized email is matched to regex which checks for correct email address 
+            //check if normalized email is matched to regex which checks for correct email address
             try
             {
                 return Regex.IsMatch(email,
@@ -189,6 +192,61 @@ namespace Capstone
             {
                 return false;
             }
+        }
+        public string HashPassword(string password)
+        {
+            //I am hashing using Rcf2898DeriveBytes method
+
+
+            //There is another algorithm used in ASP.NET Core - PBKDF2
+
+            //it detects the operating system and tries to choose optimal implementation
+            //according to microsoft it offers 10x througput compared to  Rcf2898DeriveBytes
+            //it supports more hashing algorithms - HMACSHA256, HMACSHA512
+
+
+
+            //creating a salt value which is later appended to a password
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+            //use password+salt combination to get hash with help of Rcf2898DeriveBytes method
+            var hashvalue = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = hashvalue.GetBytes(20);
+
+
+            //combine salt+hash (it will be needed to verify a user password from his input)
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            //final (combined) password which will be saved into the database
+            string finalPassword = Convert.ToBase64String(hashBytes);
+            return finalPassword;
+        }
+
+        public bool IsValidPassword(string databaseHashPassword, string userPassword)
+        {
+            //get hashBytes from database
+            byte[] hashBytes = Convert.FromBase64String(databaseHashPassword);
+            byte[] salt = new byte[16];
+            //extract salt from combined password
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+
+            //get hashvalue from input and salt
+            var hashvalue = new Rfc2898DeriveBytes(userPassword, salt, 10000);
+            byte[] hash = hashvalue.GetBytes(20);
+
+
+            //compare hashvalue in database to hashvalue generated from salt and user password
+            for (int i=0; i < 20; i++)
+            {
+                if (hashBytes[i+16] != hash[i])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
