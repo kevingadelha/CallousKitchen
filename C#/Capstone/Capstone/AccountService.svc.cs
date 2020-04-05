@@ -11,6 +11,8 @@ using Capstone;
 using Capstone.Apis;
 using Capstone.Classes;
 using Newtonsoft.Json;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Capstone
 {
@@ -20,32 +22,37 @@ namespace Capstone
     {
         private CallousHipposDb db = new CallousHipposDb();
 
-        public int CreateAccountWithEmail(string userName, string pass, string email) {
-            if (db.Users.Where(x => x.Email == email && x.Username == userName).Count() != 0)
+        public int CreateAccountWithEmail(string userName, string pass, string email)
+        {
+            if (IsValidEmail(email))
             {
-                return -1;
-            }
-            else {
-                User user = new User { Username = userName, Email = email, Password = pass, GuiltLevel = 1 };
-                User returnedUser = db.Users.Add(user);
-                try
+                if (db.Users.Where(x => x.Email == email && x.Username == userName).Count() != 0)
                 {
-                    db.SaveChanges();
+                    return -1;
                 }
-                catch (DbEntityValidationException e)
+                else
                 {
-                    foreach (var eve in e.EntityValidationErrors)
+                    User user = new User { Username = userName, Email = email, Password = pass, GuiltLevel = 1 };
+                    User returnedUser = db.Users.Add(user);
+                    try
                     {
-                        Debug.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
-                        foreach (var ve in eve.ValidationErrors)
+                        db.SaveChanges();
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        foreach (var eve in e.EntityValidationErrors)
                         {
-                            Debug.WriteLine($"- Property: \"{ve.PropertyName}\", Value: \"{eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName)}\", Error: \"{ve.ErrorMessage}\"");
+                            Debug.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+                            foreach (var ve in eve.ValidationErrors)
+                            {
+                                Debug.WriteLine($"- Property: \"{ve.PropertyName}\", Value: \"{eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName)}\", Error: \"{ve.ErrorMessage}\"");
+                            }
                         }
                     }
+                    return returnedUser.Id;
                 }
-                return returnedUser.Id;
             }
-
+            return -2;
         }
 
         //temporary solution for creating an account without an email
@@ -122,5 +129,66 @@ namespace Capstone
             return db.Users.ToList().Select(o => new SerializableUser(o)).ToList();
         }
 
+
+        
+        //returns true if email is valid, false if invalid
+        public static bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            //Normalize the domain
+            try
+            {
+                //checks an email for matches with regular expression
+                //in this case it looks for "@" and domain name
+                //if there were matches - delegates domain name proccessing to DomainMapper function
+                //replaces email part that's complies with regex (@gmail.com) with DomainMapper return string
+
+                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+
+                // Examines the domain part of the email and normalizes it.
+                string DomainMapper(Match match)
+                {
+                    // Use IdnMapping class to convert Unicode domain names.
+                    var idn = new IdnMapping();
+
+                    // Pull out and process domain name (throws ArgumentException on invalid)
+                    //Domain part of an email can have international characters and they are converted to PunyCode
+                    //bücher.com --> xn--bcher-kva.com
+                    var domainName = idn.GetAscii(match.Groups[2].Value);
+
+                    //I am not sure how it works, but Group[1] (not 0) is linked to first group (@)
+                    //Group[2] is linked to domain name
+
+
+                    //return "@" and proccessed domain name
+                    return match.Groups[1].Value + domainName;
+                }
+            }
+            catch (RegexMatchTimeoutException e)
+            {
+                return false;
+            }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
+
+
+            //check if normalized email is matched to regex which checks for correct email address 
+            try
+            {
+                return Regex.IsMatch(email,
+                    @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+        }
     }
 }
