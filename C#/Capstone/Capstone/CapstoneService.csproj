@@ -102,12 +102,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccountService.svc" />
+    <Content Include="AccountServiceMvc.svc" />
     <Content Include="BarcodeService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountService.svc.cs">
       <DependentUpon>AccountService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="AccountServiceMvc.svc.cs">
+      <DependentUpon>AccountServiceMvc.svc</DependentUpon>
     </Compile>
     <Compile Include="Apis\ApiHelper.cs" />
     <Compile Include="Apis\OpenFoodFacts.cs" />
@@ -120,6 +124,7 @@
     <Compile Include="Classes\Kitchen.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="IAccountService.cs" />
+    <Compile Include="IAccountServiceMvc.cs" />
     <Compile Include="IBarcodeService.cs" />
     <Compile Include="Migrations\202004050645336_Init.cs" />
     <Compile Include="Migrations\202004050645336_Init.designer.cs">

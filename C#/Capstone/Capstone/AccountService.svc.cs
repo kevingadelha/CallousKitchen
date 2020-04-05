@@ -66,7 +66,7 @@ namespace Capstone
 
         public int LoginAccount(string userName, string pass)
         {
-            return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.Id??-1);
+            return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.Id ?? -1);
         }
 
         public int AddKitchen(int userId, string name)
@@ -133,7 +133,7 @@ namespace Capstone
         }
 
 
-        
+
         //returns true if email is valid, false if invalid
         public bool IsValidEmail(string email)
         {

@@ -12,94 +12,129 @@ namespace AccountService
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AccountService.IAccountService")]
-    public interface IAccountService
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AccountService.IAccountServiceMvc")]
+    public interface IAccountServiceMvc
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/CreateAccountWithEmail", ReplyAction="http://tempuri.org/IAccountService/CreateAccountWithEmailResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/CreateAccountWithEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/CreateAccountWithEmailResponse")]
         int CreateAccountWithEmail(string userName, string pass, string email);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/CreateAccountWithEmail", ReplyAction="http://tempuri.org/IAccountService/CreateAccountWithEmailResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/CreateAccountWithEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/CreateAccountWithEmailResponse")]
         System.Threading.Tasks.Task<int> CreateAccountWithEmailAsync(string userName, string pass, string email);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/CreateAccount", ReplyAction="http://tempuri.org/IAccountService/CreateAccountResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/CreateAccount", ReplyAction="http://tempuri.org/IAccountServiceMvc/CreateAccountResponse")]
         int CreateAccount(string userName, string pass);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/CreateAccount", ReplyAction="http://tempuri.org/IAccountService/CreateAccountResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/CreateAccount", ReplyAction="http://tempuri.org/IAccountServiceMvc/CreateAccountResponse")]
         System.Threading.Tasks.Task<int> CreateAccountAsync(string userName, string pass);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/LoginAccount", ReplyAction="http://tempuri.org/IAccountService/LoginAccountResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/LoginAccount", ReplyAction="http://tempuri.org/IAccountServiceMvc/LoginAccountResponse")]
         int LoginAccount(string userName, string pass);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/LoginAccount", ReplyAction="http://tempuri.org/IAccountService/LoginAccountResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/LoginAccount", ReplyAction="http://tempuri.org/IAccountServiceMvc/LoginAccountResponse")]
         System.Threading.Tasks.Task<int> LoginAccountAsync(string userName, string pass);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/AddKitchen", ReplyAction="http://tempuri.org/IAccountService/AddKitchenResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddKitchen", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddKitchenResponse")]
         int AddKitchen(int userId, string name);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/AddKitchen", ReplyAction="http://tempuri.org/IAccountService/AddKitchenResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddKitchen", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddKitchenResponse")]
         System.Threading.Tasks.Task<int> AddKitchenAsync(int userId, string name);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/GetKitchens", ReplyAction="http://tempuri.org/IAccountService/GetKitchensResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetKitchens", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetKitchensResponse")]
         Capstone.Classes.SerializableKitchen[] GetKitchens(int userId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/GetKitchens", ReplyAction="http://tempuri.org/IAccountService/GetKitchensResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetKitchens", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetKitchensResponse")]
         System.Threading.Tasks.Task<Capstone.Classes.SerializableKitchen[]> GetKitchensAsync(int userId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/GetInventory", ReplyAction="http://tempuri.org/IAccountService/GetInventoryResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetInventory", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetInventoryResponse")]
         Capstone.Classes.SerializableFood[] GetInventory(int kitchenId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/GetInventory", ReplyAction="http://tempuri.org/IAccountService/GetInventoryResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetInventory", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetInventoryResponse")]
         System.Threading.Tasks.Task<Capstone.Classes.SerializableFood[]> GetInventoryAsync(int kitchenId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/GetBarcodeData", ReplyAction="http://tempuri.org/IAccountService/GetBarcodeDataResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetBarcodeData", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetBarcodeDataResponse")]
         string GetBarcodeData(string barcode);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/GetBarcodeData", ReplyAction="http://tempuri.org/IAccountService/GetBarcodeDataResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetBarcodeData", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetBarcodeDataResponse")]
         System.Threading.Tasks.Task<string> GetBarcodeDataAsync(string barcode);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/AddFood", ReplyAction="http://tempuri.org/IAccountService/AddFoodResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
         bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/AddFood", ReplyAction="http://tempuri.org/IAccountService/AddFoodResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
         System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/EatFood", ReplyAction="http://tempuri.org/IAccountService/EatFoodResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EatFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EatFoodResponse")]
         bool EatFood(int id, int quantity);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/EatFood", ReplyAction="http://tempuri.org/IAccountService/EatFoodResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EatFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EatFoodResponse")]
         System.Threading.Tasks.Task<bool> EatFoodAsync(int id, int quantity);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/EditFood", ReplyAction="http://tempuri.org/IAccountService/EditFoodResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditFoodResponse")]
         bool EditFood(int id, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/EditFood", ReplyAction="http://tempuri.org/IAccountService/EditFoodResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditFoodResponse")]
         System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/RemoveItem", ReplyAction="http://tempuri.org/IAccountService/RemoveItemResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/RemoveItem", ReplyAction="http://tempuri.org/IAccountServiceMvc/RemoveItemResponse")]
         bool RemoveItem(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/RemoveItem", ReplyAction="http://tempuri.org/IAccountService/RemoveItemResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/RemoveItem", ReplyAction="http://tempuri.org/IAccountServiceMvc/RemoveItemResponse")]
         System.Threading.Tasks.Task<bool> RemoveItemAsync(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/Test", ReplyAction="http://tempuri.org/IAccountService/TestResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/Test", ReplyAction="http://tempuri.org/IAccountServiceMvc/TestResponse")]
         Capstone.Classes.SerializableUser[] Test();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/Test", ReplyAction="http://tempuri.org/IAccountService/TestResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/Test", ReplyAction="http://tempuri.org/IAccountServiceMvc/TestResponse")]
         System.Threading.Tasks.Task<Capstone.Classes.SerializableUser[]> TestAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public interface IAccountServiceChannel : AccountService.IAccountService, System.ServiceModel.IClientChannel
+    public interface IAccountServiceMvcChannel : AccountService.IAccountServiceMvc, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public partial class AccountServiceClient : System.ServiceModel.ClientBase<AccountService.IAccountService>, AccountService.IAccountService
+    public partial class AccountServiceMvcClient : System.ServiceModel.ClientBase<AccountService.IAccountServiceMvc>, AccountService.IAccountServiceMvc
     {
         
-        public AccountServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        /// <summary>
+        /// Implement this partial method to configure the service endpoint.
+        /// </summary>
+        /// <param name="serviceEndpoint">The endpoint to configure</param>
+        /// <param name="clientCredentials">The client credentials</param>
+        static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
+        
+        public AccountServiceMvcClient() : 
+                base(AccountServiceMvcClient.GetDefaultBinding(), AccountServiceMvcClient.GetDefaultEndpointAddress())
+        {
+            this.Endpoint.Name = EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc.ToString();
+            ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
+        }
+        
+        public AccountServiceMvcClient(EndpointConfiguration endpointConfiguration) : 
+                base(AccountServiceMvcClient.GetBindingForEndpoint(endpointConfiguration), AccountServiceMvcClient.GetEndpointAddress(endpointConfiguration))
+        {
+            this.Endpoint.Name = endpointConfiguration.ToString();
+            ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
+        }
+        
+        public AccountServiceMvcClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
+                base(AccountServiceMvcClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+        {
+            this.Endpoint.Name = endpointConfiguration.ToString();
+            ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
+        }
+        
+        public AccountServiceMvcClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(AccountServiceMvcClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        {
+            this.Endpoint.Name = endpointConfiguration.ToString();
+            ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
+        }
+        
+        public AccountServiceMvcClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress)
         {
         }
@@ -232,6 +267,45 @@ namespace AccountService
         public virtual System.Threading.Tasks.Task CloseAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+        }
+        
+        private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
+        {
+            if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc))
+            {
+                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
+                result.MaxBufferSize = int.MaxValue;
+                result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
+                result.MaxReceivedMessageSize = int.MaxValue;
+                result.AllowCookies = true;
+                return result;
+            }
+            throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
+        }
+        
+        private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
+        {
+            if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc))
+            {
+                return new System.ServiceModel.EndpointAddress("http://localhost:59869/AccountServiceMvc.svc");
+            }
+            throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
+        }
+        
+        private static System.ServiceModel.Channels.Binding GetDefaultBinding()
+        {
+            return AccountServiceMvcClient.GetBindingForEndpoint(EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc);
+        }
+        
+        private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
+        {
+            return AccountServiceMvcClient.GetEndpointAddress(EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc);
+        }
+        
+        public enum EndpointConfiguration
+        {
+            
+            BasicHttpBinding_IAccountServiceMvc,
         }
     }
 }
