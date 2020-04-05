@@ -20,12 +20,14 @@ namespace Capstone
     {
         private CallousHipposDb db = new CallousHipposDb();
 
-        public int CreateAccountWithEmail(string userName, string pass, string email) {
+        public int CreateAccountWithEmail(string userName, string pass, string email)
+        {
             if (db.Users.Where(x => x.Email == email && x.Username == userName).Count() != 0)
             {
                 return -1;
             }
-            else {
+            else
+            {
                 User user = new User { Username = userName, Email = email, Password = pass, GuiltLevel = 1 };
                 User returnedUser = db.Users.Add(user);
                 try
@@ -56,7 +58,7 @@ namespace Capstone
 
         public int LoginAccount(string userName, string pass)
         {
-            return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.Id??-1);
+            return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.Id ?? -1);
         }
 
         public int AddKitchen(int userId, string name)

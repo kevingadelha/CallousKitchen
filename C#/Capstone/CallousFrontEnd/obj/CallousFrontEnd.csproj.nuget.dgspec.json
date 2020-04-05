@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[3.1.1, )"
             },
+            "Microsoft.jQuery.Unobtrusive.Ajax": {
+              "target": "Package",
+              "version": "[3.2.6, )"
+            },
             "System.ServiceModel.Duplex": {
               "target": "Package",
               "version": "[4.4.*, )"
@@ -68,6 +72,10 @@
             "System.ServiceModel.Security": {
               "target": "Package",
               "version": "[4.4.*, )"
+            },
+            "bootstrap": {
+              "target": "Package",
+              "version": "[4.4.1, )"
             }
           },
           "imports": [

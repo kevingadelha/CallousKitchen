@@ -3,7 +3,7 @@
   "Version": "15.0.31022.994",
   "ExtendedData": {
     "inputs": [
-      "http://localhost:59869/AccountService.svc"
+      "http://localhost:59869/AccountServiceMvc.svc"
     ],
     "collectionTypes": [
       "System.Array",
