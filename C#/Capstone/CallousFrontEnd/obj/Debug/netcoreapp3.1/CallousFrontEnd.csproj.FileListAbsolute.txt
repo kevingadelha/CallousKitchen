@@ -126,8 +126,10 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreap
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.pdb
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Connected Services\AccountService\ConnectedService.json
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.MvcApplicationPartsAssemblyInfo.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\Login.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\Account.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\UserKitchenPartialView.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AddEditKitchenPartial.cshtml.g.cs
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.MvcApplicationPartsAssemblyInfo.cache

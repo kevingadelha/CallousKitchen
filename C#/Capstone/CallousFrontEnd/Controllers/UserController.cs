@@ -35,6 +35,7 @@ namespace CallousFrontEnd.Controllers
             if (id != -1)
             {
                 UserSessionModel user = new UserSessionModel { Id = id, Username = login.Username };
+                HttpContext.Session.SetInt32("UserId", id);
                 ViewBag.UserSession = user;
                 //return RedirectToAction("AccountView", user);
                 return AccountView(user);
@@ -80,8 +81,8 @@ namespace CallousFrontEnd.Controllers
         [HttpPost]
         public void AddEditKitchen(KitchenUser kitchenUser)
         {
-            //int userId = ViewBag.UserId;
-           // System.Diagnostics.Debug.WriteLine("UserId bag: " + userId);
+            int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            System.Diagnostics.Debug.WriteLine("UserId bag: " + userId);
             System.Diagnostics.Debug.WriteLine("UserId bag: " + kitchenUser.UserId);
         }
     }
