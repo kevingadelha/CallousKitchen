@@ -130,6 +130,10 @@
     <Compile Include="Migrations\202004050645336_Init.designer.cs">
       <DependentUpon>202004050645336_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004052200469_PasswordHash.cs" />
+    <Compile Include="Migrations\202004052200469_PasswordHash.designer.cs">
+      <DependentUpon>202004052200469_PasswordHash.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FoodFactsModel.cs" />
     <Compile Include="Models\FoodFactsProductModel.cs" />
@@ -157,6 +161,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202004050645336_Init.resx">
       <DependentUpon>202004050645336_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004052200469_PasswordHash.resx">
+      <DependentUpon>202004052200469_PasswordHash.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -46,7 +46,7 @@ namespace CallousFrontEnd
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=User}/{action=CreateUserView}");
+                    pattern: "{controller=User}/{action=LoginView}");
             });
         }
     }

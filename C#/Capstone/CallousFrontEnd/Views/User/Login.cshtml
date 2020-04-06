@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+@model CallousFrontEnd.Models.LoginModel
+<h1>Login Test</h1>
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Username)
+        @Html.TextBoxFor(x => x.Username, htmlAttributes: new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Password)
+        @Html.PasswordFor(x => x.Password, htmlAttributes: new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Remember me?")
+        @Html.CheckBoxFor(x => x.Remember, htmlAttributes: new { @class = "form-check-input" })
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+
+}
+

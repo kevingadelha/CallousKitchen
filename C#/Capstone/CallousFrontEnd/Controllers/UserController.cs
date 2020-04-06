@@ -5,37 +5,63 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Capstone.Classes;
-using DocumentFormat.OpenXml.InkML;
+using CallousFrontEnd.Models;
+
 
 namespace CallousFrontEnd.Controllers
 {
-    
+
     public class UserController : Controller
     {
         AccountService.AccountServiceMvcClient Client = new AccountService.AccountServiceMvcClient();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateUser(User user) {
+        public ActionResult CreateUser(User user)
+        {
 
             Client.CreateAccountWithEmail(user.Username, user.Password, user.Email);
 
             return null;
         }
         [HttpGet]
-        public ActionResult CreateUserView() {
+        public ActionResult CreateUserView()
+        {
             return View("CreateUser");
         }
-
-        public ActionResult Login(string username, string password) {
-            Client.LoginAccount(username, password);
-            return null;
+        [HttpPost]
+        public ActionResult Login(LoginModel login)
+        {
+            int id = Client.LoginAccount(login.Username, login.Password);
+            if (id != -1)
+            {
+                UserSessionModel user = new UserSessionModel { Id = id, Username = login.Username };
+                ViewBag.UserSession = user;
+                //return RedirectToAction("AccountView", user);
+                return AccountView(user);
+            }
+            return RedirectToAction("LoginView");
         }
 
-        public async Task<ActionResult> AddFoodAsync(int kitchenId, string name, int count, DateTime? expDate) {
+        [HttpPost]
+        public ActionResult AccountView(UserSessionModel userSession)
+        {
+            System.Diagnostics.Debug.WriteLine("Account View");
+            SerializableUser user = Client.GetSerializableUser(userSession.Id);
+            user.Kitchens = Client.GetKitchens(userSession.Id).ToList();
+
+            return View("Account", user);
+        }
+        public ActionResult LoginView()
+        {
+            return View("Login");
+        }
+        public async Task<ActionResult> AddFoodAsync(int kitchenId, string name, int count, DateTime? expDate)
+        {
             await Client.AddFoodAsync(kitchenId, name, count, expDate);
             return null;
         }
-        public async Task<ActionResult> GetFoodAsync(int id) {
+        public async Task<ActionResult> GetFoodAsync(int id)
+        {
             await Client.GetKitchensAsync(id);
             return null;
         }

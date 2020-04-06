@@ -87,6 +87,12 @@ namespace AccountService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/Test", ReplyAction="http://tempuri.org/IAccountServiceMvc/TestResponse")]
         System.Threading.Tasks.Task<Capstone.Classes.SerializableUser[]> TestAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetSerializableUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetSerializableUserResponse")]
+        Capstone.Classes.SerializableUser GetSerializableUser(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetSerializableUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetSerializableUserResponse")]
+        System.Threading.Tasks.Task<Capstone.Classes.SerializableUser> GetSerializableUserAsync(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -257,6 +263,16 @@ namespace AccountService
         public System.Threading.Tasks.Task<Capstone.Classes.SerializableUser[]> TestAsync()
         {
             return base.Channel.TestAsync();
+        }
+        
+        public Capstone.Classes.SerializableUser GetSerializableUser(int id)
+        {
+            return base.Channel.GetSerializableUser(id);
+        }
+        
+        public System.Threading.Tasks.Task<Capstone.Classes.SerializableUser> GetSerializableUserAsync(int id)
+        {
+            return base.Channel.GetSerializableUserAsync(id);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

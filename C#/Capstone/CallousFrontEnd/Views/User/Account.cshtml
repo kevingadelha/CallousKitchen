@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "Account";
+}
+@model Capstone.Classes.SerializableUser
+<h1>Account: @Model.Username</h1>
+@if (Model.Kitchens.Count != 0)
+{
+
+}
+else { 
+<em>You currently do not have any food, add some.</em>
+}
