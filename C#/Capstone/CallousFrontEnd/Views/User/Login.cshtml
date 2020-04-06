@@ -19,6 +19,16 @@
         @Html.CheckBoxFor(x => x.Remember, htmlAttributes: new { @class = "form-check-input" })
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
+    <button type="button" id="CreateUserBtn" class="btn btn-primary" data-toggle="modal" data-target="#CreateAccount">Sign Up</button>
 
 }
 
+<div class="modal fade" role="dialog" id="CreateAccount">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                @{ Html.RenderPartial("CreateUser");}
+            </div>
+        </div>
+    </div>
+</div>

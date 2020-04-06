@@ -76,5 +76,11 @@ namespace Capstone
 
         [OperationContract]
         SerializableUser GetSerializableUser(int id);
+
+        [OperationContract]
+        User GetUser(int id);
+
+        [OperationContract]
+        Food GetFood(int id);
     }
 }

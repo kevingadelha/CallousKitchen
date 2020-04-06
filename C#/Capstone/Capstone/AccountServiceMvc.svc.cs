@@ -87,11 +87,20 @@ namespace Capstone
                 .Select(o => new SerializableFood(o)).ToList();
         }
 
-        public SerializableUser GetSerializableUser(int id) {
+        public SerializableUser GetSerializableUser(int id)
+        {
 
-            SerializableUser user= new SerializableUser(db.Users.Where(x => x.Id == id).FirstOrDefault());
+            SerializableUser user = new SerializableUser(db.Users.Where(x => x.Id == id).FirstOrDefault());
 
             return user;
+        }
+
+
+        public User GetUser(int id)
+        {
+
+            return (db.Users.Where(x => x.Id == id).FirstOrDefault());
+
         }
 
 
@@ -253,5 +262,12 @@ namespace Capstone
             }
             return true;
         }
+
+
+        public Food GetFood(int id)
+        {
+            return db.Foods.Where(x => x.Id == id).FirstOrDefault();
+        }
+
     }
 }

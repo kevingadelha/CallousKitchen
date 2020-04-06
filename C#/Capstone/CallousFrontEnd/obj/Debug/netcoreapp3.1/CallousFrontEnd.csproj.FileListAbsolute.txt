@@ -1,12 +1,14 @@
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csprojAssemblyReference.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\staticwebassets\CallousFrontEnd.StaticWebAssets.Manifest.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\staticwebassets\CallousFrontEnd.StaticWebAssets.xml
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.MvcApplicationPartsAssemblyInfo.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorAssemblyInfo.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorAssemblyInfo.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.AssemblyInfoInputs.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.AssemblyInfo.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\appsettings.json
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Connected Services\AccountService\ConnectedService.json
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Connected Services\BarcodeService\ConnectedService.json
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\CallousFrontEnd.exe
@@ -18,6 +20,12 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreap
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\CallousFrontEnd.Views.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\CallousFrontEnd.Views.pdb
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.Mvc.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.WebPages.Deployment.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
@@ -32,6 +40,7 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreap
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Composition.AttributedModel.dll
@@ -40,6 +49,8 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreap
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Composition.Runtime.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Composition.TypedParts.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Private.ServiceModel.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.ServiceModel.Duplex.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.ServiceModel.Http.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.ServiceModel.NetTcp.dll
@@ -98,6 +109,7 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreap
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Capstone.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\EntityFramework.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
@@ -109,10 +121,15 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreap
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorCoreGenerate.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AddEditFoodPartial.cshtml.g.cs
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AddEditKitchenPartial.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\Account.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\CreateUser.cshtml.g.cs
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\Login.cshtml.g.cs
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\UserKitchenPartialView.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorTargetAssemblyInfo.cache
@@ -121,20 +138,4 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreap
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csproj.CopyComplete
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.pdb
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Connected Services\AccountService\ConnectedService.json
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\Login.cshtml.g.cs
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\Account.cshtml.g.cs
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\UserKitchenPartialView.cshtml.g.cs
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AddEditKitchenPartial.cshtml.g.cs
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Private.ServiceModel.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.Mvc.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.WebPages.Deployment.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.MvcApplicationPartsAssemblyInfo.cache
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AddEditFoodPartial.cshtml.g.cs
+D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\View.cshtml.g.cs

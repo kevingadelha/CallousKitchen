@@ -1,11 +1,7 @@
 ﻿
-@{
-    ViewData["Title"] = "CreateUser";
-}
-@model Capstone.Classes.User;
+@model AccountService.User;
 
 
-<h1>CreateUser</h1>
 @using (Html.BeginForm("CreateUser", "User", FormMethod.Post))
 {
     <div class="form-group">

@@ -9,7 +9,500 @@
 
 namespace AccountService
 {
+    using System.Runtime.Serialization;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SerializableKitchen", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class SerializableKitchen : object
+    {
+        
+        private int IdField;
+        
+        private AccountService.SerializableFood[] InventoryField;
+        
+        private string NameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AccountService.SerializableFood[] Inventory
+        {
+            get
+            {
+                return this.InventoryField;
+            }
+            set
+            {
+                this.InventoryField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SerializableFood", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class SerializableFood : object
+    {
+        
+        private string BarcodeField;
+        
+        private System.Nullable<System.DateTime> ExpiryDateField;
+        
+        private int IdField;
+        
+        private string NameField;
+        
+        private double QuantityField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Barcode
+        {
+            get
+            {
+                return this.BarcodeField;
+            }
+            set
+            {
+                this.BarcodeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ExpiryDate
+        {
+            get
+            {
+                return this.ExpiryDateField;
+            }
+            set
+            {
+                this.ExpiryDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Quantity
+        {
+            get
+            {
+                return this.QuantityField;
+            }
+            set
+            {
+                this.QuantityField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SerializableUser", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class SerializableUser : object
+    {
+        
+        private string[] DietTagsField;
+        
+        private string EmailField;
+        
+        private int GuiltLevelField;
+        
+        private int IdField;
+        
+        private AccountService.SerializableKitchen[] KitchensField;
+        
+        private string PasswordField;
+        
+        private string UsernameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] DietTags
+        {
+            get
+            {
+                return this.DietTagsField;
+            }
+            set
+            {
+                this.DietTagsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email
+        {
+            get
+            {
+                return this.EmailField;
+            }
+            set
+            {
+                this.EmailField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int GuiltLevel
+        {
+            get
+            {
+                return this.GuiltLevelField;
+            }
+            set
+            {
+                this.GuiltLevelField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AccountService.SerializableKitchen[] Kitchens
+        {
+            get
+            {
+                return this.KitchensField;
+            }
+            set
+            {
+                this.KitchensField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password
+        {
+            get
+            {
+                return this.PasswordField;
+            }
+            set
+            {
+                this.PasswordField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username
+        {
+            get
+            {
+                return this.UsernameField;
+            }
+            set
+            {
+                this.UsernameField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class User : object
+    {
+        
+        private string[] DietTagsField;
+        
+        private string EmailField;
+        
+        private int GuiltLevelField;
+        
+        private int IdField;
+        
+        private AccountService.Kitchen[] KitchensField;
+        
+        private string PasswordField;
+        
+        private string UsernameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] DietTags
+        {
+            get
+            {
+                return this.DietTagsField;
+            }
+            set
+            {
+                this.DietTagsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email
+        {
+            get
+            {
+                return this.EmailField;
+            }
+            set
+            {
+                this.EmailField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int GuiltLevel
+        {
+            get
+            {
+                return this.GuiltLevelField;
+            }
+            set
+            {
+                this.GuiltLevelField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AccountService.Kitchen[] Kitchens
+        {
+            get
+            {
+                return this.KitchensField;
+            }
+            set
+            {
+                this.KitchensField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password
+        {
+            get
+            {
+                return this.PasswordField;
+            }
+            set
+            {
+                this.PasswordField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username
+        {
+            get
+            {
+                return this.UsernameField;
+            }
+            set
+            {
+                this.UsernameField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Kitchen", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class Kitchen : object
+    {
+        
+        private int IdField;
+        
+        private AccountService.Food[] InventoryField;
+        
+        private string NameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AccountService.Food[] Inventory
+        {
+            get
+            {
+                return this.InventoryField;
+            }
+            set
+            {
+                this.InventoryField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Food", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class Food : object
+    {
+        
+        private string BarcodeField;
+        
+        private System.Nullable<System.DateTime> ExpiryDateField;
+        
+        private int IdField;
+        
+        private string NameField;
+        
+        private double QuantityField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Barcode
+        {
+            get
+            {
+                return this.BarcodeField;
+            }
+            set
+            {
+                this.BarcodeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ExpiryDate
+        {
+            get
+            {
+                return this.ExpiryDateField;
+            }
+            set
+            {
+                this.ExpiryDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Quantity
+        {
+            get
+            {
+                return this.QuantityField;
+            }
+            set
+            {
+                this.QuantityField = value;
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AccountService.IAccountServiceMvc")]
@@ -41,16 +534,16 @@ namespace AccountService
         System.Threading.Tasks.Task<int> AddKitchenAsync(int userId, string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetKitchens", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetKitchensResponse")]
-        Capstone.Classes.SerializableKitchen[] GetKitchens(int userId);
+        AccountService.SerializableKitchen[] GetKitchens(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetKitchens", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetKitchensResponse")]
-        System.Threading.Tasks.Task<Capstone.Classes.SerializableKitchen[]> GetKitchensAsync(int userId);
+        System.Threading.Tasks.Task<AccountService.SerializableKitchen[]> GetKitchensAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetInventory", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetInventoryResponse")]
-        Capstone.Classes.SerializableFood[] GetInventory(int kitchenId);
+        AccountService.SerializableFood[] GetInventory(int kitchenId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetInventory", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetInventoryResponse")]
-        System.Threading.Tasks.Task<Capstone.Classes.SerializableFood[]> GetInventoryAsync(int kitchenId);
+        System.Threading.Tasks.Task<AccountService.SerializableFood[]> GetInventoryAsync(int kitchenId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetBarcodeData", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetBarcodeDataResponse")]
         string GetBarcodeData(string barcode);
@@ -83,16 +576,28 @@ namespace AccountService
         System.Threading.Tasks.Task<bool> RemoveItemAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/Test", ReplyAction="http://tempuri.org/IAccountServiceMvc/TestResponse")]
-        Capstone.Classes.SerializableUser[] Test();
+        AccountService.SerializableUser[] Test();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/Test", ReplyAction="http://tempuri.org/IAccountServiceMvc/TestResponse")]
-        System.Threading.Tasks.Task<Capstone.Classes.SerializableUser[]> TestAsync();
+        System.Threading.Tasks.Task<AccountService.SerializableUser[]> TestAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetSerializableUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetSerializableUserResponse")]
-        Capstone.Classes.SerializableUser GetSerializableUser(int id);
+        AccountService.SerializableUser GetSerializableUser(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetSerializableUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetSerializableUserResponse")]
-        System.Threading.Tasks.Task<Capstone.Classes.SerializableUser> GetSerializableUserAsync(int id);
+        System.Threading.Tasks.Task<AccountService.SerializableUser> GetSerializableUserAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetUserResponse")]
+        AccountService.User GetUser(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetUserResponse")]
+        System.Threading.Tasks.Task<AccountService.User> GetUserAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetFoodResponse")]
+        AccountService.Food GetFood(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetFoodResponse")]
+        System.Threading.Tasks.Task<AccountService.Food> GetFoodAsync(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -185,22 +690,22 @@ namespace AccountService
             return base.Channel.AddKitchenAsync(userId, name);
         }
         
-        public Capstone.Classes.SerializableKitchen[] GetKitchens(int userId)
+        public AccountService.SerializableKitchen[] GetKitchens(int userId)
         {
             return base.Channel.GetKitchens(userId);
         }
         
-        public System.Threading.Tasks.Task<Capstone.Classes.SerializableKitchen[]> GetKitchensAsync(int userId)
+        public System.Threading.Tasks.Task<AccountService.SerializableKitchen[]> GetKitchensAsync(int userId)
         {
             return base.Channel.GetKitchensAsync(userId);
         }
         
-        public Capstone.Classes.SerializableFood[] GetInventory(int kitchenId)
+        public AccountService.SerializableFood[] GetInventory(int kitchenId)
         {
             return base.Channel.GetInventory(kitchenId);
         }
         
-        public System.Threading.Tasks.Task<Capstone.Classes.SerializableFood[]> GetInventoryAsync(int kitchenId)
+        public System.Threading.Tasks.Task<AccountService.SerializableFood[]> GetInventoryAsync(int kitchenId)
         {
             return base.Channel.GetInventoryAsync(kitchenId);
         }
@@ -255,24 +760,44 @@ namespace AccountService
             return base.Channel.RemoveItemAsync(id);
         }
         
-        public Capstone.Classes.SerializableUser[] Test()
+        public AccountService.SerializableUser[] Test()
         {
             return base.Channel.Test();
         }
         
-        public System.Threading.Tasks.Task<Capstone.Classes.SerializableUser[]> TestAsync()
+        public System.Threading.Tasks.Task<AccountService.SerializableUser[]> TestAsync()
         {
             return base.Channel.TestAsync();
         }
         
-        public Capstone.Classes.SerializableUser GetSerializableUser(int id)
+        public AccountService.SerializableUser GetSerializableUser(int id)
         {
             return base.Channel.GetSerializableUser(id);
         }
         
-        public System.Threading.Tasks.Task<Capstone.Classes.SerializableUser> GetSerializableUserAsync(int id)
+        public System.Threading.Tasks.Task<AccountService.SerializableUser> GetSerializableUserAsync(int id)
         {
             return base.Channel.GetSerializableUserAsync(id);
+        }
+        
+        public AccountService.User GetUser(int id)
+        {
+            return base.Channel.GetUser(id);
+        }
+        
+        public System.Threading.Tasks.Task<AccountService.User> GetUserAsync(int id)
+        {
+            return base.Channel.GetUserAsync(id);
+        }
+        
+        public AccountService.Food GetFood(int id)
+        {
+            return base.Channel.GetFood(id);
+        }
+        
+        public System.Threading.Tasks.Task<AccountService.Food> GetFoodAsync(int id)
+        {
+            return base.Channel.GetFoodAsync(id);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

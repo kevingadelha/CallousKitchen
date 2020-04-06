@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Capstone.Classes;
 using CallousFrontEnd.Models;
-
+using AccountService;
 
 namespace CallousFrontEnd.Controllers
 {
@@ -16,12 +15,18 @@ namespace CallousFrontEnd.Controllers
         AccountService.AccountServiceMvcClient Client = new AccountService.AccountServiceMvcClient();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateUser(User user)
+        public ActionResult CreateUser(Capstone.Classes.User user)
         {
 
-            Client.CreateAccountWithEmail(user.Username, user.Password, user.Email);
-
-            return null;
+            int id = Client.CreateAccountWithEmail(user.Username, user.Password, user.Email);
+            if (id > 0)
+            {
+                UserSessionModel userSession = new UserSessionModel { Id = id, Username = user.Username };
+                HttpContext.Session.SetInt32("UserId", id);
+                HttpContext.Session.SetString("Username", user.Username);
+                return AccountView(userSession);
+            }
+            return RedirectToAction("LoginView");
         }
         [HttpGet]
         public ActionResult CreateUserView()
@@ -50,8 +55,8 @@ namespace CallousFrontEnd.Controllers
             System.Diagnostics.Debug.WriteLine("Account View");
             SerializableUser user = Client.GetSerializableUser(userSession.Id);
             ViewBag.UserId = user.Id;
-            user.Kitchens = Client.GetKitchens(userSession.Id).ToList();
-
+            //user.Kitchens = Client.GetKitchens(userSession.Id).ToList();
+            user.Kitchens = Client.GetKitchens(userSession.Id);
             return View("Account", user);
         }
         public ActionResult LoginView()
@@ -94,16 +99,25 @@ namespace CallousFrontEnd.Controllers
 
         }
         [HttpGet]
-        public ActionResult AddEditFoodView(FoodKitchen foodKitchen)
+        public ActionResult AddEditFoodView(int kId, int fId)
         {
-            ViewBag.KitchenId = foodKitchen.KitchenId;
-            if (foodKitchen.Food == null) {
+            ViewBag.KitchenId = kId;
+            FoodKitchen foodKitchen = new FoodKitchen();
+            foodKitchen.KitchenId = kId;
+
+            if (fId != 0)
+            {
+                foodKitchen.Food = Client.GetFood(fId);
+            }
+            else
+            {
                 foodKitchen.Food = new Food();
             }
             return PartialView("AddEditFoodPartial", foodKitchen);
         }
         [HttpPost]
-        public ActionResult AddEditFood(FoodKitchen foodKitchen) { 
+        public ActionResult AddEditFood(FoodKitchen foodKitchen)
+        {
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
             Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);

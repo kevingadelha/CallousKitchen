@@ -1,4 +1,4 @@
-﻿using Capstone.Classes;
+﻿using AccountService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace CallousFrontEnd.Models
     public class FoodKitchen
     {
         public int KitchenId { get; set; }
-        public Food? Food { get; set; }
+        public Food Food { get; set; }
     }
 }
