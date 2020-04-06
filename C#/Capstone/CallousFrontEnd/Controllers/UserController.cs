@@ -47,6 +47,7 @@ namespace CallousFrontEnd.Controllers
         {
             System.Diagnostics.Debug.WriteLine("Account View");
             SerializableUser user = Client.GetSerializableUser(userSession.Id);
+            ViewBag.UserId = user.Id;
             user.Kitchens = Client.GetKitchens(userSession.Id).ToList();
 
             return View("Account", user);
@@ -65,5 +66,25 @@ namespace CallousFrontEnd.Controllers
             await Client.GetKitchensAsync(id);
             return null;
         }
+        public ActionResult KitchenPartialView(List<SerializableKitchen> kitchens)
+        {
+            return PartialView("UserKitchenPartialView", kitchens);
+        }
+
+        [HttpGet]
+        public ActionResult AddEditKitchenView(KitchenUser kitchenUser)
+        {
+            ViewBag.UserId = kitchenUser.UserId;
+            return PartialView("AddEditKitchenPartial", kitchenUser);
+        }
+        [HttpPost]
+        public void AddEditKitchen(KitchenUser kitchenUser)
+        {
+            //int userId = ViewBag.UserId;
+           // System.Diagnostics.Debug.WriteLine("UserId bag: " + userId);
+            System.Diagnostics.Debug.WriteLine("UserId bag: " + kitchenUser.UserId);
+        }
     }
+
+
 }

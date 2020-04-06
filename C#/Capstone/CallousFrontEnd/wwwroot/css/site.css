@@ -95,4 +95,10 @@ body {
     
 }
 
+.modal-body {
+    background-color: #323232;
+}
+.modal-header {
+    background-color: #323232;
+}
 /*Custom Css*/
