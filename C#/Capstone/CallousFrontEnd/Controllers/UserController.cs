@@ -36,6 +36,7 @@ namespace CallousFrontEnd.Controllers
             {
                 UserSessionModel user = new UserSessionModel { Id = id, Username = login.Username };
                 HttpContext.Session.SetInt32("UserId", id);
+                HttpContext.Session.SetString("Username", login.Username);
                 ViewBag.UserSession = user;
                 //return RedirectToAction("AccountView", user);
                 return AccountView(user);
@@ -69,6 +70,7 @@ namespace CallousFrontEnd.Controllers
         }
         public ActionResult KitchenPartialView(List<SerializableKitchen> kitchens)
         {
+            ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             return PartialView("UserKitchenPartialView", kitchens);
         }
 
@@ -78,12 +80,34 @@ namespace CallousFrontEnd.Controllers
             ViewBag.UserId = kitchenUser.UserId;
             return PartialView("AddEditKitchenPartial", kitchenUser);
         }
+
         [HttpPost]
-        public void AddEditKitchen(KitchenUser kitchenUser)
+        public ActionResult AddEditKitchen(KitchenUser kitchenUser)
         {
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            System.Diagnostics.Debug.WriteLine("UserId bag: " + userId);
-            System.Diagnostics.Debug.WriteLine("UserId bag: " + kitchenUser.UserId);
+            Client.AddKitchen(userId, kitchenUser.kitchen.Name);
+            ViewBag.UserId = userId;
+
+            List<SerializableKitchen> kitchens = Client.GetKitchens(userId).ToList();
+            // return PartialView("UserKitchenPartialView", kitchens);
+            return AccountView(new UserSessionModel { Id = userId, Username = HttpContext.Session.GetString("Username") });
+
+        }
+        [HttpGet]
+        public ActionResult AddEditFoodView(FoodKitchen foodKitchen)
+        {
+            ViewBag.KitchenId = foodKitchen.KitchenId;
+            if (foodKitchen.Food == null) {
+                foodKitchen.Food = new Food();
+            }
+            return PartialView("AddEditFoodPartial", foodKitchen);
+        }
+        [HttpPost]
+        public ActionResult AddEditFood(FoodKitchen foodKitchen) { 
+            int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            ViewBag.UserId = userId;
+            Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
+            return AccountView(new UserSessionModel { Id = userId, Username = HttpContext.Session.GetString("Username") });
         }
     }
 

@@ -1,38 +1,48 @@
 ﻿@model List<Capstone.Classes.SerializableKitchen>
 @if (Model.Count != 0)
 {
-    foreach (var kitchen in Model)
-    {
-
-        <h2>@kitchen.Name</h2>
-        <br />
-        if (kitchen.Inventory.Count != 0)
+    <table>
+        @foreach (var kitchen in Model)
         {
 
-            <table class="table">
-                <thead>
+            <tr>
+                <th><strong>@kitchen.Name</strong></th>
+                <th>@Html.ActionLink("Edit", "EditKitchen")</th>
+                <th>@Html.ActionLink("Delete", "DeleteKitchen")</th>
+            </tr>
+
+            @if (kitchen.Inventory.Count != 0)
+            {
+
+
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+                @foreach (var food in kitchen.Inventory)
+                {
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Quantity</th>
+                        <td>@food.Name</td>
+                        <td>@food.Quantity</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var food in kitchen.Inventory)
-                    {
-                        <tr>
-                            <td>@food.Name</td>
-                            <td>@food.Quantity</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <em>You have no food, add some</em>
+                }
+
+
+            }
+            else
+            {
+                <tr><td><em>You have no food, add some</em></td></tr>
+
+            }
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchenId="@kitchen.Id">Add Food</button>
+                </td>
+            </tr>
 
         }
-    }
+    </table>
+
 }
 else
 {
@@ -40,6 +50,20 @@ else
 }
 <br />
 <button type="button" id="AddKitchen" class="btn btn-primary" data-toggle="modal" data-target="#KithenModel">Add Kitchen</button>
+
+<div class="modal fade" role="dialog" id="AddFood">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Food</h5>
+            </div>
+            <div class="modal-body">
+                <div id="AddEditFoodBody">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" role="dialog" id="KithenModel">
     <div class="modal-dialog" role="document">
@@ -55,4 +79,28 @@ else
 </div>
 
 <script type="text/javascript" src="~/js/User/UserKitchen.js">
+
+</script>
+<script>
+    $(document).ready(function () {
+  //your code here
+                $(".addFoodBtn").click(function () {
+        console.log("go");
+        var KitchenId = $(this).data("kitchenId");
+        console.log(KitchenId);
+        $.ajax({
+        type:'GET',
+        url: "@Url.Action("AddEditFoodView", "User")",
+        data: {
+            "KitchenId": KitchenId,
+            "Food": null
+            },
+            success: function (result) {
+                $("#AddEditFoodBody").replaceWith(result);
+            }
+
+    })
+});
+});
+
 </script>

@@ -49,13 +49,17 @@
               "target": "Package",
               "version": "[2.10.1, )"
             },
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.AspNetCore.Session": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.2, )"
             },
             "Microsoft.jQuery.Unobtrusive.Ajax": {
               "target": "Package",
@@ -63,19 +67,19 @@
             },
             "System.ServiceModel.Duplex": {
               "target": "Package",
-              "version": "[4.4.*, )"
+              "version": "[4.7.0, )"
             },
             "System.ServiceModel.Http": {
               "target": "Package",
-              "version": "[4.4.*, )"
+              "version": "[4.7.0, )"
             },
             "System.ServiceModel.NetTcp": {
               "target": "Package",
-              "version": "[4.4.*, )"
+              "version": "[4.7.0, )"
             },
             "System.ServiceModel.Security": {
               "target": "Package",
-              "version": "[4.4.*, )"
+              "version": "[4.7.0, )"
             },
             "bootstrap": {
               "target": "Package",
