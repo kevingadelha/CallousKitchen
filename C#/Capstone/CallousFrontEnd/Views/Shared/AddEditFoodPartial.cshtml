@@ -3,6 +3,7 @@
 
 {
     @Html.HiddenFor(x => x.KitchenId)
+    @Html.HiddenFor(x => x.Food.Id)
     <div class="form-group">
         @Html.LabelFor(x => x.Food.Name, htmlAttributes: new { @class = "form-control" })
         @Html.TextBoxFor(x => x.Food.Name, htmlAttributes: new { @class = "form-control" })

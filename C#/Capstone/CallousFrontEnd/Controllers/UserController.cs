@@ -118,9 +118,18 @@ namespace CallousFrontEnd.Controllers
         [HttpPost]
         public ActionResult AddEditFood(FoodKitchen foodKitchen)
         {
+
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
-            Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
+            if (foodKitchen.Food.Id == 0) // add food
+            {
+                Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
+            }
+            else // edit food
+            {
+                Client.EditFood(foodKitchen.Food.Id, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
+            }
+
             return AccountView(new UserSessionModel { Id = userId, Username = HttpContext.Session.GetString("Username") });
         }
     }

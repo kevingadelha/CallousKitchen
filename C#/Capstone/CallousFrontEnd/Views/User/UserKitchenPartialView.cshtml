@@ -24,6 +24,9 @@
                     <tr>
                         <td>@food.Name</td>
                         <td>@food.Quantity</td>
+                        <td>
+                            <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@kitchen.Id">Edit</button>
+                        </td>
                     </tr>
                 }
 
@@ -83,9 +86,9 @@ else
 
 <script type="text/javascript" src="~/js/User/UserKitchen.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            console.log("ready!");
-        });
-    </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("ready!");
+    });
+</script>
 
