@@ -26,6 +26,8 @@
                         <td>@food.Quantity</td>
                         <td>
                             <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@kitchen.Id">Edit</button>
+                            <button type="button" class="btn btn-primary eatFoodBtn" data-toggle="modal" data-target="#EatFood" data-food-Id="@food.Id">Eat</button>
+                            <button type="button" class="btn btn-danger deleteFoodBtn" data-food-Id="@food.Id">Delete</button>
                         </td>
                     </tr>
                 }
@@ -59,11 +61,19 @@ else
 <div class="modal fade" role="dialog" id="AddFood">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Food</h5>
-            </div>
             <div class="modal-body">
                 <div id="AddEditFoodBody">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" role="dialog" id="EatFood">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="EatFoodBody">
                 </div>
             </div>
         </div>

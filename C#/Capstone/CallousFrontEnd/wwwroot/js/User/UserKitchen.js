@@ -33,4 +33,35 @@ $(document).ready(function () {
 
         });
     });
+    $(".eatFoodBtn").click(function () {
+        var FoodId = $(this).data("foodId");
+        $.ajax({
+            type: 'GET',
+            url: "EatFoodView",
+            data: {
+                "fId": FoodId
+            },
+            success: function (result) {
+                $("#EatFoodBody").replaceWith(result);
+            }
+
+        });
+    });
+    $(".deleteFoodBtn").click(function () {
+        var FoodId = $(this).data("foodId");
+        $.ajax({
+            type: 'Delete',
+            url: "DeleteFood",
+            data: {
+                "fId": FoodId
+            },
+            success: function (result) {
+                $("#Kitchens").replaceWith(result);
+            }
+
+        });
+    });
 });
+
+
+
