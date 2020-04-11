@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Assets\Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.4.1" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.10.1" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />

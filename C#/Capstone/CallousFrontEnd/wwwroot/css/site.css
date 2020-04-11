@@ -101,4 +101,9 @@ body {
 .modal-header {
     background-color: #323232;
 }
+
+.logo {
+    width: 10%;
+    height: auto;
+}
 /*Custom Css*/
