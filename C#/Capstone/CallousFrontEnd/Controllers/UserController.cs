@@ -149,7 +149,7 @@ namespace CallousFrontEnd.Controllers
         [HttpPost]
         public ActionResult EatFood(Food food)
         {
-            if (food.Quantity < 0)
+            if (food.Quantity >= 0)
             {
                 Client.EatFood(food.Id, (int)food.Quantity);
             }
