@@ -53,8 +53,10 @@ class ServiceHandler {
         }
 
         fun serializeDate(date : LocalDate) : String{
-
             var dateStart = date.atStartOfDay()
+            //Some conversion is off because I need to subtract this to get the correct date
+            dateStart = dateStart.minusDays(166)
+            println(dateStart)
             //Adds 4 hours in seconds to make up for timezone differences
             //I don't know what the rest of the numbers and dashes mean but they might be important
             //The first three zeros are actually important though as they change it milliseconds
@@ -69,9 +71,8 @@ class ServiceHandler {
             //get the miliseconds since 1970 from the string
             var epoch = date.substring(6,date.length-10)
             //convert that to a date
-            var wrongDate = LocalDateTime.ofEpochSecond(epoch.toLong(),0,ZoneOffset.UTC).toLocalDate()
-            //This offset needs to happen foor some reason
-            return wrongDate.minusDays(166)
+            return LocalDateTime.ofEpochSecond(epoch.toLong(),0,ZoneOffset.UTC).toLocalDate()
+
 
         }
     }
