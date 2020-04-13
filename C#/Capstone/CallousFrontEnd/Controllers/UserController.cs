@@ -115,10 +115,17 @@ namespace CallousFrontEnd.Controllers
         public ActionResult AddEditKitchen(KitchenUser kitchenUser)
         {
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            Client.AddKitchen(userId, kitchenUser.kitchen.Name);
-            ViewBag.UserId = userId;
+            try
+            {
+                Client.AddKitchen(userId, kitchenUser.kitchen.Name);
+                ViewBag.UserId = userId;
 
-            List<SerializableKitchen> kitchens = Client.GetKitchens(userId).ToList();
+                List<SerializableKitchen> kitchens = Client.GetKitchens(userId).ToList();
+            }
+            catch
+            {
+                Debug.WriteLine("eat failed");
+            }
             UserSessionModel user = new UserSessionModel
             {
                 Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(),
@@ -144,15 +151,22 @@ namespace CallousFrontEnd.Controllers
 
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
-            if (foodKitchen.Food.Id == 0) // add food
-            {
-                Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
-            }
-            else // edit food
-            {
-                Client.EditFood(foodKitchen.Food.Id, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
-            }
 
+            try
+            {
+                if (foodKitchen.Food.Id == 0) // add food
+                {
+                    Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
+                }
+                else // edit food
+                {
+                    Client.EditFood(foodKitchen.Food.Id, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
+                }
+            }
+            catch
+            {
+                Debug.WriteLine("eat failed");
+            }
 
 
             UserSessionModel user = new UserSessionModel
@@ -186,13 +200,20 @@ namespace CallousFrontEnd.Controllers
         [HttpPost]
         public ActionResult EatFood(Food food)
         {
-            if (food.Quantity >= 0)
+            try
             {
-                Client.EatFood(food.Id, (int)food.Quantity);
+                if (food.Quantity >= 0)
+                {
+                    Client.EatFood(food.Id, (int)food.Quantity);
+                }
+                else
+                {
+                    Client.RemoveItem(food.Id);
+                }
             }
-            else
+            catch
             {
-                Client.RemoveItem(food.Id);
+                Debug.WriteLine("eat failed");
             }
             ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             //List<SerializableKitchen> kitchens = Client.GetKitchens((int)ViewBag.UserId).ToList();
