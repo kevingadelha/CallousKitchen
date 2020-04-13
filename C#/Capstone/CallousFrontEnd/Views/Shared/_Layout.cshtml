@@ -31,8 +31,12 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
+                            
                         </li>
                         <li class="nav-item">
+                            @if (ViewBag.UserId != null) { 
+                                @Html.ActionLink("Logout", "Logout", "User")
+                            }
                         </li>
                     </ul>
                 </div>

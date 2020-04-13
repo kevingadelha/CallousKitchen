@@ -31,11 +31,13 @@ namespace CallousFrontEnd.Controllers
         [HttpGet]
         public ActionResult CreateUserView()
         {
+
             return View("CreateUser");
         }
         [HttpPost]
         public ActionResult Login(LoginModel login)
         {
+
             int id = Client.LoginAccount(login.Username, login.Password);
             if (id != -1)
             {
@@ -43,7 +45,15 @@ namespace CallousFrontEnd.Controllers
                 HttpContext.Session.SetInt32("UserId", id);
                 HttpContext.Session.SetString("Username", login.Username);
                 ViewBag.UserSession = user;
+
+
                 //return RedirectToAction("AccountView", user);
+                if (login.Remember)
+                {
+                    //Setup the cookie
+                    HttpContext.Response.Cookies.Append("Username", login.Username);
+                    HttpContext.Response.Cookies.Append("Password", login.Password);
+                }
                 return AccountView(user);
             }
             return RedirectToAction("LoginView");
@@ -61,8 +71,29 @@ namespace CallousFrontEnd.Controllers
         }
         public ActionResult LoginView()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("Username"))
+            {
+                string username = HttpContext.Request.Cookies["Username"];
+                string password = HttpContext.Request.Cookies["Password"];
+                return Login(new LoginModel { Username = username, Password = password, Remember = true });
+
+            }
             return View("Login");
         }
+
+        public ActionResult Logout()
+        {
+            // destory all cookies
+            if (HttpContext.Request.Cookies.ContainsKey("Username"))
+            {
+                HttpContext.Response.Cookies.Delete("Username");
+                HttpContext.Response.Cookies.Delete("Password");
+            }
+            ViewData.Clear();
+            return View("Login");
+
+        }
+
 
         public ActionResult KitchenPartialView(List<SerializableKitchen> kitchens)
         {
@@ -89,8 +120,11 @@ namespace CallousFrontEnd.Controllers
             ViewBag.UserId = userId;
 
             List<SerializableKitchen> kitchens = Client.GetKitchens(userId).ToList();
-            UserSessionModel user = new UserSessionModel { Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(), 
-                Username = HttpContext.Session.GetString("Username") };
+            UserSessionModel user = new UserSessionModel
+            {
+                Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(),
+                Username = HttpContext.Session.GetString("Username")
+            };
             return AccountView(user);
             //return KitchenPartialView(kitchens);
         }
