@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CallousFrontEnd.Models;
 using AccountService;
+using System.Diagnostics;
 
 namespace CallousFrontEnd.Controllers
 {
@@ -58,6 +59,10 @@ namespace CallousFrontEnd.Controllers
             }
             return RedirectToAction("LoginView");
         }
+        public ActionResult LoginView()
+        {
+            return View("Login");
+        }
 
         [HttpPost]
         public ActionResult AccountView(UserSessionModel userSession)
@@ -101,17 +106,6 @@ namespace CallousFrontEnd.Controllers
             return PartialView("UserKitchenPartialView", kitchens);
         }
 
-        [HttpGet]
-        public ActionResult AddEditKitchenView(KitchenUser kitchenUser)
-        {
-            ViewBag.UserId = kitchenUser.UserId;
-            //return PartialView("AddEditKitchenPartial", kitchenUser);
-            UserSessionModel user = new UserSessionModel { Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(), Username = HttpContext.Session.GetString("Username") };
-
-            return AccountView(user);
-
-        }
-
         [HttpPost]
         public ActionResult AddEditKitchen(KitchenUser kitchenUser)
         {
@@ -128,22 +122,16 @@ namespace CallousFrontEnd.Controllers
             return AccountView(user);
             //return KitchenPartialView(kitchens);
         }
-        [HttpGet]
-        public ActionResult AddEditFoodView(int kId, int fId)
-        {
-            ViewBag.KitchenId = kId;
-            FoodKitchen foodKitchen = new FoodKitchen();
-            foodKitchen.KitchenId = kId;
 
-            if (fId != 0)
-            {
-                foodKitchen.Food = Client.GetFood(fId);
-            }
-            else
-            {
-                foodKitchen.Food = new Food();
-            }
-            return PartialView("AddEditFoodPartial", foodKitchen);
+        [HttpGet]
+        public ActionResult AddEditKitchenView(KitchenUser kitchenUser)
+        {
+            ViewBag.UserId = kitchenUser.UserId;
+            //return PartialView("AddEditKitchenPartial", kitchenUser);
+            UserSessionModel user = new UserSessionModel { Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(), Username = HttpContext.Session.GetString("Username") };
+
+            return AccountView(user);
+
         }
         [HttpPost]
         public ActionResult AddEditFood(FoodKitchen foodKitchen)
@@ -171,14 +159,24 @@ namespace CallousFrontEnd.Controllers
             //List<SerializableKitchen> kitchens = Client.GetKitchens(userId).ToList();
             //return KitchenPartialView(kitchens);
         }
-
         [HttpGet]
-        public ActionResult EatFoodView(int fId)
+        public ActionResult AddEditFoodView(int kId, int fId)
         {
-            var food = Client.GetFood(fId);
+            ViewBag.KitchenId = kId;
+            FoodKitchen foodKitchen = new FoodKitchen();
+            foodKitchen.KitchenId = kId;
 
-            return PartialView("EatFoodPartial", food);
+            if (fId != 0)
+            {
+                foodKitchen.Food = Client.GetFood(fId);
+            }
+            else
+            {
+                foodKitchen.Food = new Food();
+            }
+            return PartialView("AddEditFoodPartial", foodKitchen);
         }
+
 
         [HttpPost]
         public ActionResult EatFood(Food food)
@@ -203,10 +201,25 @@ namespace CallousFrontEnd.Controllers
             return AccountView(user);
         }
 
+        [HttpGet]
+        public ActionResult EatFoodView(int fId)
+        {
+            var food = Client.GetFood(fId);
+
+            return PartialView("EatFoodPartial", food);
+        }
+
         [HttpDelete]
         public ActionResult DeleteFood(int fId)
         {
-            Client.RemoveItem(fId);
+            try
+            {
+                Client.RemoveItem(fId);
+            }
+            catch
+            {
+                Debug.WriteLine("remove failed");
+            }
             ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             List<SerializableKitchen> kitchens = Client.GetKitchens((int)ViewBag.UserId).ToList();
 
