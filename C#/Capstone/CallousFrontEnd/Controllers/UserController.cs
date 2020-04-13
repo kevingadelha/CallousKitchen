@@ -90,7 +90,7 @@ namespace CallousFrontEnd.Controllers
                 HttpContext.Response.Cookies.Delete("Password");
             }
             ViewData.Clear();
-            return View("Login");
+            return RedirectToAction("LoginView");
 
         }
 
