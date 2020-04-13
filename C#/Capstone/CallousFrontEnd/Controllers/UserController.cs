@@ -75,10 +75,18 @@ namespace CallousFrontEnd.Controllers
         public ActionResult AccountView(UserSessionModel userSession)
         {
             System.Diagnostics.Debug.WriteLine("Account View");
-            SerializableUser user = Client.GetSerializableUser(userSession.Id);
+            TempData["userId"] = userSession.Id;
+            return RedirectToAction("HomeView");
+        }
+
+        public ActionResult HomeView()
+        {
+            int userId = (int)TempData["userId"];
+            TempData.Keep();
+            SerializableUser user = Client.GetSerializableUser(userId);
             ViewBag.UserId = user.Id;
             //user.Kitchens = Client.GetKitchens(userSession.Id).ToList();
-            user.Kitchens = Client.GetKitchens(userSession.Id);
+            user.Kitchens = Client.GetKitchens(userId);
             return View("Account", user);
         }
 
