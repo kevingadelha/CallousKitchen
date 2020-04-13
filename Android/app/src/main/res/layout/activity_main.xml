@@ -38,11 +38,11 @@
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/textColor"
             android:ems="10"
-            android:hint="@string/email"
+            android:hint="@string/username"
             android:inputType="textPersonName"
-            android:textSize="16sp"
             android:textColor="?attr/textColor"
-            android:textColorHint="?attr/metaTextColor" />
+            android:textColorHint="?attr/metaTextColor"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editTextPassword"
