@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CallousFrontEnd.Models;
 using AccountService;
+using System.Diagnostics;
 
 namespace CallousFrontEnd.Controllers
 {
@@ -173,7 +174,14 @@ namespace CallousFrontEnd.Controllers
         [HttpDelete]
         public ActionResult DeleteFood(int fId)
         {
-            Client.RemoveItem(fId);
+            try
+            {
+                Client.RemoveItem(fId);
+            }
+            catch
+            {
+                Debug.WriteLine("remove failed");
+            }
             ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             List<SerializableKitchen> kitchens = Client.GetKitchens((int)ViewBag.UserId).ToList();
 
