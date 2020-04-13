@@ -11,7 +11,7 @@ $(document).ready(function () {
                 "fId": 0
             },
             success: function (result) {
-                $("#AddEditFoodBody").replaceWith(result);
+                $("#AddEditFoodBody").html(result);
             }
 
         });
@@ -28,7 +28,7 @@ $(document).ready(function () {
                 "fId": FoodId
             },
             success: function (result) {
-                $("#AddEditFoodBody").replaceWith(result);
+                $("#AddEditFoodBody").html(result);
             }
 
         });
@@ -42,13 +42,14 @@ $(document).ready(function () {
                 "fId": FoodId
             },
             success: function (result) {
-                $("#EatFoodBody").replaceWith(result);
+                $("#EatFoodBody").html(result);
             }
 
         });
     });
     $(".deleteFoodBtn").click(function () {
         var FoodId = $(this).data("foodId");
+        console.log("Delete: " + FoodId);
         $.ajax({
             type: 'Delete',
             url: "DeleteFood",
@@ -56,7 +57,9 @@ $(document).ready(function () {
                 "fId": FoodId
             },
             success: function (result) {
-                $("#Kitchens").replaceWith(result);
+                console.log(result);
+                $("#Kitchens").html(result);
+                console.log("Refresh");
             }
 
         });
