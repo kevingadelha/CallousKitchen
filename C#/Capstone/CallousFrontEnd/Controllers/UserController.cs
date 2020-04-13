@@ -61,6 +61,13 @@ namespace CallousFrontEnd.Controllers
         }
         public ActionResult LoginView()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("Username"))
+            {
+                string username = HttpContext.Request.Cookies["Username"];
+                string password = HttpContext.Request.Cookies["Password"];
+                return Login(new LoginModel { Username = username, Password = password, Remember = true });
+
+            }
             return View("Login");
         }
 
@@ -74,17 +81,7 @@ namespace CallousFrontEnd.Controllers
             user.Kitchens = Client.GetKitchens(userSession.Id);
             return View("Account", user);
         }
-        public ActionResult LoginView()
-        {
-            if (HttpContext.Request.Cookies.ContainsKey("Username"))
-            {
-                string username = HttpContext.Request.Cookies["Username"];
-                string password = HttpContext.Request.Cookies["Password"];
-                return Login(new LoginModel { Username = username, Password = password, Remember = true });
 
-            }
-            return View("Login");
-        }
 
         public ActionResult Logout()
         {
