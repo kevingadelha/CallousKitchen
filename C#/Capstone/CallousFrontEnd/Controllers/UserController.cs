@@ -91,7 +91,8 @@ namespace CallousFrontEnd.Controllers
                 user.Kitchens = Client.GetKitchens(userId);
                 return View("Account", user);
             }
-            else {
+            else
+            {
                 return View("Login");
             }
         }
@@ -256,6 +257,16 @@ namespace CallousFrontEnd.Controllers
             List<SerializableKitchen> kitchens = Client.GetKitchens((int)ViewBag.UserId).ToList();
 
             return KitchenPartialView(kitchens);
+        }
+
+        [HttpGet]
+        public string GetBarcodeData(string barcode)
+        {
+            // chop off leading zeros
+
+          //  barcode = barcode.TrimStart('0');
+            string test = Client.GetBarcodeData(barcode);
+            return test;
         }
     }
 

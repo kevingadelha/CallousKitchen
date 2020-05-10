@@ -86,6 +86,7 @@ else
                 <h5 class="modal-title">Kitchen</h5>
             </div>
             <div class="modal-body">
+
                 @{ Html.RenderPartial("AddEditKitchenPartial", new KitchenUser { UserId = ViewBag.UserId, kitchen = new Capstone.Classes.Kitchen() });}
             </div>
         </div>
@@ -95,9 +96,4 @@ else
 
 <script type="text/javascript" src="~/js/User/UserKitchen.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        console.log("ready!");
-    });
-</script>
 

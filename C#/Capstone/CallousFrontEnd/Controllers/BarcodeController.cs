@@ -16,7 +16,6 @@ namespace CallousFrontEnd.Controllers
         public async Task<string> ReadBarcode(string barcode)
         {
             string test = await Client.GetBarcodeDataAsync(barcode);
-            System.Diagnostics.Debug.WriteLine("He needs some milk! " + test);
              return await Client.GetBarcodeDataAsync(barcode);
         }
 
