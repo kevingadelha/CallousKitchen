@@ -104,12 +104,11 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
     "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
-      "version": "1.0.0",
       "restore": {
         "projectUniqueName": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj",
         "projectName": "CapstoneService",

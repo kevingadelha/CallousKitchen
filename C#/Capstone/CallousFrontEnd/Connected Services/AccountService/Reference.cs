@@ -551,6 +551,12 @@ namespace AccountService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetBarcodeData", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetBarcodeDataResponse")]
         System.Threading.Tasks.Task<string> GetBarcodeDataAsync(string barcode);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetRecipe", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetRecipeResponse")]
+        string GetRecipe();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetRecipe", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetRecipeResponse")]
+        System.Threading.Tasks.Task<string> GetRecipeAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
         bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
         
@@ -718,6 +724,16 @@ namespace AccountService
         public System.Threading.Tasks.Task<string> GetBarcodeDataAsync(string barcode)
         {
             return base.Channel.GetBarcodeDataAsync(barcode);
+        }
+        
+        public string GetRecipe()
+        {
+            return base.Channel.GetRecipe();
+        }
+        
+        public System.Threading.Tasks.Task<string> GetRecipeAsync()
+        {
+            return base.Channel.GetRecipeAsync();
         }
         
         public bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)

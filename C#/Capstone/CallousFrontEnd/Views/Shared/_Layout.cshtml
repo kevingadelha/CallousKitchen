@@ -29,12 +29,19 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav ml-auto">
-
-                        <li class="nav-item">
-                            @if (ViewBag.UserId != null) { 
-                                @Html.ActionLink("Logout", "Logout", "User")
-                            }
-                        </li>
+                        @if (ViewBag.UserId != null)
+                        {
+                            string username = ViewBag.Username;
+                            <li class="nav-item">
+                                @Html.ActionLink("My Kitchens", "HomeView", "User", htmlAttributes: new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink(username, "Account", "User", htmlAttributes: new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Logout", "Logout", "User", htmlAttributes: new { @class = "nav-link" })
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

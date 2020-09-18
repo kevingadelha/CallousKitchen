@@ -38,3 +38,4 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.CopyComplete
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.pdb
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.CoreCompileInputs.cache

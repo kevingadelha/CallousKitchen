@@ -163,6 +163,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FoodFactsModel.cs" />
     <Compile Include="Models\FoodFactsProductModel.cs" />
+    <Compile Include="Models\RecipeModel.cs" />
+    <Compile Include="Models\RecipeQueryModel.cs" />
     <Compile Include="Models\USDAModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

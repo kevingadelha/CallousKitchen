@@ -25,7 +25,8 @@ namespace CallousFrontEnd.Controllers
                 UserSessionModel userSession = new UserSessionModel { Id = id, Username = user.Username };
                 HttpContext.Session.SetInt32("UserId", id);
                 HttpContext.Session.SetString("Username", user.Username);
-                return AccountView(userSession);
+                ViewBag.Username = user.Username;
+                return KItchensView(userSession);
             }
             return RedirectToAction("LoginView");
         }
@@ -42,8 +43,13 @@ namespace CallousFrontEnd.Controllers
             int id = Client.LoginAccount(login.Username, login.Password);
             if (id != -1)
             {
-                UserSessionModel user = new UserSessionModel { Id = id, Username = login.Username };
+                UserSessionModel user = new UserSessionModel { Id = id };
                 HttpContext.Session.SetInt32("UserId", id);
+                
+                // makes sure the username character case is consistant
+                user.Username =
+                Client.GetSerializableUser(id).Username;
+
                 HttpContext.Session.SetString("Username", login.Username);
                 ViewBag.UserSession = user;
 
@@ -55,7 +61,7 @@ namespace CallousFrontEnd.Controllers
                     HttpContext.Response.Cookies.Append("Username", login.Username);
                     HttpContext.Response.Cookies.Append("Password", login.Password);
                 }
-                return AccountView(user);
+                return KItchensView(user);
             }
             return RedirectToAction("LoginView");
         }
@@ -72,7 +78,7 @@ namespace CallousFrontEnd.Controllers
         }
 
         [HttpPost]
-        public ActionResult AccountView(UserSessionModel userSession)
+        public ActionResult KItchensView(UserSessionModel userSession)
         {
             System.Diagnostics.Debug.WriteLine("Account View");
             TempData["userId"] = userSession.Id;
@@ -81,15 +87,16 @@ namespace CallousFrontEnd.Controllers
 
         public ActionResult HomeView()
         {
-            if (TempData["userId"] != null)
+            if (HttpContext.Session.GetInt32("UserId").GetValueOrDefault() != 0)
             {
                 int userId = (int)TempData["userId"];
                 TempData.Keep();
                 SerializableUser user = Client.GetSerializableUser(userId);
                 ViewBag.UserId = user.Id;
+                ViewBag.Username = user.Username;
                 //user.Kitchens = Client.GetKitchens(userSession.Id).ToList();
                 user.Kitchens = Client.GetKitchens(userId);
-                return View("Account", user);
+                return View("Kitchens", user);
             }
             else
             {
@@ -111,6 +118,12 @@ namespace CallousFrontEnd.Controllers
 
         }
 
+        public ActionResult Account() {
+            ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            ViewBag.Username = HttpContext.Session.GetString("Username");
+
+            return View("Account");
+        }
 
         public ActionResult KitchenPartialView(List<SerializableKitchen> kitchens)
         {
@@ -138,7 +151,7 @@ namespace CallousFrontEnd.Controllers
                 Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(),
                 Username = HttpContext.Session.GetString("Username")
             };
-            return AccountView(user);
+            return KItchensView(user);
             //return KitchenPartialView(kitchens);
         }
 
@@ -149,7 +162,7 @@ namespace CallousFrontEnd.Controllers
             //return PartialView("AddEditKitchenPartial", kitchenUser);
             UserSessionModel user = new UserSessionModel { Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(), Username = HttpContext.Session.GetString("Username") };
 
-            return AccountView(user);
+            return KItchensView(user);
 
         }
         [HttpPost]
@@ -181,7 +194,7 @@ namespace CallousFrontEnd.Controllers
                 Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(),
                 Username = HttpContext.Session.GetString("Username")
             };
-            return AccountView(user);
+            return KItchensView(user);
             //List<SerializableKitchen> kitchens = Client.GetKitchens(userId).ToList();
             //return KitchenPartialView(kitchens);
         }
@@ -231,7 +244,7 @@ namespace CallousFrontEnd.Controllers
                 Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(),
                 Username = HttpContext.Session.GetString("Username")
             };
-            return AccountView(user);
+            return KItchensView(user);
         }
 
         [HttpGet]
@@ -264,8 +277,9 @@ namespace CallousFrontEnd.Controllers
         {
             // chop off leading zeros
 
-          //  barcode = barcode.TrimStart('0');
-            string test = Client.GetBarcodeData(barcode);
+            //  barcode = barcode.TrimStart('0');
+            //string test = Client.GetBarcodeData(barcode);
+            string test = Client.GetRecipe();
             return test;
         }
     }

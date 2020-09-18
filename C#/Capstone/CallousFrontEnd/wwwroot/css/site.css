@@ -106,4 +106,8 @@ body {
     width: 10%;
     height: auto;
 }
+
+.CheckboxPadding {
+    margin-left: 0.05rem;
+}
 /*Custom Css*/
