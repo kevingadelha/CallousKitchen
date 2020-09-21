@@ -38,3 +38,14 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.CopyComplete
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.dll
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.pdb
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.dll
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.dll
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.pdb
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.xml
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.pdb
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.xml
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.Init.resources
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.PasswordHash.resources
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.GenerateResource.cache
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.CoreCompileInputs.cache
