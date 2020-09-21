@@ -8,7 +8,7 @@ namespace Capstone.Models
 {
     public class FoodFactsProductModel
     {
-        [JsonProperty(PropertyName = "product_name_en")]
+        [JsonProperty(PropertyName = "product_name")]
         public string Name { get; set; }
     }
 }

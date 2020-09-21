@@ -1,6 +1,6 @@
 ﻿
 $(document).ready(function () {
-    console.log("Kitchen  A C T I V A T E D");
+    console.log("Activated");
     $(".addFoodBtn").click(function () {
         var KitchenId = $(this).data("kitchenId");
         $.ajax({
@@ -64,7 +64,27 @@ $(document).ready(function () {
 
         });
     });
+
 });
 
+$("#AddFood").on("click", "#btnBarcode", function () {
+    var nameTb = $("#Food_Name");
+    var barcode = $("#Food_Barcode");
+
+    console.log("barcode: " + barcode.val());
+    console.log("barcode: " + $("#Food_Barcode").val());
 
 
+    $.ajax({
+        type: 'Get',
+        url: "GetBarcodeData",
+        data: {
+            "barcode": barcode.val()
+        },
+        success: function (result) {
+            console.log(result);
+            nameTb.val(result);
+        }
+    });
+
+});
