@@ -1,6 +1,7 @@
 package com.example.callouskitchenandroid
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue.RequestFinishedListener
@@ -52,11 +53,20 @@ class ServiceHandler {
             callService("AccountService.svc",method,parameters,context, response)
         }
 
+        fun callOpenFoodFacts(barcode : String, context: Context, response : Response.Listener<JSONObject>){
+            val queue = Volley.newRequestQueue(context)
+            val url = "https://world.openfoodfacts.org/api/v0/product/$barcode.json"
+            var jsonObject = JSONObject()
+            val request = JsonObjectRequest(Request.Method.GET, url, jsonObject,
+                response,
+                Response.ErrorListener { println("request failed") })
+            queue.add(request)
+        }
+
         fun serializeDate(date : LocalDate) : String{
             var dateStart = date.atStartOfDay()
             //Some conversion is off because I need to subtract this to get the correct date
             dateStart = dateStart.minusDays(166)
-            println(dateStart)
             //Adds 4 hours in seconds to make up for timezone differences
             //I don't know what the rest of the numbers and dashes mean but they might be important
             //The first three zeros are actually important though as they change it milliseconds
