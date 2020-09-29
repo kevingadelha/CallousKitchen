@@ -109,6 +109,14 @@ namespace Capstone
             OpenFoodFacts openFoodFacts = new OpenFoodFacts();
             return openFoodFacts.LoadBarcode(barcode);
         }
+
+        public Task<Models.SerializedFoodFactsProductModel> GetAllOpenFoodFacts(string barcode)
+        {
+            OpenFoodFacts openFoodFacts = new OpenFoodFacts();
+            return openFoodFacts.LoadAllBarcodeData(barcode);
+        }
+
+
         public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
