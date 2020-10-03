@@ -25,8 +25,9 @@ namespace Capstone.Apis
                 {
                     return "The request has failed";
                 }
-            }
 
+
+            }
         }
         public async Task<SerializedFoodFactsProductModel> LoadAllBarcodeData(string barcode)
         {

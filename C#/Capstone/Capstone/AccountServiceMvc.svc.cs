@@ -24,7 +24,6 @@ namespace Capstone
         private CallousHipposDb db = new CallousHipposDb();
 
         public object KeyDerivationPrf { get; private set; }
-        public RecipeApi RecipeApi { get; private set; }
 
         public int CreateAccountWithEmail(string userName, string pass, string email)
         {
@@ -67,7 +66,6 @@ namespace Capstone
 
         public bool AnotherTest()
         {
-            Debug.WriteLine("yo");
             return true;
         }
 
@@ -129,8 +127,7 @@ namespace Capstone
         public Task<string[]> SearchRecipes(string search, int count, int caloriesMin = 0, int caloriesMax = 0)
         {
             RecipeApi recipeApi = new RecipeApi();
-            string[] yuh = RecipeApi.GetRecipe(search, count, caloriesMin, caloriesMax).Result;
-            return RecipeApi.GetRecipe(search, count, caloriesMin, caloriesMax);
+            return recipeApi.GetRecipe(search, count, caloriesMin, caloriesMax);
         }
 
         public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)

@@ -15,9 +15,9 @@ namespace Capstone.Apis
         private readonly string AppId = "ffa3c67d";
         public async Task<string[]> GetRecipe(string search, int count, int caloriesMin = 0, int caloriesMax = 1000000)
         {
+            System.Diagnostics.Debugger.Break();
             List<string> results = new List<string>();
-            //string url = $"https://api.edamam.com/search?q={search}&app_id{AppId}=&app_key={AppiKey}&from=0&to={count}&calories={caloriesMin}-{caloriesMax}";
-            string url = $"https://api.edamam.com/search?q=chicken&app_idffa3c67d=&app_key=2f1c9181989a25dd44b03abe15600a3f&from=0&to=20&calories=3-500";
+            string url = $"https://api.edamam.com/search?q={search}&app_id={AppId}&app_key={AppiKey}&from=0&to={count}&calories={caloriesMin}-{caloriesMax}";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
