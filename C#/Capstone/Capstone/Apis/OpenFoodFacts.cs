@@ -8,6 +8,7 @@ using System.Web;
 
 namespace Capstone.Apis
 {
+    // Author Peter Szadurski
     public class OpenFoodFacts
     {
         public async Task<string> LoadBarcode(string barcode)

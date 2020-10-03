@@ -141,6 +141,7 @@
     </Compile>
     <Compile Include="Apis\ApiHelper.cs" />
     <Compile Include="Apis\OpenFoodFacts.cs" />
+    <Compile Include="Apis\RecipeApi.cs" />
     <Compile Include="App_Code\Initializer.cs" />
     <Compile Include="BarcodeService.svc.cs">
       <DependentUpon>BarcodeService.svc</DependentUpon>
@@ -163,6 +164,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FoodFactsModel.cs" />
     <Compile Include="Models\FoodFactsProductModel.cs" />
+    <Compile Include="Models\RecipeModel.cs" />
+    <Compile Include="Models\RecipeQueryModel.cs" />
     <Compile Include="Models\USDAModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
