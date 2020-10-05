@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DataContext-Web.config Connection String" description="DataContext Connection String used in web.config by the application to access the database." defaultValue="data source=.\SQLEXPRESS;initial catalog=CallousHippo;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\kgsos\\Documents\\GitHub\\CallousHippo\\C\#\\Capstone\\Capstone\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DataContext']/@connectionString" />
+  </parameter>
+  <parameter name="CallousHippoEntities-Web.config Connection String" description="CallousHippoEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/DataContext.csdl|res://*/DataContext.ssdl|res://*/DataContext.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=CallousHippo;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\kgsos\\Documents\\GitHub\\CallousHippo\\C\#\\Capstone\\Capstone\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CallousHippoEntities']/@connectionString" />
+  </parameter>
+  <parameter name="CallousHipposDb-Web.config Connection String" description="CallousHipposDb Connection String used in web.config by the application to access the database." defaultValue="Data Source=.\SQLEXPRESS;Initial Catalog=CallousHipposDb-ByConnectionString;Integrated Security=true" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\kgsos\\Documents\\GitHub\\CallousHippo\\C\#\\Capstone\\Capstone\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CallousHipposDb']/@connectionString" />
+  </parameter>
+</parameters>
