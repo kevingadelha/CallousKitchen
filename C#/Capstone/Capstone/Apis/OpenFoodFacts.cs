@@ -8,6 +8,7 @@ using System.Web;
 
 namespace Capstone.Apis
 {
+    // Author Peter Szadurski
     public class OpenFoodFacts
     {
         public async Task<string> LoadBarcode(string barcode)
@@ -24,8 +25,27 @@ namespace Capstone.Apis
                 {
                     return "The request has failed";
                 }
-            }
 
+
+            }
         }
+        public async Task<SerializedFoodFactsProductModel> LoadAllBarcodeData(string barcode)
+        {
+            string url = $"http://world.openfoodfacts.org/api/v0/product/{barcode}.json";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    FoodFactsModel FFModel = await response.Content.ReadAsAsync<FoodFactsModel>();
+                    SerializedFoodFactsProductModel serializedFoodFactsProductModel = new SerializedFoodFactsProductModel(FFModel.Product);
+                    return serializedFoodFactsProductModel;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
     }
 }

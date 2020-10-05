@@ -148,6 +148,103 @@ namespace AccountService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SerializedFoodFactsProductModel", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Models")]
+    public partial class SerializedFoodFactsProductModel : object
+    {
+        
+        private string Image_UrlField;
+        
+        private string[] IngredientsField;
+        
+        private string NameField;
+        
+        private System.Collections.Generic.Dictionary<string, string> NutrientsField;
+        
+        private int ServingQuantityField;
+        
+        private string ServingSizeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Image_Url
+        {
+            get
+            {
+                return this.Image_UrlField;
+            }
+            set
+            {
+                this.Image_UrlField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] Ingredients
+        {
+            get
+            {
+                return this.IngredientsField;
+            }
+            set
+            {
+                this.IngredientsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.Dictionary<string, string> Nutrients
+        {
+            get
+            {
+                return this.NutrientsField;
+            }
+            set
+            {
+                this.NutrientsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ServingQuantity
+        {
+            get
+            {
+                return this.ServingQuantityField;
+            }
+            set
+            {
+                this.ServingQuantityField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ServingSize
+        {
+            get
+            {
+                return this.ServingSizeField;
+            }
+            set
+            {
+                this.ServingSizeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SerializableUser", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
     public partial class SerializableUser : object
     {
@@ -551,6 +648,12 @@ namespace AccountService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetBarcodeData", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetBarcodeDataResponse")]
         System.Threading.Tasks.Task<string> GetBarcodeDataAsync(string barcode);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetAllOpenFoodFacts", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetAllOpenFoodFactsResponse")]
+        AccountService.SerializedFoodFactsProductModel GetAllOpenFoodFacts(string barcode);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetAllOpenFoodFacts", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetAllOpenFoodFactsResponse")]
+        System.Threading.Tasks.Task<AccountService.SerializedFoodFactsProductModel> GetAllOpenFoodFactsAsync(string barcode);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
         bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
         
@@ -598,6 +701,12 @@ namespace AccountService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetFoodResponse")]
         System.Threading.Tasks.Task<AccountService.Food> GetFoodAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/SearchRecipes", ReplyAction="http://tempuri.org/IAccountServiceMvc/SearchRecipesResponse")]
+        string[] SearchRecipes(string search, int count, int caloriesMin, int caloriesMax);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/SearchRecipes", ReplyAction="http://tempuri.org/IAccountServiceMvc/SearchRecipesResponse")]
+        System.Threading.Tasks.Task<string[]> SearchRecipesAsync(string search, int count, int caloriesMin, int caloriesMax);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -720,6 +829,16 @@ namespace AccountService
             return base.Channel.GetBarcodeDataAsync(barcode);
         }
         
+        public AccountService.SerializedFoodFactsProductModel GetAllOpenFoodFacts(string barcode)
+        {
+            return base.Channel.GetAllOpenFoodFacts(barcode);
+        }
+        
+        public System.Threading.Tasks.Task<AccountService.SerializedFoodFactsProductModel> GetAllOpenFoodFactsAsync(string barcode)
+        {
+            return base.Channel.GetAllOpenFoodFactsAsync(barcode);
+        }
+        
         public bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
         {
             return base.Channel.AddFood(kitchenId, name, quantity, expiryDate);
@@ -798,6 +917,16 @@ namespace AccountService
         public System.Threading.Tasks.Task<AccountService.Food> GetFoodAsync(int id)
         {
             return base.Channel.GetFoodAsync(id);
+        }
+        
+        public string[] SearchRecipes(string search, int count, int caloriesMin, int caloriesMax)
+        {
+            return base.Channel.SearchRecipes(search, count, caloriesMin, caloriesMax);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> SearchRecipesAsync(string search, int count, int caloriesMin, int caloriesMax)
+        {
+            return base.Channel.SearchRecipesAsync(search, count, caloriesMin, caloriesMax);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
