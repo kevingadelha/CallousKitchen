@@ -29,7 +29,7 @@ namespace Capstone
         {
             if (IsValidEmail(email))
             {
-                if (db.Users.Where(x => x.Email == email || x.Username == userName).Count() != 0)
+                if (db.Users.Where(x => x.Email == email && x.Username == userName).Count() != 0)
                 {
                     return -1;
                 }
