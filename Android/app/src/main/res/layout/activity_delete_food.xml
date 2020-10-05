@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/textColor"
             android:ems="10"
-            android:hint="quantity"
+            android:hint="@string/quantity"
             android:inputType="numberDecimal"
             android:textSize="16sp"
             android:textColor="?attr/textColor"

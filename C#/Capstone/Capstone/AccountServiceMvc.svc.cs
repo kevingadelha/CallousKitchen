@@ -64,6 +64,13 @@ namespace Capstone
             return CreateAccountWithEmail(userName, pass, userName);
         }
 
+        public bool AnotherTest()
+        {
+            return true;
+        }
+
+        
+
         public int LoginAccount(string userName, string pass)
         {
             return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.Id ?? -1);
@@ -116,6 +123,12 @@ namespace Capstone
             return openFoodFacts.LoadAllBarcodeData(barcode);
         }
 
+        // Author Peter Szadurski
+        public Task<string[]> SearchRecipes(string search, int count, int caloriesMin = 0, int caloriesMax = 0)
+        {
+            RecipeApi recipeApi = new RecipeApi();
+            return recipeApi.GetRecipe(search, count, caloriesMin, caloriesMax);
+        }
 
         public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
