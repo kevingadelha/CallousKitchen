@@ -20,10 +20,10 @@ class KitchenListActivity : AppCompatActivity() {
             Response.Listener { response ->
 
                 val json = JSONObject(response.toString())
-                val kitchensJson = json.getJSONArray("GetKitchensResult")
+                val kitchensJson = json.optJSONArray("GetKitchensResult")
                 var kitchens: ArrayList<Kitchen> = arrayListOf<Kitchen>()
 
-                for (i in 0 until kitchensJson.length()) {
+                for (i in 0 until (kitchensJson?.length() ?: 0)) {
 
                     var kitchenJson: JSONObject = kitchensJson.getJSONObject(i)
                     kitchens.add(Kitchen(kitchenJson.getInt("Id"),kitchenJson.getString("Name")))

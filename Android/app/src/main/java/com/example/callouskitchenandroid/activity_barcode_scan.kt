@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import android.content.Intent
 import androidx.core.content.ContextCompat
 import java.util.concurrent.Executors
 import androidx.camera.core.*
@@ -97,39 +98,31 @@ class activity_barcode_scan : AppCompatActivity() {
                                 result,this,
                                 Response.Listener { response ->
                                     val json = JSONObject(response.toString())
-                                    val foodName : String?
-                                    val quantity : String?
-                                    val expirationDate : String?
-                                    val status = json.getInt("status")
-                                    if (status == 1) { //1 means success
-                                        val product = json.getJSONObject("product")
-                                        foodName = product.optString("product_name")
-                                        quantity = product.optString("quantity")
-                                        expirationDate = product.optString("expiration_date")
-                                    }
-                                    else {
-                                        //If not succesful, just pass empty values
-                                        foodName = null
-                                        quantity = null
-                                        expirationDate = null
-                                    }
-                                        val quantityValue: Double?
+                                    val product = json.optJSONObject("product")
+                                    //If product is null these are all null
+                                    val foodName = product?.optString("product_name")
                                     //TODO: Find a better way to use quantity
-                                        if (quantity.isNullOrEmpty())
-                                            quantityValue = null
-                                        else
-                                            quantityValue =
-                                                quantity.filter { it.isDigit() }.toDoubleOrNull()
-                                        val expirationDateValue: LocalDate?
-                                        if (expirationDate.isNullOrEmpty())
-                                            expirationDateValue = null
-                                        else
-                                            expirationDateValue = LocalDate.parse(
-                                                expirationDate,
-                                                DateTimeFormatter.ofPattern("yyyy/MM/dd")
-                                            )
+                                    val quantity = ExtrapolateQuantity(product?.optString("quantity"))
+                                    val expirationDate = StringToDate(product?.optString("expiration_date"))
+                                    //To be implemented
+                                    val pictureUrl = product?.optString("image_thumb_url")
+                                    val categories = StringToArray(product?.optString("categories"))
                                     //TODO: Get these 3 values into an add food page
-                                    Log.i("superfood", "foodname:$foodName quantity:$quantityValue expiration:$expirationDateValue")
+
+                                    // Send values to "AddFoodActivity"
+                                    Log.i("superfood", "foodname:$foodName quantity:$quantity expiration:$expirationDate")
+
+                                    if (foodName == null && quantity == null && expirationDate == null)
+                                    {
+                                        Toast.makeText(applicationContext,"No data found", Toast.LENGTH_LONG).show()
+                                    }
+
+                                    val intent = Intent(this, AddFoodActivity::class.java)
+                                    intent.putExtra("FOODNAME", foodName)
+                                    intent.putExtra("QUANTITY", quantity)
+                                    intent.putExtra("EXPIRY", expirationDate)
+
+                                    startActivity(intent)
                                 })
                         }
                     })
@@ -151,6 +144,31 @@ class activity_barcode_scan : AppCompatActivity() {
             }
 
         }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun ExtrapolateQuantity(quantity : String?) : Double?{
+        if (quantity.isNullOrEmpty())
+            return null
+        else
+            return quantity.filter { it.isDigit() }.toDoubleOrNull()
+    }
+
+    private fun StringToDate(date : String?) : LocalDate?{
+        if (date.isNullOrEmpty())
+            return null
+        else
+            return LocalDate.parse(
+                date,
+                DateTimeFormatter.ofPattern("yyyy/MM/dd")
+            )
+    }
+
+    //Remove spaces and split
+    private fun StringToArray(commaDelimitedArray : String?) : Array<String>?{
+        if (commaDelimitedArray.isNullOrEmpty())
+            return null
+        else
+            return commaDelimitedArray.replace("\\s".toRegex(), "").split(",").toTypedArray()
     }
 
     //This gets run whenever there's new camera info
