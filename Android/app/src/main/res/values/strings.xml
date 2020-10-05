@@ -10,4 +10,11 @@
     <string name="create_account">Create Account</string>
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
+    <string name="food_name">food name</string>
+    <string name="quantity">quantity</string>
+    <string name="expiry_date">expiry date</string>
+    <string name="edit">Edit</string>
+    <string name="add_food">Add Food</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="scan_barcode">Scan Barcode</string>
 </resources>

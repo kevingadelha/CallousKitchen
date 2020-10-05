@@ -21,13 +21,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Button
+            android:id="@+id/btnScanBarcode"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/scan_barcode"
+            android:textSize="20sp"
+            android:textColor="?attr/textColor" />
+
         <EditText
             android:id="@+id/editAddFoodName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/textColor"
             android:ems="10"
-            android:hint="food name"
+            android:hint="@string/food_name"
             android:inputType="textPersonName"
             android:textSize="16sp"
             android:textColor="?attr/textColor"
@@ -39,7 +50,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/textColor"
             android:ems="10"
-            android:hint="quantity"
+            android:hint="@string/quantity"
             android:inputType="numberDecimal"
             android:textSize="16sp"
             android:textColor="?attr/textColor"
@@ -54,7 +65,7 @@
             android:inputType="date"
             android:textSize="16sp"
             android:textColor="?attr/textColor"
-            android:hint="expiry date"
+            android:hint="@string/expiry_date"
             android:textColorHint="?attr/metaTextColor"/>
 
         <Button
@@ -63,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorAccent"
-            android:text="Add"
+            android:text="@string/add_food"
             android:textColor="?attr/textColor" />
 
         <Button

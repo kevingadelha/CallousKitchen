@@ -2,6 +2,7 @@ package com.example.callouskitchenandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.content.Intent
 import android.Manifest
 import android.content.pm.PackageManager
 import android.util.Log
@@ -113,23 +114,35 @@ class activity_barcode_scan : AppCompatActivity() {
                                         quantity = null
                                         expirationDate = null
                                     }
-                                        val quantityValue: Double?
+                                    val quantityValue: Double?
                                     //TODO: Find a better way to use quantity
-                                        if (quantity.isNullOrEmpty())
-                                            quantityValue = null
-                                        else
-                                            quantityValue =
-                                                quantity.filter { it.isDigit() }.toDoubleOrNull()
-                                        val expirationDateValue: LocalDate?
-                                        if (expirationDate.isNullOrEmpty())
-                                            expirationDateValue = null
-                                        else
-                                            expirationDateValue = LocalDate.parse(
-                                                expirationDate,
-                                                DateTimeFormatter.ofPattern("yyyy/MM/dd")
-                                            )
-                                    //TODO: Get these 3 values into an add food page
+                                    if (quantity.isNullOrEmpty())
+                                        quantityValue = null
+                                    else
+                                        quantityValue =
+                                            quantity.filter { it.isDigit() }.toDoubleOrNull()
+                                    val expirationDateValue: LocalDate?
+                                    if (expirationDate.isNullOrEmpty())
+                                        expirationDateValue = null
+                                    else
+                                        expirationDateValue = LocalDate.parse(
+                                            expirationDate,
+                                            DateTimeFormatter.ofPattern("yyyy/MM/dd")
+                                        )
+                                    // Send values to "AddFoodActivity"
                                     Log.i("superfood", "foodname:$foodName quantity:$quantityValue expiration:$expirationDateValue")
+
+                                    if (foodName == null && quantityValue == null && expirationDateValue == null)
+                                    {
+                                        Toast.makeText(applicationContext,"No data found", Toast.LENGTH_LONG).show()
+                                    }
+
+                                    val intent = Intent(this, AddFoodActivity::class.java)
+                                    intent.putExtra("FOODNAME", foodName)
+                                    intent.putExtra("QUANTITY", quantityValue)
+                                    intent.putExtra("EXPIRY", expirationDateValue)
+
+                                    startActivity(intent)
                                 })
                         }
                     })
