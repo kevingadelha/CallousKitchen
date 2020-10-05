@@ -175,7 +175,7 @@ namespace BarcodeService
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IBarcodeService))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:59869/BarcodeService.svc");
+                return new System.ServiceModel.EndpointAddress("http://callouskitchen.canadaeast.cloudapp.azure.com:8080/BarcodeService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

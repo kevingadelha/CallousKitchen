@@ -707,6 +707,12 @@ namespace AccountService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/SearchRecipes", ReplyAction="http://tempuri.org/IAccountServiceMvc/SearchRecipesResponse")]
         System.Threading.Tasks.Task<string[]> SearchRecipesAsync(string search, int count, int caloriesMin, int caloriesMax);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AnotherTest", ReplyAction="http://tempuri.org/IAccountServiceMvc/AnotherTestResponse")]
+        bool AnotherTest();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AnotherTest", ReplyAction="http://tempuri.org/IAccountServiceMvc/AnotherTestResponse")]
+        System.Threading.Tasks.Task<bool> AnotherTestAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -929,6 +935,16 @@ namespace AccountService
             return base.Channel.SearchRecipesAsync(search, count, caloriesMin, caloriesMax);
         }
         
+        public bool AnotherTest()
+        {
+            return base.Channel.AnotherTest();
+        }
+        
+        public System.Threading.Tasks.Task<bool> AnotherTestAsync()
+        {
+            return base.Channel.AnotherTestAsync();
+        }
+        
         public virtual System.Threading.Tasks.Task OpenAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
@@ -957,7 +973,7 @@ namespace AccountService
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:59869/AccountServiceMvc.svc");
+                return new System.ServiceModel.EndpointAddress("http://callouskitchen.canadaeast.cloudapp.azure.com:8080/AccountServiceMvc.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
