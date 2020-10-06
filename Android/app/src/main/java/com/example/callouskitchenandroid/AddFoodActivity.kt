@@ -35,6 +35,7 @@ class AddFoodActivity : AppCompatActivity() {
         val btnAddFood = findViewById<Button>(R.id.btnAddFoodItem)
         val btnCancel = findViewById<Button>(R.id.btnCancelAddFood)
         val btnScanBarcode = findViewById<Button>(R.id.btnScanBarcode)
+        var kitchenId : Int = 0
 
         var cal = Calendar.getInstance()
 
@@ -44,6 +45,8 @@ class AddFoodActivity : AppCompatActivity() {
             var foodName : String?
             var quantity : String?
             var expiryDate : String?
+
+            kitchenId = intent.getIntExtra("kitchenId", 0)
 
             // Get the food name
             try
@@ -97,6 +100,7 @@ class AddFoodActivity : AppCompatActivity() {
         // Go to the barcode scanner
         btnScanBarcode.setOnClickListener{
             val intent = Intent(this@AddFoodActivity, activity_barcode_scan::class.java)
+            intent.putExtra("kitchenId",kitchenId)
             startActivity(intent)
         }
 

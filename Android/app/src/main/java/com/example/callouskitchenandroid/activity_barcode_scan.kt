@@ -116,11 +116,14 @@ class activity_barcode_scan : AppCompatActivity() {
                                     {
                                         Toast.makeText(applicationContext,"No data found", Toast.LENGTH_LONG).show()
                                     }
+                                    var kitchenId = intent.getIntExtra("kitchenId", 0)
 
                                     val intent = Intent(this, AddFoodActivity::class.java)
                                     intent.putExtra("FOODNAME", foodName)
                                     intent.putExtra("QUANTITY", quantity.toInt().toString())
                                     intent.putExtra("EXPIRY", expirationDate)
+
+                                    intent.putExtra("kitchenId",kitchenId)
 
                                     startActivity(intent)
                                 })
