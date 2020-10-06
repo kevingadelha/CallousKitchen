@@ -21,6 +21,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Button
+            android:id="@+id/btnScanBarcode"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Scan Barcode"
+            android:textSize="20sp"
+            android:textColor="?attr/textColor" />
+
         <EditText
             android:id="@+id/editAddFoodName"
             android:layout_width="match_parent"

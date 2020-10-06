@@ -17,8 +17,13 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import android.util.Log
 
 class AddFoodActivity : AppCompatActivity() {
+
+    companion object {
+        private const val ADD_FOOD_TAG = "AddFoodActivity"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +34,53 @@ class AddFoodActivity : AppCompatActivity() {
         val txtFoodExpiry = findViewById<EditText>(R.id.editTextAddFoodExpiry)
         val btnAddFood = findViewById<Button>(R.id.btnAddFoodItem)
         val btnCancel = findViewById<Button>(R.id.btnCancelAddFood)
+        val btnScanBarcode = findViewById<Button>(R.id.btnScanBarcode)
 
         var cal = Calendar.getInstance()
+
+        // Get the food data from the barcode scanner
+        if (intent != null)
+        {
+            var foodName : String?
+            var quantity : String?
+            var expiryDate : String?
+
+            // Get the food name
+            try
+            {
+                foodName = intent.getStringExtra("FOODNAME")
+                txtFoodName.setText(foodName)
+            }
+            catch (exc: Exception)
+            {
+                // Log.e(activity_barcode_scan.TAG, "Use case binding failed", exc)
+                Log.i(ADD_FOOD_TAG, "'FOODNAME' data could not be found", exc)
+            }
+
+            // Get the quantity
+            try
+            {
+                quantity = intent.getStringExtra("QUANTITY")
+                txtFoodQuantity.setText(quantity)
+            }
+            catch (exc: Exception)
+            {
+                // Log.e(activity_barcode_scan.TAG, "Use case binding failed", exc)
+                Log.i(ADD_FOOD_TAG, "'QUANTITY' data could not be found", exc)
+            }
+
+            // Get the expiry date
+            try
+            {
+                expiryDate = intent.getStringExtra("EXPIRY")
+                txtFoodExpiry.setText(expiryDate)
+            }
+            catch (exc: Exception)
+            {
+                // Log.e(activity_barcode_scan.TAG, "Use case binding failed", exc)
+                Log.i(ADD_FOOD_TAG, "'EXPIRY' data could not be found", exc)
+            }
+        }
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
@@ -42,6 +92,12 @@ class AddFoodActivity : AppCompatActivity() {
                 val sdf = SimpleDateFormat(myFormat, Locale.US)
                 txtFoodExpiry.setText(sdf.format(cal.getTime()))
             }
+        }
+
+        // Go to the barcode scanner
+        btnScanBarcode.setOnClickListener{
+            val intent = Intent(this@AddFoodActivity, activity_barcode_scan::class.java)
+            startActivity(intent)
         }
 
         btnAddFood.setOnClickListener{
