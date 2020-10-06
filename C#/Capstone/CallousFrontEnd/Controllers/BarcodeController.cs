@@ -8,19 +8,20 @@ namespace CallousFrontEnd.Controllers
 {
     public class BarcodeController : Controller
     {
-        BarcodeService.BarcodeServiceClient Client = new BarcodeService.BarcodeServiceClient();
+        //BarcodeService.BarcodeServiceClient Client = new BarcodeService.BarcodeServiceClient();
 
         public IActionResult Index() { 
             return View();
         }
-        public async Task<string> ReadBarcode(string barcode)
+      /*  public async Task<string> ReadBarcode(string barcode)
         {
-            string test = await Client.GetBarcodeDataAsync(barcode);
-             return await Client.GetBarcodeDataAsync(barcode);
+        //    string test = await Client.GetBarcodeDataAsync(barcode);
+          //   return await Client.GetBarcodeDataAsync(barcode);
         }
+      */
 
-        public string test() {
-            return Client.TestMethod();
+       // public string test() {
+//return Client.TestMethod();
         }
     }
-}
+//}

@@ -7,18 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 using CallousFrontEnd.Models;
 using AccountService;
 using System.Diagnostics;
+//using AccountServiceOther;
 
 namespace CallousFrontEnd.Controllers
 {
 
     public class UserController : Controller
     {
-        AccountService.AccountServiceMvcClient Client = new AccountService.AccountServiceMvcClient();
+            AccountService.AccountServiceMvcClient Client = new AccountService.AccountServiceMvcClient();
+        // AccountServiceOther.AccountServiceMvcClient Client = new AccountServiceMvcClient();
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateUser(Capstone.Classes.User user)
         {
-
+            
             int id = Client.CreateAccountWithEmail(user.Username, user.Password, user.Email);
             if (id > 0)
             {
@@ -194,7 +196,8 @@ namespace CallousFrontEnd.Controllers
 
             if (fId != 0)
             {
-                foodKitchen.Food = Client.GetFood(fId);
+                foodKitchen.Food = Client.GetFood(1);
+                
             }
             else
             {
