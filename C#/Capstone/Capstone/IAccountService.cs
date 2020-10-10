@@ -75,5 +75,16 @@ namespace Capstone
         [WebInvoke(Method = "GET")]
         List<SerializableUser> Test();
 
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", RequestFormat = WebMessageFormat.Json,
+         ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        Task<string[]> SearchRecipes(string search, int count, int caloriesMin = 0, int caloriesMax = 0);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+          ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        Task<Models.SerializedFoodFactsProductModel> GetAllOpenFoodFacts(string barcode);
+
     }
 }
