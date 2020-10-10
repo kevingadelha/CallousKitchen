@@ -2,15 +2,15 @@
 @if (Model.Count != 0)
 {
     <table>
-        @foreach (var kitchen in Model)
-        {
+     @*   @foreach (var kitchen in Model) *@
+        
 
             <tr>
-                <th><strong>@kitchen.Name</strong></th>
+                <th><strong>@Model[0].Name</strong></th>
 
             </tr>
 
-            @if (kitchen.Inventory.Count() != 0)
+            @if (Model[0].Inventory.Count() != 0)
             {
 
 
@@ -18,13 +18,13 @@
                     <th scope="col">Name</th>
                     <th scope="col">Quantity</th>
                 </tr>
-                @foreach (var food in kitchen.Inventory)
+                @foreach (var food in Model[0].Inventory)
                 {
                     <tr>
                         <td>@food.Name</td>
                         <td>@food.Quantity</td>
                         <td>
-                            <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@kitchen.Id">Edit</button>
+                            <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@Model[0].Id">Edit</button>
                             <button type="button" class="btn btn-primary eatFoodBtn" data-toggle="modal" data-target="#EatFood" data-food-Id="@food.Id">Eat</button>
                             <button type="button" class="btn btn-danger deleteFoodBtn" data-food-Id="@food.Id">Delete</button>
                         </td>
@@ -40,11 +40,11 @@
             }
             <tr>
                 <td>
-                    <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@kitchen.Id">Add Food</button>
+                    <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@Model[0].Id">Add Food</button>
                 </td>
             </tr>
 
-        }
+        
     </table>
 
 }
@@ -52,9 +52,9 @@ else
 {
     <em>You have no kitchens, add one</em>
 }
-<br />
+@*@<br />
 <button type="button" id="AddKitchen" class="btn btn-primary" data-toggle="modal" data-target="#KithenModel">Add Kitchen</button>
-
+    *@
 
 
 <div class="modal fade" role="dialog" id="AddFood">

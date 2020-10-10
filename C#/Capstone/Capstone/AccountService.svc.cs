@@ -37,6 +37,7 @@ namespace Capstone
                 {
                     User user = new User { Username = userName, Email = email, Password = pass, GuiltLevel = 1 };
                     User returnedUser = db.Users.Add(user);
+                    returnedUser.Kitchens.Add(new Kitchen { Name = "Kitchen" });
                     try
                     {
                         db.SaveChanges();

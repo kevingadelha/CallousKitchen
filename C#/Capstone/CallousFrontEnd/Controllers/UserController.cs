@@ -14,6 +14,7 @@ namespace CallousFrontEnd.Controllers
 
     public class UserController : Controller
     {
+
             AccountService.AccountServiceMvcClient Client = new AccountService.AccountServiceMvcClient();
         // AccountServiceOther.AccountServiceMvcClient Client = new AccountServiceMvcClient();
         [HttpPost]

@@ -281,4 +281,3 @@ C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Deb
 C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.genruntimeconfig.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csproj.CoreCompileInputs.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.genruntimeconfig.cache
-D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Connected Services\ServiceReference1\ConnectedService.json
