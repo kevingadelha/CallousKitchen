@@ -112,23 +112,7 @@
       "restore": {
         "projectUniqueName": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj",
         "projectName": "CapstoneService",
-        "projectPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "projectStyle": "PackagesConfig",
-        "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net472": {
-            "projectReferences": {}
-          }
-        },
-        "packagesConfigPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\packages.config"
+        "projectPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
       },
       "frameworks": {
         "net472": {}

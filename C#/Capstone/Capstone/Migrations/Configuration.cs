@@ -18,6 +18,13 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
+            // seed the storage
+            if (context.Storages.Count() == 0)
+            {
+                context.Storages.Add(new Classes.Storage { Name = "Fridge" });
+                context.Storages.Add(new Classes.Storage { Name = "Pantry" });
+                context.Storages.Add(new Classes.Storage { Name = "Freezer" });
+            }
         }
     }
 }
