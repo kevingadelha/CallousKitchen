@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
     <LinearLayout
-        android:id="@+id/linearLayoutAccount"
+        android:id="@+id/linearLayoutEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -27,10 +27,10 @@
         android:background="?attr/bgColorLight">
 
         <TextView
-            android:id="@+id/textViewFoodTitle"
+            android:id="@+id/textViewEmailTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/account"
+            android:text="@string/update_email"
             android:textColor="?attr/textColor"
             android:textSize="20sp" />
 
@@ -40,11 +40,41 @@
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/textColor"
             android:ems="10"
-            android:hint="@string/email"
-            android:inputType="textPersonName"
+            android:hint="@string/new_email"
+            android:inputType="textEmailAddress"
             android:textSize="16sp"
             android:textColor="?attr/textColor"
             android:textColorHint="?attr/metaTextColor" />
+
+        <Button
+            android:id="@+id/btnSaveEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/save_email"
+            android:textColor="?attr/textColor" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:background="?attr/bgColorLight">
+
+        <TextView
+            android:id="@+id/textViewPasswordTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_password"
+            android:textColor="?attr/textColor"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/editSettingPassword"
@@ -52,19 +82,31 @@
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/textColor"
             android:ems="10"
-            android:hint="@string/password"
+            android:hint="@string/new_password"
+            android:inputType="textPassword"
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/metaTextColor" />
+
+        <EditText
+            android:id="@+id/editSettingConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/textColor"
+            android:ems="10"
+            android:hint="@string/confirm_password"
             android:inputType="textPassword"
             android:textSize="16sp"
             android:textColor="?attr/textColor"
             android:textColorHint="?attr/metaTextColor" />
 
         <Button
-            android:id="@+id/btnSaveAccount"
+            android:id="@+id/btnResetPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorAccent"
-            android:text="Save"
+            android:text="@string/reset_password"
             android:textColor="?attr/textColor" />
 
     </LinearLayout>
@@ -100,6 +142,63 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/vegan"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <TextView
+            android:id="@+id/textViewAllergiesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/allergies_and_intolerances"
+            android:layout_marginVertical="5dp"
+            android:textColor="?attr/textColor"
+            android:textSize="18sp" />
+        <CheckBox
+            android:id="@+id/chkBxPeanuts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/peanuts"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <CheckBox
+            android:id="@+id/chkBxTreeNuts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tree_nuts"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <CheckBox
+            android:id="@+id/chkBxDairy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dairy"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <CheckBox
+            android:id="@+id/chkBxGluten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gluten_intolerance"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <CheckBox
+            android:id="@+id/chkBxShellfish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shellfish"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <CheckBox
+            android:id="@+id/chkBxFish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fish"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <CheckBox
+            android:id="@+id/chkBxEggs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/eggs"
             android:textColor="?attr/textColor"
             android:buttonTint="#fff" />
         <CheckBox
