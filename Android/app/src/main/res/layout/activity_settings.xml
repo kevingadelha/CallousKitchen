@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:id="@+id/linearLayoutAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:background="?attr/bgColorLight">
+
+        <TextView
+            android:id="@+id/textViewFoodTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account"
+            android:textColor="?attr/textColor"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editSettingEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/textColor"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/metaTextColor" />
+
+        <EditText
+            android:id="@+id/editSettingPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/textColor"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/metaTextColor" />
+
+        <Button
+            android:id="@+id/btnSaveAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Save"
+            android:textColor="?attr/textColor" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDiet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:background="?attr/bgColorLight">
+
+        <TextView
+            android:id="@+id/textViewDietRestrictionsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dietary_restrictions"
+            android:textColor="?attr/textColor"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/chkBxVegetarian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vegetarian"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <CheckBox
+            android:id="@+id/chkBxVegan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vegan"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <CheckBox
+            android:id="@+id/chkBxAllergy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/allergy_please_specify"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+
+        <EditText
+            android:id="@+id/editAllergyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/textColor"
+            android:ems="10"
+            android:hint="@string/allergy"
+            android:inputType="textPersonName"
+            android:layout_marginHorizontal="20dp"
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/metaTextColor" />
+
+        <Button
+            android:id="@+id/btnSaveDiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Save"
+            android:textColor="?attr/textColor" />
+
+        <Button
+            android:id="@+id/btnCancelEditDiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorDarkBtn"
+            android:text="@string/cancel"
+            android:textColor="?attr/textColor" />
+    </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

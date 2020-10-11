@@ -34,13 +34,9 @@ var kitchenId : Int = 0
                         foods.add(food)
 
                     }
-
-
-
                 val foodListAdapter = FoodListAdapter(this, foods)
                 listViewFood.adapter = foodListAdapter
             })
-
 
         //showAllFood()
 

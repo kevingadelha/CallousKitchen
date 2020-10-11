@@ -10,4 +10,10 @@
     <string name="create_account">Create Account</string>
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="vegan">Vegan</string>
+    <string name="allergy_please_specify">Allergy (please specify)</string>
+    <string name="account">Account</string>
+    <string name="dietary_restrictions">Dietary Restrictions</string>
+    <string name="allergy">allergy</string>
 </resources>
