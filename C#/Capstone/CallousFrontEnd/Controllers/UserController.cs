@@ -58,6 +58,7 @@ namespace CallousFrontEnd.Controllers
                     HttpContext.Response.Cookies.Append("Username", login.Username);
                     HttpContext.Response.Cookies.Append("Password", login.Password);
                 }
+
                 return AccountView(user);
             }
             return RedirectToAction("LoginView");
@@ -115,10 +116,19 @@ namespace CallousFrontEnd.Controllers
         }
 
 
+        // Author Peter Szadurski
         public ActionResult KitchenPartialView(List<SerializableKitchen> kitchens)
         {
             ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            return PartialView("UserKitchenPartialView", kitchens);
+
+
+            KitchenModel kM = new KitchenModel();
+            kM.Kitchens = kitchens;
+            kM.Storages = Client.GetStorages().ToList();
+            
+
+
+            return PartialView("UserKitchenPartialView", kM);
         }
 
         [HttpPost]
@@ -161,12 +171,13 @@ namespace CallousFrontEnd.Controllers
 
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
+            
 
             try
             {
                 if (foodKitchen.Food.Id == 0) // add food
                 {
-                    Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
+                    Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate, foodKitchen.Food.StorageId);
                 }
                 else // edit food
                 {
@@ -194,6 +205,8 @@ namespace CallousFrontEnd.Controllers
             ViewBag.KitchenId = kId;
             FoodKitchen foodKitchen = new FoodKitchen();
             foodKitchen.KitchenId = kId;
+            ViewBag.StorageTypesList = Client.GetStorages();
+
 
             if (fId != 0)
             {

@@ -170,6 +170,10 @@
     <Compile Include="Migrations\202010100654321_storageInFood.designer.cs">
       <DependentUpon>202010100654321_storageInFood.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010120341339_storageWithIds.cs" />
+    <Compile Include="Migrations\202010120341339_storageWithIds.designer.cs">
+      <DependentUpon>202010120341339_storageWithIds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FoodFactsModel.cs" />
     <Compile Include="Models\FoodFactsProductModel.cs" />
@@ -208,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010100654321_storageInFood.resx">
       <DependentUpon>202010100654321_storageInFood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010120341339_storageWithIds.resx">
+      <DependentUpon>202010120341339_storageWithIds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

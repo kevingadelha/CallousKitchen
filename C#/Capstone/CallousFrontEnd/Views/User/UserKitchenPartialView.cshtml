@@ -1,50 +1,53 @@
 ﻿@model List<AccountService.SerializableKitchen>
+@{ }
 @if (Model.Count != 0)
 {
     <table>
-     @*   @foreach (var kitchen in Model) *@
-        
-
-            <tr>
-                <th><strong>@Model[0].Name</strong></th>
-
-            </tr>
-
-            @if (Model[0].Inventory.Count() != 0)
+        @*   @foreach (var kitchen in Model) *@
+        @if (Model[0].Inventory.Count() != 0)
+        {
+            @*hardcoded amount for now, TODO: Change it*@
+            @for (int i = 1; i < 5; i++)
             {
-
-
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Quantity</th>
-                </tr>
-                @foreach (var food in Model[0].Inventory)
+                @if (Model[0].Inventory.Where(x => x.StorageId == i).Count() != 0)
                 {
                     <tr>
-                        <td>@food.Name</td>
-                        <td>@food.Quantity</td>
-                        <td>
-                            <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@Model[0].Id">Edit</button>
-                            <button type="button" class="btn btn-primary eatFoodBtn" data-toggle="modal" data-target="#EatFood" data-food-Id="@food.Id">Eat</button>
-                            <button type="button" class="btn btn-danger deleteFoodBtn" data-food-Id="@food.Id">Delete</button>
-                        </td>
+                        <th><strong>@Model[0].Inventory.Where(x => x.StorageId == i).FirstOrDefault().Storage.Name</strong></th>
                     </tr>
                 }
 
 
-            }
-            else
-            {
-                <tr><td><em>You have no food, add some</em></td></tr>
 
-            }
-            <tr>
-                <td>
-                    <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@Model[0].Id">Add Food</button>
-                </td>
-            </tr>
 
-        
+                    @foreach (var food in Model[0].Inventory.Where(x=> x.StorageId == i))
+                    {
+                        <tr>
+                            <td>@food.Name</td>
+                            <td>@food.Quantity</td>
+                            <td>
+                                <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@Model[0].Id">Edit</button>
+                                <button type="button" class="btn btn-primary eatFoodBtn" data-toggle="modal" data-target="#EatFood" data-food-Id="@food.Id">Eat</button>
+                                <button type="button" class="btn btn-danger deleteFoodBtn" data-food-Id="@food.Id">Delete</button>
+                            </td>
+                        </tr>
+                    }
+
+
+                }
+            
+        }
+        else
+        {
+            <tr><td><em>You have no food, add some</em></td></tr>
+
+        }
+        <tr>
+            <td>
+                <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@Model[0].Id">Add Food</button>
+            </td>
+        </tr>
+
+
     </table>
 
 }
@@ -53,8 +56,8 @@ else
     <em>You have no kitchens, add one</em>
 }
 @*@<br />
-<button type="button" id="AddKitchen" class="btn btn-primary" data-toggle="modal" data-target="#KithenModel">Add Kitchen</button>
-    *@
+    <button type="button" id="AddKitchen" class="btn btn-primary" data-toggle="modal" data-target="#KithenModel">Add Kitchen</button>
+*@
 
 
 <div class="modal fade" role="dialog" id="AddFood">

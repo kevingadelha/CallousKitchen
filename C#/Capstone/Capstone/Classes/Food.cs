@@ -15,7 +15,8 @@ namespace Capstone.Classes
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Barcode { get; set; }
-        public virtual Storage StorageType { get; set; }
+		public int StorageId {get; set ;}
+        public virtual Storage Storage { get; set; }
         public Nullable<DateTime> ExpiryDate { get; set; }
 		public double Quantity { get; set; }
 	}
@@ -30,7 +31,9 @@ namespace Capstone.Classes
 		[DataMember]
 		public string Barcode { get; set; }
 		[DataMember]
-        public virtual Storage StorageType { get; set; }
+		public int StorageId { get; set; }
+		[DataMember]
+        public SerializableStorage Storage { get; set; }
 		[DataMember]
 		public Nullable<DateTime> ExpiryDate { get; set; }
 		[DataMember]
@@ -42,8 +45,8 @@ namespace Capstone.Classes
 			Barcode = food.Barcode;
 			ExpiryDate = food.ExpiryDate;
 			Quantity = food.Quantity;
-			StorageType = food.StorageType;
-
+			StorageId = food.StorageId;
+			Storage = new SerializableStorage(food.Storage);
 		}
 	}
 }

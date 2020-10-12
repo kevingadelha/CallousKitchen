@@ -80,7 +80,9 @@ namespace AccountService
         
         private double QuantityField;
         
-        private AccountService.Storage StorageTypeField;
+        private AccountService.SerializableStorage StorageField;
+        
+        private int StorageIdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Barcode
@@ -148,23 +150,36 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public AccountService.Storage StorageType
+        public AccountService.SerializableStorage Storage
         {
             get
             {
-                return this.StorageTypeField;
+                return this.StorageField;
             }
             set
             {
-                this.StorageTypeField = value;
+                this.StorageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StorageId
+        {
+            get
+            {
+                return this.StorageIdField;
+            }
+            set
+            {
+                this.StorageIdField = value;
             }
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Storage", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
-    public partial class Storage : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="SerializableStorage", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class SerializableStorage : object
     {
         
         private int IdField;
@@ -587,7 +602,9 @@ namespace AccountService
         
         private double QuantityField;
         
-        private AccountService.Storage StorageTypeField;
+        private AccountService.Storage StorageField;
+        
+        private int StorageIdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Barcode
@@ -655,15 +672,65 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public AccountService.Storage StorageType
+        public AccountService.Storage Storage
         {
             get
             {
-                return this.StorageTypeField;
+                return this.StorageField;
             }
             set
             {
-                this.StorageTypeField = value;
+                this.StorageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StorageId
+        {
+            get
+            {
+                return this.StorageIdField;
+            }
+            set
+            {
+                this.StorageIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Storage", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class Storage : object
+    {
+        
+        private int IdField;
+        
+        private string NameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
             }
         }
     }
@@ -722,10 +789,10 @@ namespace AccountService
         System.Threading.Tasks.Task<AccountService.SerializedFoodFactsProductModel> GetAllOpenFoodFactsAsync(string barcode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
-        bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
+        bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate, int storageId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
-        System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
+        System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate, int storageId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EatFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EatFoodResponse")]
         bool EatFood(int id, int quantity);
@@ -780,6 +847,12 @@ namespace AccountService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AnotherTest", ReplyAction="http://tempuri.org/IAccountServiceMvc/AnotherTestResponse")]
         System.Threading.Tasks.Task<bool> AnotherTestAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetStorages", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetStoragesResponse")]
+        AccountService.Storage[] GetStorages();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetStorages", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetStoragesResponse")]
+        System.Threading.Tasks.Task<AccountService.Storage[]> GetStoragesAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -912,14 +985,14 @@ namespace AccountService
             return base.Channel.GetAllOpenFoodFactsAsync(barcode);
         }
         
-        public bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
+        public bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate, int storageId)
         {
-            return base.Channel.AddFood(kitchenId, name, quantity, expiryDate);
+            return base.Channel.AddFood(kitchenId, name, quantity, expiryDate, storageId);
         }
         
-        public System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
+        public System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate, int storageId)
         {
-            return base.Channel.AddFoodAsync(kitchenId, name, quantity, expiryDate);
+            return base.Channel.AddFoodAsync(kitchenId, name, quantity, expiryDate, storageId);
         }
         
         public bool EatFood(int id, int quantity)
@@ -1010,6 +1083,16 @@ namespace AccountService
         public System.Threading.Tasks.Task<bool> AnotherTestAsync()
         {
             return base.Channel.AnotherTestAsync();
+        }
+        
+        public AccountService.Storage[] GetStorages()
+        {
+            return base.Channel.GetStorages();
+        }
+        
+        public System.Threading.Tasks.Task<AccountService.Storage[]> GetStoragesAsync()
+        {
+            return base.Channel.GetStoragesAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
