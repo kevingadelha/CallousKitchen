@@ -69,6 +69,19 @@ namespace Capstone
             return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.Id ?? -1);
         }
 
+        public async Task<bool> EditUserPreferences(int id, string username, string email, string password, bool vegetarian, bool vegan, bool calorieTracker, List<string> allergies)
+        {
+            var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+            user.Username = username;
+            user.Email = email;
+            user.Password = password;
+            user.Vegan = vegan;
+            user.Vegetarian = vegetarian;
+                user.Allergies = string.Join("|", allergies);
+            await db.SaveChangesAsync();
+            return true;
+        }
+
         public int AddKitchen(int userId, string name)
         {
             Kitchen kitchen = db.Kitchens.Add(new Kitchen() { Name = name });
@@ -98,7 +111,14 @@ namespace Capstone
         public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
-                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate }));
+                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate, Vegetarian = -1, Vegan = -1, Calories = -1 }));
+            await db.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> AddFoodComplete(int kitchenId, string name, int quantity, DateTime? expiryDate, int vegan, int vegetarian, int calories, List<string> ingredients, List<string> traces)
+        {
+            db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
+                .Add(db.Foods.Add(new Food(name,expiryDate,quantity,vegan,vegetarian,ingredients,traces,calories)));
             await db.SaveChangesAsync();
             return true;
         }

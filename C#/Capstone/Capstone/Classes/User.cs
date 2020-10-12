@@ -10,16 +10,38 @@ namespace Capstone.Classes
 {
     public class User
     {
-        [Key]
+		public User()
+		{
+		}
+
+		public User(string username, string email, string password, int guiltLevel, bool vegetarian, bool vegan, bool calorieTracker, List<Kitchen> kitchens, List<string> allergies)
+		{
+			Username = username;
+			Email = email;
+			Password = password;
+			GuiltLevel = guiltLevel;
+			Vegetarian = vegetarian;
+			Vegan = vegan;
+			CalorieTracker = calorieTracker;
+			Kitchens = kitchens;
+			Allergies = string.Join("|", allergies);
+		}
+
+		[Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public int GuiltLevel { get; set; }
+        public bool Vegetarian { get; set; }
+        public bool Vegan { get; set; }
+        public bool CalorieTracker { get; set; }
         public virtual List<Kitchen> Kitchens { get; set; }
-        public virtual List<string> DietTags { get; set; }
-	}
+        //While it's not pretty, the suggested course of action I found online was to use a delimited string to save a list of strings
+        //This is because entityframework is to dumb to generate a table for a list of strings
+        public string Allergies { get; set; }
+    }
 	[DataContract]
 	public class SerializableUser
 	{
@@ -36,7 +58,7 @@ namespace Capstone.Classes
         [DataMember]
         public List<SerializableKitchen> Kitchens { get; set; }
         [DataMember]
-        public List<string> DietTags { get; set; }
+        public List<string> Allergies { get; set; }
         public SerializableUser(User user)
 		{
             Id = user.Id;
@@ -45,7 +67,7 @@ namespace Capstone.Classes
             Password = user.Password;
             GuiltLevel = user.GuiltLevel;
             Kitchens = user.Kitchens.Select(o => new SerializableKitchen(o)).ToList();
-            DietTags = user.DietTags;
+            Allergies = user.Allergies.Split('|').ToList();
 		}
 	}
 }

@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import java.util.concurrent.Executors
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.os.trace
 import com.android.volley.Response
 import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
@@ -106,11 +107,28 @@ class activity_barcode_scan : AppCompatActivity() {
                                     quantity = 1.0
                                     val expirationDate = StringToDate(product?.optString("expiration_date"))
                                     //To be implemented
-                                    val pictureUrl = product?.optString("image_thumb_url")
-                                    val categories = StringToArray(product?.optString("categories"))
-
+                                    val ingredientsAnalysis = product?.optJSONArray("ingredients_analysis_tags")
+                                    //1 means true, 0 means false, -1 means unknown
+                                    var vegan : Int? = -1
+                                    var vegetarian : Int? = -1
+                                    for (i in 0 until (ingredientsAnalysis?.length() ?: 0)) {
+                                        val item = RemovePrefix(ingredientsAnalysis!![i].toString())
+                                        when (item) {
+                                            "vegan" -> vegan = 1
+                                            "non-vegan" -> vegan = 0
+                                            "vegan-status-unknown" -> vegan = -1
+                                            "vegetarian" -> vegetarian = 1
+                                            "non-vegetarian" -> vegetarian = 0
+                                            "vegetarian-status-unknown" -> vegetarian = -1
+                                        }
+                                    }
+                                    var traces = StringToArray(product?.optString("traces"))
+                                    var ingredientsTags = product?.optJSONArray("ingredients_tags")
+                                    var ingredients = arrayOf<String>()
+                                    for (i in 0 until (ingredientsTags?.length() ?: 0)) {
+                                        ingredients.plus(FormatString(ingredientsTags!![i].toString()))
+                                    }
                                     // Send values to "AddFoodActivity"
-                                    Log.i("superfood", "foodname:$foodName quantity:$quantity expiration:$expirationDate")
 
                                     if (foodName == null && quantity == null && expirationDate == null)
                                     {
@@ -122,6 +140,11 @@ class activity_barcode_scan : AppCompatActivity() {
                                     intent.putExtra("FOODNAME", foodName)
                                     intent.putExtra("QUANTITY", quantity.toInt().toString())
                                     intent.putExtra("EXPIRY", expirationDate)
+                                    intent.putExtra("VEGAN", vegan)
+                                    intent.putExtra("VEGETARIAN", vegetarian)
+                                    intent.putExtra("INGREDIENTS", ingredients)
+                                    intent.putExtra("TRACES", traces)
+
 
                                     intent.putExtra("kitchenId",kitchenId)
 
@@ -165,12 +188,27 @@ class activity_barcode_scan : AppCompatActivity() {
             )
     }
 
+    private fun FormatString(theString : String) : String{
+        var formattedString = RemovePrefix(theString)
+        formattedString = formattedString.trim()
+        formattedString = formattedString.replace('-',' ')
+        formattedString = formattedString.replace('_',' ')
+        return formattedString
+    }
+
+    private fun RemovePrefix(textWithPrefix : String) : String{
+        val colonLocation = textWithPrefix.indexOf(':')
+        if (colonLocation != -1)
+            return textWithPrefix.substring(colonLocation+1,textWithPrefix.length)
+        return textWithPrefix
+    }
+
     //Remove spaces and split
     private fun StringToArray(commaDelimitedArray : String?) : Array<String>?{
         if (commaDelimitedArray.isNullOrEmpty())
             return null
         else
-            return commaDelimitedArray.replace("\\s".toRegex(), "").split(",").toTypedArray()
+            return commaDelimitedArray.split(",").map { FormatString(it) }.toTypedArray()
     }
 
     //This gets run whenever there's new camera info

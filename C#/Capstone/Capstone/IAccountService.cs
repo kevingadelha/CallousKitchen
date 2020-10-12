@@ -58,11 +58,20 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        Task<bool> AddFoodComplete(int kitchenId, string name, int quantity, DateTime? expiryDate, int vegan, int vegetarian, int calories, List<string> ingredients, List<string> traces);
+        [OperationContract]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         Task<bool> EatFood(int id, int quantity);
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate);
+        [OperationContract]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        Task<bool> EditUserPreferences(int id, string username, string email, string password, bool vegetarian, bool vegan, bool calorieTracker, List<string> allergies);
+
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]

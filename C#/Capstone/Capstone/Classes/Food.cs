@@ -10,6 +10,22 @@ namespace Capstone.Classes
 {
 	public class Food
 	{
+		public Food()
+		{
+		}
+
+		public Food(string name, DateTime? expiryDate, double quantity, int vegan, int vegetarian, List<string> ingredients, List<string> traces, int calories)
+		{
+			Name = name;
+			ExpiryDate = expiryDate;
+			Quantity = quantity;
+			Vegan = vegan;
+			Vegetarian = vegetarian;
+			Ingredients = string.Join("|",ingredients);
+			Traces = string.Join("|", traces);
+			Calories = calories;
+		}
+
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
@@ -18,6 +34,11 @@ namespace Capstone.Classes
         public virtual Storage StorageType { get; set; }
         public Nullable<DateTime> ExpiryDate { get; set; }
 		public double Quantity { get; set; }
+		public int Vegan { get; set; }
+		public int Vegetarian { get; set; }
+		public string Ingredients { get; set; }
+		public string Traces { get; set; }
+		public int Calories { get; set; }
 	}
 
 	[DataContract]
@@ -35,6 +56,16 @@ namespace Capstone.Classes
 		public Nullable<DateTime> ExpiryDate { get; set; }
 		[DataMember]
 		public double Quantity { get; set; }
+		[DataMember]
+		public int Vegan { get; set; }
+		[DataMember]
+		public int Vegetarian { get; set; }
+		[DataMember]
+		public List<string> Ingredients { get; set; }
+		[DataMember]
+		public List<string> Traces { get; set; }
+		[DataMember]
+		public int Calories { get; set; }
 		public SerializableFood(Food food)
 		{
 			Id = food.Id;
@@ -43,7 +74,12 @@ namespace Capstone.Classes
 			ExpiryDate = food.ExpiryDate;
 			Quantity = food.Quantity;
 			StorageType = food.StorageType;
-
+			Vegan = food.Vegan;
+			Vegetarian = food.Vegetarian;
+			Calories = food.Calories;
+			//I hope I don't have to make a deep copy of this
+			Ingredients = food.Ingredients.Split('|').ToList();
+			Traces = food.Traces.Split('|').ToList();
 		}
 	}
 }

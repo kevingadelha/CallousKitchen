@@ -18,6 +18,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import android.util.Log
+import org.json.JSONArray
 
 class AddFoodActivity : AppCompatActivity() {
 
@@ -38,51 +39,71 @@ class AddFoodActivity : AppCompatActivity() {
         var kitchenId : Int = 0
 
         var cal = Calendar.getInstance()
+        var foodName : String?
+        var quantity : String?
+        var expiryDate : String?
+        var vegan : Int? = -1
+        var vegetarian : Int? = -1
+        var ingredients = arrayOf<String>()
+        var traces = arrayOf<String>()
 
         // Get the food data from the barcode scanner
         if (intent != null)
         {
-            var foodName : String?
-            var quantity : String?
-            var expiryDate : String?
 
             kitchenId = intent.getIntExtra("kitchenId", 0)
 
-            // Get the food name
             try
             {
                 foodName = intent.getStringExtra("FOODNAME")
                 txtFoodName.setText(foodName)
             }
             catch (exc: Exception)
-            {
-                // Log.e(activity_barcode_scan.TAG, "Use case binding failed", exc)
-                Log.i(ADD_FOOD_TAG, "'FOODNAME' data could not be found", exc)
-            }
+            {}
 
-            // Get the quantity
             try
             {
                 quantity = intent.getStringExtra("QUANTITY")
                 txtFoodQuantity.setText(quantity)
             }
             catch (exc: Exception)
-            {
-                // Log.e(activity_barcode_scan.TAG, "Use case binding failed", exc)
-                Log.i(ADD_FOOD_TAG, "'QUANTITY' data could not be found", exc)
-            }
+            {}
 
-            // Get the expiry date
             try
             {
                 expiryDate = intent.getStringExtra("EXPIRY")
                 txtFoodExpiry.setText(expiryDate)
             }
             catch (exc: Exception)
+            {}
+
+            try
             {
-                // Log.e(activity_barcode_scan.TAG, "Use case binding failed", exc)
-                Log.i(ADD_FOOD_TAG, "'EXPIRY' data could not be found", exc)
+                vegan = intent.getIntExtra("VEGAN",-1)
             }
+            catch (exc: Exception)
+            {}
+
+            try
+            {
+                vegetarian = intent.getIntExtra("VEGETARIAN",-1)
+            }
+            catch (exc: Exception)
+            {}
+
+            try
+            {
+                ingredients = intent.getStringArrayExtra("INGREDIENTS")
+            }
+            catch (exc: Exception)
+            {}
+
+            try
+            {
+                traces = intent.getStringArrayExtra("TRACES")
+            }
+            catch (exc: Exception)
+            {}
         }
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
@@ -126,15 +147,16 @@ class AddFoodActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
                ServiceHandler.callAccountService(
-                    "AddFood",hashMapOf(
+                    "AddFoodComplete",hashMapOf(
                        "kitchenId" to intent.getIntExtra("kitchenId", 0)
                        ,"name" to foodName, "quantity" to quantity
-                       , "expiryDate" to ServiceHandler.serializeDate(expiryDate)),this,
+                       , "expiryDate" to ServiceHandler.serializeDate(expiryDate),
+                       "vegan" to vegan, "vegetarian" to vegetarian,
+                   "calories" to -1, "ingredients" to JSONArray(ingredients),
+                   "traces" to JSONArray(traces)),this,
                     Response.Listener { response ->
                         val json = JSONObject(response.toString())
-                        val kitchenId = json.getBoolean("AddFoodResult")
-                        // go to food inventory
-                        println(kitchenId)
+                        val kitchenId = json.getBoolean("AddFoodCompleteResult")
                         // return to the food list
                         val intent = Intent(this@AddFoodActivity, InventoryActivity::class.java)
                         startActivity(intent)
