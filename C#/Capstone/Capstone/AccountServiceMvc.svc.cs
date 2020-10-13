@@ -37,6 +37,7 @@ namespace Capstone
                 {
                     User user = new User { Username = userName, Email = email, Password = pass, GuiltLevel = 1 };
                     User returnedUser = db.Users.Add(user);
+                    returnedUser.Kitchens.Add(new Kitchen { Name = "Kitchen" });
                     try
                     {
                         db.SaveChanges();
@@ -130,10 +131,11 @@ namespace Capstone
             return recipeApi.GetRecipe(search, count, caloriesMin, caloriesMax);
         }
 
-        public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
+        public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate, int storageId)
         {
+
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
-                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate }));
+                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate,  StorageId = storageId }));
             await db.SaveChangesAsync();
             return true;
         }
@@ -284,7 +286,11 @@ namespace Capstone
             return true;
         }
 
+        public IEnumerable<Storage> GetStorages()
+        {
+            return db.Storages;
 
+        }
         public Food GetFood(int id)
         {
             return db.Foods.Where(x => x.Id == id).FirstOrDefault();

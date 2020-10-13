@@ -52,3 +52,4 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storage.resources
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storageInFood.resources
+D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storageWithIds.resources

@@ -37,7 +37,9 @@ class CreateAccountActivity : AppCompatActivity() {
                         "CreateAccount",hashMapOf("userName" to username,"pass" to password),this,
                         Response.Listener { response ->
                             val json = JSONObject(response.toString())
-                            val userId = json.getInt("CreateAccountResult")
+                            //val userId = json.getInt("CreateAccountResult")
+                            val response = json.getJSONObject("CreateAccountResult")
+                            val userId = response.getInt("Id")
 
                             if (userId != -1){
                                 ServiceHandler.userId = userId

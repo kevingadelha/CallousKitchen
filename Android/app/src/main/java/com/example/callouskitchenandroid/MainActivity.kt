@@ -28,12 +28,14 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext,"Please enter your username and password", Toast.LENGTH_LONG).show()
             else
             {
-
+/*
                 ServiceHandler.callAccountService(
                     "LoginAccount",hashMapOf("userName" to txtName.text.toString(),"pass" to txtPassword.text.toString()),this,
                     Response.Listener { response ->
                         val json = JSONObject(response.toString())
-                        val userId = json.getInt("LoginAccountResult")
+                        //val userId = json.getInt("LoginAccountResult")
+                        val response = json.getJSONObject("LoginAccountResult")
+                        val userId = response.getInt("Id")
 
                         if (userId != -1){
                             ServiceHandler.userId = userId
@@ -44,8 +46,9 @@ class MainActivity : AppCompatActivity() {
                             Toast.makeText(applicationContext,"Username or password is incorrect", Toast.LENGTH_LONG).show()
                         }
 
-                    })
-
+                    })*/
+                val intent = Intent(this@MainActivity, KitchenListActivity::class.java)
+                startActivity(intent)
 
             }
 

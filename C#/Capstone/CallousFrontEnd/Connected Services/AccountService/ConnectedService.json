@@ -3,7 +3,7 @@
   "Version": "15.0.40203.910",
   "ExtendedData": {
     "inputs": [
-      "http://callouskitchen.canadaeast.cloudapp.azure.com:8080/AccountServiceMvc.svc?wsdl"
+      "http://localhost:59869/AccountServiceMvc.svc?wsdl"
     ],
     "collectionTypes": [
       "System.Array",

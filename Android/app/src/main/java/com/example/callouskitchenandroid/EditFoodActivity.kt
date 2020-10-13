@@ -39,8 +39,6 @@ class EditFoodActivity : AppCompatActivity() {
         txtFoodName.setText(food.name)
         txtFoodQuantity.setText(food.quantity.toString())
 
-
-
         var cal = Calendar.getInstance()
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {

@@ -57,7 +57,7 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate);
+        Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate, int storageId);
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
@@ -96,5 +96,8 @@ namespace Capstone
 
         [OperationContract]
         bool AnotherTest();
+
+        [OperationContract]
+        IEnumerable<Storage> GetStorages();
     }
 }
