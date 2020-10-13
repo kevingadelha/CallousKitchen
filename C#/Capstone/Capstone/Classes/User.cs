@@ -14,6 +14,17 @@ namespace Capstone.Classes
 		{
 		}
 
+		public User(string username, string email, string password)
+		{
+			Username = username;
+			Email = email;
+			Password = password;
+            GuiltLevel = 1;
+            Vegetarian = false;
+            Vegan = false;
+            CalorieTracker = false;
+        }
+
 		public User(string username, string email, string password, int guiltLevel, bool vegetarian, bool vegan, bool calorieTracker, List<Kitchen> kitchens, List<string> allergies)
 		{
 			Username = username;
@@ -75,8 +86,8 @@ namespace Capstone.Classes
                 GuiltLevel = user.GuiltLevel;
                 Vegetarian = user.Vegetarian;
                 Vegan = user.Vegan;
-                Kitchens = user.Kitchens.Select(o => new SerializableKitchen(o)).ToList();
-                Allergies = user.Allergies.Split('|').ToList();
+                Kitchens = user?.Kitchens?.Select(o => new SerializableKitchen(o))?.ToList();
+                Allergies = user.Allergies?.Split('|')?.ToList();
             }
             else
                 Id = -1;
