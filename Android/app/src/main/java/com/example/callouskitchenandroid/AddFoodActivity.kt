@@ -18,6 +18,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import android.util.Log
+import kotlinx.android.synthetic.main.activity_kitchen_list.*
 
 class AddFoodActivity : AppCompatActivity() {
 
@@ -28,6 +29,9 @@ class AddFoodActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_food)
+
+        // set up bottom nav bar
+        setNavigation()
 
         val txtFoodName = findViewById<EditText>(R.id.editAddFoodName)
         val txtFoodQuantity = findViewById<EditText>(R.id.editAddFoodQuantity)
@@ -157,5 +161,31 @@ class AddFoodActivity : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
+    }
+
+    private fun setNavigation() {
+        bottomNav.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.navigation_recipes -> {
+                    // go to recipes
+                    val intent = Intent(this@AddFoodActivity, RecipeSearchActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_inventory -> {
+                    // go to the categories list
+                    val intent = Intent(this@AddFoodActivity, KitchenListActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_settings -> {
+                    // go to settings
+                    val intent = Intent(this@AddFoodActivity, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

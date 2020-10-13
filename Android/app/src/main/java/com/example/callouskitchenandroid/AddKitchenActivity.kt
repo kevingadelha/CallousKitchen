@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.Response
+import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 
 class AddKitchenActivity : AppCompatActivity() {
@@ -14,6 +15,9 @@ class AddKitchenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_kitchen)
+
+        // set up bottom nav bar
+        setNavigation()
 
         val createButton = findViewById<Button>(R.id.btnCreateKitchen)
         val cancelButton = findViewById<Button>(R.id.btnCancelCreateKitchen)
@@ -46,5 +50,32 @@ class AddKitchenActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+
+    private fun setNavigation() {
+        bottomNav.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.navigation_recipes -> {
+                    // go to recipes
+                    val intent = Intent(this@AddKitchenActivity, RecipeSearchActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_inventory -> {
+                    // go to the categories list
+                    val intent = Intent(this@AddKitchenActivity, KitchenListActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_settings -> {
+                    // go to settings
+                    val intent = Intent(this@AddKitchenActivity, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

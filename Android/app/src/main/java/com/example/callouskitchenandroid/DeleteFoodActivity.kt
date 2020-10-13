@@ -17,6 +17,9 @@ class DeleteFoodActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delete_food)
 
+        // set up bottom nav bar
+        setNavigation()
+
         val txtFoodName = findViewById<TextView>(R.id.textViewFoodTitleDelete)
         val txtFoodQuantity = findViewById<EditText>(R.id.editDeleteFoodQuantity)
         val btnEatFood = findViewById<Button>(R.id.btnDeleteFoodItem)
@@ -55,6 +58,32 @@ class DeleteFoodActivity : AppCompatActivity() {
         btnCancel.setOnClickListener{
             val intent = Intent(this@DeleteFoodActivity, InventoryActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun setNavigation() {
+        bottomNav.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.navigation_recipes -> {
+                    // go to recipes
+                    val intent = Intent(this@DeleteFoodActivity, RecipeSearchActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_inventory -> {
+                    // go to the categories list
+                    val intent = Intent(this@DeleteFoodActivity, KitchenListActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_settings -> {
+                    // go to settings
+                    val intent = Intent(this@DeleteFoodActivity, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
         }
     }
 }

@@ -8,12 +8,16 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.Response
+import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        // set up bottom nav bar
+        setNavigation()
 
         val txtEmail = findViewById<EditText>(R.id.editSettingEmail)
         val btnSaveEmail = findViewById<Button>(R.id.btnSaveEmail)
@@ -93,5 +97,29 @@ class SettingsActivity : AppCompatActivity() {
                 txtAllergy.isEnabled = false
         }
 
+    }
+
+    private fun setNavigation() {
+        bottomNav.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.navigation_recipes -> {
+                    // go to recipes
+                    val intent = Intent(this@SettingsActivity, RecipeSearchActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_inventory -> {
+                    // go to the categories list
+                    val intent = Intent(this@SettingsActivity, KitchenListActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_settings -> {
+                    // go to settings (already here)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

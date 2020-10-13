@@ -14,6 +14,10 @@ class KitchenListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kitchen_list)
+
+        // set the bottom nav bar
+        setNavigation()
+
         //This totally won't work yet
         ServiceHandler.callAccountService(
             "GetKitchens",hashMapOf("userId" to ServiceHandler.userId),this,
@@ -41,6 +45,30 @@ class KitchenListActivity : AppCompatActivity() {
             // go to add kitchen view
             val intent = Intent(this@KitchenListActivity, AddKitchenActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun setNavigation() {
+        bottomNav.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.navigation_recipes -> {
+                    // go to recipes
+                    val intent = Intent(this@KitchenListActivity, RecipeSearchActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_inventory -> {
+                    // stay in the inventory
+                    true
+                }
+                R.id.navigation_settings -> {
+                    // go to settings
+                    val intent = Intent(this@KitchenListActivity, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
         }
     }
 

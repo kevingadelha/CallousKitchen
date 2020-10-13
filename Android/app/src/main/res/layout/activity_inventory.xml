@@ -1,57 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/container"
     android:background="?attr/bgColor"
     tools:context=".InventoryActivity">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:fillViewport="false"
+        android:background="?attr/bgColor">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/bgColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ListView
+                    android:id="@+id/listViewFood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/btnAddFood"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="+"
+                    android:textColor="?attr/textColor"
+                    android:textSize="32sp" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavInventory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/colorAccent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnOpenInventory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Categories"
-            android:textColor="?attr/textColor"
-            android:textSize="24sp" />
-<!--
-        <Button
-            android:id="@+id/btnOpenMembers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Members"
-            android:textColor="?attr/textColor"
-            android:textSize="24sp" />
-            -->
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/listViewFood"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btnAddFood"
-        android:layout_width="match_parent"
-        android:layout_height="78dp"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="+"
-        android:textColor="?attr/textColor"
-        android:textSize="32sp" />
-
-</LinearLayout>
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="#fff"
+        app:itemTextColor="#fff"
+        app:menu="@menu/bottom_navigation_menu" />
+</FrameLayout>
