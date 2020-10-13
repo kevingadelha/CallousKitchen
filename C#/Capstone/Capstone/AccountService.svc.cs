@@ -35,7 +35,7 @@ namespace Capstone
                 }
                 else
                 {
-                    User user = new User { Username = userName, Email = email, Password = pass, GuiltLevel = 1 };
+                    User user = new User(userName,email,pass);
                     User returnedUser = db.Users.Add(user);
                     returnedUser.Kitchens.Add(new Kitchen { Name = "Kitchen" });
                     try
