@@ -18,15 +18,15 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        int CreateAccountWithEmail(string userName, string pass, string email);
+        SerializableUser CreateAccountWithEmail(string userName, string pass, string email);
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        int CreateAccount(string userName, string pass);
+        SerializableUser CreateAccount(string userName, string pass);
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        int LoginAccount(string userName, string pass);
+        SerializableUser LoginAccount(string userName, string pass);
 
 
         [OperationContract]

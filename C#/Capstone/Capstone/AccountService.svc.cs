@@ -25,13 +25,13 @@ namespace Capstone
 
         public object KeyDerivationPrf { get; private set; }
 
-        public int CreateAccountWithEmail(string userName, string pass, string email)
+        public SerializableUser CreateAccountWithEmail(string userName, string pass, string email)
         {
             if (IsValidEmail(email))
             {
                 if (db.Users.Where(x => x.Email == email && x.Username == userName).Count() != 0)
                 {
-                    return -1;
+                    return new SerializableUser(-1);
                 }
                 else
                 {
@@ -52,21 +52,21 @@ namespace Capstone
                             }
                         }
                     }
-                    return returnedUser.Id;
+                    return new SerializableUser(returnedUser);
                 }
             }
-            return -2;
+            return new SerializableUser(-2);
         }
 
         //temporary solution for creating an account without an email
-        public int CreateAccount(string userName, string pass)
+        public SerializableUser CreateAccount(string userName, string pass)
         {
             return CreateAccountWithEmail(userName, pass, userName);
         }
 
-        public int LoginAccount(string userName, string pass)
+        public SerializableUser LoginAccount(string userName, string pass)
         {
-            return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.Id ?? -1);
+            return (new SerializableUser(db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()));
         }
 
         public async Task<bool> EditUserPreferences(int id, string username, string email, string password, bool vegetarian, bool vegan, bool calorieTracker, List<string> allergies)

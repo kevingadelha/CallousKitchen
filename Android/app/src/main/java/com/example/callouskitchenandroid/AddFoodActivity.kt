@@ -104,6 +104,19 @@ class AddFoodActivity : AppCompatActivity() {
             }
             catch (exc: Exception)
             {}
+
+            if (ServiceHandler.vegan == true && vegan == 0){
+                Toast.makeText(applicationContext,"Food is not vegan", Toast.LENGTH_LONG).show()
+            }
+            else if (ServiceHandler.vegan == true && vegan == 1){
+                Toast.makeText(applicationContext,"Food is vegan", Toast.LENGTH_LONG).show()
+            }
+            else if (ServiceHandler.vegetarian == true && vegetarian == 0){
+                Toast.makeText(applicationContext,"Food is not vegetarian", Toast.LENGTH_LONG).show()
+            }
+            else if (ServiceHandler.vegetarian == true && vegetarian == 1){
+                Toast.makeText(applicationContext,"Food is vegetarian", Toast.LENGTH_LONG).show()
+            }
         }
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {

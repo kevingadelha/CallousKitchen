@@ -56,18 +56,35 @@ namespace Capstone.Classes
         [DataMember]
         public int GuiltLevel { get; set; }
         [DataMember]
+        public bool Vegetarian { get; set; }
+        [DataMember]
+        public bool Vegan { get; set; }
+        [DataMember]
         public List<SerializableKitchen> Kitchens { get; set; }
         [DataMember]
         public List<string> Allergies { get; set; }
         public SerializableUser(User user)
 		{
-            Id = user.Id;
-            Username = user.Username;
-            Email = user.Email;
-            Password = user.Password;
-            GuiltLevel = user.GuiltLevel;
-            Kitchens = user.Kitchens.Select(o => new SerializableKitchen(o)).ToList();
-            Allergies = user.Allergies.Split('|').ToList();
+            if (user != null)
+            {
+                Id = user.Id;
+                Username = user.Username;
+                Email = user.Email;
+                //Hopefully not serializing the password won't cause problems and will protect security
+                //Password = user.Password;
+                GuiltLevel = user.GuiltLevel;
+                Vegetarian = user.Vegetarian;
+                Vegan = user.Vegan;
+                Kitchens = user.Kitchens.Select(o => new SerializableKitchen(o)).ToList();
+                Allergies = user.Allergies.Split('|').ToList();
+            }
+            else
+                Id = -1;
+		}
+
+		public SerializableUser(int id)
+		{
+			Id = id;
 		}
 	}
 }
