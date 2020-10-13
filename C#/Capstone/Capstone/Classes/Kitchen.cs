@@ -29,7 +29,7 @@ namespace Capstone.Classes
 		{
 			Id = kitchen.Id;
 			Name = kitchen.Name;
-			Inventory = kitchen.Inventory.Select(o => new SerializableFood(o)).ToList();
+			Inventory =  kitchen.Inventory?.Select(o => new SerializableFood(o)).ToList();
 		}
 	}
 }

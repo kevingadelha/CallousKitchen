@@ -25,13 +25,13 @@ namespace Capstone
 
         public object KeyDerivationPrf { get; private set; }
 
-        public int CreateAccountWithEmail(string userName, string pass, string email)
+        public SerializableUser CreateAccountWithEmail(string userName, string pass, string email)
         {
             if (IsValidEmail(email))
             {
                 if (db.Users.Where(x => x.Email == email && x.Username == userName).Count() != 0)
                 {
-                    return -1;
+                    return new SerializableUser(-1);
                 }
                 else
                 {
@@ -53,21 +53,34 @@ namespace Capstone
                             }
                         }
                     }
-                    return returnedUser.Id;
+                    return new SerializableUser(returnedUser);
                 }
             }
-            return -2;
+            return new SerializableUser(-2);
         }
 
         //temporary solution for creating an account without an email
-        public int CreateAccount(string userName, string pass)
+        public SerializableUser CreateAccount(string userName, string pass)
         {
             return CreateAccountWithEmail(userName, pass, userName);
         }
 
-        public int LoginAccount(string userName, string pass)
+        public SerializableUser LoginAccount(string userName, string pass)
         {
-            return (db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()?.Id ?? -1);
+            return (new SerializableUser(db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()));
+        }
+
+        public async Task<bool> EditUserPreferences(int id, string username, string email, string password, bool vegetarian, bool vegan, bool calorieTracker, List<string> allergies)
+        {
+            var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+            user.Username = username;
+            user.Email = email;
+            user.Password = password;
+            user.Vegan = vegan;
+            user.Vegetarian = vegetarian;
+                user.Allergies = string.Join("|", allergies);
+            await db.SaveChangesAsync();
+            return true;
         }
 
         public int AddKitchen(int userId, string name)
@@ -99,7 +112,14 @@ namespace Capstone
         public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
-                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate }));
+                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate, Vegetarian = -1, Vegan = -1, Calories = -1 }));
+            await db.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> AddFoodComplete(int kitchenId, string name, int quantity, DateTime? expiryDate, int vegan, int vegetarian, int calories, List<string> ingredients, List<string> traces)
+        {
+            db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
+                .Add(db.Foods.Add(new Food(name,expiryDate,quantity,vegan,vegetarian,ingredients,traces,calories)));
             await db.SaveChangesAsync();
             return true;
         }

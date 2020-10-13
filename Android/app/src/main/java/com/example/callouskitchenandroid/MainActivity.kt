@@ -28,17 +28,25 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext,"Please enter your username and password", Toast.LENGTH_LONG).show()
             else
             {
-/*
+
                 ServiceHandler.callAccountService(
                     "LoginAccount",hashMapOf("userName" to txtName.text.toString(),"pass" to txtPassword.text.toString()),this,
                     Response.Listener { response ->
                         val json = JSONObject(response.toString())
-                        //val userId = json.getInt("LoginAccountResult")
-                        val response = json.getJSONObject("LoginAccountResult")
-                        val userId = response.getInt("Id")
+                        val user = json.getJSONObject("LoginAccountResult")
+                        val userId = user.getInt("Id")
 
                         if (userId != -1){
                             ServiceHandler.userId = userId
+                            ServiceHandler.email = user.getString("Email")
+                            ServiceHandler.userName = user.getString("Username")
+                            ServiceHandler.vegan = user.getBoolean("Vegan")
+                            ServiceHandler.vegetarian = user.getBoolean("Vegetarian")
+                            var allergies = user.getJSONArray("Allergies")
+                            ServiceHandler.allergies = ArrayList<String>()
+                            for (i in 0 until allergies.length()) {
+                                ServiceHandler.allergies!!.add(allergies.getString(i))
+                            }
                             val intent = Intent(this@MainActivity, KitchenListActivity::class.java)
                             startActivity(intent)
                         }
@@ -46,9 +54,8 @@ class MainActivity : AppCompatActivity() {
                             Toast.makeText(applicationContext,"Username or password is incorrect", Toast.LENGTH_LONG).show()
                         }
 
-                    })*/
-                val intent = Intent(this@MainActivity, KitchenListActivity::class.java)
-                startActivity(intent)
+                    })
+
 
             }
 
