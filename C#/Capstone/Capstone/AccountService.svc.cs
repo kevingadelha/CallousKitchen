@@ -110,12 +110,13 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate)
+        public async Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate, int storageId)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
             item.Name = name;
             item.Quantity = quantity;
             item.ExpiryDate = expiryDate;
+            item.StorageId = storageId;
             await db.SaveChangesAsync();
             return true;
         }
@@ -134,17 +135,17 @@ namespace Capstone
         }
 
         // Author Peter Szadurski
-        public Task<Models.SerializedFoodFactsProductModel> GetAllOpenFoodFacts(string barcode)
+        public Task<Models.SerializableFoodFactsProductModel> GetAllOpenFoodFacts(string barcode)
         {
             OpenFoodFacts openFoodFacts = new OpenFoodFacts();
             return openFoodFacts.LoadAllBarcodeData(barcode);
         }
 
         // Author Peter Szadurski
-        public Task<string[]> SearchRecipes(string search, int count, int caloriesMin = 0, int caloriesMax = 0)
+        public Task<Models.SerializableRecipeModel[]> SearchRecipes(string search, int count, string[] diets)
         {
             RecipeApi recipeApi = new RecipeApi();
-            return recipeApi.GetRecipe(search, count, caloriesMin, caloriesMax);
+            return recipeApi.GetRecipe(search, count, diets);
         }
 
         //returns true if email is valid, false if invalid

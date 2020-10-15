@@ -62,7 +62,7 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate);
+        Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate, int storageId);
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
@@ -79,12 +79,12 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "GET", RequestFormat = WebMessageFormat.Json,
          ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        Task<string[]> SearchRecipes(string search, int count, int caloriesMin = 0, int caloriesMax = 0);
+        Task<Models.SerializableRecipeModel[]> SearchRecipes(string search, int count, string[] diets);
 
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
           ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        Task<Models.SerializedFoodFactsProductModel> GetAllOpenFoodFacts(string barcode);
+        Task<Models.SerializableFoodFactsProductModel> GetAllOpenFoodFacts(string barcode);
 
     }
 }
