@@ -25,7 +25,7 @@ namespace Capstone.Apis
                 {
                     diets[i] = diets[i].ToLower();
                     if (diets[i] != "vegan" || diets[i]
-                        != "vegetarian" || diets[i] != "paleo")
+                        != "vegetarian" || diets[i] != "paleo" || diets[i] != "low-sugar")
                     {
                         diets[i] = diets[i] += "-free";
                     }
