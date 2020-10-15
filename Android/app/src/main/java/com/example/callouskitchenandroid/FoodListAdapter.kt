@@ -18,7 +18,17 @@ class FoodListAdapter(private val context: Activity,
 
         // change the text to match the food name
         val txtFood = rowView.findViewById<TextView>(R.id.textViewFoodTitle)
-        txtFood.text = foods[position].name + " x" + foods[position].quantity + " expires on " + foods[position].expiryDate?.toString()
+        //txtFood.text = foods[position].name + " x" + foods[position].quantity + " expires on " + foods[position].expiryDate?.toString()
+        txtFood.text = foods[position].name
+
+        // add expiry date and quantity
+        val txtQuantity = rowView.findViewById<TextView>(R.id.textViewFoodQuantity)
+        txtQuantity.text = "Quantity: " + foods[position].quantity
+
+        val txtExpiry = rowView.findViewById<TextView>(R.id.textViewExpiry)
+        txtExpiry.text = "Expires on: " + foods[position].expiryDate?.toString()
+
+        // TODO: compare dates to change colour
 
         // set on click events for edit, eat, and delete
         val btnEdit = rowView.findViewById<ImageButton>(R.id.imgBtnEditFood)

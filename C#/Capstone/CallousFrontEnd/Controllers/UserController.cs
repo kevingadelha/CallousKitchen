@@ -181,7 +181,7 @@ namespace CallousFrontEnd.Controllers
                 }
                 else // edit food
                 {
-                    Client.EditFood(foodKitchen.Food.Id, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate, foodKitchen.Food.StorageId);
+                    Client.EditFood(foodKitchen.Food.Id, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
                 }
             }
             catch

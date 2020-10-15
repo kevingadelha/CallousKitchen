@@ -43,7 +43,6 @@ C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.
 C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.xml
 C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.pdb
 C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.xml
-C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache
 C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.Init.resources
 C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.PasswordHash.resources
 C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.GenerateResource.cache
@@ -53,3 +52,6 @@ D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storage.resources
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storageInFood.resources
 D:\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storageWithIds.resources
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storage.resources
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storageInFood.resources
+C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storageWithIds.resources

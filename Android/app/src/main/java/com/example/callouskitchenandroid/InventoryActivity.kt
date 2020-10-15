@@ -14,6 +14,10 @@ var kitchenId : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inventory)
+
+        // set up bottom nav bar
+        setNavigation()
+
         //weird hack because the kitchenId was getting reset when going to inventory from add food
         kitchenId = intent.getIntExtra("kitchenId",ServiceHandler.lastKitchenId)
         ServiceHandler.lastKitchenId = kitchenId
@@ -34,13 +38,9 @@ var kitchenId : Int = 0
                         foods.add(food)
 
                     }
-
-
-
                 val foodListAdapter = FoodListAdapter(this, foods)
                 listViewFood.adapter = foodListAdapter
             })
-
 
         //showAllFood()
 
@@ -52,12 +52,12 @@ var kitchenId : Int = 0
             startActivity(intent)
         }
 
-        val btnKitchen = findViewById<Button>(R.id.btnOpenInventory)
+      /*  val btnKitchen = findViewById<Button>(R.id.btnOpenInventory)
 
         btnKitchen.setOnClickListener{
             val intent = Intent(this@InventoryActivity, KitchenListActivity::class.java)
             startActivity(intent)
-        }
+        }*/
     }
 
     private fun showAllFood() {
@@ -68,5 +68,31 @@ var kitchenId : Int = 0
 
         val foodListAdapter = FoodListAdapter(this, foods)
         listViewFood.adapter = foodListAdapter
+    }
+
+    private fun setNavigation() {
+        bottomNavInventory.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.navigation_recipes -> {
+                    // go to recipes
+                    val intent = Intent(this@InventoryActivity, RecipeSearchActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_inventory -> {
+                    // go to the categories list
+                    val intent = Intent(this@InventoryActivity, KitchenListActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_settings -> {
+                    // go to settings
+                    val intent = Intent(this@InventoryActivity, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

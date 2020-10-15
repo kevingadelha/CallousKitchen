@@ -20,20 +20,49 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="?attr/bgColorLight">
 
-        <TextView
-            android:id="@+id/textViewFoodTitle"
+        <LinearLayout
+            android:id="@+id/innerLinearLayout"
             android:layout_width="wrap_content"
-            android:layout_weight="10"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_marginTop="5dp"
-            android:text="TextView"
-            android:textColor="?attr/textColor"
-            android:textSize="20sp" />
+            android:layout_gravity="center"
+            android:layout_weight="10"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="5dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="?attr/bgColorLight">
+
+            <TextView
+                android:id="@+id/textViewFoodTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/textColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textViewFoodQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/textColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textViewExpiry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="?attr/textColor"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/imgBtnEditFood"
-            android:layout_width="50dp"
+            android:layout_width="35dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:backgroundTint="?attr/bgColorLight"
@@ -41,7 +70,7 @@
             app:srcCompat="@drawable/edit" />
         <ImageButton
             android:id="@+id/imgBtnEatFood"
-            android:layout_width="50dp"
+            android:layout_width="35dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:backgroundTint="?attr/bgColorLight"
@@ -49,7 +78,7 @@
             app:srcCompat="@drawable/food" />
         <ImageButton
             android:id="@+id/imgBtnDeleteFood"
-            android:layout_width="50dp"
+            android:layout_width="35dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:backgroundTint="?attr/bgColorLight"

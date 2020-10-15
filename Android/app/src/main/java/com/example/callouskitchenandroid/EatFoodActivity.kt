@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.android.volley.Response
+import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -18,6 +19,9 @@ class EatFoodActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eat_food)
+
+        // set up bottom nav bar
+        setNavigation()
 
         val txtFoodName = findViewById<TextView>(R.id.textViewFoodTitleEat)
         val txtFoodQuantity = findViewById<EditText>(R.id.editEatFoodQuantity)
@@ -59,6 +63,32 @@ class EatFoodActivity : AppCompatActivity() {
         btnCancel.setOnClickListener{
             val intent = Intent(this@EatFoodActivity, InventoryActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun setNavigation() {
+        bottomNav.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.navigation_recipes -> {
+                    // go to recipes
+                    val intent = Intent(this@EatFoodActivity, RecipeSearchActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_inventory -> {
+                    // go to the categories list
+                    val intent = Intent(this@EatFoodActivity, KitchenListActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_settings -> {
+                    // go to settings
+                    val intent = Intent(this@EatFoodActivity, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
         }
     }
 }

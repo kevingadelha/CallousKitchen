@@ -130,12 +130,17 @@ namespace Capstone
             RecipeApi recipeApi = new RecipeApi();
             return recipeApi.GetRecipe(search, count, diets);
         }
-
         public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate, int storageId)
         {
-
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
-                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate,  StorageId = storageId }));
+                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate, Vegetarian = -1, Vegan = -1, Calories = -1, StorageId = storageId }));
+            await db.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> AddFoodComplete(int kitchenId, string name, int quantity, DateTime? expiryDate, int vegan, int vegetarian, int calories, List<string> ingredients, List<string> traces)
+        {
+            db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
+                .Add(db.Foods.Add(new Food(name, expiryDate, quantity, vegan, vegetarian, ingredients, traces, calories)));
             await db.SaveChangesAsync();
             return true;
         }
