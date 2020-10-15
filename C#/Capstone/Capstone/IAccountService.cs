@@ -67,10 +67,26 @@ namespace Capstone
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate);
+
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        Task<bool> EditUserPreferences(int id, string username, string email, string password, bool vegetarian, bool vegan, bool calorieTracker, List<string> allergies);
+        Task<bool> EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, List<string> allergies);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        Task<bool> EditUserPassword(int id, string password);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        Task<bool> EditUserEmail(int id, string email);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        Task<bool> EditUserName(int id, string username);
 
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,

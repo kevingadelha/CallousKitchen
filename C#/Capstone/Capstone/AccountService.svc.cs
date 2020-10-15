@@ -70,15 +70,36 @@ namespace Capstone
             return (new SerializableUser(db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()));
         }
 
-        public async Task<bool> EditUserPreferences(int id, string username, string email, string password, bool vegetarian, bool vegan, bool calorieTracker, List<string> allergies)
+        public async Task<bool> EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, List<string> allergies)
+        {
+            var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+            user.Vegan = vegan;
+            user.Vegetarian = vegetarian;
+            user.Allergies = string.Join("|", allergies);
+            await db.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> EditUserPassword(int id, string password)
+        {
+            var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+            user.Password = password;
+            await db.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> EditUserEmail(int id, string email)
+        {
+            var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+            user.Email = email;
+            await db.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> EditUserName(int id, string username)
         {
             var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
             user.Username = username;
-            user.Email = email;
-            user.Password = password;
-            user.Vegan = vegan;
-            user.Vegetarian = vegetarian;
-                user.Allergies = string.Join("|", allergies);
             await db.SaveChangesAsync();
             return true;
         }

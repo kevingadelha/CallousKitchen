@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
+import org.json.JSONArray
 import org.json.JSONObject
 
 class SettingsActivity : AppCompatActivity() {
@@ -40,10 +41,19 @@ class SettingsActivity : AppCompatActivity() {
         val txtAllergy = findViewById<EditText>(R.id.editAllergyText)
         val btnSaveDiet = findViewById<Button>(R.id.btnSaveDiet)
 
+        val checkBoxes = listOf(chkBxPeanuts, chkBxTreeNuts, chkBxDairy, chkBxGluten, chkBxShellfish, chkBxFish, chkBxEggs)
+
         // Disable the allergy field unless the box is checked
         txtAllergy.isEnabled = false
 
-        //TODO: get the email and dietary restrictions for the user and update the fields accordingly
+        //TODO: figure something out for other
+        chkBxVegan.isChecked = ServiceHandler.vegan ?: false
+        chkBxVegetarian.isChecked = ServiceHandler.vegetarian ?: false
+        checkBoxes.forEach(){
+            if (ServiceHandler.allergies?.contains(it.text.toString().toLowerCase()) ?: false){
+                it.isChecked = true
+            }
+        }
 
 
 
@@ -56,7 +66,23 @@ class SettingsActivity : AppCompatActivity() {
             }
             else
             {
-                // TODO: update email
+                ServiceHandler.callAccountService(
+                    "EditUserEmail", hashMapOf(
+                        "id" to ServiceHandler.userId,
+                        "email" to email
+                    ), this,
+                    Response.Listener { response ->
+                        val json = JSONObject(response.toString())
+                        val success = json.getBoolean("EditUserEmailResult")
+                        if (success){
+                            ServiceHandler.email = email
+                            Toast.makeText(applicationContext,"Saved :)", Toast.LENGTH_LONG).show()
+                        }
+                        else{
+                            Toast.makeText(applicationContext,"Failed :(", Toast.LENGTH_LONG).show()
+                        }
+
+                    })
             }
 
         }
@@ -69,7 +95,23 @@ class SettingsActivity : AppCompatActivity() {
                 {
                     val password = txtPassword.text.toString()
 
-                    // TODO: update password
+
+                    ServiceHandler.callAccountService(
+                        "EditUserPassword", hashMapOf(
+                            "id" to ServiceHandler.userId,
+                            "password" to password
+                        ), this,
+                        Response.Listener { response ->
+                            val json = JSONObject(response.toString())
+                            val success = json.getBoolean("EditUserPasswordResult")
+                            if (success){
+                                Toast.makeText(applicationContext,"Saved :)", Toast.LENGTH_LONG).show()
+                            }
+                            else{
+                                Toast.makeText(applicationContext,"Failed :(", Toast.LENGTH_LONG).show()
+                            }
+
+                        })
 
                 }
                 else
@@ -86,7 +128,37 @@ class SettingsActivity : AppCompatActivity() {
 
         btnSaveDiet.setOnClickListener {
 
-            // TODO: decide how allergies/restrictions will be stored
+            var allergies = ArrayList<String>()
+            checkBoxes.forEach(){
+                if (it.isChecked){
+                    allergies.add(it.text.toString().toLowerCase())
+                }
+            }
+            var vegan = chkBxVegan.isChecked
+            var vegetarian = chkBxVegetarian.isChecked
+
+            ServiceHandler.callAccountService(
+                "EditUserDietaryRestrictions", hashMapOf(
+                    "id" to ServiceHandler.userId,
+                    "vegan" to vegan,
+                    "vegetarian" to vegetarian,
+                    "allergies" to JSONArray(allergies)
+                ), this,
+                Response.Listener { response ->
+                    val json = JSONObject(response.toString())
+                    val success = json.getBoolean("EditUserDietaryRestrictionsResult")
+                    if (success){
+                        Toast.makeText(applicationContext,"Saved :)", Toast.LENGTH_LONG).show()
+                        ServiceHandler.vegan = vegan
+                        ServiceHandler.vegetarian = vegetarian
+                        ServiceHandler.allergies = allergies
+                    }
+                    else{
+                        Toast.makeText(applicationContext,"Failed :(", Toast.LENGTH_LONG).show()
+                    }
+
+                })
+
 
         }
 

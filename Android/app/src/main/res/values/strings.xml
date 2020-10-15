@@ -22,13 +22,13 @@
     <string name="new_password">new password</string>
     <string name="confirm_password">confirm password</string>
     <string name="reset_password">Reset Password</string>
-    <string name="eggs">Eggs</string>
+    <string name="eggs">Egg</string>
     <string name="fish">Fish</string>
     <string name="shellfish">Shellfish</string>
-    <string name="gluten_intolerance">Celiac\'s Disease / Gluten Intolerance</string>
+    <string name="gluten_intolerance">Gluten</string>
     <string name="dairy">Dairy</string>
-    <string name="tree_nuts">Tree Nuts</string>
-    <string name="peanuts">Peanuts</string>
+    <string name="tree_nuts">Tree Nut</string>
+    <string name="peanuts">Peanut</string>
     <string name="allergies_and_intolerances">Allergies and Intolerances</string>
     <string name="title_activity_navigation_menu">Callous Kitchen</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
