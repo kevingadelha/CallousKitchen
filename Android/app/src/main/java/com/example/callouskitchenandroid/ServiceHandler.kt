@@ -28,6 +28,11 @@ class ServiceHandler {
         //So I'm putting them here for now
         //The user's id
         var userId = -1
+        var userName : String? = null
+        var email : String? = null
+        var vegan : Boolean? = null
+        var vegetarian : Boolean? = null
+        var allergies : ArrayList<String>? = null
         var lastKitchenId = -1
         val baseUrl =  "http://callouskitchen.canadaeast.cloudapp.azure.com:8080" //"http://10.0.2.2:59869"
         //The name of the service with extension, the name of the method, the parameters where the string
