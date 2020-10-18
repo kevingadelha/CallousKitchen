@@ -9,15 +9,34 @@ using System.Web;
 
 namespace Capstone.Apis
 {
+    // Author Peter Szadurski
     public class RecipeApi
     {
         private readonly string AppiKey = "2f1c9181989a25dd44b03abe15600a3f";
         private readonly string AppId = "ffa3c67d";
-        public async Task<string[]> GetRecipe(string search, int count, int caloriesMin = 0, int caloriesMax = 1000000)
+        public async Task<SerializableRecipeModel[]> GetRecipe(string search, int count, string[] diets)
         {
-            System.Diagnostics.Debugger.Break();
-            List<string> results = new List<string>();
-            string url = $"https://api.edamam.com/search?q={search}&app_id={AppId}&app_key={AppiKey}&from=0&to={count}&calories={caloriesMin}-{caloriesMax}";
+
+            string dietsString = "";
+            // Fix the diets array
+            if (diets != null)
+            {
+                for (int i = 0; i < diets.Length; i++)
+                {
+                    diets[i] = diets[i].ToLower();
+                    if (diets[i] != "vegan" || diets[i]
+                        != "vegetarian" || diets[i] != "paleo" || diets[i] != "low-sugar")
+                    {
+                        diets[i] = diets[i] += "-free";
+                    }
+                    dietsString += "&health=" + diets[i];
+                }
+
+            }
+
+
+            List<SerializableRecipeModel> results = new List<SerializableRecipeModel>();
+            string url = $"https://api.edamam.com/search?q={search}&app_id={AppId}&app_key={AppiKey}&from=0&to={count}" + dietsString;
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
@@ -25,7 +44,7 @@ namespace Capstone.Apis
                     RecipeQueryModel RQModel = await response.Content.ReadAsAsync<RecipeQueryModel>();
                     for (int i = 0; i < RQModel.Hits.Count(); i++)
                     {
-                        results.Add(RQModel.Hits[i].Recipe.Name);
+                        results.Add(new SerializableRecipeModel(RQModel.Hits[i].Recipe));
 
                     }
                     return results.ToArray();

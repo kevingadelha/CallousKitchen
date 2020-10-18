@@ -29,7 +29,7 @@ namespace Capstone.Apis
 
             }
         }
-        public async Task<SerializedFoodFactsProductModel> LoadAllBarcodeData(string barcode)
+        public async Task<SerializableFoodFactsProductModel> LoadAllBarcodeData(string barcode)
         {
             string url = $"http://world.openfoodfacts.org/api/v0/product/{barcode}.json";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
@@ -37,7 +37,7 @@ namespace Capstone.Apis
                 if (response.IsSuccessStatusCode)
                 {
                     FoodFactsModel FFModel = await response.Content.ReadAsAsync<FoodFactsModel>();
-                    SerializedFoodFactsProductModel serializedFoodFactsProductModel = new SerializedFoodFactsProductModel(FFModel.Product);
+                    SerializableFoodFactsProductModel serializedFoodFactsProductModel = new SerializableFoodFactsProductModel(FFModel.Product);
                     return serializedFoodFactsProductModel;
                 }
                 else

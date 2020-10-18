@@ -7,31 +7,39 @@
     android:id="@+id/container"
     android:background="?attr/bgColor"
     tools:context=".InventoryActivity">
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:fillViewport="false"
+            android:background="?attr/bgColor">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="55dp"
-        android:background="?attr/bgColor">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/bgColor">
 
-        <ListView
-            android:id="@+id/listViewFood"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/btnAddFood"
-            android:layout_width="match_parent"
-            android:layout_height="78dp"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/colorAccent"
-            android:text="+"
-            android:textColor="?attr/textColor"
-            android:textSize="32sp"
-            tools:layout_editor_absoluteX="5dp" />
+                <ListView
+                    android:id="@+id/listViewFood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/btnAddFood"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="+"
+                    android:textColor="?attr/textColor"
+                    android:textSize="32sp"
+                    tools:layout_editor_absoluteX="5dp" />
 
 
-    </LinearLayout>
+            </LinearLayout>
+
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavInventory"

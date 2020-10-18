@@ -30,7 +30,7 @@ namespace Capstone.Models
 
     [DataContract]
     [Serializable]
-    public class SerializedFoodFactsProductModel
+    public class SerializableFoodFactsProductModel
     {
         [DataMember]
         public string Name { get; set; }
@@ -46,7 +46,7 @@ namespace Capstone.Models
         public string[] Ingredients { get; set; }
 
 
-        public SerializedFoodFactsProductModel(FoodFactsProductModel model)
+        public SerializableFoodFactsProductModel(FoodFactsProductModel model)
         {
             this.Name = model.Name;
             this.Image_Url = model.Image_Url;

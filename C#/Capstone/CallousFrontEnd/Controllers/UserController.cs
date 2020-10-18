@@ -210,7 +210,7 @@ namespace CallousFrontEnd.Controllers
 
             if (fId != 0)
             {
-                foodKitchen.Food = Client.GetFood(1);
+                foodKitchen.Food = Client.GetFood(fId);
                 
             }
             else
