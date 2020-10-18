@@ -60,6 +60,7 @@ var kitchenId : Int = 0
         }*/
     }
 
+    // test method
     private fun showAllFood() {
         // test foods
         var foods: ArrayList<Food> = arrayListOf<Food>()
