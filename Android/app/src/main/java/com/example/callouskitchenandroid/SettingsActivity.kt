@@ -37,11 +37,12 @@ class SettingsActivity : AppCompatActivity() {
         val chkBxShellfish = findViewById<CheckBox>(R.id.chkBxShellfish)
         val chkBxFish = findViewById<CheckBox>(R.id.chkBxFish)
         val chkBxEggs = findViewById<CheckBox>(R.id.chkBxEggs)
+        val chkBxSoy = findViewById<CheckBox>(R.id.chkBxSoy)
         val chkBxAllergy = findViewById<CheckBox>(R.id.chkBxAllergy)
         val txtAllergy = findViewById<EditText>(R.id.editAllergyText)
         val btnSaveDiet = findViewById<Button>(R.id.btnSaveDiet)
 
-        val checkBoxes = listOf(chkBxPeanuts, chkBxTreeNuts, chkBxDairy, chkBxGluten, chkBxShellfish, chkBxFish, chkBxEggs)
+        val checkBoxes = listOf(chkBxPeanuts, chkBxTreeNuts, chkBxDairy, chkBxGluten, chkBxShellfish, chkBxFish, chkBxSoy, chkBxEggs)
 
         // Disable the allergy field unless the box is checked
         txtAllergy.isEnabled = false

@@ -3,14 +3,11 @@ package com.example.callouskitchenandroid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import com.android.volley.Response
 import org.json.JSONObject
 import android.app.DatePickerDialog
+import android.widget.*
 import java.util.*
-import android.widget.DatePicker
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -37,11 +34,18 @@ class AddFoodActivity : AppCompatActivity() {
         val btnAddFood = findViewById<Button>(R.id.btnAddFoodItem)
         val btnCancel = findViewById<Button>(R.id.btnCancelAddFood)
         val btnScanBarcode = findViewById<Button>(R.id.btnScanBarcode)
+        val spinnerUnits = findViewById<Spinner>(R.id.spinnerUnits)
         var kitchenId: Int = 0
+
+        // Populate the Units spinner
+        val unitsArray = resources.getStringArray(R.array.units)
+        val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, unitsArray)
+        spinnerUnits.adapter = adapter
 
         var cal = Calendar.getInstance()
         var foodName: String?
         var quantity: String?
+        var units: String?
         var expiryDate: String?
         var vegan: Int? = -1
         var vegetarian: Int? = -1

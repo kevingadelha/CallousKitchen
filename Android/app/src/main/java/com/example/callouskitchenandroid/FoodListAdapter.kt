@@ -2,11 +2,14 @@ package com.example.callouskitchenandroid
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import java.time.LocalDate
 
 class FoodListAdapter(private val context: Activity,
                       private val foods: List<Food>)
@@ -26,9 +29,26 @@ class FoodListAdapter(private val context: Activity,
         txtQuantity.text = "Quantity: " + foods[position].quantity
 
         val txtExpiry = rowView.findViewById<TextView>(R.id.textViewExpiry)
-        txtExpiry.text = "Expires on: " + foods[position].expiryDate?.toString()
 
-        // TODO: compare dates to change colour
+        // Compare dates to change colour
+        val currentDate = LocalDate.now()
+        val expiryDate = foods[position].expiryDate
+        val expiryMinusThree = expiryDate?.minusDays(3) // for checking if an item is about to expire
+        if (expiryDate!! < currentDate) // food is expired
+        {
+            txtExpiry.text = "EXPIRED: " + foods[position].expiryDate?.toString()
+            txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.redText))
+        }
+        else if (expiryMinusThree!! < currentDate)
+        {
+            txtExpiry.text = "EXPIRES SOON: " + foods[position].expiryDate?.toString()
+            txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.orangeText))
+        }
+        else
+        {
+            txtExpiry.text = "Expires on: " + foods[position].expiryDate?.toString()
+            txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.whiteText))
+        }
 
         // set on click events for edit, eat, and delete
         val btnEdit = rowView.findViewById<ImageButton>(R.id.imgBtnEditFood)

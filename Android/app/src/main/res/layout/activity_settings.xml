@@ -214,6 +214,13 @@
             android:textColor="?attr/textColor"
             android:buttonTint="#fff" />
         <CheckBox
+            android:id="@+id/chkBxSoy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/soy"
+            android:textColor="?attr/textColor"
+            android:buttonTint="#fff" />
+        <CheckBox
             android:id="@+id/chkBxAllergy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
