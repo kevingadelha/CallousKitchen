@@ -3,7 +3,9 @@ package com.example.callouskitchenandroid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_kitchen_list.*
+import android.widget.SearchView
+import kotlinx.android.synthetic.main.activity_kitchen_list.bottomNav
+import kotlinx.android.synthetic.main.activity_recipe_search.*
 
 class RecipeSearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,6 +14,13 @@ class RecipeSearchActivity : AppCompatActivity() {
 
         // set up bottom nav bar
         setNavigation()
+
+        val searchBar = findViewById<SearchView>(R.id.searchViewRecipes)
+
+        // temp
+        var recipes: ArrayList<Recipe> = arrayListOf<Recipe>()
+        val recipeListAdapter = RecipeListAdapter(this, recipes)
+        listViewRecipe.adapter = recipeListAdapter
 
     }
 

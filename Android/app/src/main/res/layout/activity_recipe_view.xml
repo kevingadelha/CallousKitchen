@@ -5,29 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/container"
-    tools:context=".RecipeSearchActivity"
+    tools:context=".RecipeViewActivity"
     >
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="?attr/bgColor"
-    >
-    <SearchView
-        android:id="@+id/searchViewRecipes"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:queryHint="Search by ingredient"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/bgColor"
+        >
 
-    <ListView
-        android:id="@+id/listViewRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-</LinearLayout>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
