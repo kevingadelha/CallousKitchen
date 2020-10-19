@@ -14,40 +14,40 @@ namespace Capstone
     public class Service1 : IService1
     {
         public List<Product> products { get; set; }
-        private const string fileName = "expiryinfo.json";
-        private readonly string filePath = Environment.CurrentDirectory;
-        //private pathfile = Path.Combine(Directory.GetCurrentDirectory(), "\\expiryinfo.json");
         public string resultExpiry;
         public string resultStorage;
 
         DateTime dateToday = DateTime.Now;
-        DateTime firstExpiryDate;
-        DateTime finalExpiryDate;
         DateTime normalExpiryDate;
 
         string minExpiryRange;
         string maxExpiryRange;
         string normalExpiryRange;
-
-        string minTemperatureRange;
-        string maxTemperatureRange;
-        string normalTemperatureRange;
+        Result result = new Result();
 
 
-
-
-
-        string dateToDisplay;
-
-        public string GetData(string crop)
+        public string GetDateStorage(string crop)
         {
-            string json = System.IO.File.ReadAllText("C:\\Users\\Vlad\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\expiryinfo.json");
-            products = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(json);
+            products = getJsonData();
+            checkJsonData(crop, products);
+            return string.Format(result.RESULTEXPIRY + " || " + result.RESULTSTORAGE);
 
+        }
+
+
+        public List<Product> getJsonData()
+        {
+            string json = System.IO.File.ReadAllText(System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath + "expiryinfo.json");
+            products = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(json);
+            return products;
+        }
+
+
+        public Result checkJsonData(string crop, List<Product> products)
+        {
             var format = new NumberFormatInfo();
             format.NegativeSign = "-";
             format.NumberDecimalSeparator = ".";
-
 
 
             foreach (var item in products)
@@ -55,24 +55,39 @@ namespace Capstone
                 if (crop.ToLower().Equals(item.CROP.ToLower()))
                 {
 
-                    //no barcode expiry date
                     if (item.STORAGELIFE.Contains("-"))
                     {
                         minExpiryRange = item.STORAGELIFE.Substring(0, item.STORAGELIFE.IndexOf("-"));
                         maxExpiryRange = item.STORAGELIFE.Substring(item.STORAGELIFE.IndexOf("-") + 1);
-                        resultExpiry = minExpiryRange + "-" + maxExpiryRange;
-                        firstExpiryDate = dateToday.AddDays(Convert.ToDouble(minExpiryRange));
-                        finalExpiryDate = dateToday.AddDays(Convert.ToDouble(maxExpiryRange));
+                        resultExpiry = Math.Round((double.Parse(minExpiryRange) + double.Parse(maxExpiryRange)) / 2).ToString();
 
-                        resultExpiry = firstExpiryDate.ToShortDateString() + " - " + finalExpiryDate.ToShortDateString();
+                        if (Convert.ToDouble(resultExpiry) > 30)
+                        {
+
+                            normalExpiryDate = dateToday.AddDays(30);
+                            resultExpiry = normalExpiryDate.ToShortDateString();
+                        }
+                        else
+                        {
+                            normalExpiryDate = dateToday.AddDays(Convert.ToDouble(resultExpiry));
+                            resultExpiry = normalExpiryDate.ToShortDateString();
+                        }
 
                     }
                     else
                     {
                         normalExpiryRange = item.STORAGELIFE;
-                        normalExpiryDate = dateToday.AddDays(Convert.ToDouble(normalExpiryRange));
+                        if (Convert.ToDouble(normalExpiryRange) > 30)
+                        {
+                            normalExpiryDate = dateToday.AddDays(30);
+                            resultExpiry = normalExpiryDate.ToShortDateString();
+                        }
+                        else
+                        {
+                            normalExpiryDate = dateToday.AddDays(Convert.ToDouble(normalExpiryRange));
 
-                        resultExpiry = normalExpiryDate.ToShortDateString();
+                            resultExpiry = normalExpiryDate.ToShortDateString();
+                        }
                     }
 
 
@@ -81,14 +96,13 @@ namespace Capstone
                     string normalTemperatureRange = "0";
                     string finalTemperature = "0";
 
-                    //no barcode storage type
                     if (item.TEMPERATURE.Contains("-"))
                     {
                         minTemperatureRange = item.TEMPERATURE.Substring(0, item.TEMPERATURE.LastIndexOf("-"));
                         maxTemperatureRange = item.TEMPERATURE.Substring(item.TEMPERATURE.LastIndexOf("-") + 1);
 
 
-                        finalTemperature = Math.Round((double.Parse(minTemperatureRange, format) + double.Parse(minTemperatureRange, format)) / 2).ToString();
+                        finalTemperature = Math.Round((double.Parse(minTemperatureRange, format) + double.Parse(maxTemperatureRange, format)) / 2).ToString();
 
 
                     }
@@ -101,8 +115,11 @@ namespace Capstone
 
 
 
-
-
+                    if (double.Parse(finalTemperature, format) >= -18 && double.Parse(finalTemperature, format) <= -2)
+                    {
+                        resultStorage = "freezer";
+                    }
+                    else
                     if (double.Parse(finalTemperature, format) >= -2 && double.Parse(finalTemperature, format) <= 7)
                     {
                         resultStorage = "refridgerator";
@@ -116,22 +133,27 @@ namespace Capstone
                     {
                         resultStorage = "pantry";
                     }
-
-
-
-
+                    result.RESULTEXPIRY = resultExpiry;
+                    result.RESULTSTORAGE = resultStorage;
+                    return result;
                 }
             }
 
-
-            return string.Format(resultExpiry + " || " + resultStorage);
-
+            return result;
         }
+
         public class Product
         {
             public string CROP { get; set; }
             public string TEMPERATURE { get; set; }
             public string STORAGELIFE { get; set; }
         }
+        public class Result
+        {
+            public string RESULTSTORAGE { get; set; }
+            public string RESULTEXPIRY { get; set; }
+        }
     }
+
+
 }

@@ -13,6 +13,7 @@ namespace Capstone
     public interface IService1
     {
         [OperationContract]
-        string GetData(string value);
+        string GetDateStorage(string value);
+
     }
 }
