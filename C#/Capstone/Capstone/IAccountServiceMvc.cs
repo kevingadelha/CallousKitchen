@@ -120,6 +120,12 @@ namespace Capstone
 		Task<Models.SerializableRecipeModel[]> SearchRecipes(string search, int count, List<string> diets);
 
 		[OperationContract]
+		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+			 ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+		Models.SerializableRecipeModel[] SearchRecipesRanked(string search, int count, List<string> diets, int kitchenId);
+
+
+		[OperationContract]
 		bool AnotherTest();
 
 		[OperationContract]

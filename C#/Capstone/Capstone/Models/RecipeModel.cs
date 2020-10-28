@@ -45,7 +45,9 @@ namespace Capstone.Models
         [DataMember]
         public string Source { get; set; }
         [DataMember]
-        public string[] Ingredients { get; set; }
+        public int Score { get; set; }
+        [DataMember]
+        public IngredientModel[] Ingredients { get; set; }
 
 
         public SerializableRecipeModel(RecipeModel m)
@@ -56,7 +58,13 @@ namespace Capstone.Models
             Yield = Convert.ToDouble(m.Yield);
             HealthLabels = m.HealthLabels;
             Source = m.Source;
-            Ingredients = m.Ingredients;
+            List<IngredientModel> ingreds = new List<IngredientModel>();
+            foreach (var i in m.Ingredients)
+            {
+                ingreds.Add(new IngredientModel(i));
+            }
+            Ingredients = ingreds.ToArray();
+            Score = 0;
         }
     }
 }

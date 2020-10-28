@@ -139,6 +139,7 @@
     <Compile Include="AccountServiceMvc.svc.cs">
       <DependentUpon>AccountServiceMvc.svc</DependentUpon>
     </Compile>
+    <Compile Include="AccountServiceParent.cs" />
     <Compile Include="Apis\ApiHelper.cs" />
     <Compile Include="Apis\OpenFoodFacts.cs" />
     <Compile Include="Apis\RecipeApi.cs" />
