@@ -18,50 +18,30 @@ namespace Capstone
 
         public object KeyDerivationPrf { get; private set; }
 
-        public SerializableUser CreateAccountWithEmail(string userName, string pass, string email)
+        public SerializableUser CreateAccount(string email, string pass)
         {
             if (IsValidEmail(email))
             {
-                if (db.Users.Where(x => x.Email == email && x.Username == userName).Count() != 0)
+                if (db.Users.Where(x => x.Email == email).Count() != 0)
                 {
                     return new SerializableUser(-1);
                 }
                 else
                 {
-                    User user = new User(userName, email, pass);
+                    User user = new User(email, pass);
                     User returnedUser = db.Users.Add(user);
                     returnedUser.Kitchens = new List<Kitchen>();
                     returnedUser.Kitchens.Add(db.Kitchens.Add(new Kitchen { Name = "Kitchen" }));
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch (DbEntityValidationException e)
-                    {
-                        foreach (var eve in e.EntityValidationErrors)
-                        {
-                            Debug.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
-                            foreach (var ve in eve.ValidationErrors)
-                            {
-                                Debug.WriteLine($"- Property: \"{ve.PropertyName}\", Value: \"{eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName)}\", Error: \"{ve.ErrorMessage}\"");
-                            }
-                        }
-                    }
+                    db.SaveChanges();
                     return new SerializableUser(returnedUser);
                 }
             }
             return new SerializableUser(-2);
         }
 
-        //temporary solution for creating an account without an email
-        public SerializableUser CreateAccount(string userName, string pass)
+        public SerializableUser LoginAccount(string email, string pass)
         {
-            return CreateAccountWithEmail(userName, pass, userName);
-        }
-
-        public SerializableUser LoginAccount(string userName, string pass)
-        {
-            return (new SerializableUser(db.Users.Where(x => x.Username == userName && x.Password == pass).FirstOrDefault()));
+            return (new SerializableUser(db.Users.Where(x => x.Email == email && x.Password == pass).FirstOrDefault()));
         }
 
         public bool AnotherTest()
@@ -89,18 +69,17 @@ namespace Capstone
 
         public async Task<bool> EditUserEmail(int id, string email)
         {
-            var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
-            user.Email = email;
-            await db.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> EditUserName(int id, string username)
-        {
-            var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
-            user.Username = username;
-            await db.SaveChangesAsync();
-            return true;
+            if (db.Users.Where(x => x.Email == email).Count() != 0)
+            {
+                return false;
+            }
+            else
+            {
+                var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+                user.Email = email;
+                await db.SaveChangesAsync();
+                return true;
+            }
         }
 
         public int AddKitchen(int userId, string name)
@@ -109,6 +88,11 @@ namespace Capstone
             db.Users.Where(x => x.Id == userId).FirstOrDefault().Kitchens.Add(kitchen);
             db.SaveChanges();
             return kitchen.Id;
+        }
+        public List<SerializableFood> GetPrimaryInventory(int userId)
+        {
+            return db.Users.Where(x => x.Id == userId).FirstOrDefault()?.Kitchens?.FirstOrDefault()?.Inventory?
+                .Select(o => new SerializableFood(o)).ToList();
         }
         public List<SerializableKitchen> GetKitchens(int userId)
         {
@@ -185,17 +169,16 @@ namespace Capstone
 
         public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
-            //Not sure what this is for
-            int storageId = 1;
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
-                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate, Vegetarian = -1, Vegan = -1, Calories = -1, StorageId = storageId }));
+                .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate, Vegetarian = -1, Vegan = -1, Calories = -1 }));
             await db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> AddFoodComplete(int kitchenId, string name, int quantity, DateTime? expiryDate, int vegan, int vegetarian, int calories, List<string> ingredients, List<string> traces)
+        public async Task<bool> AddFoodComplete(int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite)
         {
+            var food = new Food(name,(Storage)Enum.Parse(typeof(Storage),storage,true),expiryDate,quantity,quantityClassifier,vegan,vegetarian,ingredients,traces,favourite);
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
-                .Add(db.Foods.Add(new Food(name, expiryDate, quantity, vegan, vegetarian, ingredients, traces, calories)));
+                .Add( db.Foods.Add(food));
             await db.SaveChangesAsync();
             return true;
         }
@@ -206,13 +189,12 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate, int storageId)
+        public async Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
             item.Name = name;
             item.Quantity = quantity;
             item.ExpiryDate = expiryDate;
-            item.StorageId = storageId;
             await db.SaveChangesAsync();
             return true;
         }
@@ -343,12 +325,6 @@ namespace Capstone
                 }
             }
             return true;
-        }
-
-        public IEnumerable<Storage> GetStorages()
-        {
-            return db.Storages;
-
         }
         public Food GetFood(int id)
         {

@@ -14,23 +14,19 @@ namespace Capstone.Classes
 		{
 		}
 
-		public User(string username, string email, string password)
+		public User(string email, string password)
 		{
-			Username = username;
 			Email = email;
 			Password = password;
-            GuiltLevel = 1;
             Vegetarian = false;
             Vegan = false;
             CalorieTracker = false;
         }
 
-		public User(string username, string email, string password, int guiltLevel, bool vegetarian, bool vegan, bool calorieTracker, List<Kitchen> kitchens, List<string> allergies)
+		public User(string email, string password, bool vegetarian, bool vegan, bool calorieTracker, List<Kitchen> kitchens, List<string> allergies)
 		{
-			Username = username;
 			Email = email;
 			Password = password;
-			GuiltLevel = guiltLevel;
 			Vegetarian = vegetarian;
 			Vegan = vegan;
 			CalorieTracker = calorieTracker;
@@ -41,10 +37,8 @@ namespace Capstone.Classes
 		[Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public int GuiltLevel { get; set; }
         public bool Vegetarian { get; set; }
         public bool Vegan { get; set; }
         public bool CalorieTracker { get; set; }
@@ -59,13 +53,7 @@ namespace Capstone.Classes
 		[DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string Username { get; set; }
-        [DataMember]
         public string Email { get; set; }
-        [DataMember]
-        public string Password { get; set; }
-        [DataMember]
-        public int GuiltLevel { get; set; }
         [DataMember]
         public bool Vegetarian { get; set; }
         [DataMember]
@@ -79,11 +67,9 @@ namespace Capstone.Classes
             if (user != null)
             {
                 Id = user.Id;
-                Username = user.Username;
                 Email = user.Email;
                 //Hopefully not serializing the password won't cause problems and will protect security
                 //Password = user.Password;
-                GuiltLevel = user.GuiltLevel;
                 Vegetarian = user.Vegetarian;
                 Vegan = user.Vegan;
                 Kitchens = user?.Kitchens?.Select(o => new SerializableKitchen(o))?.ToList();

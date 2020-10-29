@@ -34,7 +34,7 @@ class ServiceHandler {
         var vegetarian : Boolean? = null
         var allergies : ArrayList<String>? = null
         var lastKitchenId = -1
-        val baseUrl =  "http://callouskitchen.canadaeast.cloudapp.azure.com:8080" //"http://10.0.2.2:59869"
+        val baseUrl =  "http://142.55.32.86:50241"
         //The name of the service with extension, the name of the method, the parameters where the string
         //is the parameter name and any is the value, for context use this and use response as your listener
         //I really tried to eliminate the listener and return the response as a string, but it's not possible
