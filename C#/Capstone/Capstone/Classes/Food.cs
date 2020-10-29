@@ -75,7 +75,7 @@ namespace Capstone.Classes
 		[DataMember]
 		public string Name { get; set; }
 		[DataMember]
-		public Storage Storage { get; set; }
+		public string Storage { get; set; }
 		[DataMember]
 		public Nullable<DateTime> ExpiryDate { get; set; }
 		[DataMember]
@@ -99,7 +99,7 @@ namespace Capstone.Classes
 			ExpiryDate = food.ExpiryDate;
 			Quantity = food.Quantity;
 			QuantityClassifier = food.QuantityClassifier;
-			Storage = food.Storage;
+			Storage = food.Storage.ToString();
 			Vegan = food.Vegan;
 			Vegetarian = food.Vegetarian;
 			Favourite = food.Favourite;

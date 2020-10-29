@@ -41,7 +41,9 @@ class DeleteFoodActivity : AppCompatActivity() {
 
                         val json = JSONObject(response.toString())
                         val kitchensJson = json.getBoolean("RemoveItemResult")
-                        println(kitchensJson.toString())
+                        if (!kitchensJson){
+                            Toast.makeText(applicationContext,"Failed :(", Toast.LENGTH_LONG).show()
+                        }
 
                         val intent = Intent(this@DeleteFoodActivity, InventoryActivity::class.java)
                         startActivity(intent)

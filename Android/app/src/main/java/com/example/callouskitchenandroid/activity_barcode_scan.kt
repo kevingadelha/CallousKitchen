@@ -129,18 +129,8 @@ class activity_barcode_scan : AppCompatActivity() {
                                         ingredients[i] = FormatString(ingredientsTags!![i].toString())
                                     }
 
-                                    // Send values to "AddFoodActivity"
-
-                                    /*
-                                    commenting this out as it's hard to maintain and kind of useless
-                                    the user knows no data was found if no data shows up
-                                    if (foodName == null && quantity == null && expirationDate == null)
-                                    {
-                                        Toast.makeText(applicationContext,"No data found", Toast.LENGTH_LONG).show()
-                                    }*/
-                                    var kitchenId = intent.getIntExtra("kitchenId", 0)
-
                                     val intent = Intent(this, AddFoodActivity::class.java)
+                                    //TODO: get more info
                                     intent.putExtra("FOODNAME", foodName)
                                     intent.putExtra("QUANTITY", quantity.toInt().toString())
                                     intent.putExtra("EXPIRY", expirationDate)
@@ -149,8 +139,6 @@ class activity_barcode_scan : AppCompatActivity() {
                                     intent.putExtra("INGREDIENTS", ingredients)
                                     intent.putExtra("TRACES", traces)
 
-
-                                    intent.putExtra("kitchenId",kitchenId)
 
                                     startActivity(intent)
                                 })

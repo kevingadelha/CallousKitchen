@@ -81,8 +81,9 @@ class EditFoodActivity : AppCompatActivity() {
 
                         val json = JSONObject(response.toString())
                         val kitchensJson = json.getBoolean("EditFoodResult")
-                        println(kitchensJson.toString())
-
+                        if (!kitchensJson){
+                            Toast.makeText(applicationContext,"Failed :(", Toast.LENGTH_LONG).show()
+                        }
 
                         val intent = Intent(this@EditFoodActivity, InventoryActivity::class.java)
                         startActivity(intent)

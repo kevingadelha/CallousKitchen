@@ -35,7 +35,6 @@ class AddFoodActivity : AppCompatActivity() {
         val btnCancel = findViewById<Button>(R.id.btnCancelAddFood)
         val btnScanBarcode = findViewById<Button>(R.id.btnScanBarcode)
         val spinnerUnits = findViewById<Spinner>(R.id.spinnerUnits)
-        var kitchenId: Int = 0
 
         // Populate the Units spinner
         val unitsArray = resources.getStringArray(R.array.units)
@@ -45,7 +44,6 @@ class AddFoodActivity : AppCompatActivity() {
         var cal = Calendar.getInstance()
         var foodName: String?
         var quantity: String?
-        var units: String?
         var expiryDate: String?
         var vegan: Int? = -1
         var vegetarian: Int? = -1
@@ -55,7 +53,6 @@ class AddFoodActivity : AppCompatActivity() {
         // Get the food data from the barcode scanner
         if (intent != null) {
 
-            kitchenId = intent.getIntExtra("kitchenId", 0)
 
             try {
                 foodName = intent.getStringExtra("FOODNAME")
@@ -167,7 +164,6 @@ class AddFoodActivity : AppCompatActivity() {
         // Go to the barcode scanner
         btnScanBarcode.setOnClickListener {
             val intent = Intent(this@AddFoodActivity, activity_barcode_scan::class.java)
-            intent.putExtra("kitchenId", kitchenId)
             startActivity(intent)
         }
 
@@ -196,17 +192,22 @@ class AddFoodActivity : AppCompatActivity() {
                     ).show()
                     return@setOnClickListener
                 }
+                val quantityClassifier = spinnerUnits.selectedItem.toString()
                 ServiceHandler.callAccountService(
                     "AddFoodComplete", hashMapOf(
-                        "kitchenId" to intent.getIntExtra("kitchenId", 0),
+                        "kitchenId" to ServiceHandler.primaryKitchenId,
                         "name" to foodName,
+                        "storage" to ServiceHandler.lastCategory,
                         "quantity" to quantity,
+                        "quantityClassifier" to quantityClassifier,
                         "expiryDate" to ServiceHandler.serializeDate(expiryDate),
                         "vegan" to vegan,
                         "vegetarian" to vegetarian,
                         "calories" to -1,
                         "ingredients" to JSONArray(ingredients),
-                        "traces" to JSONArray(traces)
+                        "traces" to JSONArray(traces),
+                        //TODO: get favourite from UI
+                        "favourite" to false
                     ), this,
                     Response.Listener { response ->
                         val json = JSONObject(response.toString())

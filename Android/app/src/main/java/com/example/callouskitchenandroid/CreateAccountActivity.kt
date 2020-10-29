@@ -34,7 +34,7 @@ class CreateAccountActivity : AppCompatActivity() {
                     val password = txtPassword.text.toString()
 
                     ServiceHandler.callAccountService(
-                        "CreateAccount",hashMapOf("userName" to username,"pass" to password),this,
+                        "CreateAccount",hashMapOf("email" to username,"pass" to password),this,
                         Response.Listener { response ->
                             val json = JSONObject(response.toString())
                             val user = json.getJSONObject("CreateAccountResult")
@@ -43,7 +43,6 @@ class CreateAccountActivity : AppCompatActivity() {
                             if (userId != -1){
                                 ServiceHandler.userId = userId
                                 ServiceHandler.email = user.getString("Email")
-                                ServiceHandler.userName = user.getString("Username")
                                 ServiceHandler.vegan = user.getBoolean("Vegan")
                                 ServiceHandler.vegetarian = user.getBoolean("Vegetarian")
                                 var allergies = user.getJSONArray("Allergies")
@@ -51,11 +50,17 @@ class CreateAccountActivity : AppCompatActivity() {
                                 for (i in 0 until allergies.length()) {
                                     ServiceHandler.allergies!!.add(allergies.getString(i))
                                 }
+                                var kitchens = user.getJSONArray("Kitchens")
+                                var kitchen = kitchens.getJSONObject(0)
+                                ServiceHandler.primaryKitchenId = kitchen.getInt("Id")
                                 val intent = Intent(this@CreateAccountActivity, KitchenListActivity::class.java)
                                 startActivity(intent)
                             }
-                            else{
-                                Toast.makeText(applicationContext,"Username exists", Toast.LENGTH_LONG).show()
+                            else if (userId == -1){
+                                Toast.makeText(applicationContext,"Email exists", Toast.LENGTH_LONG).show()
+                            }
+                            else if (userId == -2){
+                                Toast.makeText(applicationContext,"Email is invalid", Toast.LENGTH_LONG).show()
                             }
 
                         })

@@ -10,19 +10,14 @@ import kotlinx.android.synthetic.main.activity_inventory.*
 import org.json.JSONObject
 
 class InventoryActivity : AppCompatActivity() {
-var kitchenId : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inventory)
-
         // set up bottom nav bar
         setNavigation()
 
-        //weird hack because the kitchenId was getting reset when going to inventory from add food
-        kitchenId = intent.getIntExtra("kitchenId",ServiceHandler.lastKitchenId)
-        ServiceHandler.lastKitchenId = kitchenId
         ServiceHandler.callAccountService(
-            "GetInventory",hashMapOf("kitchenId" to kitchenId),this,
+            "GetInventory",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
             Response.Listener { response ->
 
                 val json = JSONObject(response.toString())
@@ -30,39 +25,26 @@ var kitchenId : Int = 0
                 var foods: ArrayList<Food> = arrayListOf<Food>()
 
                     for (i in 0 until foodsJson.length()) {
-
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
-                        var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
-                        food.quantity = foodJson.getDouble("Quantity")
-                        food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
-                        foods.add(food)
+                        if (ServiceHandler.lastCategory == foodJson.getString("Storage")){
+                            var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
+                            food.quantity = foodJson.getDouble("Quantity")
+                            food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
+                            foods.add(food)
+                        }
 
                     }
                 val foodListAdapter = FoodListAdapter(this, foods)
                 listViewFood.adapter = foodListAdapter
             })
 
-        //showAllFood()
-
         val btnAddFood = findViewById<FloatingActionButton>(R.id.btnAddFood)
 
         btnAddFood.setOnClickListener{
             val intent = Intent(this@InventoryActivity, AddFoodActivity::class.java)
-            intent.putExtra("kitchenId",kitchenId)
             startActivity(intent)
         }
 
-    }
-
-    // test method
-    private fun showAllFood() {
-        // test foods
-        var foods: ArrayList<Food> = arrayListOf<Food>()
-        foods.add(Food(1, "Banana", 2.0))
-        foods.add(Food(2, "Chips", 1.0))
-
-        val foodListAdapter = FoodListAdapter(this, foods)
-        listViewFood.adapter = foodListAdapter
     }
 
     private fun setNavigation() {

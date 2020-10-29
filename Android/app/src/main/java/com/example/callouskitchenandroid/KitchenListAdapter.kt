@@ -24,7 +24,7 @@ class KitchenListAdapter (private val context: Activity,
         kitchenBtn.setOnClickListener(){
             val host = kitchenBtn.context as Activity
             val intent = Intent(host, InventoryActivity::class.java)
-            intent.putExtra("kitchenId",kitchens[position].id)
+            ServiceHandler.lastCategory = kitchens[position].name
             host.startActivity(intent)
         }
 

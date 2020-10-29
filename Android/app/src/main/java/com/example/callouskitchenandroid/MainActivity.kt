@@ -25,12 +25,12 @@ class MainActivity : AppCompatActivity() {
             // validate username and password
 
             if (txtName.text.isNullOrEmpty() || txtPassword.text.isNullOrEmpty())
-                Toast.makeText(applicationContext,"Please enter your username and password", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext,"Please enter your email and password", Toast.LENGTH_LONG).show()
             else
             {
 
                 ServiceHandler.callAccountService(
-                    "LoginAccount",hashMapOf("userName" to txtName.text.toString(),"pass" to txtPassword.text.toString()),this,
+                    "LoginAccount",hashMapOf("email" to txtName.text.toString(),"pass" to txtPassword.text.toString()),this,
                     Response.Listener { response ->
                         val json = JSONObject(response.toString())
                         val user = json.getJSONObject("LoginAccountResult")
@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
                         if (userId != -1){
                             ServiceHandler.userId = userId
                             ServiceHandler.email = user.getString("Email")
-                            ServiceHandler.userName = user.getString("Username")
                             ServiceHandler.vegan = user.getBoolean("Vegan")
                             ServiceHandler.vegetarian = user.getBoolean("Vegetarian")
                             var allergies = user.getJSONArray("Allergies")
@@ -47,11 +46,14 @@ class MainActivity : AppCompatActivity() {
                             for (i in 0 until allergies.length()) {
                                 ServiceHandler.allergies!!.add(allergies.getString(i))
                             }
+                            var kitchens = user.getJSONArray("Kitchens")
+                            var kitchen = kitchens.getJSONObject(0)
+                            ServiceHandler.primaryKitchenId = kitchen.getInt("Id")
                             val intent = Intent(this@MainActivity, KitchenListActivity::class.java)
                             startActivity(intent)
                         }
                         else{
-                            Toast.makeText(applicationContext,"Username or password is incorrect", Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext,"Email or password is incorrect", Toast.LENGTH_LONG).show()
                         }
 
                     })

@@ -12,6 +12,7 @@ import org.json.JSONObject
 
 class AddKitchenActivity : AppCompatActivity() {
 
+    //Important!!!! Don't use this for now, it is broken
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_kitchen)

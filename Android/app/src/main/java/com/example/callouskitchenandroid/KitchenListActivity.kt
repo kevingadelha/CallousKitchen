@@ -18,33 +18,24 @@ class KitchenListActivity : AppCompatActivity() {
         // set the bottom nav bar
         setNavigation()
 
-        //This totally won't work yet
-        ServiceHandler.callAccountService(
-            "GetKitchens",hashMapOf("userId" to ServiceHandler.userId),this,
-            Response.Listener { response ->
-
-                val json = JSONObject(response.toString())
-                val kitchensJson = json.getJSONArray("GetKitchensResult")
-                var kitchens: ArrayList<Kitchen> = arrayListOf<Kitchen>()
-
-                for (i in 0 until kitchensJson.length()) {
-
-                    var kitchenJson: JSONObject = kitchensJson.getJSONObject(i)
-                    kitchens.add(Kitchen(kitchenJson.getInt("Id"),kitchenJson.getString("Name")))
-
-                }
-                val kitchenListAdapter = KitchenListAdapter(this, kitchens)
-                listView.adapter = kitchenListAdapter
-            })
-        //showAllKitchens()
+        var kitchens: ArrayList<Kitchen> = arrayListOf<Kitchen>()
+        kitchens.add(Kitchen(0,"Fridge"))
+        kitchens.add(Kitchen(1,"Freezer"))
+        kitchens.add(Kitchen(2,"Pantry"))
+        kitchens.add(Kitchen(3,"Cupboard"))
+        kitchens.add(Kitchen(4,"Cellar"))
+        kitchens.add(Kitchen(5,"Other"))
+        val kitchenListAdapter = KitchenListAdapter(this, kitchens)
+        listView.adapter = kitchenListAdapter
 
         // Get add button
         val btnAddKitchen = findViewById<Button>(R.id.btnAddKitchen)
 
+        //TODO: Incorporate some way to manage categories maybe
         btnAddKitchen.setOnClickListener(){
             // go to add kitchen view
-            val intent = Intent(this@KitchenListActivity, AddKitchenActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this@KitchenListActivity, AddKitchenActivity::class.java)
+            //startActivity(intent)
         }
     }
 
@@ -70,17 +61,5 @@ class KitchenListActivity : AppCompatActivity() {
                 else -> false
             }
         }
-    }
-
-    private fun showAllKitchens() {
-        // test kitchens
-        var kitchens: ArrayList<Kitchen> = ArrayList<Kitchen>()
-        kitchens.add(Kitchen(1, "Home Kitchen"))
-        kitchens.add(Kitchen(2, "New Kitchen"))
-
-
-
-        val kitchenListAdapter = KitchenListAdapter(this, kitchens)
-        listView.adapter = kitchenListAdapter
     }
 }

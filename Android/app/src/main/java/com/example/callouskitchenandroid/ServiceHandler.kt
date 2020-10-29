@@ -28,12 +28,13 @@ class ServiceHandler {
         //So I'm putting them here for now
         //The user's id
         var userId = -1
-        var userName : String? = null
         var email : String? = null
         var vegan : Boolean? = null
         var vegetarian : Boolean? = null
         var allergies : ArrayList<String>? = null
-        var lastKitchenId = -1
+        var primaryKitchenId = -1
+        //this is better than passing stuff through intents all the time
+        var lastCategory = ""
         val baseUrl =  "http://142.55.32.86:50241"
         //The name of the service with extension, the name of the method, the parameters where the string
         //is the parameter name and any is the value, for context use this and use response as your listener
