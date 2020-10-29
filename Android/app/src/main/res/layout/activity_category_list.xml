@@ -6,31 +6,22 @@
     android:layout_height="match_parent"
     android:id="@+id/container"
     android:background="?attr/bgColor"
-    tools:context=".InventoryActivity">
+    tools:context=".CategoryListActivity">
 
     <ListView
-        android:id="@+id/listViewFood"
+        android:id="@+id/listViewCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddFood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="75dp"
-        android:src="@drawable/add"/>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavInventory"
+        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
         app:itemIconTint="#fff"
         app:itemTextColor="#fff"
-        app:menu="@menu/bottom_navigation_menu" />
-
+        app:menu="@menu/bottom_navigation_menu"
+        />
 </FrameLayout>

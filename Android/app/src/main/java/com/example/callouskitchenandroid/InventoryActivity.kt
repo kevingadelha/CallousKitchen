@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.android.volley.Response
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_inventory.*
-import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 
 class InventoryActivity : AppCompatActivity() {
@@ -44,7 +44,7 @@ var kitchenId : Int = 0
 
         //showAllFood()
 
-        val btnAddFood = findViewById<Button>(R.id.btnAddFood)
+        val btnAddFood = findViewById<FloatingActionButton>(R.id.btnAddFood)
 
         btnAddFood.setOnClickListener{
             val intent = Intent(this@InventoryActivity, AddFoodActivity::class.java)
@@ -52,12 +52,6 @@ var kitchenId : Int = 0
             startActivity(intent)
         }
 
-      /*  val btnKitchen = findViewById<Button>(R.id.btnOpenInventory)
-
-        btnKitchen.setOnClickListener{
-            val intent = Intent(this@InventoryActivity, KitchenListActivity::class.java)
-            startActivity(intent)
-        }*/
     }
 
     // test method
