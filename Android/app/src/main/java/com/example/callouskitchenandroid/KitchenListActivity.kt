@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import com.android.volley.Response
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 
@@ -29,7 +30,7 @@ class KitchenListActivity : AppCompatActivity() {
         listView.adapter = kitchenListAdapter
 
         // Get add button
-        val btnAddKitchen = findViewById<Button>(R.id.btnAddKitchen)
+        val btnAddKitchen = findViewById<FloatingActionButton>(R.id.btnAddKitchen)
 
         //TODO: Incorporate some way to manage categories maybe
         btnAddKitchen.setOnClickListener(){

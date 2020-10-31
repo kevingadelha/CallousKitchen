@@ -7,35 +7,21 @@
     android:id="@+id/container"
     android:background="?attr/bgColor"
     tools:context=".KitchenListActivity">
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="5dp"
-        android:fillViewport="false"
-        android:background="?attr/bgColor">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/bgColor">
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"/>
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddKitchen"
-        android:layout_width="match_parent"
-        android:layout_height="78dp"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="+"
-        android:textColor="?attr/textColor"
-        android:textSize="32sp" />
-</LinearLayout>
-</ScrollView>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="75dp"
+        android:src="@drawable/add"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
