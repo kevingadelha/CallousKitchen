@@ -3,10 +3,12 @@ package com.example.callouskitchenandroid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.android.volley.Response
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_inventory.*
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 
@@ -27,6 +29,8 @@ class KitchenListActivity : AppCompatActivity() {
         kitchens.add(Kitchen(4,"Cellar"))
         kitchens.add(Kitchen(5,"Other"))
         val kitchenListAdapter = KitchenListAdapter(this, kitchens)
+        val footerView = layoutInflater.inflate(R.layout.footer_view, listView, false) as ViewGroup
+        listView.addFooterView(footerView)
         listView.adapter = kitchenListAdapter
 
         // Get add button

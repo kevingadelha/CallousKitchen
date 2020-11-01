@@ -54,6 +54,7 @@ class FoodListAdapter(private val context: Activity,
         val btnEdit = rowView.findViewById<ImageButton>(R.id.imgBtnEditFood)
         val btnEat = rowView.findViewById<ImageButton>(R.id.imgBtnEatFood)
         val btnDelete = rowView.findViewById<ImageButton>(R.id.imgBtnDeleteFood)
+        val btnFavourite = rowView.findViewById<ImageButton>(R.id.imgBtnFavourite)
 
         btnEdit.setOnClickListener{
             // open edit activity
@@ -86,6 +87,24 @@ class FoodListAdapter(private val context: Activity,
             intent.putExtra("FOOD", foods[position])
 
             host.startActivity(intent)
+        }
+
+        // TODO: check if this is a favourite food and set the button to be a star (not favourite) or a filled star (favourite)
+        // test code
+        var isFavourite = false;
+
+        btnFavourite.setOnClickListener{
+
+            //TODO: mark as a favourite food
+
+            // test toggle
+            isFavourite = !isFavourite
+
+            if (isFavourite)
+                btnFavourite.setImageResource(R.drawable.filledstar)
+            else
+                btnFavourite.setImageResource(R.drawable.star)
+
         }
 
         return rowView

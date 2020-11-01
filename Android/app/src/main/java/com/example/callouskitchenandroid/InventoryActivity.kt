@@ -3,6 +3,7 @@ package com.example.callouskitchenandroid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Button
 import com.android.volley.Response
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -35,6 +36,8 @@ class InventoryActivity : AppCompatActivity() {
 
                     }
                 val foodListAdapter = FoodListAdapter(this, foods)
+                val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
+                listViewFood.addFooterView(footerView)
                 listViewFood.adapter = foodListAdapter
             })
 
