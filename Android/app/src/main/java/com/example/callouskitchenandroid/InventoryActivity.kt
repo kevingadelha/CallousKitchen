@@ -24,7 +24,6 @@ class InventoryActivity : AppCompatActivity() {
                 val json = JSONObject(response.toString())
                 val foodsJson = json.getJSONArray("GetInventoryResult")
                 var foods: ArrayList<Food> = arrayListOf<Food>()
-
                     for (i in 0 until foodsJson.length()) {
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
                         if (ServiceHandler.lastCategory == foodJson.getString("Storage")){
@@ -35,6 +34,9 @@ class InventoryActivity : AppCompatActivity() {
                         }
 
                     }
+                // set the title
+                title = ServiceHandler.lastCategory
+
                 val foodListAdapter = FoodListAdapter(this, foods)
                 val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
                 listViewFood.addFooterView(footerView)

@@ -49,7 +49,7 @@
             android:label="Inventory" />
         <activity
             android:name=".KitchenListActivity"
-            android:label="My Kitchens" />
+            android:label="Categories" />
         <activity
             android:name=".MainActivity"
             android:label="Login">
