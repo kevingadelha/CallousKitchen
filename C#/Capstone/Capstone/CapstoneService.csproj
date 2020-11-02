@@ -151,7 +151,6 @@
     <Compile Include="CallousHipposDb.cs" />
     <Compile Include="Classes\Food.cs" />
     <Compile Include="Classes\Kitchen.cs" />
-    <Compile Include="Classes\Storage.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="IAccountService.cs" />
     <Compile Include="IAccountServiceMvc.cs" />

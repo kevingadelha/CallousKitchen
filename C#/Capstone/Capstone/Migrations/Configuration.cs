@@ -20,15 +20,6 @@
             //  to avoid creating duplicate seed data.
             // seed the storage
 
-            if (context.Storages.Where(x => x.Name == "Fridge").Count() == 0)
-                context.Storages.Add(new Classes.Storage { Name = "Fridge" });
-            if (context.Storages.Where(x => x.Name == "Pantry").Count() == 0)
-                context.Storages.Add(new Classes.Storage { Name = "Pantry" });
-            if (context.Storages.Where(x => x.Name == "Freezer").Count() == 0)
-                context.Storages.Add(new Classes.Storage { Name = "Freezer" });
-            if (context.Storages.Where(x => x.Name == "Cellar").Count() == 0)
-                context.Storages.Add(new Classes.Storage { Name = "Cellar" });
-
         }
     }
 }
