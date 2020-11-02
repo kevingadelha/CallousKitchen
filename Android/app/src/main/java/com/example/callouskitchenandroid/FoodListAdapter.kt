@@ -8,7 +8,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.android.volley.Response
+import org.json.JSONArray
+import org.json.JSONObject
 import java.time.LocalDate
 
 class FoodListAdapter(private val context: Activity,
@@ -90,19 +94,35 @@ class FoodListAdapter(private val context: Activity,
         }
 
         var isFavourite = foods[position].favourite
+        if (isFavourite)
+            btnFavourite.setImageResource(R.drawable.filledstar)
+        else
+            btnFavourite.setImageResource(R.drawable.star)
+        var foodId = foods[position].id
 
         btnFavourite.setOnClickListener{
 
-            //TODO: mark as a favourite food
-
-            // test toggle
             isFavourite = !isFavourite
-
-            if (isFavourite)
-                btnFavourite.setImageResource(R.drawable.filledstar)
-            else
-                btnFavourite.setImageResource(R.drawable.star)
-
+            ServiceHandler.callAccountService(
+                "FavouriteFood", hashMapOf(
+                    "foodId" to foodId,
+                    "favourite" to isFavourite
+                ), context,
+                Response.Listener { response ->
+                    val json = JSONObject(response.toString())
+                    val success = json.getBoolean("FavouriteFoodResult")
+                    // return to the food list
+                    if (!success){
+                        Toast.makeText(context,"Failed :(", Toast.LENGTH_LONG).show()
+                        isFavourite = !isFavourite
+                    }
+                    else{
+                        if (isFavourite)
+                            btnFavourite.setImageResource(R.drawable.filledstar)
+                        else
+                            btnFavourite.setImageResource(R.drawable.star)
+                    }
+                })
         }
 
         return rowView
