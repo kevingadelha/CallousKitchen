@@ -89,9 +89,7 @@ class FoodListAdapter(private val context: Activity,
             host.startActivity(intent)
         }
 
-        // TODO: check if this is a favourite food and set the button to be a star (not favourite) or a filled star (favourite)
-        // test code
-        var isFavourite = false;
+        var isFavourite = foods[position].favourite
 
         btnFavourite.setOnClickListener{
 
