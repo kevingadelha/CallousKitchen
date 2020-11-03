@@ -21,9 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/DarkTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CategoryListActivity"></activity>
+        <activity android:name=".CategoryListActivity"/>
         <activity android:name=".RecipeViewActivity" />
-        <activity android:name=".RecipeSearchActivity" />
+        <activity
+            android:name=".RecipeSearchActivity"
+            android:label="Recipes"/>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".activity_barcode_scan" />
         <activity
