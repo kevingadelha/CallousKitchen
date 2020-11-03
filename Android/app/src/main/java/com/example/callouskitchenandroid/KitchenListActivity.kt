@@ -45,6 +45,7 @@ class KitchenListActivity : AppCompatActivity() {
         kitchens.add(Kitchen(3,"Cupboard"))
         kitchens.add(Kitchen(4,"Cellar"))
         kitchens.add(Kitchen(5,"Other"))
+        kitchens.add(Kitchen(6, "Shopping List"))
         val kitchenListAdapter = KitchenListAdapter(this, kitchens)
         val footerView = layoutInflater.inflate(R.layout.footer_view, listView, false) as ViewGroup
         listView.addFooterView(footerView)

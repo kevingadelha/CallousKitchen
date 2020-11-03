@@ -27,25 +27,26 @@ class RecipeSearchActivity : AppCompatActivity() {
             }
         }
 
-        suggestRecipes()
+        val btnGetSuggestions = findViewById<Button>(R.id.btnGetRecipeSuggestions)
 
-        // TODO: get recipes from the service
-        var recipes: ArrayList<Recipe> = arrayListOf<Recipe>()
-        val recipeListAdapter = RecipeListAdapter(this, recipes)
-        listViewRecipe.adapter = recipeListAdapter
+        btnGetSuggestions.setOnClickListener {
 
+            // TODO: Search for expired ingredients
+            // params: string search, int count, List<string> diets, int kitchenId
+
+            // test code
+            var recipes: ArrayList<Recipe> = arrayListOf<Recipe>()
+            recipes.add(Recipe("Chili", "https://www.budgetbytes.com/basic-chili/", "Budget Bites", "", 6))
+            val recipeListAdapter = RecipeListAdapter(this, recipes)
+            listViewRecipe.adapter = recipeListAdapter
+        }
     }
 
     private fun searchRecipes(query: String)
     {
-        // search based on the ingredient
+        // search based on the ingredient entered in the search bar
 
         // present the results in the list view
-    }
-
-    private fun suggestRecipes()
-    {
-        // suggest a few recipes based on expiring food items and use them to populate the recipe list
     }
 
     private fun setNavigation() {

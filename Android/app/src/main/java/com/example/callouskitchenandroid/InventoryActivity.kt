@@ -35,7 +35,7 @@ class InventoryActivity : AppCompatActivity() {
                         }
 
                     }
-                // set the title
+                // set the title of the activity
                 title = ServiceHandler.lastCategory
 
                 val foodListAdapter = FoodListAdapter(this, foods)
