@@ -40,8 +40,8 @@ class DeleteFoodActivity : AppCompatActivity() {
                     Response.Listener { response ->
 
                         val json = JSONObject(response.toString())
-                        val kitchensJson = json.getBoolean("RemoveItemResult")
-                        if (!kitchensJson){
+                        val success = json.getBoolean("RemoveItemResult")
+                        if (!success){
                             Toast.makeText(applicationContext,"Failed :(", Toast.LENGTH_LONG).show()
                         }
 

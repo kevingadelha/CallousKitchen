@@ -30,6 +30,7 @@ class InventoryActivity : AppCompatActivity() {
                             var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
                             food.quantity = foodJson.getDouble("Quantity")
                             food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
+                            food.favourite = foodJson.getBoolean("Favourite")
                             foods.add(food)
                         }
 

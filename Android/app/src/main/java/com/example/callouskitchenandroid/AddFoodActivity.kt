@@ -206,7 +206,6 @@ class AddFoodActivity : AppCompatActivity() {
                         "calories" to -1,
                         "ingredients" to JSONArray(ingredients),
                         "traces" to JSONArray(traces),
-                        //TODO: get favourite from UI
                         "favourite" to false
                     ), this,
                     Response.Listener { response ->
