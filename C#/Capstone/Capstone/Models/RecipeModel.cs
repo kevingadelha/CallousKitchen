@@ -25,6 +25,9 @@ namespace Capstone.Models
         [JsonProperty(PropertyName = "ingredientLines")]
         public string[] Ingredients { get; set; }
 
+        [JsonProperty(PropertyName = "Ingredients.food")]
+        public string[] EdamanIngredients { get; set; }
+
 
     }
 

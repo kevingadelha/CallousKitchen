@@ -150,7 +150,6 @@
     <Compile Include="CallousHipposDb.cs" />
     <Compile Include="Classes\Food.cs" />
     <Compile Include="Classes\Kitchen.cs" />
-    <Compile Include="Classes\Storage.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="IAccountService.cs" />
     <Compile Include="IAccountServiceMvc.cs" />
@@ -176,6 +175,7 @@
       <DependentUpon>202010120341339_storageWithIds.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\EdamanIngredient.cs" />
     <Compile Include="Models\FoodFactsModel.cs" />
     <Compile Include="Models\FoodFactsProductModel.cs" />
     <Compile Include="Models\IngredientModel.cs" />

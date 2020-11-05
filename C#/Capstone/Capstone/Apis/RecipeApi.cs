@@ -44,6 +44,7 @@ namespace Capstone.Apis
                     RecipeQueryModel RQModel = await response.Content.ReadAsAsync<RecipeQueryModel>();
                     for (int i = 0; i < RQModel.Hits.Count(); i++)
                     {
+                        System.Diagnostics.Debug.WriteLine("Scanning");
                         results.Add(new SerializableRecipeModel(RQModel.Hits[i].Recipe));
 
                     }

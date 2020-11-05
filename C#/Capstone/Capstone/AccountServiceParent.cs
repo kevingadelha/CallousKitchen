@@ -128,6 +128,13 @@ namespace Capstone
             return openFoodFacts.LoadAllBarcodeData(barcode);
         }
 
+        public List<string> GenerateShoppingList(int kichenId)
+        {
+            List<string> shoppingList;
+            shoppingList = db.Kitchens.Where(x => x.Id == kichenId).FirstOrDefault().Inventory.Where(i => i.Favourite == true).Select(n=> n.Name).ToList();
+            return shoppingList;
+        }
+
         // Author Peter Szadurski
         public Task<Models.SerializableRecipeModel[]> SearchRecipes(string search, int count, List<string> diets)
         {
