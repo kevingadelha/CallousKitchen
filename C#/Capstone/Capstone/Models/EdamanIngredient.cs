@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -10,5 +11,8 @@ namespace Capstone.Models
     [Serializable]
     public class EdamanIngredient
     {
+        [JsonProperty(PropertyName = "food")]
+        public string Name { get; set; }
+
     }
 }

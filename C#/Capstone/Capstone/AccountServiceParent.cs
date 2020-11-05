@@ -131,7 +131,7 @@ namespace Capstone
         public List<string> GenerateShoppingList(int kichenId)
         {
             List<string> shoppingList;
-            shoppingList = db.Kitchens.Where(x => x.Id == kichenId).FirstOrDefault().Inventory.Where(i => i.Favourite == true).Select(n=> n.Name).ToList();
+            shoppingList = db.Kitchens.Where(x => x.Id == kichenId).FirstOrDefault().Inventory.Where(i => i.Favourite == true).Select(n => n.Name).ToList();
             return shoppingList;
         }
 
@@ -151,7 +151,7 @@ namespace Capstone
 
             foreach (var r in recipes)
             {
-                foreach (var i in r.Ingredients)
+                /*foreach (var i in r.Ingredients)
                 {
                     foreach (var f in foods)
                     {
@@ -167,6 +167,38 @@ namespace Capstone
                     }
                     r.Score += i.Score;
                 }
+                */
+                foreach (var i in r.EdamanIngredients)
+                {
+                    int tempScore = 0;
+                    foreach (var f in foods)
+                    {
+                        int tempFood = 0;
+
+                        if (f.Name.ToLower() == i.ToLower())
+                        {
+                            tempFood = 2;
+                            
+                        }
+                        else if (f.Name.ToLower().Contains(i.ToLower()))
+                        {
+                            tempFood = 1;
+                        }
+                        if (tempFood > 0 && f.ExpiryDate.HasValue)
+                        {
+                            DateTime date1 = f.ExpiryDate.Value;
+                            DateTime date2 = DateTime.Now.AddDays(3);
+                            TimeSpan time = date2 - date1;
+                            tempFood += time.Days;
+                        }
+                        if (tempFood > tempScore)
+                        {
+                            tempScore = tempFood;
+                        }
+                    }
+                    r.Score += tempScore;
+                }
+
             }
             recipes = recipes.OrderByDescending(x => x.Score).ToArray();
 
@@ -183,9 +215,9 @@ namespace Capstone
         }
         public async Task<bool> AddFoodComplete(int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite)
         {
-            var food = new Food(name,(Storage)Enum.Parse(typeof(Storage),storage,true),expiryDate,quantity,quantityClassifier,vegan,vegetarian,ingredients,traces,favourite);
+            var food = new Food(name, (Storage)Enum.Parse(typeof(Storage), storage, true), expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
-                .Add( db.Foods.Add(food));
+                .Add(db.Foods.Add(food));
             await db.SaveChangesAsync();
             return true;
         }

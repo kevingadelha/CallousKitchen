@@ -25,8 +25,8 @@ namespace Capstone.Models
         [JsonProperty(PropertyName = "ingredientLines")]
         public string[] Ingredients { get; set; }
 
-        [JsonProperty(PropertyName = "Ingredients.food")]
-        public string[] EdamanIngredients { get; set; }
+        [JsonProperty(PropertyName = "Ingredient")]
+        public EdamanIngredient[] EdamanIngredients { get; set; }
 
 
     }
@@ -51,9 +51,12 @@ namespace Capstone.Models
         public int Score { get; set; }
         [DataMember]
         public IngredientModel[] Ingredients { get; set; }
+        [DataMember]
+        public string[] EdamanIngredients { get; set; }
 
 
-        public SerializableRecipeModel(RecipeModel m)
+
+    public SerializableRecipeModel(RecipeModel m)
         {
             Name = m.Name;
             Url = m.Url;
@@ -68,6 +71,13 @@ namespace Capstone.Models
             }
             Ingredients = ingreds.ToArray();
             Score = 0;
+
+            List<string> edams = new List<string>();
+            foreach (var i in m.EdamanIngredients)
+            {
+                edams.Add(i.Name);
+            }
+            EdamanIngredients = edams.ToArray();
         }
     }
 }
