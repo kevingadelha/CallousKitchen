@@ -115,5 +115,10 @@ namespace Capstone
 
 		[OperationContract]
 		bool AnotherTest();
+
+		[OperationContract]
+		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+	ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+		Models.SerializableRecipeModel[] FeelingLucky(string search, int count, List<string> diets, int kitchenId);
 	}
 }

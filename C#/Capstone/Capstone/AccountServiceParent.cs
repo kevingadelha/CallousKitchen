@@ -205,6 +205,18 @@ namespace Capstone
             return recipes;
         }
 
+        public Models.SerializableRecipeModel[] FeelingLucky(int count, List<string> diets, int kitchenId)
+        {
+            string searchString = "";
+            List<Food> foods = db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory;
+            foods = foods.OrderByDescending(x => x.ExpiryDate).Take(5).ToList();
+            foreach (var f in foods)
+            {
+                searchString += f.Name + " ";
+            }
+            return SearchRecipesRanked(searchString, count, diets, kitchenId);
+        }
+
 
         public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
