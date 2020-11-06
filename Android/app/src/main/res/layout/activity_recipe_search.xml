@@ -11,6 +11,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="56dp"
     android:orientation="vertical"
     android:background="?attr/bgColor"
     >
@@ -22,9 +23,18 @@
         android:queryHint="Search by ingredient"
         />
 
+    <Button
+        android:id="@+id/btnGetRecipeSuggestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/get_recipe_suggestions"
+        android:textColor="?attr/textColor" />
+
     <ListView
         android:id="@+id/listViewRecipe"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

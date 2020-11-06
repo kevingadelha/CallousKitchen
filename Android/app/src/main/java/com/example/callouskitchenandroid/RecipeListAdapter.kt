@@ -21,10 +21,16 @@ class RecipeListAdapter (private val context: Activity,
         val txtRecipeSource = rowView.findViewById<TextView>(R.id.textViewRecipeSource)
         val imgRecipe  = rowView.findViewById<ImageView>(R.id.imageViewRecipe)
 
+        txtRecipeTitle.text = recipes[position].name
+        txtRecipeYield.text = "Servings: " + recipes[position].recipeYield
+        txtRecipeSource.text = recipes[position].source
+        // TODO: set image
+
         rowView.setOnClickListener {
             // open recipe activity
             val host = rowView.context as Activity
             val intent = Intent(host, RecipeViewActivity::class.java)
+            intent.putExtra("URL", recipes[position].url)
             host.startActivity(intent)
 
         }

@@ -258,16 +258,31 @@ namespace Capstone
         public async Task<bool> EatFood(int id, int quantity)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
-            item.Quantity = quantity;
+            if (quantity == 0 && !item.Favourite)
+            {
+                db.Foods.Remove(item);
+            }
+			else
+            {
+                item.Quantity = quantity;
+            }
             await db.SaveChangesAsync();
             return true;
         }
         public async Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
+            //Assume that if the user is editing the food they don't want to delete by having the quantity be zero
             item.Name = name;
             item.Quantity = quantity;
             item.ExpiryDate = expiryDate;
+            await db.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> FavouriteFood(int foodId, bool favourite)
+        {
+            var item = db.Foods.Where(x => x.Id == foodId).FirstOrDefault();
+            item.Favourite = favourite;
             await db.SaveChangesAsync();
             return true;
         }
