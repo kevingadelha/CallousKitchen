@@ -113,11 +113,26 @@ namespace Capstone
 		Task<Models.SerializableRecipeModel[]> SearchRecipes(string search, int count, List<string> diets);
 
 		[OperationContract]
+		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+		 ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+		Models.SerializableRecipeModel[] SearchRecipesUser(string search, int count, int userId);
+
+		[OperationContract]
+		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+		 ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+		Models.SerializableRecipeModel[] SearchRecipesRanked(string search, int count, List<string> diets, int kitchenId);
+
+		[OperationContract]
+		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+		 ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+		Models.SerializableRecipeModel[] FeelingLuckyUser(int count, int userId);
+
+		[OperationContract]
 		bool AnotherTest();
 
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 	ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-		Models.SerializableRecipeModel[] FeelingLucky(string search, int count, List<string> diets, int kitchenId);
+		Models.SerializableRecipeModel[] FeelingLucky(int count, List<string> diets, int kitchenId);
 	}
 }

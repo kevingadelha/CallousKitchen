@@ -135,6 +135,17 @@ namespace Capstone
             return shoppingList;
         }
 
+        public Models.SerializableRecipeModel[] SearchRecipesUser(string search, int count, int userId)
+        {
+            var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+            List<string> diets = user.Allergies?.Split('|')?.ToList() ?? new List<string>();
+            if (user.Vegan)
+                diets.Add("vegan");
+            if (user.Vegetarian)
+                diets.Add("vegetarian");
+            return SearchRecipesRanked(search, count, diets, user.Kitchens.FirstOrDefault().Id);
+        }
+
         // Author Peter Szadurski
         public Task<Models.SerializableRecipeModel[]> SearchRecipes(string search, int count, List<string> diets)
         {
@@ -215,6 +226,17 @@ namespace Capstone
                 searchString += f.Name + " ";
             }
             return SearchRecipesRanked(searchString, count, diets, kitchenId);
+        }
+
+        public Models.SerializableRecipeModel[] FeelingLuckyUser(int count, int userId)
+        {
+            var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+            List<string> diets = user.Allergies?.Split('|')?.ToList() ?? new List<string>();
+            if (user.Vegan)
+                diets.Add("vegan");
+            if (user.Vegetarian)
+                diets.Add("vegetarian");
+            return FeelingLucky(count, diets, user.Kitchens.FirstOrDefault().Id);
         }
 
 

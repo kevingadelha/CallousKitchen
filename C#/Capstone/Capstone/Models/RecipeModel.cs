@@ -73,7 +73,7 @@ namespace Capstone.Models
             Score = 0;
 
             List<string> edams = new List<string>();
-            foreach (var i in m.EdamanIngredients)
+            foreach (var i in m?.EdamanIngredients ?? new EdamanIngredient[0])
             {
                 edams.Add(i.Name);
             }
