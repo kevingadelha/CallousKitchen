@@ -25,11 +25,15 @@ namespace Capstone.Models
         [DataMember]
         public string Name { get; set; }
         [DataMember]
+        public string OriginalName { get; set; }
+        [DataMember]
         public int Score { get; set; } // The ranking of how well an ingredient matches with an inventory item
 
         public IngredientModel(string name)
         {
+            System.Diagnostics.Debug.WriteLine(name);
             Name = name;
+            OriginalName = name;
             Score = 0;
             // check for "of" and ","
             if (Name.ToLower().ToLower().Contains(" of ")){
