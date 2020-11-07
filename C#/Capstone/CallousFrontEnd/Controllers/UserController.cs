@@ -22,12 +22,12 @@ namespace CallousFrontEnd.Controllers
         public ActionResult CreateUser(Capstone.Classes.User user)
         {
             
-            int id = Client.CreateAccountWithEmail(user.Username, user.Password, user.Email);
+            int id = Client.CreateAccountWithEmail(user.Email, user.Password, user.Email);
             if (id > 0)
             {
-                UserSessionModel userSession = new UserSessionModel { Id = id, Username = user.Username };
+                UserSessionModel userSession = new UserSessionModel { Id = id, Username = user.Email };
                 HttpContext.Session.SetInt32("UserId", id);
-                HttpContext.Session.SetString("Username", user.Username);
+                HttpContext.Session.SetString("Username", user.Email);
                 return AccountView(userSession);
             }
             return RedirectToAction("LoginView");

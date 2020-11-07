@@ -176,6 +176,10 @@
     <Compile Include="Migrations\202010120341339_storageWithIds.designer.cs">
       <DependentUpon>202010120341339_storageWithIds.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011070127383_refactor.cs" />
+    <Compile Include="Migrations\202011070127383_refactor.designer.cs">
+      <DependentUpon>202011070127383_refactor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EdamanIngredient.cs" />
     <Compile Include="Models\FoodFactsModel.cs" />
@@ -223,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010120341339_storageWithIds.resx">
       <DependentUpon>202010120341339_storageWithIds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011070127383_refactor.resx">
+      <DependentUpon>202011070127383_refactor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

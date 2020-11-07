@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {}
+    "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {
+    "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
+        "projectUniqueName": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
         "projectName": "CallousFrontEnd",
-        "projectPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
+        "projectPath": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\obj\\",
+        "outputPath": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
-                "projectPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
+              "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
+                "projectPath": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
               }
             }
           }
@@ -108,11 +108,11 @@
         }
       }
     },
-    "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
+    "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
       "restore": {
-        "projectUniqueName": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj",
+        "projectUniqueName": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj",
         "projectName": "CapstoneService",
-        "projectPath": "D:\\Documents\\GitHub\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
+        "projectPath": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
       },
       "frameworks": {
         "net472": {}
