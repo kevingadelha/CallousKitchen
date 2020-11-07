@@ -135,6 +135,17 @@ namespace Capstone
             return shoppingList;
         }
 
+        public Models.SerializableRecipeModel[] SearchRecipesUser(string search, int count, int userId)
+        {
+            var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+            List<string> diets = user.Allergies?.Split('|')?.ToList() ?? new List<string>();
+            if (user.Vegan)
+                diets.Add("vegan");
+            if (user.Vegetarian)
+                diets.Add("vegetarian");
+            return SearchRecipesRanked(search, count, diets, user.Kitchens.FirstOrDefault().Id);
+        }
+
         // Author Peter Szadurski
         public Task<Models.SerializableRecipeModel[]> SearchRecipes(string search, int count, List<string> diets)
         {
@@ -217,6 +228,17 @@ namespace Capstone
             return SearchRecipesRanked(searchString, count, diets, kitchenId);
         }
 
+        public Models.SerializableRecipeModel[] FeelingLuckyUser(int count, int userId)
+        {
+            var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+            List<string> diets = user.Allergies?.Split('|')?.ToList() ?? new List<string>();
+            if (user.Vegan)
+                diets.Add("vegan");
+            if (user.Vegetarian)
+                diets.Add("vegetarian");
+            return FeelingLucky(count, diets, user.Kitchens.FirstOrDefault().Id);
+        }
+
 
         public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
@@ -236,16 +258,31 @@ namespace Capstone
         public async Task<bool> EatFood(int id, int quantity)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
-            item.Quantity = quantity;
+            if (quantity == 0 && !item.Favourite)
+            {
+                db.Foods.Remove(item);
+            }
+			else
+            {
+                item.Quantity = quantity;
+            }
             await db.SaveChangesAsync();
             return true;
         }
         public async Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
+            //Assume that if the user is editing the food they don't want to delete by having the quantity be zero
             item.Name = name;
             item.Quantity = quantity;
             item.ExpiryDate = expiryDate;
+            await db.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> FavouriteFood(int foodId, bool favourite)
+        {
+            var item = db.Foods.Where(x => x.Id == foodId).FirstOrDefault();
+            item.Favourite = favourite;
             await db.SaveChangesAsync();
             return true;
         }

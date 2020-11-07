@@ -21,9 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/DarkTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CategoryListActivity"></activity>
+        <activity android:name=".ShoppingListActivity"></activity>
+        <activity android:name=".CategoryListActivity" />
         <activity android:name=".RecipeViewActivity" />
-        <activity android:name=".RecipeSearchActivity" />
+        <activity
+            android:name=".RecipeSearchActivity"
+            android:label="Recipes" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".activity_barcode_scan" />
         <activity
@@ -49,7 +52,7 @@
             android:label="Inventory" />
         <activity
             android:name=".KitchenListActivity"
-            android:label="My Kitchens" />
+            android:label="Categories" />
         <activity
             android:name=".MainActivity"
             android:label="Login">

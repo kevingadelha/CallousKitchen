@@ -3,6 +3,7 @@ package com.example.callouskitchenandroid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Button
 import com.android.volley.Response
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -12,6 +13,8 @@ import org.json.JSONObject
 class InventoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // set the title of the activity
+        title = ServiceHandler.lastCategory
         setContentView(R.layout.activity_inventory)
         // set up bottom nav bar
         setNavigation()
@@ -23,18 +26,28 @@ class InventoryActivity : AppCompatActivity() {
                 val json = JSONObject(response.toString())
                 val foodsJson = json.getJSONArray("GetInventoryResult")
                 var foods: ArrayList<Food> = arrayListOf<Food>()
-
                     for (i in 0 until foodsJson.length()) {
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
                         if (ServiceHandler.lastCategory == foodJson.getString("Storage")){
                             var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
                             food.quantity = foodJson.getDouble("Quantity")
                             food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
+                            food.favourite = foodJson.getBoolean("Favourite")
+                            foods.add(food)
+                        }
+                        else if (ServiceHandler.lastCategory == "All"){
+                            var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
+                            food.quantity = foodJson.getDouble("Quantity")
+                            food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
+                            food.favourite = foodJson.getBoolean("Favourite")
                             foods.add(food)
                         }
 
                     }
+
                 val foodListAdapter = FoodListAdapter(this, foods)
+                val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
+                listViewFood.addFooterView(footerView)
                 listViewFood.adapter = foodListAdapter
             })
 

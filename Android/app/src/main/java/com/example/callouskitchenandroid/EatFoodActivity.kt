@@ -45,8 +45,8 @@ class EatFoodActivity : AppCompatActivity() {
                     Response.Listener { response ->
 
                         val json = JSONObject(response.toString())
-                        val kitchensJson = json.getBoolean("EatFoodResult")
-                        if (!kitchensJson){
+                        val success = json.getBoolean("EatFoodResult")
+                        if (!success){
                             Toast.makeText(applicationContext,"Failed :(", Toast.LENGTH_LONG).show()
                         }
 

@@ -23,9 +23,19 @@ class KitchenListAdapter (private val context: Activity,
         // set on click listener for the button to go to the inventory view
         kitchenBtn.setOnClickListener(){
             val host = kitchenBtn.context as Activity
-            val intent = Intent(host, InventoryActivity::class.java)
-            ServiceHandler.lastCategory = kitchens[position].name
-            host.startActivity(intent)
+            if (kitchens[position].name != "Shopping List")
+            {
+                val intent = Intent(host, InventoryActivity::class.java)
+                ServiceHandler.lastCategory = kitchens[position].name
+                host.startActivity(intent)
+            }
+            else
+            {
+                val intent = Intent(host, ShoppingListActivity::class.java)
+                ServiceHandler.lastCategory = kitchens[position].name
+                host.startActivity(intent)
+            }
+
         }
 
         return rowView
