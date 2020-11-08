@@ -15,10 +15,11 @@ namespace Capstone.Apis
         public static void InitializeClient()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
             ApiClient = new HttpClient();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             ApiClient.DefaultRequestHeaders.Accept.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
         }
     }

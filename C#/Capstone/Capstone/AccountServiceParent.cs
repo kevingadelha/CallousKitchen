@@ -112,6 +112,11 @@ namespace Capstone
             return user;
         }
 
+        public string DoesThisEvenWork()
+        {
+            return "yes";
+        }
+
         public User GetUser(int id)
         {
             return (db.Users.Where(x => x.Id == id).FirstOrDefault());
@@ -125,7 +130,7 @@ namespace Capstone
 
         public Task<Models.SerializableFoodFactsProductModel> GetAllOpenFoodFacts(string barcode)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             OpenFoodFacts openFoodFacts = new OpenFoodFacts();
             return openFoodFacts.LoadAllBarcodeData(barcode);

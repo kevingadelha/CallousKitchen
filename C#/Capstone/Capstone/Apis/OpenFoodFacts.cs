@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -31,6 +32,8 @@ namespace Capstone.Apis
         }
         public async Task<SerializableFoodFactsProductModel> LoadAllBarcodeData(string barcode)
         {
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             string url = $"http://world.openfoodfacts.org/api/v0/product/{barcode}.json";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
