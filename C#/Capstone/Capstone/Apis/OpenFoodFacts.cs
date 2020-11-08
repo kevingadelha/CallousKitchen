@@ -12,6 +12,9 @@ namespace Capstone.Apis
     // Author Peter Szadurski
     public class OpenFoodFacts
     {
+        private ApiHelper ApiHelper = new ApiHelper();
+        //apiHelper
+
         public async Task<string> LoadBarcode(string barcode)
         {
             string url = $"http://world.openfoodfacts.org/api/v0/product/{barcode}.json";
@@ -32,11 +35,13 @@ namespace Capstone.Apis
         }
         public async Task<SerializableFoodFactsProductModel> LoadAllBarcodeData(string barcode)
         {
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
 
             string url = $"http://world.openfoodfacts.org/api/v0/product/{barcode}.json";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+
                 if (response.IsSuccessStatusCode)
                 {
                     FoodFactsModel FFModel = await response.Content.ReadAsAsync<FoodFactsModel>();

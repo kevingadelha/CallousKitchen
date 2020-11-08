@@ -11,9 +11,8 @@ namespace Capstone.App_Code
     {
         public static void AppInitialize()
         {
-           // System.Net.ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-
-            ApiHelper.InitializeClient();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            //ApiHelper.InitializeClient();
         }
     }
 }

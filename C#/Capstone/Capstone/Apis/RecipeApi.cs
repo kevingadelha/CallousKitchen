@@ -12,6 +12,8 @@ namespace Capstone.Apis
     // Author Peter Szadurski
     public class RecipeApi
     {
+        private ApiHelper ApiHelper = new ApiHelper();
+
         private readonly string AppiKey = "2f1c9181989a25dd44b03abe15600a3f";
         private readonly string AppId = "ffa3c67d";
         public async Task<SerializableRecipeModel[]> GetRecipe(string search, int count, string[] diets)

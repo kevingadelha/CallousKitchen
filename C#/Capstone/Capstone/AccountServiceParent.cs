@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,9 +16,14 @@ namespace Capstone
 {
     public class AccountServiceParent
     {
+        //private  static HttpClient client = ApiHelper.ApiClient;
+        
+
+
         private CallousHipposDb db = new CallousHipposDb();
 
         public object KeyDerivationPrf { get; private set; }
+
 
         public SerializableUser CreateAccount(string email, string pass)
         {
@@ -114,6 +120,7 @@ namespace Capstone
 
         public string DoesThisEvenWork()
         {
+
             return "yes";
         }
 
