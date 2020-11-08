@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,9 +16,14 @@ namespace Capstone
 {
     public class AccountServiceParent
     {
+        //private  static HttpClient client = ApiHelper.ApiClient;
+        
+
+
         private CallousHipposDb db = new CallousHipposDb();
 
         public object KeyDerivationPrf { get; private set; }
+
 
         public SerializableUser CreateAccount(string email, string pass)
         {
@@ -112,6 +118,12 @@ namespace Capstone
             return user;
         }
 
+        public string DoesThisEvenWork()
+        {
+
+            return "yes";
+        }
+
         public User GetUser(int id)
         {
             return (db.Users.Where(x => x.Id == id).FirstOrDefault());
@@ -125,7 +137,7 @@ namespace Capstone
 
         public Task<Models.SerializableFoodFactsProductModel> GetAllOpenFoodFacts(string barcode)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             OpenFoodFacts openFoodFacts = new OpenFoodFacts();
             return openFoodFacts.LoadAllBarcodeData(barcode);

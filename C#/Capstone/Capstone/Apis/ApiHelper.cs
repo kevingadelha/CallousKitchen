@@ -8,18 +8,30 @@ using System.Web;
 
 namespace Capstone.Apis
 {
-    public static class ApiHelper
+    public class ApiHelper
     {
-        public static HttpClient ApiClient { get; set; }
+        public HttpClient ApiClient { get; set; }
 
-        public static void InitializeClient()
+        /*public void InitializeClient()
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            System.IO.FileStream fs = System.IO.File.Create(@"C:\temp\test.txt");
+            fs.Close();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            ApiClient = new HttpClient();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            ApiClient.DefaultRequestHeaders.Accept.Clear();
+            ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            System.Diagnostics.Debug.WriteLine("client init");
 
+        }*/
+
+        public ApiHelper()
+        {
             ApiClient = new HttpClient();
             ApiClient.DefaultRequestHeaders.Accept.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+            System.Diagnostics.Debug.WriteLine("client init");
         }
     }
 }
