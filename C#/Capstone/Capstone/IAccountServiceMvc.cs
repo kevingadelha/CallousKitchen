@@ -47,6 +47,13 @@ namespace Capstone
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+
+		List<Storage> GetStorages();
+
+		[OperationContract]
+		[WebInvoke(Method = "GET", RequestFormat = WebMessageFormat.Json,
+		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+
 		Task<string> GetBarcodeData(string barcode);
 
 		[OperationContract]

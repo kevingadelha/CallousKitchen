@@ -17,7 +17,7 @@ namespace Capstone
     public class AccountServiceParent
     {
         //private  static HttpClient client = ApiHelper.ApiClient;
-        
+
 
 
         private CallousHipposDb db = new CallousHipposDb();
@@ -110,6 +110,19 @@ namespace Capstone
         {
             return db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault()?.Inventory?
                 .Select(o => new SerializableFood(o)).ToList();
+        }
+
+        public List<Storage> GetStorages()
+        {
+            List<Storage> storages = new List<Storage>();
+            storages.Add(Storage.Fridge);
+            storages.Add(Storage.Freezer);
+            storages.Add(Storage.Pantry);
+            storages.Add(Storage.Cupboard);
+            storages.Add(Storage.Cellar);
+            storages.Add(Storage.Other);
+
+            return storages;
         }
 
         public SerializableUser GetSerializableUser(int id)
@@ -205,7 +218,7 @@ namespace Capstone
                         if (f.Name.ToLower() == i.ToLower())
                         {
                             tempFood = 2;
-                            
+
                         }
                         else if (f.Name.ToLower().Contains(i.ToLower()))
                         {
@@ -278,7 +291,7 @@ namespace Capstone
             {
                 db.Foods.Remove(item);
             }
-			else
+            else
             {
                 item.Quantity = quantity;
             }

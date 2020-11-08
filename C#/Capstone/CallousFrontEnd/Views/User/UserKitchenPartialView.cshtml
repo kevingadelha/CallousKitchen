@@ -8,18 +8,19 @@
         {
             @*hardcoded amount for now, TODO: Change it*@
             @for (int i = 1; i < 5; i++)
+                @* change this! *@
             {
-                @if (Model[0].Inventory.Where(x => x.StorageId == i).Count() != 0)
+                @if (Model[0].Inventory.Where(x => x.Storage == "Fridge").Count() != 0)
                 {
                     <tr>
-                        <th><strong>@Model[0].Inventory.Where(x => x.StorageId == i).FirstOrDefault().Storage.Name</strong></th>
+                        <th><strong>@Model[0].Inventory.Where(x => x.Storage == "Fridge").FirstOrDefault().Storage</strong></th>
                     </tr>
                 }
 
 
 
 
-                    @foreach (var food in Model[0].Inventory.Where(x=> x.StorageId == i))
+                    @foreach (var food in Model[0].Inventory.Where(x=> x.Storage == "Fridge"))
                     {
                         <tr>
                             <td>@food.Name</td>

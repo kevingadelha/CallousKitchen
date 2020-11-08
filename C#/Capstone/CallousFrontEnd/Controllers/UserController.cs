@@ -22,11 +22,11 @@ namespace CallousFrontEnd.Controllers
         public ActionResult CreateUser(Capstone.Classes.User user)
         {
             
-            int id = Client.CreateAccountWithEmail(user.Email, user.Password, user.Email);
-            if (id > 0)
+            SerializableUser serializableUser = Client.CreateAccount(user.Email, user.Password);
+            if (serializableUser.Id > 0)
             {
-                UserSessionModel userSession = new UserSessionModel { Id = id, Username = user.Email };
-                HttpContext.Session.SetInt32("UserId", id);
+                UserSessionModel userSession = new UserSessionModel { Id = serializableUser.Id, Username = user.Email };
+                HttpContext.Session.SetInt32("UserId", serializableUser.Id);
                 HttpContext.Session.SetString("Username", user.Email);
                 return AccountView(userSession);
             }
@@ -42,11 +42,11 @@ namespace CallousFrontEnd.Controllers
         public ActionResult Login(LoginModel login)
         {
 
-            int id = Client.LoginAccount(login.Username, login.Password);
-            if (id != -1)
+            SerializableUser serializableUser = Client.LoginAccount(login.Username, login.Password);
+            if (serializableUser.Id != -1)
             {
-                UserSessionModel user = new UserSessionModel { Id = id, Username = login.Username };
-                HttpContext.Session.SetInt32("UserId", id);
+                UserSessionModel user = new UserSessionModel { Id = serializableUser.Id, Username = login.Username };
+                HttpContext.Session.SetInt32("UserId", serializableUser.Id);
                 HttpContext.Session.SetString("Username", login.Username);
                 ViewBag.UserSession = user;
 
@@ -177,7 +177,8 @@ namespace CallousFrontEnd.Controllers
             {
                 if (foodKitchen.Food.Id == 0) // add food
                 {
-                    Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate, foodKitchen.Food.StorageId);
+                    // FIX THIS
+                    Client.AddFoodComplete(foodKitchen.KitchenId, foodKitchen.Food.Name,"Fridge" ,DateTime.Now, (int)foodKitchen.Food.Quantity, "grams", -1,-1, null, null, false);
                 }
                 else // edit food
                 {
