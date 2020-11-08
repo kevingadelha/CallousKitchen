@@ -35,12 +35,11 @@ namespace Capstone.Apis
         }
         public async Task<SerializableFoodFactsProductModel> LoadAllBarcodeData(string barcode)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
 
             string url = $"http://world.openfoodfacts.org/api/v0/product/{barcode}.json";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+               // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
 
                 if (response.IsSuccessStatusCode)
                 {
