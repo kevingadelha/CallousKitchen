@@ -5,9 +5,9 @@ class Recipe {
     var url: String = ""
     var source: String = ""
     var image: String = ""
-    var recipeYield: Int = 0
+    var recipeYield: Double = 0.0
 
-    constructor(name: String, url: String, source: String, image: String, recipeYield: Int)
+    constructor(name: String, url: String, source: String, image: String, recipeYield: Double)
     {
         this.name = name
         this.url = url
