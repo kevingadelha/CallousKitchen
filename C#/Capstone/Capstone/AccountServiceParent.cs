@@ -4,6 +4,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -124,8 +125,11 @@ namespace Capstone
 
         public Task<Models.SerializableFoodFactsProductModel> GetAllOpenFoodFacts(string barcode)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             OpenFoodFacts openFoodFacts = new OpenFoodFacts();
             return openFoodFacts.LoadAllBarcodeData(barcode);
+
         }
 
         public List<string> GenerateShoppingList(int kichenId)
