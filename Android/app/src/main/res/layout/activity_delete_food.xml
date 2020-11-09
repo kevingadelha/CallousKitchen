@@ -37,6 +37,15 @@
             android:textColor="?attr/textColor"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/textViewHowMuch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="How much are you throwing away?"
+            android:textColor="?attr/textColor"
+            android:textSize="14sp" />
+
         <EditText
             android:id="@+id/editDeleteFoodQuantity"
             android:layout_width="match_parent"
