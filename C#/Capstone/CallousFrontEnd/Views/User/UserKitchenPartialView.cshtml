@@ -1,5 +1,7 @@
 ﻿@model List<AccountService.SerializableKitchen>
-@{ }
+@{ 
+    string[] StorageTypes = { "Fridge", "Freezer", "Pantry", "Cupboard", "Cellar", "Other" };
+}
 @if (Model.Count != 0)
 {
     <table>
@@ -7,20 +9,20 @@
         @if (Model[0].Inventory.Count() != 0)
         {
             @*hardcoded amount for now, TODO: Change it*@
-            @for (int i = 1; i < 5; i++)
+            @for (int i = 0; i < StorageTypes.Length; i++)
                 @* change this! *@
             {
-                @if (Model[0].Inventory.Where(x => x.Storage == "Fridge").Count() != 0)
+                @if (Model[0].Inventory.Where(x => x.Storage == StorageTypes[i]).Count() != 0)
                 {
                     <tr>
-                        <th><strong>@Model[0].Inventory.Where(x => x.Storage == "Fridge").FirstOrDefault().Storage</strong></th>
+                        <th><strong>@Model[0].Inventory.Where(x => x.Storage == StorageTypes[i]).FirstOrDefault().Storage</strong></th>
                     </tr>
                 }
 
 
 
 
-                    @foreach (var food in Model[0].Inventory.Where(x=> x.Storage == "Fridge"))
+                    @foreach (var food in Model[0].Inventory.Where(x=> x.Storage == StorageTypes[i]))
                     {
                         <tr>
                             <td>@food.Name</td>

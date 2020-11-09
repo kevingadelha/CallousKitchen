@@ -121,7 +121,7 @@ namespace CallousFrontEnd.Controllers
         {
             ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
 
-
+            ViewBag.StoragesList = Client.GetStorages();
             KitchenModel kM = new KitchenModel();
             kM.Kitchens = kitchens;
             kM.Storages = Client.GetStorages().ToList();
@@ -178,7 +178,9 @@ namespace CallousFrontEnd.Controllers
                 if (foodKitchen.Food.Id == 0) // add food
                 {
                     // FIX THIS
-                    Client.AddFoodComplete(foodKitchen.KitchenId, foodKitchen.Food.Name,"Fridge" ,DateTime.Now, (int)foodKitchen.Food.Quantity, "grams", -1,-1, null, null, false);
+                    string[] Ingredients = {};
+                    string[] Traces = { };
+                    Client.AddFoodComplete(foodKitchen.KitchenId, foodKitchen.Food.Name,foodKitchen.Food.Storage.ToString() , foodKitchen.Food.ExpiryDate, (int)foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1,-1, Ingredients, Traces, foodKitchen.Food.Favourite);
                 }
                 else // edit food
                 {
