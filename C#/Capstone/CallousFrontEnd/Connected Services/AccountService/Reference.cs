@@ -1173,6 +1173,12 @@ namespace AccountService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/RemoveItem", ReplyAction="http://tempuri.org/IAccountServiceMvc/RemoveItemResponse")]
         System.Threading.Tasks.Task<bool> RemoveItemAsync(int id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GenerateShoppingList", ReplyAction="http://tempuri.org/IAccountServiceMvc/GenerateShoppingListResponse")]
+        string[] GenerateShoppingList(int kitchenId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GenerateShoppingList", ReplyAction="http://tempuri.org/IAccountServiceMvc/GenerateShoppingListResponse")]
+        System.Threading.Tasks.Task<string[]> GenerateShoppingListAsync(int kitchenId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/Test", ReplyAction="http://tempuri.org/IAccountServiceMvc/TestResponse")]
         AccountService.SerializableUser[] Test();
         
@@ -1452,6 +1458,16 @@ namespace AccountService
         public System.Threading.Tasks.Task<bool> RemoveItemAsync(int id)
         {
             return base.Channel.RemoveItemAsync(id);
+        }
+        
+        public string[] GenerateShoppingList(int kitchenId)
+        {
+            return base.Channel.GenerateShoppingList(kitchenId);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GenerateShoppingListAsync(int kitchenId)
+        {
+            return base.Channel.GenerateShoppingListAsync(kitchenId);
         }
         
         public AccountService.SerializableUser[] Test()

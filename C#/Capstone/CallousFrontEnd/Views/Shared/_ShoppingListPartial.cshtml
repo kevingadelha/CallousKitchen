@@ -1,6 +1,5 @@
-﻿@model List<string>
-    <div class="container">
-        @foreach (var x in Model)
+﻿    <div class="container">
+        @foreach (var x in ViewBag.ShoppingList)
         {
             <div class="row"><h4>@x</h4></div>
         }

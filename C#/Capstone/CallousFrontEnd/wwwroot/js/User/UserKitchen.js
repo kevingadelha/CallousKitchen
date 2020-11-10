@@ -98,3 +98,15 @@ $("#btnRecipeModal").on("click", function () {
         }
     });
 });
+
+
+
+$("#btnShoppingListModal").on("click", function () {
+    $.ajax({
+        type: 'Post',
+        url: "ShoppingList",
+        success: function (result) {
+            $("#shoppingListBody").html(result);
+        }
+    });
+});

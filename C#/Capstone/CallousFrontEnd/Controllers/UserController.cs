@@ -243,9 +243,9 @@ namespace CallousFrontEnd.Controllers
 
 
             int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            //SerializableRecipeModel[] recs = Client.GenerateShoppingList());
-
-            return PartialView("_RecipeResultView", recs);
+            string[] shoppingList = Client.GenerateShoppingList(Client.GetKitchens(Id).FirstOrDefault().Id);
+            ViewBag.ShoppingList = shoppingList;
+            return PartialView("_ShoppingListPartial");
         }
 
         [HttpGet]

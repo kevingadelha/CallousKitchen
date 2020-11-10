@@ -104,7 +104,7 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
    ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-        List<string> GenerateShoppingList();
+        List<string> GenerateShoppingList(int kitchenId);
 
 
         [OperationContract]
