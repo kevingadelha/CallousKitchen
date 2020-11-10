@@ -27,11 +27,29 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                @if (ViewBag.UserId != null)
+                {
+                    <div class="navbar">
+                        <ul class="navbar-nav ml-auto">
+
+                            <li class="nav-item">
+                                @Html.ActionLink("Kitchen", "Logout", "User")
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Recipes", "Logout", "User")
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Shopping List", "Logout", "User")
+                            </li>
+                        </ul>
+                    </div>
+                }
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav ml-auto">
 
                         <li class="nav-item">
-                            @if (ViewBag.UserId != null) { 
+                            @if (ViewBag.UserId != null)
+                            {
                                 @Html.ActionLink("Logout", "Logout", "User")
                             }
                         </li>
