@@ -76,24 +76,25 @@ class KitchenListActivity : AppCompatActivity() {
                         food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                         food.favourite = foodJson.getBoolean("Favourite")
                         foods.add(food)
-                        println(food.expiryDate != null)
-                        println(food.expiryDate!! < LocalDate.now().plusDays(3))
                         if (food.expiryDate != null && (food.expiryDate!! < LocalDate.now().plusDays(3))){
                             expiringFoods.add(food.name)
                         }
                 }
-                createNotificationChannel()
-                // creating the notification and its parameters.!
-                val builder = NotificationCompat.Builder(this, "primary_notification_channel").apply {
-                    setSmallIcon(R.drawable.hippo)
-                    setContentTitle("Expiring")
-                    setContentText(expiringFoods.joinToString {  it -> it  })
-                    setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                }
+                if (expiringFoods.size > 0){
+                    createNotificationChannel()
+                    // creating the notification and its parameters.!
+                    val builder = NotificationCompat.Builder(this, "primary_notification_channel").apply {
+                        setSmallIcon(R.drawable.hippo)
+                        setContentTitle("Expiring")
+                        setContentText(expiringFoods.joinToString {  it -> it  })
+                        setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        setStyle(NotificationCompat.BigTextStyle().bigText(expiringFoods.joinToString {  it -> it  }))
+                    }
 
-                // displaying the notification with NotificationManagerCompat.
-                with(NotificationManagerCompat.from(this)) {
-                    notify(112, builder.build())
+                    // displaying the notification with NotificationManagerCompat.
+                    with(NotificationManagerCompat.from(this)) {
+                        notify(112, builder.build())
+                    }
                 }
 
             })
