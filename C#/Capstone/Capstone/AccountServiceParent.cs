@@ -213,29 +213,32 @@ namespace Capstone
                     int tempScore = 0;
                     foreach (var f in foods)
                     {
-                        int tempFood = 0;
 
-                        if (f.Name.ToLower() == i.ToLower())
+                        if (f.Name.ToLower() == i.Name.ToLower())
                         {
-                            tempFood = 2;
+                            i.Score = 2;
 
                         }
-                        else if (f.Name.ToLower().Contains(i.ToLower()))
+                        else if (i.Score != 2 && f.Name.ToLower().Contains(i.Name.ToLower()))
                         {
-                            tempFood = 1;
+                            i.Score = 1;
                         }
-                        if (tempFood > 0 && f.ExpiryDate.HasValue)
+                        if (i.Score > 0 && f.ExpiryDate.HasValue)
                         {
                             DateTime date1 = f.ExpiryDate.Value;
                             DateTime date2 = DateTime.Now.AddDays(3);
                             TimeSpan time = date2 - date1;
-                            tempFood += time.Days;
+                            if (time.Days > 0)
+                                i.Score += time.Days;
                         }
-                        if (tempFood > tempScore)
+                        if (i.Score > tempScore)
                         {
-                            tempScore = tempFood;
+                            tempScore = i.Score;
+                            i.Score = tempScore;
                         }
+
                     }
+
                     r.Score += tempScore;
                 }
 
@@ -249,12 +252,36 @@ namespace Capstone
         {
             string searchString = "";
             List<Food> foods = db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory;
-            foods = foods.OrderByDescending(x => x.ExpiryDate).Take(5).ToList();
-            foreach (var f in foods)
+            Models.SerializableRecipeModel[] recipes = null;
+            int take = 5;
+            int itemNumber = 1;
+            while (recipes == null || recipes.Count() == 0)
             {
-                searchString += f.Name + " ";
+                //Try with several items and decrease the amount on each failure
+                if (take > 0)
+                {
+                    var expiringFoods = foods.OrderByDescending(x => x.ExpiryDate).Take(take).ToList();
+                    foreach (var f in expiringFoods)
+                    {
+                        searchString += f.Name + " ";
+                    }
+                    searchString = System.Web.HttpUtility.UrlEncode(searchString);
+                    recipes = SearchRecipesRanked(searchString, count, diets, kitchenId);
+                    take--;
+                }
+                //Try all individual items
+                else if (itemNumber < foods.Count)
+                {
+                    recipes = SearchRecipesRanked(foods[itemNumber].Name, count, diets, kitchenId);
+                    itemNumber++;
+                }
+                //If all else fails, give up
+                else
+                {
+                    break;
+                }
             }
-            return SearchRecipesRanked(searchString, count, diets, kitchenId);
+            return recipes ?? new Models.SerializableRecipeModel[0];
         }
 
         public Models.SerializableRecipeModel[] FeelingLuckyUser(int count, int userId)

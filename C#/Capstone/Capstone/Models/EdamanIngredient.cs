@@ -14,5 +14,17 @@ namespace Capstone.Models
         [JsonProperty(PropertyName = "food")]
         public string Name { get; set; }
 
+
+    }
+
+    [DataContract]
+    [Serializable]
+    public class EdamanIngredientScored
+    {
+        [DataMember]
+        public string Name { get; set; }
+        [DataMember]
+        public int Score { get; set; }
+
     }
 }
