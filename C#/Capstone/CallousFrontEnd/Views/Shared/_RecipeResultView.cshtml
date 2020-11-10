@@ -1,0 +1,8 @@
+﻿@model AccountService.SerializableRecipeModel[]
+
+@foreach (var x in Model)
+{
+    <div class="row"><h2>@x.Name.</h2></div>
+    <div class="row">Servings: @x.Yield</div>
+    <div class="row"><a href="@Url">@x.Source</a></div>
+}

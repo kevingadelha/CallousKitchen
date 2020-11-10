@@ -1,5 +1,5 @@
 ﻿@model List<AccountService.SerializableKitchen>
-@{ 
+@{
     string[] StorageTypes = { "Fridge", "Freezer", "Pantry", "Cupboard", "Cellar", "Other" };
 }
 @if (Model.Count != 0)
@@ -10,7 +10,7 @@
         {
             @*hardcoded amount for now, TODO: Change it*@
             @for (int i = 0; i < StorageTypes.Length; i++)
-                @* change this! *@
+            @* change this! *@
             {
                 @if (Model[0].Inventory.Where(x => x.Storage == StorageTypes[i]).Count() != 0)
                 {
@@ -22,22 +22,22 @@
 
 
 
-                    @foreach (var food in Model[0].Inventory.Where(x=> x.Storage == StorageTypes[i]))
-                    {
-                        <tr>
-                            <td>@food.Name</td>
-                            <td>@food.Quantity</td>
-                            <td>
-                                <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@Model[0].Id">Edit</button>
-                                <button type="button" class="btn btn-primary eatFoodBtn" data-toggle="modal" data-target="#EatFood" data-food-Id="@food.Id">Eat</button>
-                                <button type="button" class="btn btn-danger deleteFoodBtn" data-food-Id="@food.Id">Delete</button>
-                            </td>
-                        </tr>
-                    }
-
-
+                @foreach (var food in Model[0].Inventory.Where(x => x.Storage == StorageTypes[i]))
+                {
+                    <tr>
+                        <td>@food.Name</td>
+                        <td>@food.Quantity</td>
+                        <td>
+                            <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@Model[0].Id">Edit</button>
+                            <button type="button" class="btn btn-primary eatFoodBtn" data-toggle="modal" data-target="#EatFood" data-food-Id="@food.Id">Eat</button>
+                            <button type="button" class="btn btn-danger deleteFoodBtn" data-food-Id="@food.Id">Delete</button>
+                        </td>
+                    </tr>
                 }
-            
+
+
+            }
+
         }
         else
         {
@@ -99,6 +99,22 @@ else
     </div>
 </div>
 
+<div class="modal fade" role="dialog" id="RecipeModal">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">Search Recipe</div>
+            <div class="modal-body" id="recipeSearchBody">
+
+            </div>
+            <div class="modal-footer">
+                <div id="edamam-badge" data-color="transparent"></div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <script type="text/javascript" src="~/js/User/UserKitchen.js"></script>
 

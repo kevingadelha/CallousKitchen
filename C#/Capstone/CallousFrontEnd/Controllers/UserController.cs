@@ -202,6 +202,27 @@ namespace CallousFrontEnd.Controllers
             //List<SerializableKitchen> kitchens = Client.GetKitchens(userId).ToList();
             //return KitchenPartialView(kitchens);
         }
+
+        [HttpGet]
+        public ActionResult RecipeSearchView()
+        {
+            int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            int kId = Client.GetKitchens(Id).FirstOrDefault().Id;
+            ViewBag.KitchenId = kId;
+
+            return PartialView("_RecipeSearchPartial");
+        }
+
+        [HttpPost]
+        public ActionResult SearchRecipes(string search)
+        {
+
+
+            search = System.Web.HttpUtility.UrlEncode(search);
+            int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            return PartialView("_RecipeResultView", Client.SearchRecipesUser(search, 5, Id));
+        }
+
         [HttpGet]
         public ActionResult AddEditFoodView(int kId, int fId)
         {
