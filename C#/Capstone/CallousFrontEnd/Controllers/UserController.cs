@@ -225,6 +225,29 @@ namespace CallousFrontEnd.Controllers
             return PartialView("_RecipeResultView", recs);
         }
 
+        [HttpPost]
+        public ActionResult FeelingLucky(string search)
+        {
+
+
+            search = System.Web.HttpUtility.UrlEncode(search);
+            int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            SerializableRecipeModel[] recs = Client.FeelingLucky(5,Client.GetSerializableUser(Id).Allergies, Id);
+
+            return PartialView("_RecipeResultView", recs);
+        }
+
+        [HttpPost]
+        public ActionResult ShoppingList()
+        {
+
+
+            int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            //SerializableRecipeModel[] recs = Client.GenerateShoppingList());
+
+            return PartialView("_RecipeResultView", recs);
+        }
+
         [HttpGet]
         public ActionResult AddEditFoodView(int kId, int fId)
         {
