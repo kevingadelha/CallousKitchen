@@ -263,7 +263,7 @@ namespace Capstone
                     var expiringFoods = foods.OrderByDescending(x => x.ExpiryDate).Take(take).ToList();
                     foreach (var f in expiringFoods)
                     {
-                        searchString += f.Name + " ";
+                        searchString += f.Name + "+";
                     }
                     searchString = System.Web.HttpUtility.UrlEncode(searchString);
                     recipes = SearchRecipesRanked(searchString, count, diets, kitchenId);

@@ -1,6 +1,7 @@
 ﻿using Capstone.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,8 +27,8 @@ namespace Capstone.Apis
                 for (int i = 0; i < diets.Length; i++)
                 {
                     diets[i] = diets[i].ToLower();
-                    if (diets[i] != "vegan" || diets[i]
-                        != "vegetarian" || diets[i] != "paleo" || diets[i] != "low-sugar")
+                    if (diets[i] != "vegan" && diets[i]
+                        != "vegetarian" && diets[i] != "paleo" && diets[i] != "low-sugar")
                     {
                         diets[i] = diets[i] += "-free";
                     }
@@ -38,6 +39,7 @@ namespace Capstone.Apis
 
 
             List<SerializableRecipeModel> results = new List<SerializableRecipeModel>();
+            search = System.Web.HttpUtility.UrlEncode(search);
             string url = $"https://api.edamam.com/search?q={search}&app_id={AppId}&app_key={AppiKey}&from=0&to={count}" + dietsString;
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
