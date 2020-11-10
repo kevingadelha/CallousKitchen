@@ -160,7 +160,7 @@ namespace Capstone
         public List<string> GenerateShoppingList(int kichenId)
         {
             List<string> shoppingList;
-            shoppingList = db.Kitchens.Where(x => x.Id == kichenId).FirstOrDefault().Inventory.Where(i => i.Favourite == true).Select(n => n.Name).ToList();
+            shoppingList = db.Kitchens.Where(x => x.Id == kichenId).FirstOrDefault().Inventory.Where(i => i.Favourite == true && i.Quantity < 3).Select(n => n.Name).ToList();
             return shoppingList;
         }
 
@@ -263,7 +263,7 @@ namespace Capstone
                     var expiringFoods = foods.OrderByDescending(x => x.ExpiryDate).Take(take).ToList();
                     foreach (var f in expiringFoods)
                     {
-                        searchString += f.Name + " ";
+                        searchString += f.Name + "+";
                     }
                     searchString = System.Web.HttpUtility.UrlEncode(searchString);
                     recipes = SearchRecipesRanked(searchString, count, diets, kitchenId);
