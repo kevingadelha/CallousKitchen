@@ -88,3 +88,13 @@ $("#AddFood").on("click", "#btnBarcode", function () {
     });
 
 });
+$("#btnRecipeModal").on("click", function () {
+    console.log("recipe");
+    $.ajax({
+        type: 'Get',
+        url: "RecipeSearchView",
+        success: function (result) {
+            $("#recipeSearchBody").html(result);
+        }
+    });
+});

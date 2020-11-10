@@ -14,6 +14,103 @@ namespace AccountService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SerializableUser", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class SerializableUser : object
+    {
+        
+        private string[] AllergiesField;
+        
+        private string EmailField;
+        
+        private int IdField;
+        
+        private AccountService.SerializableKitchen[] KitchensField;
+        
+        private bool VeganField;
+        
+        private bool VegetarianField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] Allergies
+        {
+            get
+            {
+                return this.AllergiesField;
+            }
+            set
+            {
+                this.AllergiesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email
+        {
+            get
+            {
+                return this.EmailField;
+            }
+            set
+            {
+                this.EmailField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AccountService.SerializableKitchen[] Kitchens
+        {
+            get
+            {
+                return this.KitchensField;
+            }
+            set
+            {
+                this.KitchensField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Vegan
+        {
+            get
+            {
+                return this.VeganField;
+            }
+            set
+            {
+                this.VeganField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Vegetarian
+        {
+            get
+            {
+                return this.VegetarianField;
+            }
+            set
+            {
+                this.VegetarianField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SerializableKitchen", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
     public partial class SerializableKitchen : object
     {
@@ -70,32 +167,27 @@ namespace AccountService
     public partial class SerializableFood : object
     {
         
-        private string BarcodeField;
-        
         private System.Nullable<System.DateTime> ExpiryDateField;
         
+        private bool FavouriteField;
+        
         private int IdField;
+        
+        private string[] IngredientsField;
         
         private string NameField;
         
         private double QuantityField;
         
-        private AccountService.SerializableStorage StorageField;
+        private string QuantityClassifierField;
         
-        private int StorageIdField;
+        private string StorageField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Barcode
-        {
-            get
-            {
-                return this.BarcodeField;
-            }
-            set
-            {
-                this.BarcodeField = value;
-            }
-        }
+        private string[] TracesField;
+        
+        private int VeganField;
+        
+        private int VegetarianField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<System.DateTime> ExpiryDate
@@ -111,6 +203,19 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Favourite
+        {
+            get
+            {
+                return this.FavouriteField;
+            }
+            set
+            {
+                this.FavouriteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Id
         {
             get
@@ -120,6 +225,19 @@ namespace AccountService
             set
             {
                 this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] Ingredients
+        {
+            get
+            {
+                return this.IngredientsField;
+            }
+            set
+            {
+                this.IngredientsField = value;
             }
         }
         
@@ -150,7 +268,20 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public AccountService.SerializableStorage Storage
+        public string QuantityClassifier
+        {
+            get
+            {
+                return this.QuantityClassifierField;
+            }
+            set
+            {
+                this.QuantityClassifierField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Storage
         {
             get
             {
@@ -163,60 +294,73 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StorageId
+        public string[] Traces
         {
             get
             {
-                return this.StorageIdField;
+                return this.TracesField;
             }
             set
             {
-                this.StorageIdField = value;
+                this.TracesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Vegan
+        {
+            get
+            {
+                return this.VeganField;
+            }
+            set
+            {
+                this.VeganField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Vegetarian
+        {
+            get
+            {
+                return this.VegetarianField;
+            }
+            set
+            {
+                this.VegetarianField = value;
             }
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SerializableStorage", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
-    public partial class SerializableStorage : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="Storage", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public enum Storage : int
     {
         
-        private int IdField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Fridge = 0,
         
-        private string NameField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Freezer = 1,
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id
-        {
-            get
-            {
-                return this.IdField;
-            }
-            set
-            {
-                this.IdField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Pantry = 2,
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Cupboard = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Cellar = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Other = 5,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SerializedFoodFactsProductModel", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Models")]
-    public partial class SerializedFoodFactsProductModel : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="SerializableFoodFactsProductModel", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Models")]
+    public partial class SerializableFoodFactsProductModel : object
     {
         
         private string Image_UrlField;
@@ -312,127 +456,15 @@ namespace AccountService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SerializableUser", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
-    public partial class SerializableUser : object
-    {
-        
-        private string[] DietTagsField;
-        
-        private string EmailField;
-        
-        private int GuiltLevelField;
-        
-        private int IdField;
-        
-        private AccountService.SerializableKitchen[] KitchensField;
-        
-        private string PasswordField;
-        
-        private string UsernameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] DietTags
-        {
-            get
-            {
-                return this.DietTagsField;
-            }
-            set
-            {
-                this.DietTagsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email
-        {
-            get
-            {
-                return this.EmailField;
-            }
-            set
-            {
-                this.EmailField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int GuiltLevel
-        {
-            get
-            {
-                return this.GuiltLevelField;
-            }
-            set
-            {
-                this.GuiltLevelField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id
-        {
-            get
-            {
-                return this.IdField;
-            }
-            set
-            {
-                this.IdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public AccountService.SerializableKitchen[] Kitchens
-        {
-            get
-            {
-                return this.KitchensField;
-            }
-            set
-            {
-                this.KitchensField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Password
-        {
-            get
-            {
-                return this.PasswordField;
-            }
-            set
-            {
-                this.PasswordField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Username
-        {
-            get
-            {
-                return this.UsernameField;
-            }
-            set
-            {
-                this.UsernameField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
     public partial class User : object
     {
         
-        private string[] DietTagsField;
+        private string AllergiesField;
+        
+        private bool CalorieTrackerField;
         
         private string EmailField;
-        
-        private int GuiltLevelField;
         
         private int IdField;
         
@@ -440,18 +472,33 @@ namespace AccountService
         
         private string PasswordField;
         
-        private string UsernameField;
+        private bool VeganField;
+        
+        private bool VegetarianField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] DietTags
+        public string Allergies
         {
             get
             {
-                return this.DietTagsField;
+                return this.AllergiesField;
             }
             set
             {
-                this.DietTagsField = value;
+                this.AllergiesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CalorieTracker
+        {
+            get
+            {
+                return this.CalorieTrackerField;
+            }
+            set
+            {
+                this.CalorieTrackerField = value;
             }
         }
         
@@ -465,19 +512,6 @@ namespace AccountService
             set
             {
                 this.EmailField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int GuiltLevel
-        {
-            get
-            {
-                return this.GuiltLevelField;
-            }
-            set
-            {
-                this.GuiltLevelField = value;
             }
         }
         
@@ -521,15 +555,28 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Username
+        public bool Vegan
         {
             get
             {
-                return this.UsernameField;
+                return this.VeganField;
             }
             set
             {
-                this.UsernameField = value;
+                this.VeganField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Vegetarian
+        {
+            get
+            {
+                return this.VegetarianField;
+            }
+            set
+            {
+                this.VegetarianField = value;
             }
         }
     }
@@ -592,30 +639,55 @@ namespace AccountService
     public partial class Food : object
     {
         
-        private string BarcodeField;
+        private System.Nullable<System.DateTime> CalculatedExpiryDateField;
+        
+        private int CaloriesField;
         
         private System.Nullable<System.DateTime> ExpiryDateField;
         
+        private bool FavouriteField;
+        
         private int IdField;
+        
+        private string IngredientsField;
         
         private string NameField;
         
         private double QuantityField;
         
+        private string QuantityClassifierField;
+        
         private AccountService.Storage StorageField;
         
-        private int StorageIdField;
+        private string TracesField;
+        
+        private int VeganField;
+        
+        private int VegetarianField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Barcode
+        public System.Nullable<System.DateTime> CalculatedExpiryDate
         {
             get
             {
-                return this.BarcodeField;
+                return this.CalculatedExpiryDateField;
             }
             set
             {
-                this.BarcodeField = value;
+                this.CalculatedExpiryDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Calories
+        {
+            get
+            {
+                return this.CaloriesField;
+            }
+            set
+            {
+                this.CaloriesField = value;
             }
         }
         
@@ -633,6 +705,19 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Favourite
+        {
+            get
+            {
+                return this.FavouriteField;
+            }
+            set
+            {
+                this.FavouriteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Id
         {
             get
@@ -642,6 +727,19 @@ namespace AccountService
             set
             {
                 this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Ingredients
+        {
+            get
+            {
+                return this.IngredientsField;
+            }
+            set
+            {
+                this.IngredientsField = value;
             }
         }
         
@@ -672,6 +770,19 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string QuantityClassifier
+        {
+            get
+            {
+                return this.QuantityClassifierField;
+            }
+            set
+            {
+                this.QuantityClassifierField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public AccountService.Storage Storage
         {
             get
@@ -685,39 +796,118 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StorageId
+        public string Traces
         {
             get
             {
-                return this.StorageIdField;
+                return this.TracesField;
             }
             set
             {
-                this.StorageIdField = value;
+                this.TracesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Vegan
+        {
+            get
+            {
+                return this.VeganField;
+            }
+            set
+            {
+                this.VeganField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Vegetarian
+        {
+            get
+            {
+                return this.VegetarianField;
+            }
+            set
+            {
+                this.VegetarianField = value;
             }
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Storage", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
-    public partial class Storage : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="SerializableRecipeModel", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Models")]
+    public partial class SerializableRecipeModel : object
     {
         
-        private int IdField;
+        private AccountService.EdamanIngredientScored[] EdamanIngredientsField;
+        
+        private string[] HealthLabelsField;
+        
+        private string ImageField;
+        
+        private AccountService.IngredientModel[] IngredientsField;
         
         private string NameField;
         
+        private int ScoreField;
+        
+        private string SourceField;
+        
+        private string UrlField;
+        
+        private double YieldField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id
+        public AccountService.EdamanIngredientScored[] EdamanIngredients
         {
             get
             {
-                return this.IdField;
+                return this.EdamanIngredientsField;
             }
             set
             {
-                this.IdField = value;
+                this.EdamanIngredientsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] HealthLabels
+        {
+            get
+            {
+                return this.HealthLabelsField;
+            }
+            set
+            {
+                this.HealthLabelsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Image
+        {
+            get
+            {
+                return this.ImageField;
+            }
+            set
+            {
+                this.ImageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AccountService.IngredientModel[] Ingredients
+        {
+            get
+            {
+                return this.IngredientsField;
+            }
+            set
+            {
+                this.IngredientsField = value;
             }
         }
         
@@ -733,6 +923,147 @@ namespace AccountService
                 this.NameField = value;
             }
         }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Score
+        {
+            get
+            {
+                return this.ScoreField;
+            }
+            set
+            {
+                this.ScoreField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Source
+        {
+            get
+            {
+                return this.SourceField;
+            }
+            set
+            {
+                this.SourceField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Url
+        {
+            get
+            {
+                return this.UrlField;
+            }
+            set
+            {
+                this.UrlField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Yield
+        {
+            get
+            {
+                return this.YieldField;
+            }
+            set
+            {
+                this.YieldField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EdamanIngredientScored", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Models")]
+    public partial class EdamanIngredientScored : object
+    {
+        
+        private string NameField;
+        
+        private int ScoreField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Score
+        {
+            get
+            {
+                return this.ScoreField;
+            }
+            set
+            {
+                this.ScoreField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="IngredientModel", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Models")]
+    public partial class IngredientModel : object
+    {
+        
+        private string NameField;
+        
+        private string OriginalNameField;
+        
+        private int ScoreField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OriginalName
+        {
+            get
+            {
+                return this.OriginalNameField;
+            }
+            set
+            {
+                this.OriginalNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Score
+        {
+            get
+            {
+                return this.ScoreField;
+            }
+            set
+            {
+                this.ScoreField = value;
+            }
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -740,23 +1071,17 @@ namespace AccountService
     public interface IAccountServiceMvc
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/CreateAccountWithEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/CreateAccountWithEmailResponse")]
-        int CreateAccountWithEmail(string userName, string pass, string email);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/CreateAccountWithEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/CreateAccountWithEmailResponse")]
-        System.Threading.Tasks.Task<int> CreateAccountWithEmailAsync(string userName, string pass, string email);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/CreateAccount", ReplyAction="http://tempuri.org/IAccountServiceMvc/CreateAccountResponse")]
+        AccountService.SerializableUser CreateAccount(string email, string pass);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/CreateAccount", ReplyAction="http://tempuri.org/IAccountServiceMvc/CreateAccountResponse")]
-        int CreateAccount(string userName, string pass);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/CreateAccount", ReplyAction="http://tempuri.org/IAccountServiceMvc/CreateAccountResponse")]
-        System.Threading.Tasks.Task<int> CreateAccountAsync(string userName, string pass);
+        System.Threading.Tasks.Task<AccountService.SerializableUser> CreateAccountAsync(string email, string pass);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/LoginAccount", ReplyAction="http://tempuri.org/IAccountServiceMvc/LoginAccountResponse")]
-        int LoginAccount(string userName, string pass);
+        AccountService.SerializableUser LoginAccount(string email, string pass);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/LoginAccount", ReplyAction="http://tempuri.org/IAccountServiceMvc/LoginAccountResponse")]
-        System.Threading.Tasks.Task<int> LoginAccountAsync(string userName, string pass);
+        System.Threading.Tasks.Task<AccountService.SerializableUser> LoginAccountAsync(string email, string pass);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddKitchen", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddKitchenResponse")]
         int AddKitchen(int userId, string name);
@@ -770,11 +1095,23 @@ namespace AccountService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetKitchens", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetKitchensResponse")]
         System.Threading.Tasks.Task<AccountService.SerializableKitchen[]> GetKitchensAsync(int userId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetPrimaryInventory", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetPrimaryInventoryResponse")]
+        AccountService.SerializableFood[] GetPrimaryInventory(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetPrimaryInventory", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetPrimaryInventoryResponse")]
+        System.Threading.Tasks.Task<AccountService.SerializableFood[]> GetPrimaryInventoryAsync(int userId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetInventory", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetInventoryResponse")]
         AccountService.SerializableFood[] GetInventory(int kitchenId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetInventory", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetInventoryResponse")]
         System.Threading.Tasks.Task<AccountService.SerializableFood[]> GetInventoryAsync(int kitchenId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetStorages", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetStoragesResponse")]
+        AccountService.Storage[] GetStorages();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetStorages", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetStoragesResponse")]
+        System.Threading.Tasks.Task<AccountService.Storage[]> GetStoragesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetBarcodeData", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetBarcodeDataResponse")]
         string GetBarcodeData(string barcode);
@@ -783,16 +1120,22 @@ namespace AccountService
         System.Threading.Tasks.Task<string> GetBarcodeDataAsync(string barcode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetAllOpenFoodFacts", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetAllOpenFoodFactsResponse")]
-        AccountService.SerializedFoodFactsProductModel GetAllOpenFoodFacts(string barcode);
+        AccountService.SerializableFoodFactsProductModel GetAllOpenFoodFacts(string barcode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetAllOpenFoodFacts", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetAllOpenFoodFactsResponse")]
-        System.Threading.Tasks.Task<AccountService.SerializedFoodFactsProductModel> GetAllOpenFoodFactsAsync(string barcode);
+        System.Threading.Tasks.Task<AccountService.SerializableFoodFactsProductModel> GetAllOpenFoodFactsAsync(string barcode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
-        bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate, int storageId);
+        bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
-        System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate, int storageId);
+        System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFoodComplete", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodCompleteResponse")]
+        bool AddFoodComplete(int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFoodComplete", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodCompleteResponse")]
+        System.Threading.Tasks.Task<bool> AddFoodCompleteAsync(int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EatFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EatFoodResponse")]
         bool EatFood(int id, int quantity);
@@ -805,6 +1148,24 @@ namespace AccountService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditFoodResponse")]
         System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictions", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictionsResponse")]
+        bool EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, string[] allergies);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictions", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictionsResponse")]
+        System.Threading.Tasks.Task<bool> EditUserDietaryRestrictionsAsync(int id, bool vegan, bool vegetarian, string[] allergies);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditUserPassword", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditUserPasswordResponse")]
+        bool EditUserPassword(int id, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditUserPassword", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditUserPasswordResponse")]
+        System.Threading.Tasks.Task<bool> EditUserPasswordAsync(int id, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditUserEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditUserEmailResponse")]
+        bool EditUserEmail(int id, string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditUserEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditUserEmailResponse")]
+        System.Threading.Tasks.Task<bool> EditUserEmailAsync(int id, string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/RemoveItem", ReplyAction="http://tempuri.org/IAccountServiceMvc/RemoveItemResponse")]
         bool RemoveItem(int id);
@@ -837,10 +1198,28 @@ namespace AccountService
         System.Threading.Tasks.Task<AccountService.Food> GetFoodAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/SearchRecipes", ReplyAction="http://tempuri.org/IAccountServiceMvc/SearchRecipesResponse")]
-        string[] SearchRecipes(string search, int count, int caloriesMin, int caloriesMax);
+        AccountService.SerializableRecipeModel[] SearchRecipes(string search, int count, string[] diets);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/SearchRecipes", ReplyAction="http://tempuri.org/IAccountServiceMvc/SearchRecipesResponse")]
-        System.Threading.Tasks.Task<string[]> SearchRecipesAsync(string search, int count, int caloriesMin, int caloriesMax);
+        System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> SearchRecipesAsync(string search, int count, string[] diets);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/SearchRecipesUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/SearchRecipesUserResponse")]
+        AccountService.SerializableRecipeModel[] SearchRecipesUser(string search, int count, int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/SearchRecipesUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/SearchRecipesUserResponse")]
+        System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> SearchRecipesUserAsync(string search, int count, int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/SearchRecipesRanked", ReplyAction="http://tempuri.org/IAccountServiceMvc/SearchRecipesRankedResponse")]
+        AccountService.SerializableRecipeModel[] SearchRecipesRanked(string search, int count, string[] diets, int kitchenId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/SearchRecipesRanked", ReplyAction="http://tempuri.org/IAccountServiceMvc/SearchRecipesRankedResponse")]
+        System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> SearchRecipesRankedAsync(string search, int count, string[] diets, int kitchenId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/FeelingLuckyUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/FeelingLuckyUserResponse")]
+        AccountService.SerializableRecipeModel[] FeelingLuckyUser(int count, int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/FeelingLuckyUser", ReplyAction="http://tempuri.org/IAccountServiceMvc/FeelingLuckyUserResponse")]
+        System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> FeelingLuckyUserAsync(int count, int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AnotherTest", ReplyAction="http://tempuri.org/IAccountServiceMvc/AnotherTestResponse")]
         bool AnotherTest();
@@ -848,11 +1227,11 @@ namespace AccountService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AnotherTest", ReplyAction="http://tempuri.org/IAccountServiceMvc/AnotherTestResponse")]
         System.Threading.Tasks.Task<bool> AnotherTestAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetStorages", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetStoragesResponse")]
-        AccountService.Storage[] GetStorages();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/FeelingLucky", ReplyAction="http://tempuri.org/IAccountServiceMvc/FeelingLuckyResponse")]
+        AccountService.SerializableRecipeModel[] FeelingLucky(int count, string[] diets, int kitchenId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/GetStorages", ReplyAction="http://tempuri.org/IAccountServiceMvc/GetStoragesResponse")]
-        System.Threading.Tasks.Task<AccountService.Storage[]> GetStoragesAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/FeelingLucky", ReplyAction="http://tempuri.org/IAccountServiceMvc/FeelingLuckyResponse")]
+        System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> FeelingLuckyAsync(int count, string[] diets, int kitchenId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -905,34 +1284,24 @@ namespace AccountService
         {
         }
         
-        public int CreateAccountWithEmail(string userName, string pass, string email)
+        public AccountService.SerializableUser CreateAccount(string email, string pass)
         {
-            return base.Channel.CreateAccountWithEmail(userName, pass, email);
+            return base.Channel.CreateAccount(email, pass);
         }
         
-        public System.Threading.Tasks.Task<int> CreateAccountWithEmailAsync(string userName, string pass, string email)
+        public System.Threading.Tasks.Task<AccountService.SerializableUser> CreateAccountAsync(string email, string pass)
         {
-            return base.Channel.CreateAccountWithEmailAsync(userName, pass, email);
+            return base.Channel.CreateAccountAsync(email, pass);
         }
         
-        public int CreateAccount(string userName, string pass)
+        public AccountService.SerializableUser LoginAccount(string email, string pass)
         {
-            return base.Channel.CreateAccount(userName, pass);
+            return base.Channel.LoginAccount(email, pass);
         }
         
-        public System.Threading.Tasks.Task<int> CreateAccountAsync(string userName, string pass)
+        public System.Threading.Tasks.Task<AccountService.SerializableUser> LoginAccountAsync(string email, string pass)
         {
-            return base.Channel.CreateAccountAsync(userName, pass);
-        }
-        
-        public int LoginAccount(string userName, string pass)
-        {
-            return base.Channel.LoginAccount(userName, pass);
-        }
-        
-        public System.Threading.Tasks.Task<int> LoginAccountAsync(string userName, string pass)
-        {
-            return base.Channel.LoginAccountAsync(userName, pass);
+            return base.Channel.LoginAccountAsync(email, pass);
         }
         
         public int AddKitchen(int userId, string name)
@@ -955,6 +1324,16 @@ namespace AccountService
             return base.Channel.GetKitchensAsync(userId);
         }
         
+        public AccountService.SerializableFood[] GetPrimaryInventory(int userId)
+        {
+            return base.Channel.GetPrimaryInventory(userId);
+        }
+        
+        public System.Threading.Tasks.Task<AccountService.SerializableFood[]> GetPrimaryInventoryAsync(int userId)
+        {
+            return base.Channel.GetPrimaryInventoryAsync(userId);
+        }
+        
         public AccountService.SerializableFood[] GetInventory(int kitchenId)
         {
             return base.Channel.GetInventory(kitchenId);
@@ -963,6 +1342,16 @@ namespace AccountService
         public System.Threading.Tasks.Task<AccountService.SerializableFood[]> GetInventoryAsync(int kitchenId)
         {
             return base.Channel.GetInventoryAsync(kitchenId);
+        }
+        
+        public AccountService.Storage[] GetStorages()
+        {
+            return base.Channel.GetStorages();
+        }
+        
+        public System.Threading.Tasks.Task<AccountService.Storage[]> GetStoragesAsync()
+        {
+            return base.Channel.GetStoragesAsync();
         }
         
         public string GetBarcodeData(string barcode)
@@ -975,24 +1364,34 @@ namespace AccountService
             return base.Channel.GetBarcodeDataAsync(barcode);
         }
         
-        public AccountService.SerializedFoodFactsProductModel GetAllOpenFoodFacts(string barcode)
+        public AccountService.SerializableFoodFactsProductModel GetAllOpenFoodFacts(string barcode)
         {
             return base.Channel.GetAllOpenFoodFacts(barcode);
         }
         
-        public System.Threading.Tasks.Task<AccountService.SerializedFoodFactsProductModel> GetAllOpenFoodFactsAsync(string barcode)
+        public System.Threading.Tasks.Task<AccountService.SerializableFoodFactsProductModel> GetAllOpenFoodFactsAsync(string barcode)
         {
             return base.Channel.GetAllOpenFoodFactsAsync(barcode);
         }
         
-        public bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate, int storageId)
+        public bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
         {
-            return base.Channel.AddFood(kitchenId, name, quantity, expiryDate, storageId);
+            return base.Channel.AddFood(kitchenId, name, quantity, expiryDate);
         }
         
-        public System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate, int storageId)
+        public System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
         {
-            return base.Channel.AddFoodAsync(kitchenId, name, quantity, expiryDate, storageId);
+            return base.Channel.AddFoodAsync(kitchenId, name, quantity, expiryDate);
+        }
+        
+        public bool AddFoodComplete(int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite)
+        {
+            return base.Channel.AddFoodComplete(kitchenId, name, storage, expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddFoodCompleteAsync(int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite)
+        {
+            return base.Channel.AddFoodCompleteAsync(kitchenId, name, storage, expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
         }
         
         public bool EatFood(int id, int quantity)
@@ -1013,6 +1412,36 @@ namespace AccountService
         public System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
         {
             return base.Channel.EditFoodAsync(id, name, quantity, expiryDate);
+        }
+        
+        public bool EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, string[] allergies)
+        {
+            return base.Channel.EditUserDietaryRestrictions(id, vegan, vegetarian, allergies);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EditUserDietaryRestrictionsAsync(int id, bool vegan, bool vegetarian, string[] allergies)
+        {
+            return base.Channel.EditUserDietaryRestrictionsAsync(id, vegan, vegetarian, allergies);
+        }
+        
+        public bool EditUserPassword(int id, string password)
+        {
+            return base.Channel.EditUserPassword(id, password);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EditUserPasswordAsync(int id, string password)
+        {
+            return base.Channel.EditUserPasswordAsync(id, password);
+        }
+        
+        public bool EditUserEmail(int id, string email)
+        {
+            return base.Channel.EditUserEmail(id, email);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EditUserEmailAsync(int id, string email)
+        {
+            return base.Channel.EditUserEmailAsync(id, email);
         }
         
         public bool RemoveItem(int id)
@@ -1065,14 +1494,44 @@ namespace AccountService
             return base.Channel.GetFoodAsync(id);
         }
         
-        public string[] SearchRecipes(string search, int count, int caloriesMin, int caloriesMax)
+        public AccountService.SerializableRecipeModel[] SearchRecipes(string search, int count, string[] diets)
         {
-            return base.Channel.SearchRecipes(search, count, caloriesMin, caloriesMax);
+            return base.Channel.SearchRecipes(search, count, diets);
         }
         
-        public System.Threading.Tasks.Task<string[]> SearchRecipesAsync(string search, int count, int caloriesMin, int caloriesMax)
+        public System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> SearchRecipesAsync(string search, int count, string[] diets)
         {
-            return base.Channel.SearchRecipesAsync(search, count, caloriesMin, caloriesMax);
+            return base.Channel.SearchRecipesAsync(search, count, diets);
+        }
+        
+        public AccountService.SerializableRecipeModel[] SearchRecipesUser(string search, int count, int userId)
+        {
+            return base.Channel.SearchRecipesUser(search, count, userId);
+        }
+        
+        public System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> SearchRecipesUserAsync(string search, int count, int userId)
+        {
+            return base.Channel.SearchRecipesUserAsync(search, count, userId);
+        }
+        
+        public AccountService.SerializableRecipeModel[] SearchRecipesRanked(string search, int count, string[] diets, int kitchenId)
+        {
+            return base.Channel.SearchRecipesRanked(search, count, diets, kitchenId);
+        }
+        
+        public System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> SearchRecipesRankedAsync(string search, int count, string[] diets, int kitchenId)
+        {
+            return base.Channel.SearchRecipesRankedAsync(search, count, diets, kitchenId);
+        }
+        
+        public AccountService.SerializableRecipeModel[] FeelingLuckyUser(int count, int userId)
+        {
+            return base.Channel.FeelingLuckyUser(count, userId);
+        }
+        
+        public System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> FeelingLuckyUserAsync(int count, int userId)
+        {
+            return base.Channel.FeelingLuckyUserAsync(count, userId);
         }
         
         public bool AnotherTest()
@@ -1085,14 +1544,14 @@ namespace AccountService
             return base.Channel.AnotherTestAsync();
         }
         
-        public AccountService.Storage[] GetStorages()
+        public AccountService.SerializableRecipeModel[] FeelingLucky(int count, string[] diets, int kitchenId)
         {
-            return base.Channel.GetStorages();
+            return base.Channel.FeelingLucky(count, diets, kitchenId);
         }
         
-        public System.Threading.Tasks.Task<AccountService.Storage[]> GetStoragesAsync()
+        public System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> FeelingLuckyAsync(int count, string[] diets, int kitchenId)
         {
-            return base.Channel.GetStoragesAsync();
+            return base.Channel.FeelingLuckyAsync(count, diets, kitchenId);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -1123,7 +1582,7 @@ namespace AccountService
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:59869/AccountServiceMvc.svc");
+                return new System.ServiceModel.EndpointAddress("http://142.55.32.86:50241/AccountServiceMvc.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

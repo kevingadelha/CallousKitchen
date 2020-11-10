@@ -22,11 +22,11 @@ namespace CallousFrontEnd.Controllers
         public ActionResult CreateUser(Capstone.Classes.User user)
         {
             
-            int id = Client.CreateAccountWithEmail(user.Email, user.Password, user.Email);
-            if (id > 0)
+            SerializableUser serializableUser = Client.CreateAccount(user.Email, user.Password);
+            if (serializableUser.Id > 0)
             {
-                UserSessionModel userSession = new UserSessionModel { Id = id, Username = user.Email };
-                HttpContext.Session.SetInt32("UserId", id);
+                UserSessionModel userSession = new UserSessionModel { Id = serializableUser.Id, Username = user.Email };
+                HttpContext.Session.SetInt32("UserId", serializableUser.Id);
                 HttpContext.Session.SetString("Username", user.Email);
                 return AccountView(userSession);
             }
@@ -42,11 +42,11 @@ namespace CallousFrontEnd.Controllers
         public ActionResult Login(LoginModel login)
         {
 
-            int id = Client.LoginAccount(login.Username, login.Password);
-            if (id != -1)
+            SerializableUser serializableUser = Client.LoginAccount(login.Username, login.Password);
+            if (serializableUser.Id != -1)
             {
-                UserSessionModel user = new UserSessionModel { Id = id, Username = login.Username };
-                HttpContext.Session.SetInt32("UserId", id);
+                UserSessionModel user = new UserSessionModel { Id = serializableUser.Id, Username = login.Username };
+                HttpContext.Session.SetInt32("UserId", serializableUser.Id);
                 HttpContext.Session.SetString("Username", login.Username);
                 ViewBag.UserSession = user;
 
@@ -121,7 +121,7 @@ namespace CallousFrontEnd.Controllers
         {
             ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
 
-
+            ViewBag.StoragesList = Client.GetStorages();
             KitchenModel kM = new KitchenModel();
             kM.Kitchens = kitchens;
             kM.Storages = Client.GetStorages().ToList();
@@ -177,7 +177,10 @@ namespace CallousFrontEnd.Controllers
             {
                 if (foodKitchen.Food.Id == 0) // add food
                 {
-                    Client.AddFood(foodKitchen.KitchenId, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate, foodKitchen.Food.StorageId);
+                    // FIX THIS
+                    string[] Ingredients = {};
+                    string[] Traces = { };
+                    Client.AddFoodComplete(foodKitchen.KitchenId, foodKitchen.Food.Name,foodKitchen.Food.Storage.ToString() , foodKitchen.Food.ExpiryDate, (int)foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1,-1, Ingredients, Traces, foodKitchen.Food.Favourite);
                 }
                 else // edit food
                 {
@@ -199,6 +202,29 @@ namespace CallousFrontEnd.Controllers
             //List<SerializableKitchen> kitchens = Client.GetKitchens(userId).ToList();
             //return KitchenPartialView(kitchens);
         }
+
+        [HttpGet]
+        public ActionResult RecipeSearchView()
+        {
+            int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            int kId = Client.GetKitchens(Id).FirstOrDefault().Id;
+            ViewBag.KitchenId = kId;
+
+            return PartialView("_RecipeSearchPartial");
+        }
+
+        [HttpPost]
+        public ActionResult SearchRecipes(string search)
+        {
+
+
+            search = System.Web.HttpUtility.UrlEncode(search);
+            int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            SerializableRecipeModel[] recs = Client.SearchRecipesUser(search, 5, Id);
+
+            return PartialView("_RecipeResultView", recs);
+        }
+
         [HttpGet]
         public ActionResult AddEditFoodView(int kId, int fId)
         {

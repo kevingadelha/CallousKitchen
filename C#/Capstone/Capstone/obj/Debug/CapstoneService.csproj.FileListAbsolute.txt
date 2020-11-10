@@ -83,7 +83,6 @@ F:\Capstone\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.pdb
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.xml
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\bin\Newtonsoft.Json.xml
-F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.Init.resources
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.PasswordHash.resources
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.storage.resources
@@ -95,3 +94,4 @@ F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.C
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.CopyComplete
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.dll
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.pdb
+F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache

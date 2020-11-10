@@ -16,6 +16,8 @@
     </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://developer.edamam.com/attribution/badge.js"></script>
+
 </head>
 <body>
     <header>
@@ -27,11 +29,27 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                @if (ViewBag.UserId != null)
+                {
+                    <div class="navbar">
+                        <ul class="navbar-nav ml-auto">
+
+                            <li class="nav-item">
+                                <a data-toggle="modal" data-target="#RecipeModal" href="" class="Nav-LeftText" id="btnRecipeModal">Recipes</a>
+                            </li>
+               
+                            <li class="nav-item">
+                                @Html.ActionLink("Shopping List", "Logout", "User")
+                            </li>
+                        </ul>
+                    </div>
+                }
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav ml-auto">
 
                         <li class="nav-item">
-                            @if (ViewBag.UserId != null) { 
+                            @if (ViewBag.UserId != null)
+                            {
                                 @Html.ActionLink("Logout", "Logout", "User")
                             }
                         </li>
@@ -48,7 +66,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Callous Hippos LLC</a>
+           <a> &copy; 2020 - Callous Hippos LLC</a>
         </div>
     </footer>
 
