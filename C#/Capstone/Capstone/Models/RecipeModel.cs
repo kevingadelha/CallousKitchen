@@ -52,7 +52,7 @@ namespace Capstone.Models
         [DataMember]
         public IngredientModel[] Ingredients { get; set; }
         [DataMember]
-        public string[] EdamanIngredients { get; set; }
+        public EdamanIngredientScored[] EdamanIngredients { get; set; }
 
 
 
@@ -72,10 +72,13 @@ namespace Capstone.Models
             Ingredients = ingreds.ToArray();
             Score = 0;
 
-            List<string> edams = new List<string>();
-            foreach (var i in m?.EdamanIngredients ?? new EdamanIngredient[0])
+            List<EdamanIngredientScored> edams = new List<EdamanIngredientScored>();
+            foreach (var i in m.EdamanIngredients)
             {
-                edams.Add(i.Name);
+                EdamanIngredientScored edam = new EdamanIngredientScored();
+                edam.Name = i.Name;
+                edam.Score = 0;
+                edams.Add(edam);
             }
             EdamanIngredients = edams.ToArray();
         }
