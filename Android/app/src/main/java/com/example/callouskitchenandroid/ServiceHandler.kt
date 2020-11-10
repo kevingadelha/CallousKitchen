@@ -48,6 +48,7 @@ class ServiceHandler {
             for ((key, value) in parameters){
                 jsonObject.put(key,value)
             }
+            println("the url is $url")
             println("the json request is $jsonObject")
             val request = JsonObjectRequest(Request.Method.POST, url, jsonObject,
                 response,

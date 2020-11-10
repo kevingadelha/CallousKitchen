@@ -236,12 +236,35 @@ namespace Capstone
         {
             string searchString = "";
             List<Food> foods = db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory;
-            foods = foods.OrderByDescending(x => x.ExpiryDate).Take(5).ToList();
-            foreach (var f in foods)
-            {
-                searchString += f.Name + " ";
+            Models.SerializableRecipeModel[] recipes = null;
+            int take = 5;
+            int itemNumber = 1;
+            while (recipes == null || recipes.Count() == 0)
+			{
+                //Try with several items and decrease the amount on each failure
+                if (take > 0)
+                {
+                    var expiringFoods = foods.OrderByDescending(x => x.ExpiryDate).Take(take).ToList();
+                    foreach (var f in expiringFoods)
+                    {
+                        searchString += f.Name + " ";
+                    }
+                    recipes = SearchRecipesRanked(searchString, count, diets, kitchenId);
+                    take--;
+                }
+                //Try all individual items
+				else if (itemNumber < foods.Count)
+				{
+                    recipes = SearchRecipesRanked(foods[itemNumber].Name, count, diets, kitchenId);
+                    itemNumber++;
+                }
+                //If all else fails, give up
+				else
+				{
+                    break;
+				}
             }
-            return SearchRecipesRanked(searchString, count, diets, kitchenId);
+            return recipes ?? new Models.SerializableRecipeModel[0];
         }
 
         public Models.SerializableRecipeModel[] FeelingLuckyUser(int count, int userId)
