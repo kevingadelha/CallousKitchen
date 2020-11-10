@@ -423,3 +423,4 @@ F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Cal
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.genruntimeconfig.cache
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_RecipeSearchPartial.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_RecipeResultView.cshtml.g.cs
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ShoppingListPartial.cshtml.g.cs
