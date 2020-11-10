@@ -311,7 +311,7 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> EatFood(int id, int quantity)
+        public async Task<bool> EatFood(int id, double quantity)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
             if (quantity == 0 && !item.Favourite)
@@ -325,7 +325,7 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate)
+        public async Task<bool> EditFood(int id, string name, double quantity, DateTime? expiryDate)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
             //Assume that if the user is editing the food they don't want to delete by having the quantity be zero
