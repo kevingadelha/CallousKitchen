@@ -841,7 +841,7 @@ namespace AccountService
     public partial class SerializableRecipeModel : object
     {
         
-        private string[] EdamanIngredientsField;
+        private AccountService.EdamanIngredientScored[] EdamanIngredientsField;
         
         private string[] HealthLabelsField;
         
@@ -860,7 +860,7 @@ namespace AccountService
         private double YieldField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] EdamanIngredients
+        public AccountService.EdamanIngredientScored[] EdamanIngredients
         {
             get
             {
@@ -973,6 +973,43 @@ namespace AccountService
             set
             {
                 this.YieldField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EdamanIngredientScored", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Models")]
+    public partial class EdamanIngredientScored : object
+    {
+        
+        private string NameField;
+        
+        private int ScoreField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Score
+        {
+            get
+            {
+                return this.ScoreField;
+            }
+            set
+            {
+                this.ScoreField = value;
             }
         }
     }
@@ -1545,7 +1582,7 @@ namespace AccountService
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:59869/AccountServiceMvc.svc");
+                return new System.ServiceModel.EndpointAddress("http://142.55.32.86:50241/AccountServiceMvc.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

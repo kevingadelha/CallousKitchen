@@ -98,14 +98,3 @@ $("#btnRecipeModal").on("click", function () {
         }
     });
 });
-$("#btnSearchRecipe").on("click", function () {
-    $.ajax({
-        type: 'Post',
-        url: "SearchRecipes",
-        data {
-        "search": $("#tbRecipeSearch").val()
-        },
-        success: function (result) {
-            $("#recipeContainer").html(result);
-        }
-});

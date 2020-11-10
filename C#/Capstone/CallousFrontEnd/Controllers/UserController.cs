@@ -220,7 +220,9 @@ namespace CallousFrontEnd.Controllers
 
             search = System.Web.HttpUtility.UrlEncode(search);
             int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            return PartialView("_RecipeResultView", Client.SearchRecipesUser(search, 5, Id));
+            SerializableRecipeModel[] recs = Client.SearchRecipesUser(search, 5, Id);
+
+            return PartialView("_RecipeResultView", recs);
         }
 
         [HttpGet]

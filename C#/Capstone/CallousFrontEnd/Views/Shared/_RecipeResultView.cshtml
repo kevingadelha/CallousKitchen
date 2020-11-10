@@ -2,7 +2,11 @@
 
 @foreach (var x in Model)
 {
-    <div class="row"><h2>@x.Name.</h2></div>
-    <div class="row">Servings: @x.Yield</div>
-    <div class="row"><a href="@Url">@x.Source</a></div>
+    <div class="container">
+        <div class="row"><h4>@x.Name.</h4></div>
+        <div class="row">Servings: @x.Yield</div>
+        <div class="row"><a href="@Href(x.Url)" target="_blank">@x.Source</a></div>
+
+    </div>
+
 }
