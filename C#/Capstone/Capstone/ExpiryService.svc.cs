@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Classes;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -23,14 +24,33 @@ namespace Capstone
         string minExpiryRange;
         string maxExpiryRange;
         string normalExpiryRange;
-        Result result = new Result();
+        int inputSuggestedStorageTempDifference;
+        TimeSpan SuggestedNTodayDateDif;
+        float tempFoodLifecycleRelation;
+        FinalResult finalResult = new FinalResult();
+        int expiryDuration;
 
 
-        public string GetDateStorage(string crop)
+        public Tuple<DateTime, DateTime, Storage> GetDateStorage(string food, Storage storage)
         {
             products = getJsonData();
-            checkJsonData(crop, products);
-            return string.Format(result.RESULTEXPIRY + " || " + result.RESULTSTORAGE);
+            checkJsonData(food, products);
+
+
+
+            StorageTemperature storageCopy = (StorageTemperature)storage;
+
+            inputSuggestedStorageTempDifference = (int)storageCopy - (int)finalResult.SuggestedStorage;
+            
+            //every 10C or 18F temp increase > food lifecycle halves
+            tempFoodLifecycleRelation = (float)Math.Sqrt(10.0 / inputSuggestedStorageTempDifference);
+            SuggestedNTodayDateDif = finalResult.SuggestedExpiry - dateToday;
+            expiryDuration = (int)Math.Round((SuggestedNTodayDateDif.Days * 1.0 / tempFoodLifecycleRelation));
+
+            finalResult.InputResultExpiry = dateToday.AddDays(expiryDuration);
+
+
+            return Tuple.Create(finalResult.SuggestedExpiry, finalResult.InputResultExpiry, finalResult.SuggestedStorage); 
 
         }
 
@@ -43,7 +63,7 @@ namespace Capstone
         }
 
 
-        public Result checkJsonData(string crop, List<Product> products)
+        public FinalResult checkJsonData(string crop, List<Product> products)
         {
             var format = new NumberFormatInfo();
             format.NegativeSign = "-";
@@ -52,7 +72,7 @@ namespace Capstone
 
             foreach (var item in products)
             {
-                if (crop.ToLower().Equals(item.CROP.ToLower()))
+                if (crop.ToLower().Equals(item.FOOD.ToLower()))
                 {
 
                     if (item.STORAGELIFE.Contains("-"))
@@ -114,44 +134,54 @@ namespace Capstone
                     }
 
 
-
                     if (double.Parse(finalTemperature, format) >= -18 && double.Parse(finalTemperature, format) <= -2)
                     {
-                        resultStorage = "freezer";
+                        finalResult.SuggestedStorage = Storage.Freezer;
                     }
                     else
                     if (double.Parse(finalTemperature, format) >= -2 && double.Parse(finalTemperature, format) <= 7)
                     {
-                        resultStorage = "refridgerator";
+                        finalResult.SuggestedStorage = Storage.Fridge;
+
                     }
                     else
                     if (double.Parse(finalTemperature, format) > 7 && double.Parse(finalTemperature, format) <= 14)
                     {
-                        resultStorage = "cellar";
+                        finalResult.SuggestedStorage = Storage.Cellar;
+
                     }
                     else if (double.Parse(finalTemperature, format) > 14)
                     {
-                        resultStorage = "pantry";
+                        finalResult.SuggestedStorage = Storage.Pantry;
+
                     }
-                    result.RESULTEXPIRY = resultExpiry;
-                    result.RESULTSTORAGE = resultStorage;
-                    return result;
+                    finalResult.SuggestedExpiry = DateTime.Parse(resultExpiry);
+                    return finalResult;
                 }
             }
 
-            return result;
+            return finalResult;
         }
 
         public class Product
         {
-            public string CROP { get; set; }
+            public string FOOD { get; set; }
             public string TEMPERATURE { get; set; }
             public string STORAGELIFE { get; set; }
         }
-        public class Result
+        public class FinalResult
         {
-            public string RESULTSTORAGE { get; set; }
-            public string RESULTEXPIRY { get; set; }
+            public Storage SuggestedStorage { get; set; }
+            public DateTime SuggestedExpiry { get; set; }
+            public DateTime InputResultExpiry { get; set; }
+        }
+        public enum StorageTemperature
+        {
+   
+            Fridge = 4,
+            Freezer = -18,
+            Cellar = 10,
+            Pantry = 18
         }
     }
 
