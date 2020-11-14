@@ -38,6 +38,8 @@ class EditFoodActivity : AppCompatActivity() {
 
         txtFoodName.setText(food.name)
         txtFoodQuantity.setText(food.quantity.toString())
+        var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+        txtFoodExpiry.setText(food.expiryDate?.format(formatter))
 
         var cal = Calendar.getInstance()
 
@@ -66,13 +68,15 @@ class EditFoodActivity : AppCompatActivity() {
                 if (!quantityString.isNullOrEmpty())
                     quantity = quantityString.toDouble()
 
-                var expiryDate : LocalDate
-                try{
-                    expiryDate = LocalDate.parse(txtFoodExpiry.text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
-                }
-                catch(e : DateTimeParseException){
-                    Toast.makeText(applicationContext,"Please enter a valid date", Toast.LENGTH_LONG).show()
-                    return@setOnClickListener
+                var expiryDate : LocalDate? = null
+                if (!txtFoodExpiry.text.isNullOrEmpty()){
+                    try{
+                        expiryDate = LocalDate.parse(txtFoodExpiry.text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+                    }
+                    catch(e : DateTimeParseException){
+                        Toast.makeText(applicationContext,"Please enter a valid date", Toast.LENGTH_LONG).show()
+                        return@setOnClickListener
+                    }
                 }
 
                 ServiceHandler.callAccountService(
@@ -98,12 +102,18 @@ class EditFoodActivity : AppCompatActivity() {
 
 
         txtFoodExpiry.setOnFocusChangeListener { v, hasFocus ->
-            DatePickerDialog(this@EditFoodActivity,
-                dateSetListener,
-                // set DatePickerDialog to point to today's date when it loads up
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+            if (hasFocus){
+                val year = food.expiryDate?.year
+                val month = food.expiryDate?.monthValue
+                //No idea why but the datepicker's month is off by one
+                val day = food.expiryDate?.dayOfMonth
+                DatePickerDialog(this@EditFoodActivity,
+                    dateSetListener,
+                    // set DatePickerDialog to point to today's date when it loads up
+                    year ?: cal.get(Calendar.YEAR),
+                    month ?: cal.get(Calendar.MONTH),
+                    day ?: cal.get(Calendar.DAY_OF_MONTH)).show()
+            }
         }
     }
 

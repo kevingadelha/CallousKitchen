@@ -70,7 +70,9 @@ class ServiceHandler {
             queue.add(request)
         }
 
-        fun serializeDate(date : LocalDate) : String{
+        fun serializeDate(date : LocalDate?) : String?{
+            if (date == null)
+                return null
             var dateStart = date.atStartOfDay()
             //Some conversion is off because I need to subtract this to get the correct date
             dateStart = dateStart.minusDays(166)
