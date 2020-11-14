@@ -47,16 +47,21 @@ class SettingsActivity : AppCompatActivity() {
         // Disable the allergy field unless the box is checked
         txtAllergy.isEnabled = false
 
-        //TODO: figure something out for other
         chkBxVegan.isChecked = ServiceHandler.vegan ?: false
         chkBxVegetarian.isChecked = ServiceHandler.vegetarian ?: false
+        val allergies = ServiceHandler.allergies
         checkBoxes.forEach(){
-            if (ServiceHandler.allergies?.contains(it.text.toString().toLowerCase()) ?: false){
+            if (allergies?.contains(it.text.toString().toLowerCase()) ?: false){
                 it.isChecked = true
+                allergies!!.remove(it.text.toString().toLowerCase())
             }
         }
 
-
+        if (allergies?.size!! > 0){
+            txtAllergy.setText(allergies!![0])
+            chkBxAllergy.isChecked = true
+            txtAllergy.isEnabled = true
+        }
 
         btnSaveEmail.setOnClickListener {
             val email = txtEmail.text.toString()
@@ -133,6 +138,15 @@ class SettingsActivity : AppCompatActivity() {
             checkBoxes.forEach(){
                 if (it.isChecked){
                     allergies.add(it.text.toString().toLowerCase())
+                }
+            }
+            if (chkBxAllergy.isChecked){
+                if (txtAllergy.text.toString().isNullOrEmpty()){
+                    Toast.makeText(applicationContext,"Type in your allergy", Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+                else{
+                    allergies.add(txtAllergy.text.toString().toLowerCase())
                 }
             }
             var vegan = chkBxVegan.isChecked
