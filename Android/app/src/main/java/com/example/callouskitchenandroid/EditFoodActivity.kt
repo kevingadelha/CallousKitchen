@@ -9,11 +9,14 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.Response
+import kotlinx.android.synthetic.main.activity_edit_food.*
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
+import kotlinx.android.synthetic.main.activity_kitchen_list.bottomNav
 import org.json.JSONObject
 import org.json.JSONObject.NULL
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.*
@@ -38,10 +41,17 @@ class EditFoodActivity : AppCompatActivity() {
 
         txtFoodName.setText(food.name)
         txtFoodQuantity.setText(food.quantity.toString())
-        var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-        txtFoodExpiry.setText(food.expiryDate?.format(formatter))
+       // var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+       // txtFoodExpiry.setText(food.expiryDate?.format(formatter))
 
+        // Set date this way to make sure the month index is right
         var cal = Calendar.getInstance()
+        cal.set(Calendar.YEAR, food.expiryDate?.year!!)
+        cal.set(Calendar.MONTH, food.expiryDate?.monthValue!! - 1)
+        cal.set(Calendar.DAY_OF_MONTH, food.expiryDate?.dayOfMonth!!)
+        val myFormat = "MM/dd/yyyy"
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        txtFoodExpiry.setText(sdf.format(cal.time))
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
@@ -53,6 +63,14 @@ class EditFoodActivity : AppCompatActivity() {
                 val sdf = SimpleDateFormat(myFormat, Locale.US)
                 txtFoodExpiry.setText(sdf.format(cal.getTime()))
             }
+        }
+
+        // The edit text must not be focusable (see xml file) for this to work
+        editFoodExpiry.setOnClickListener{
+            DatePickerDialog(this@EditFoodActivity, dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
         btnEditFood.setOnClickListener{
