@@ -95,3 +95,4 @@ F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.C
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.dll
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.pdb
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache
+F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.guid.resources

@@ -36,10 +36,21 @@ namespace Capstone
                 else
                 {
                     User user = new User(email, pass);
+                    Guid guid = Guid.NewGuid();
+                    // check for guid collisions, very unlikely 
+                    while (db.Users.Where(x => x.EmailConfirmKey == guid).Count() > 0)
+                    {
+                        guid = Guid.NewGuid();
+                    }
+                    user.EmailConfirmKey = guid;
+                    user.IsConfirmed = false;
+
                     User returnedUser = db.Users.Add(user);
                     returnedUser.Kitchens = new List<Kitchen>();
                     returnedUser.Kitchens.Add(db.Kitchens.Add(new Kitchen { Name = "Kitchen" }));
                     db.SaveChanges();
+                    EmailClient emailClient = new EmailClient();
+                    emailClient.SendConfirmEmail(user.Email, user.EmailConfirmKey);
                     return new SerializableUser(returnedUser);
                 }
             }
@@ -48,7 +59,21 @@ namespace Capstone
 
         public SerializableUser LoginAccount(string email, string pass)
         {
-            return (new SerializableUser(db.Users.Where(x => x.Email == email && x.Password == pass).FirstOrDefault()));
+            return (new SerializableUser(db.Users.Where(x => x.Email == email && x.Password == pass && x.IsConfirmed).FirstOrDefault()));
+        }
+
+        public bool ConfirmEmail(Guid key)
+        {
+            Guid blankGuid = new Guid();
+            if (key != blankGuid)
+            {
+                var user = db.Users.Where(x => x.EmailConfirmKey == key).FirstOrDefault();
+                user.IsConfirmed = true;
+                user.EmailConfirmKey = blankGuid; // can't set a null guid, closest thing
+                db.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public bool AnotherTest()
