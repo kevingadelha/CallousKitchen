@@ -46,6 +46,8 @@ namespace Capstone.Classes
         //While it's not pretty, the suggested course of action I found online was to use a delimited string to save a list of strings
         //This is because entityframework is too dumb to generate a table for a list of strings
         public string Allergies { get; set; }
+        public Guid EmailConfirmKey { get; set; }
+        public bool IsConfirmed { get; set; }
     }
 	[DataContract]
 	public class SerializableUser

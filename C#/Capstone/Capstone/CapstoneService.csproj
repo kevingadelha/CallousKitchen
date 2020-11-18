@@ -152,6 +152,7 @@
     <Compile Include="Classes\Food.cs" />
     <Compile Include="Classes\Kitchen.cs" />
     <Compile Include="Classes\User.cs" />
+    <Compile Include="EmailClient.cs" />
     <Compile Include="IAccountService.cs" />
     <Compile Include="IAccountServiceMvc.cs" />
     <Compile Include="IBarcodeService.cs" />
@@ -179,6 +180,10 @@
     <Compile Include="Migrations\202011070127383_refactor.cs" />
     <Compile Include="Migrations\202011070127383_refactor.designer.cs">
       <DependentUpon>202011070127383_refactor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011181728288_guid.cs" />
+    <Compile Include="Migrations\202011181728288_guid.designer.cs">
+      <DependentUpon>202011181728288_guid.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EdamanIngredient.cs" />
@@ -230,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011070127383_refactor.resx">
       <DependentUpon>202011070127383_refactor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011181728288_guid.resx">
+      <DependentUpon>202011181728288_guid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -466,7 +466,11 @@ namespace AccountService
         
         private string EmailField;
         
+        private System.Guid EmailConfirmKeyField;
+        
         private int IdField;
+        
+        private bool IsConfirmedField;
         
         private AccountService.Kitchen[] KitchensField;
         
@@ -516,6 +520,19 @@ namespace AccountService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid EmailConfirmKey
+        {
+            get
+            {
+                return this.EmailConfirmKeyField;
+            }
+            set
+            {
+                this.EmailConfirmKeyField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Id
         {
             get
@@ -525,6 +542,19 @@ namespace AccountService
             set
             {
                 this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsConfirmed
+        {
+            get
+            {
+                return this.IsConfirmedField;
+            }
+            set
+            {
+                this.IsConfirmedField = value;
             }
         }
         
@@ -1138,16 +1168,16 @@ namespace AccountService
         System.Threading.Tasks.Task<bool> AddFoodCompleteAsync(int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EatFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EatFoodResponse")]
-        bool EatFood(int id, int quantity);
+        bool EatFood(int id, double quantity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EatFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EatFoodResponse")]
-        System.Threading.Tasks.Task<bool> EatFoodAsync(int id, int quantity);
+        System.Threading.Tasks.Task<bool> EatFoodAsync(int id, double quantity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditFoodResponse")]
-        bool EditFood(int id, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
+        bool EditFood(int id, string name, double quantity, System.Nullable<System.DateTime> expiryDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditFoodResponse")]
-        System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
+        System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, double quantity, System.Nullable<System.DateTime> expiryDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictions", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictionsResponse")]
         bool EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, string[] allergies);
@@ -1238,6 +1268,12 @@ namespace AccountService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/FeelingLucky", ReplyAction="http://tempuri.org/IAccountServiceMvc/FeelingLuckyResponse")]
         System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> FeelingLuckyAsync(int count, string[] diets, int kitchenId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/ConfirmEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/ConfirmEmailResponse")]
+        bool ConfirmEmail(System.Guid guid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/ConfirmEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/ConfirmEmailResponse")]
+        System.Threading.Tasks.Task<bool> ConfirmEmailAsync(System.Guid guid);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -1400,22 +1436,22 @@ namespace AccountService
             return base.Channel.AddFoodCompleteAsync(kitchenId, name, storage, expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
         }
         
-        public bool EatFood(int id, int quantity)
+        public bool EatFood(int id, double quantity)
         {
             return base.Channel.EatFood(id, quantity);
         }
         
-        public System.Threading.Tasks.Task<bool> EatFoodAsync(int id, int quantity)
+        public System.Threading.Tasks.Task<bool> EatFoodAsync(int id, double quantity)
         {
             return base.Channel.EatFoodAsync(id, quantity);
         }
         
-        public bool EditFood(int id, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
+        public bool EditFood(int id, string name, double quantity, System.Nullable<System.DateTime> expiryDate)
         {
             return base.Channel.EditFood(id, name, quantity, expiryDate);
         }
         
-        public System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
+        public System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, double quantity, System.Nullable<System.DateTime> expiryDate)
         {
             return base.Channel.EditFoodAsync(id, name, quantity, expiryDate);
         }
@@ -1570,6 +1606,16 @@ namespace AccountService
             return base.Channel.FeelingLuckyAsync(count, diets, kitchenId);
         }
         
+        public bool ConfirmEmail(System.Guid guid)
+        {
+            return base.Channel.ConfirmEmail(guid);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ConfirmEmailAsync(System.Guid guid)
+        {
+            return base.Channel.ConfirmEmailAsync(guid);
+        }
+        
         public virtual System.Threading.Tasks.Task OpenAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
@@ -1598,7 +1644,7 @@ namespace AccountService
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc))
             {
-                return new System.ServiceModel.EndpointAddress("http://142.55.32.86:50241/AccountServiceMvc.svc");
+                return new System.ServiceModel.EndpointAddress("http://localhost:59869/AccountServiceMvc.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
