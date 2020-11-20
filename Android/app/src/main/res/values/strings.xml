@@ -41,15 +41,15 @@
     <string name="get_recipe_suggestions">Get Recipe Suggestions</string>
 
     <string-array name="units">
+        <item>item</item>
         <item>g</item>
         <item>mg</item>
         <item>kg</item>
         <item>mL</item>
         <item>L</item>
-        <item>oz.</item>
+        <item>oz</item>
         <item>fl. oz.</item>
         <item>gallon</item>
         <item>lb</item>
-        <item>item</item>
     </string-array>
 </resources>

@@ -44,14 +44,16 @@ class EditFoodActivity : AppCompatActivity() {
        // var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
        // txtFoodExpiry.setText(food.expiryDate?.format(formatter))
 
-        // Set date this way to make sure the month index is right
         var cal = Calendar.getInstance()
-        cal.set(Calendar.YEAR, food.expiryDate?.year!!)
-        cal.set(Calendar.MONTH, food.expiryDate?.monthValue!! - 1)
-        cal.set(Calendar.DAY_OF_MONTH, food.expiryDate?.dayOfMonth!!)
-        val myFormat = "MM/dd/yyyy"
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        txtFoodExpiry.setText(sdf.format(cal.time))
+        if (food.expiryDate != null){
+            // Set date this way to make sure the month index is right
+            cal.set(Calendar.YEAR, food.expiryDate?.year!!)
+            cal.set(Calendar.MONTH, food.expiryDate?.monthValue!! - 1)
+            cal.set(Calendar.DAY_OF_MONTH, food.expiryDate?.dayOfMonth!!)
+            val myFormat = "MM/dd/yyyy"
+            val sdf = SimpleDateFormat(myFormat, Locale.US)
+            txtFoodExpiry.setText(sdf.format(cal.time))
+        }
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,

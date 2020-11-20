@@ -1,19 +1,20 @@
 package com.example.callouskitchenandroid
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.android.volley.Response
-import org.json.JSONObject
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.os.Bundle
 import android.widget.*
-import java.util.*
+import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
+import org.json.JSONArray
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
-import org.json.JSONArray
+import java.util.*
+
 
 class AddFoodActivity : AppCompatActivity() {
 
@@ -43,7 +44,8 @@ class AddFoodActivity : AppCompatActivity() {
 
         var cal = Calendar.getInstance()
         var foodName: String?
-        var quantity: String?
+        var quantity: Double?
+        var quantityClassifier: String?
         var expiryDate: String?
         var vegan: Int? = -1
         var vegetarian: Int? = -1
@@ -61,8 +63,18 @@ class AddFoodActivity : AppCompatActivity() {
             }
 
             try {
-                quantity = intent.getStringExtra("QUANTITY")
-                txtFoodQuantity.setText(quantity)
+                quantity = intent.getDoubleExtra("QUANTITY", 0.0)
+                txtFoodQuantity.setText(quantity.toString())
+            } catch (exc: Exception) {
+            }
+
+            try {
+                quantityClassifier = intent.getStringExtra("QUANTITYCLASSIFIER")
+                spinnerUnits.setSelection(
+                    (spinnerUnits.getAdapter() as ArrayAdapter<String?>).getPosition(
+                        quantityClassifier
+                    )
+                )
             } catch (exc: Exception) {
             }
 
@@ -178,19 +190,24 @@ class AddFoodActivity : AppCompatActivity() {
                 var quantity: Double = 1.0
                 if (!quantityString.isNullOrEmpty())
                     quantity = quantityString.toDouble()
-                var expiryDate: LocalDate
-                try {
-                    expiryDate = LocalDate.parse(
-                        txtFoodExpiry.text.toString(),
-                        DateTimeFormatter.ofPattern("MM/dd/yyyy")
-                    )
-                } catch (e: DateTimeParseException) {
-                    Toast.makeText(
-                        applicationContext,
-                        "Please enter a valid date",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    return@setOnClickListener
+                var expiryDate: LocalDate?
+                if (txtFoodExpiry.text.isNullOrEmpty()){
+                    expiryDate = null
+                }
+                else{
+                    try {
+                        expiryDate = LocalDate.parse(
+                            txtFoodExpiry.text.toString(),
+                            DateTimeFormatter.ofPattern("MM/dd/yyyy")
+                        )
+                    } catch (e: DateTimeParseException) {
+                        Toast.makeText(
+                            applicationContext,
+                            "Please enter a valid date",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        return@setOnClickListener
+                    }
                 }
                 val quantityClassifier = spinnerUnits.selectedItem.toString()
                 ServiceHandler.callAccountService(

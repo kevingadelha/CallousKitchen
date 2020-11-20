@@ -102,9 +102,9 @@ class activity_barcode_scan : AppCompatActivity() {
                                     val product = json.optJSONObject("product")
                                     //If product is null these are all null
                                     val foodName = product?.optString("product_name")
-                                    //TODO: Find a better way to use quantity
-                                    var quantity = ExtrapolateQuantity(product?.optString("quantity"))
-                                    quantity = 1.0
+                                    val sourceQuantity = product?.optString("quantity")
+                                    var quantity = ExtrapolateQuantity(sourceQuantity)
+                                    var quantityClassifer = ExtrapolateQuantityClassifier(sourceQuantity)
                                     val expirationDate = StringToDate(product?.optString("expiration_date"))
                                     //To be implemented
                                     val ingredientsAnalysis = product?.optJSONArray("ingredients_analysis_tags")
@@ -130,9 +130,9 @@ class activity_barcode_scan : AppCompatActivity() {
                                     }
 
                                     val intent = Intent(this, AddFoodActivity::class.java)
-                                    //TODO: get more info
                                     intent.putExtra("FOODNAME", foodName)
-                                    intent.putExtra("QUANTITY", quantity.toInt().toString())
+                                    intent.putExtra("QUANTITY", quantity)
+                                    intent.putExtra("QUANTITYCLASSIFIER", quantityClassifer)
                                     intent.putExtra("EXPIRY", expirationDate)
                                     intent.putExtra("VEGAN", vegan)
                                     intent.putExtra("VEGETARIAN", vegetarian)
@@ -163,11 +163,31 @@ class activity_barcode_scan : AppCompatActivity() {
         }, ContextCompat.getMainExecutor(this))
     }
 
-    private fun ExtrapolateQuantity(quantity : String?) : Double?{
+    private fun ExtrapolateQuantity(quantity : String?) : Double{
         if (quantity.isNullOrEmpty())
-            return null
+            return 0.0
         else
-            return quantity.filter { it.isDigit() }.toDoubleOrNull()
+            return quantity.filter { it.isDigit() }.toDoubleOrNull() ?: 0.0
+    }
+
+    private fun ExtrapolateQuantityClassifier(quantity : String?) : String{
+        if (quantity.isNullOrEmpty())
+            return "item"
+        else
+            {
+                //Honestly, the quantity has always been in g or ml so this is probably overkill
+                var orderedClassifiers = listOf<String>("kg","mg","mL","oz","gallon","lb","g", "L")
+                //One custom search and return because fl oz is hard
+                if (quantity!!.toLowerCase().contains("fl") && quantity!!.toLowerCase().contains("oz")){
+                    return "fl. oz."
+                }
+                orderedClassifiers.forEach{
+                    if (quantity!!.toLowerCase().contains(it.toLowerCase())){
+                        return it
+                    }
+                }
+                return "item"
+            }
     }
 
     private fun StringToDate(date : String?) : LocalDate?{

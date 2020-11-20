@@ -37,20 +37,27 @@ class FoodListAdapter(private val context: Activity,
         // Compare dates to change colour
         val currentDate = LocalDate.now()
         val expiryDate = foods[position].expiryDate
-        val expiryMinusThree = expiryDate?.minusDays(3) // for checking if an item is about to expire
-        if (expiryDate!! < currentDate) // food is expired
-        {
-            txtExpiry.text = "EXPIRED: " + foods[position].expiryDate?.toString()
-            txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.redText))
+        if (expiryDate != null){
+            val expiryMinusThree = expiryDate?.minusDays(3) // for checking if an item is about to expire
+            if (expiryDate!! < currentDate) // food is expired
+            {
+                txtExpiry.text = "EXPIRED: " + foods[position].expiryDate?.toString()
+                txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.redText))
+            }
+            else if (expiryMinusThree!! < currentDate)
+            {
+                txtExpiry.text = "EXPIRES SOON: " + foods[position].expiryDate?.toString()
+                txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.orangeText))
+            }
+            else
+            {
+                txtExpiry.text = "Expires on: " + foods[position].expiryDate?.toString()
+                txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.whiteText))
+            }
         }
-        else if (expiryMinusThree!! < currentDate)
-        {
-            txtExpiry.text = "EXPIRES SOON: " + foods[position].expiryDate?.toString()
-            txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.orangeText))
-        }
-        else
-        {
-            txtExpiry.text = "Expires on: " + foods[position].expiryDate?.toString()
+        else{
+            //It shows textview without a default for some reason
+            txtExpiry.text = ""
             txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.whiteText))
         }
 
