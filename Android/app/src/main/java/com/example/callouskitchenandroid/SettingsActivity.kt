@@ -82,6 +82,10 @@ class SettingsActivity : AppCompatActivity() {
                         val success = json.getBoolean("EditUserEmailResult")
                         if (success){
                             ServiceHandler.email = email
+                            with (ServiceHandler.sharedPref.edit()) {
+                                putInt("userId", ServiceHandler.userId)
+                                apply()
+                            }
                             Toast.makeText(applicationContext,"Saved :)", Toast.LENGTH_LONG).show()
                         }
                         else{
@@ -167,6 +171,12 @@ class SettingsActivity : AppCompatActivity() {
                         ServiceHandler.vegan = vegan
                         ServiceHandler.vegetarian = vegetarian
                         ServiceHandler.allergies = allergies
+                        with (ServiceHandler.sharedPref.edit()) {
+                            putBoolean("vegan", ServiceHandler.vegan)
+                            putBoolean("vegetarian", ServiceHandler.vegetarian)
+                            putStringSet("allergies", ServiceHandler.allergies?.toHashSet())
+                            apply()
+                        }
                     }
                     else{
                         Toast.makeText(applicationContext,"Failed :(", Toast.LENGTH_LONG).show()

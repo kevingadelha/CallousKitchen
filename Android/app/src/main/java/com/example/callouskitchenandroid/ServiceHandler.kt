@@ -1,6 +1,7 @@
 package com.example.callouskitchenandroid
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
@@ -26,13 +27,15 @@ class ServiceHandler {
     companion object Static {
         //I don't know where I should put variables that I want to be accessible to the whole app
         //So I'm putting them here for now
-        //The user's id
+        //
+        //Some getters and setters might have been a good idea
         var userId = -1
         var email : String? = null
-        var vegan : Boolean? = null
-        var vegetarian : Boolean? = null
+        var vegan : Boolean = false
+        var vegetarian : Boolean = false
         var allergies : ArrayList<String>? = null
         var primaryKitchenId = -1
+        lateinit var sharedPref : SharedPreferences
         //this is better than passing stuff through intents all the time
         var lastCategory = ""
         val baseUrl =  "http://142.55.32.86:50241"
