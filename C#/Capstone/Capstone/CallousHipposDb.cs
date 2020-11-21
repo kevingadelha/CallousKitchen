@@ -13,6 +13,7 @@ namespace Capstone
 		{
 		}
 		public virtual DbSet<User> Users { get; set; }
+		public virtual DbSet<CaloriesInDay> CaloriesInDays { get; set; }
 		public virtual DbSet<Kitchen> Kitchens { get; set; }
 		public virtual DbSet<Food> Foods { get; set; }
 	}

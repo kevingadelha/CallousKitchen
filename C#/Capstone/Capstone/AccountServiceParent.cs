@@ -59,7 +59,7 @@ namespace Capstone
 
         public SerializableUser LoginAccount(string email, string pass)
         {
-            return (new SerializableUser(db.Users.Where(x => x.Email == email && x.Password == pass && x.IsConfirmed).FirstOrDefault()));
+            return (new SerializableUser(db.Users.Where(x => x.Email == email && x.Password == pass).FirstOrDefault()));
         }
 
         public bool ConfirmEmail(Guid key)
@@ -321,15 +321,21 @@ namespace Capstone
         }
 
 
-        public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
+        public async Task<bool> AddFood(int userId, int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
+            //Don't let user add food if they're not confirmed
+            if (!db.Users.Where(x => x.Id == userId).FirstOrDefault().IsConfirmed)
+                return false;
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
                 .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate, Vegetarian = -1, Vegan = -1, Calories = -1 }));
             await db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> AddFoodComplete(int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite)
+        public async Task<bool> AddFoodComplete(int userId, int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite)
         {
+            //Don't let user add food if they're not confirmed
+            if (!db.Users.Where(x => x.Id == userId).FirstOrDefault().IsConfirmed)
+                return false;
             var food = new Food(name, (Storage)Enum.Parse(typeof(Storage), storage, true), expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
                 .Add(db.Foods.Add(food));
