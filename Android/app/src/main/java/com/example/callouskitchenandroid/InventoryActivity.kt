@@ -40,6 +40,7 @@ class InventoryActivity : AppCompatActivity() {
                         if (ServiceHandler.lastCategory == foodJson.getString("Storage")){
                             var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
                             food.quantity = foodJson.getDouble("Quantity")
+                            food.quantityClassifier = foodJson.getString("QuantityClassifier")
                             food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                             food.favourite = foodJson.getBoolean("Favourite")
                             foods.add(food)
@@ -47,6 +48,7 @@ class InventoryActivity : AppCompatActivity() {
                         else if (ServiceHandler.lastCategory == "All"){
                             var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
                             food.quantity = foodJson.getDouble("Quantity")
+                            food.quantityClassifier = foodJson.getString("QuantityClassifier")
                             food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                             food.favourite = foodJson.getBoolean("Favourite")
                             foods.add(food)
@@ -54,6 +56,7 @@ class InventoryActivity : AppCompatActivity() {
                         else if (ServiceHandler.lastCategory == "Expiring Soon" || intent.getBooleanExtra("Expiring Soon",false)){
                             var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
                             food.quantity = foodJson.getDouble("Quantity")
+                            food.quantityClassifier = foodJson.getString("QuantityClassifier")
                             food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                             food.favourite = foodJson.getBoolean("Favourite")
                             if (food.expiryDate != null && (food.expiryDate!! < LocalDate.now().plusDays(3))){

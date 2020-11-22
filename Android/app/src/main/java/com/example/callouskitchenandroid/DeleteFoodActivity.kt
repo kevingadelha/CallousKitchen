@@ -34,7 +34,7 @@ class DeleteFoodActivity : AppCompatActivity() {
 
         txtFoodName.text = food.name
 
-        var units = "g" // temp
+        var units = food.quantityClassifier
 
         // Set the seek bar max to the current quantity of food
         seekBarQuantity.max = food.quantity.toInt()

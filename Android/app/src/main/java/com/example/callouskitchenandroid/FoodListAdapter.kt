@@ -30,7 +30,7 @@ class FoodListAdapter(private val context: Activity,
 
         // add expiry date and quantity
         val txtQuantity = rowView.findViewById<TextView>(R.id.textViewFoodQuantity)
-        txtQuantity.text = "Quantity: " + foods[position].quantity
+        txtQuantity.text = "Quantity: ${foods[position].quantity} ${foods[position].quantityClassifier}"
 
         val txtExpiry = rowView.findViewById<TextView>(R.id.textViewExpiry)
 
@@ -41,17 +41,17 @@ class FoodListAdapter(private val context: Activity,
             val expiryMinusThree = expiryDate?.minusDays(3) // for checking if an item is about to expire
             if (expiryDate!! < currentDate) // food is expired
             {
-                txtExpiry.text = "EXPIRED: " + foods[position].expiryDate?.toString()
+                txtExpiry.text = "EXPIRED: ${foods[position].expiryDate?.toString()}"
                 txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.redText))
             }
             else if (expiryMinusThree!! < currentDate)
             {
-                txtExpiry.text = "EXPIRES SOON: " + foods[position].expiryDate?.toString()
+                txtExpiry.text = "EXPIRES SOON: ${foods[position].expiryDate?.toString()}"
                 txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.orangeText))
             }
             else
             {
-                txtExpiry.text = "Expires on: " + foods[position].expiryDate?.toString()
+                txtExpiry.text = "Expires on: ${foods[position].expiryDate?.toString()}"
                 txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.whiteText))
             }
         }
