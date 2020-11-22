@@ -7,13 +7,13 @@ namespace Capstone.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class storageInFood : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(storageInFood));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "202010100654321_storageInFood"; }
+            get { return "202011220707452_init"; }
         }
         
         string IMigrationMetadata.Source
