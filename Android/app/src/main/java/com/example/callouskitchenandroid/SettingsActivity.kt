@@ -1,3 +1,6 @@
+/* Authors: Kevin Gadelha, Laura Stewart
+ *
+ */
 package com.example.callouskitchenandroid
 
 import android.content.Intent
@@ -20,6 +23,20 @@ class SettingsActivity : AppCompatActivity() {
         // set up bottom nav bar
         setNavigation()
 
+        // log the user out
+        val btnLogout = findViewById<Button>(R.id.btnLogout)
+        btnLogout.setOnClickListener {
+            with (ServiceHandler.sharedPref.edit()) {
+                putInt("userId", -1)
+                putString("email", "")
+                apply()
+            }
+            ServiceHandler.userId = -1
+
+            val intent = Intent(this@SettingsActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         val txtEmail = findViewById<EditText>(R.id.editSettingEmail)
         val btnSaveEmail = findViewById<Button>(R.id.btnSaveEmail)
 
@@ -41,6 +58,7 @@ class SettingsActivity : AppCompatActivity() {
         val chkBxAllergy = findViewById<CheckBox>(R.id.chkBxAllergy)
         val txtAllergy = findViewById<EditText>(R.id.editAllergyText)
         val btnSaveDiet = findViewById<Button>(R.id.btnSaveDiet)
+        val btnCancel = findViewById<Button>(R.id.btnCancelEditDiet)
 
         val checkBoxes = listOf(chkBxPeanuts, chkBxTreeNuts, chkBxDairy, chkBxGluten, chkBxShellfish, chkBxFish, chkBxSoy, chkBxEggs)
 
@@ -188,14 +206,21 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         chkBxAllergy.setOnClickListener {
-            if (chkBxAllergy.isChecked)
-                txtAllergy.isEnabled = true
-            else
-                txtAllergy.isEnabled = false
+            txtAllergy.isEnabled = chkBxAllergy.isChecked
         }
 
     }
 
+    /*
+     * Override Android's default back button press
+     */
+    override fun onBackPressed() {
+        // do nothing for now
+    }
+
+    /*
+     * Links the bottom navigation buttons to the correct activities
+     */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId){

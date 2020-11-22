@@ -98,4 +98,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    /*
+     * Override Android's default back button press
+     */
+    override fun onBackPressed() {
+        // do nothing for now
+    }
 }

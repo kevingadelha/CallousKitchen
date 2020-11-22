@@ -44,6 +44,18 @@ class ShoppingListActivity : AppCompatActivity() {
 
     }
 
+    /*
+     * Override Android's default back button press
+     */
+    override fun onBackPressed() {
+        // go back to the category list
+        val intent = Intent(this@ShoppingListActivity, KitchenListActivity::class.java)
+        startActivity(intent)
+    }
+
+    /*
+     * Links the bottom navigation buttons to the correct activities
+     */
     private fun setNavigation() {
         bottomNavShoppingList.setOnNavigationItemSelectedListener {
             when (it.itemId){

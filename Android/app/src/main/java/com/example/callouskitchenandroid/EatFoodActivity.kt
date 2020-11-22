@@ -91,6 +91,15 @@ class EatFoodActivity : AppCompatActivity() {
     }
 
     /*
+     * Override Android's default back button press
+     */
+    override fun onBackPressed() {
+        // do nothing for now
+        val intent = Intent(this@EatFoodActivity, InventoryActivity::class.java)
+        startActivity(intent)
+    }
+
+    /*
      * Links the bottom navigation buttons to the correct activities
      */
     private fun setNavigation() {

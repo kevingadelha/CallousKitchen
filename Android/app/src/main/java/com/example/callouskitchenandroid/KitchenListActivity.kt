@@ -1,3 +1,6 @@
+/* Authors: Kevin Gadelha, Laura Stewart
+ *
+ */
 package com.example.callouskitchenandroid
 
 import android.app.Notification
@@ -54,14 +57,14 @@ class KitchenListActivity : AppCompatActivity() {
         listView.adapter = kitchenListAdapter
 
         // Get add button
-        val btnAddKitchen = findViewById<FloatingActionButton>(R.id.btnAddKitchen)
+  /*      val btnAddKitchen = findViewById<FloatingActionButton>(R.id.btnAddKitchen)
 
         //TODO: Incorporate some way to manage categories maybe
         btnAddKitchen.setOnClickListener(){
             // go to add kitchen view
             //val intent = Intent(this@KitchenListActivity, AddKitchenActivity::class.java)
             //startActivity(intent)
-        }
+        }*/
 
         ServiceHandler.callAccountService(
             "GetInventory",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
@@ -128,6 +131,16 @@ class KitchenListActivity : AppCompatActivity() {
         }
     }
 
+    /*
+     * Override Android's default back button press
+     */
+    override fun onBackPressed() {
+        // do nothing for now
+    }
+
+    /*
+     * Links the bottom navigation buttons to the correct activities
+     */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId){

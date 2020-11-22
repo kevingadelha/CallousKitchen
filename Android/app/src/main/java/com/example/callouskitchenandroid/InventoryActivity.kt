@@ -1,3 +1,6 @@
+/* Authors: Kevin Gadelha, Laura Stewart
+ *
+ */
 package com.example.callouskitchenandroid
 
 import android.content.Intent
@@ -81,6 +84,18 @@ class InventoryActivity : AppCompatActivity() {
 
     }
 
+    /*
+     * Override Android's default back button press
+     */
+    override fun onBackPressed() {
+        // do nothing for now
+        val intent = Intent(this@InventoryActivity, KitchenListActivity::class.java)
+        startActivity(intent)
+    }
+
+    /*
+     * Links the bottom navigation buttons to the correct activities
+     */
     private fun setNavigation() {
         bottomNavInventory.setOnNavigationItemSelectedListener {
             when (it.itemId){

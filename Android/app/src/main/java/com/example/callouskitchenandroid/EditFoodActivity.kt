@@ -1,3 +1,6 @@
+/* Authors: Kevin Gadelha, Laura Stewart
+ *
+ */
 package com.example.callouskitchenandroid
 
 import android.app.DatePickerDialog
@@ -137,6 +140,18 @@ class EditFoodActivity : AppCompatActivity() {
         }
     }
 
+    /*
+     * Override Android's default back button press
+     */
+    override fun onBackPressed() {
+        // do nothing for now
+        val intent = Intent(this@EditFoodActivity, InventoryActivity::class.java)
+        startActivity(intent)
+    }
+
+    /*
+     * Links the bottom navigation buttons to the correct activities
+     */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId){

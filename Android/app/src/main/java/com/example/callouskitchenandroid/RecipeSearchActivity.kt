@@ -1,3 +1,7 @@
+/* Authors: Kevin Gadelha, Laura Stewart
+ *
+ */
+
 package com.example.callouskitchenandroid
 
 import android.app.SearchManager
@@ -91,6 +95,16 @@ class RecipeSearchActivity : AppCompatActivity() {
             })
     }
 
+    /*
+     * Override Android's default back button press
+     */
+    override fun onBackPressed() {
+        // do nothing for now
+    }
+
+    /*
+     * Links the bottom navigation buttons to the correct activities
+     */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId){

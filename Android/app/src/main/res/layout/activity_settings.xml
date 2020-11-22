@@ -16,7 +16,8 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -26,7 +27,27 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="150dp">
+    <LinearLayout
+        android:id="@+id/linearLayoutLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:background="?attr/bgColorLight">
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/logout"
+            android:textColor="?attr/textColor" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayoutEmail"
         android:layout_width="match_parent"
