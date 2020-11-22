@@ -62,12 +62,13 @@ namespace Capstone
             return (new SerializableUser(db.Users.Where(x => x.Email == email && x.Password == pass).FirstOrDefault()));
         }
 
-        public bool ConfirmEmail(Guid key)
+        public bool ConfirmEmail(string key)
         {
+            Guid keyGuid = Guid.Parse(key);
             Guid blankGuid = new Guid();
-            if (key != blankGuid)
+            if (keyGuid != blankGuid)
             {
-                var user = db.Users.Where(x => x.EmailConfirmKey == key).FirstOrDefault();
+                var user = db.Users.Where(x => x.EmailConfirmKey == keyGuid).FirstOrDefault();
                 user.IsConfirmed = true;
                 user.EmailConfirmKey = blankGuid; // can't set a null guid, closest thing
                 db.SaveChanges();
