@@ -9,12 +9,21 @@ import com.android.volley.Response
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_inventory.*
 import org.json.JSONObject
+import java.time.LocalDate
 
 class InventoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // set the title of the activity
-        title = ServiceHandler.lastCategory
+        //This intent comes from the notification
+        if (intent.getBooleanExtra("Expiring Soon",false)){
+            title = "Expiring Soon"
+            //This might not be necessary but I want to make sure I don't break anything
+            ServiceHandler.lastCategory = "Expiring Soon"
+        }
+        else{
+            // set the title of the activity
+            title = ServiceHandler.lastCategory
+        }
         setContentView(R.layout.activity_inventory)
         // set up bottom nav bar
         setNavigation()
@@ -41,6 +50,15 @@ class InventoryActivity : AppCompatActivity() {
                             food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                             food.favourite = foodJson.getBoolean("Favourite")
                             foods.add(food)
+                        }
+                        else if (ServiceHandler.lastCategory == "Expiring Soon" || intent.getBooleanExtra("Expiring Soon",false)){
+                            var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
+                            food.quantity = foodJson.getDouble("Quantity")
+                            food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
+                            food.favourite = foodJson.getBoolean("Favourite")
+                            if (food.expiryDate != null && (food.expiryDate!! < LocalDate.now().plusDays(3))){
+                                foods.add(food)
+                            }
                         }
 
                     }
