@@ -36,10 +36,21 @@ namespace Capstone
                 else
                 {
                     User user = new User(email, pass);
+                    Guid guid = Guid.NewGuid();
+                    // check for guid collisions, very unlikely 
+                    while (db.Users.Where(x => x.EmailConfirmKey == guid).Count() > 0)
+                    {
+                        guid = Guid.NewGuid();
+                    }
+                    user.EmailConfirmKey = guid;
+                    user.IsConfirmed = false;
+
                     User returnedUser = db.Users.Add(user);
                     returnedUser.Kitchens = new List<Kitchen>();
                     returnedUser.Kitchens.Add(db.Kitchens.Add(new Kitchen { Name = "Kitchen" }));
                     db.SaveChanges();
+                    EmailClient emailClient = new EmailClient();
+                    emailClient.SendConfirmEmail(user.Email, user.EmailConfirmKey);
                     return new SerializableUser(returnedUser);
                 }
             }
@@ -49,6 +60,21 @@ namespace Capstone
         public SerializableUser LoginAccount(string email, string pass)
         {
             return (new SerializableUser(db.Users.Where(x => x.Email == email && x.Password == pass).FirstOrDefault()));
+        }
+
+        public bool ConfirmEmail(string key)
+        {
+            Guid keyGuid = Guid.Parse(key);
+            Guid blankGuid = new Guid();
+            if (keyGuid != blankGuid)
+            {
+                var user = db.Users.Where(x => x.EmailConfirmKey == keyGuid).FirstOrDefault();
+                user.IsConfirmed = true;
+                user.EmailConfirmKey = blankGuid; // can't set a null guid, closest thing
+                db.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public bool AnotherTest()
@@ -296,15 +322,21 @@ namespace Capstone
         }
 
 
-        public async Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate)
+        public async Task<bool> AddFood(int userId, int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
+            //Don't let user add food if they're not confirmed
+            if (!db.Users.Where(x => x.Id == userId).FirstOrDefault().IsConfirmed)
+                return false;
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
                 .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate, Vegetarian = -1, Vegan = -1, Calories = -1 }));
             await db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> AddFoodComplete(int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite)
+        public async Task<bool> AddFoodComplete(int userId, int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite)
         {
+            //Don't let user add food if they're not confirmed
+            if (!db.Users.Where(x => x.Id == userId).FirstOrDefault().IsConfirmed)
+                return false;
             var food = new Food(name, (Storage)Enum.Parse(typeof(Storage), storage, true), expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
                 .Add(db.Foods.Add(food));

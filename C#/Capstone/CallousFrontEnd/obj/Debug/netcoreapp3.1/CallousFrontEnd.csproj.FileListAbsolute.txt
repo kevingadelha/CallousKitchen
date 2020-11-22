@@ -280,13 +280,6 @@ C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Deb
 C:\Users\kgsos\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.genruntimeconfig.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csproj.CoreCompileInputs.cache
 D:\Documents\GitHub\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.genruntimeconfig.cache
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csprojAssemblyReference.cache
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.AssemblyInfoInputs.cache
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.AssemblyInfo.cs
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csproj.CoreCompileInputs.cache
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.MvcApplicationPartsAssemblyInfo.cache
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorAssemblyInfo.cache
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorAssemblyInfo.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\appsettings.Development.json
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\appsettings.json
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Connected Services\AccountService\ConnectedService.json
@@ -394,6 +387,13 @@ F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Sys
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Capstone.pdb
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Capstone.dll.config
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\EntityFramework.xml
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csprojAssemblyReference.cache
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.AssemblyInfoInputs.cache
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.AssemblyInfo.cs
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csproj.CoreCompileInputs.cache
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.MvcApplicationPartsAssemblyInfo.cache
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorAssemblyInfo.cache
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorAssemblyInfo.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.TagHelpers.input.cache
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.TagHelpers.output.cache
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorCoreGenerate.cache
@@ -404,6 +404,9 @@ F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Raz
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\EatFoodPartial.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_RecipeResultView.cshtml.g.cs
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_RecipeSearchPartial.cshtml.g.cs
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ShoppingListPartial.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\Account.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\CreateUser.cshtml.g.cs
@@ -421,6 +424,3 @@ F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\sta
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.dll
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.pdb
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.genruntimeconfig.cache
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_RecipeSearchPartial.cshtml.g.cs
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_RecipeResultView.cshtml.g.cs
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ShoppingListPartial.cshtml.g.cs

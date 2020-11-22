@@ -37,15 +37,20 @@ namespace Capstone.Classes
 		[Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Index("UniqueEmail", IsUnique = true)]
+        [StringLength(250)]
         public string Email { get; set; }
         public string Password { get; set; }
         public bool Vegetarian { get; set; }
         public bool Vegan { get; set; }
         public bool CalorieTracker { get; set; }
         public virtual List<Kitchen> Kitchens { get; set; }
+        public virtual List<CaloriesInDay> CaloriesInDays { get; set; }
         //While it's not pretty, the suggested course of action I found online was to use a delimited string to save a list of strings
         //This is because entityframework is too dumb to generate a table for a list of strings
         public string Allergies { get; set; }
+        public Guid EmailConfirmKey { get; set; }
+        public bool IsConfirmed { get; set; }
     }
 	[DataContract]
 	public class SerializableUser

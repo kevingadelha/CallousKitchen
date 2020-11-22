@@ -58,12 +58,12 @@ namespace Capstone
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-		Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate);
+		Task<bool> AddFood(int userId, int kitchenId, string name, int quantity, DateTime? expiryDate);
 
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-		Task<bool> AddFoodComplete(int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite);
+		Task<bool> AddFoodComplete(int userId, int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite);
 
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
@@ -144,5 +144,9 @@ namespace Capstone
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 	ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
 		Models.SerializableRecipeModel[] FeelingLucky(int count, List<string> diets, int kitchenId);
+
+		[OperationContract]
+        [WebInvoke(Method = "GET")]
+		bool ConfirmEmail(string key);
 	}
 }
