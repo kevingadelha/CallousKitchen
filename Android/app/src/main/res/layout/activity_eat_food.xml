@@ -45,18 +45,24 @@
             android:text="How much is left?"
             android:textColor="?attr/textColor"
             android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/editEatFoodQuantity"
+        <TextView
+            android:id="@+id/textViewQuantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="?attr/textColor"
-            android:ems="10"
-            android:hint="quantity"
-            android:inputType="numberDecimal"
-            android:textSize="16sp"
+            android:padding="5dp"
+            android:text="1"
+            android:textAlignment="center"
             android:textColor="?attr/textColor"
-            android:textColorHint="?attr/metaTextColor" />
+            android:textSize="14sp" />
+
+        <SeekBar
+            android:id="@+id/seekBarEatFood"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="100dp"
+            android:rotation="270"
+            />
 
         <Button
             android:id="@+id/btnEatFoodItem"

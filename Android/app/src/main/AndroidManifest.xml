@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/DarkTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ShoppingListActivity"></activity>
+        <activity android:name=".ShoppingListActivity" />
         <activity android:name=".CategoryListActivity" />
         <activity android:name=".RecipeViewActivity" />
         <activity

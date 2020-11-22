@@ -1,3 +1,7 @@
+/* Authors: Kevin Gadelha, Laura Stewart
+ *
+ */
+
 package com.example.callouskitchenandroid
 
 import android.app.DatePickerDialog
@@ -15,7 +19,6 @@ import java.time.format.DateTimeParseException
 import java.util.*
 
 class EatFoodActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eat_food)
@@ -24,18 +27,38 @@ class EatFoodActivity : AppCompatActivity() {
         setNavigation()
 
         val txtFoodName = findViewById<TextView>(R.id.textViewFoodTitleEat)
-        val txtFoodQuantity = findViewById<EditText>(R.id.editEatFoodQuantity)
         val btnEatFood = findViewById<Button>(R.id.btnEatFoodItem)
         val btnCancel = findViewById<Button>(R.id.btnCancelEatFood)
+
+        // Slider and text representation
+        val seekBarQuantity = findViewById<SeekBar>(R.id.seekBarEatFood)
+        val txtViewQuantity = findViewById<TextView>(R.id.textViewQuantity)
 
         // populate the fields
         val food = intent.getSerializableExtra("FOOD") as Food
 
         txtFoodName.text = food.name
-        txtFoodQuantity.setText(food.quantity.toString())
+
+        var units = "g" // temp
+
+        // Set the seek bar max to the current quantity of food
+        seekBarQuantity.max = food.quantity.toInt()
+        seekBarQuantity.progress = food.quantity.toInt()
+
+        txtViewQuantity.text = "${seekBarQuantity.progress} $units"
+
+        // detect changes in seek bar value
+        seekBarQuantity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                // get the seekbar's current value and display it as text
+                txtViewQuantity.text = "$progress $units"
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+        })
 
         btnEatFood.setOnClickListener{
-            val quantityString = txtFoodQuantity.text.toString()
+            val quantityString = seekBarQuantity.progress.toString()
             if (!quantityString.isNullOrEmpty())
             {
                 val quantity = quantityString.toDouble()
@@ -67,6 +90,9 @@ class EatFoodActivity : AppCompatActivity() {
         }
     }
 
+    /*
+     * Links the bottom navigation buttons to the correct activities
+     */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId){

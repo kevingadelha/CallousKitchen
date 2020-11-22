@@ -1,12 +1,13 @@
+/* Authors: Kevin Gadelha, Laura Stewart
+ *
+ */
+
 package com.example.callouskitchenandroid
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
@@ -21,18 +22,38 @@ class DeleteFoodActivity : AppCompatActivity() {
         setNavigation()
 
         val txtFoodName = findViewById<TextView>(R.id.textViewFoodTitleDelete)
-        val txtFoodQuantity = findViewById<EditText>(R.id.editDeleteFoodQuantity)
-        val btnEatFood = findViewById<Button>(R.id.btnDeleteFoodItem)
+        val btnDeleteFood = findViewById<Button>(R.id.btnDeleteFoodItem)
         val btnCancel = findViewById<Button>(R.id.btnCancelDeleteFood)
+
+        // Slider and text representation
+        val seekBarQuantity = findViewById<SeekBar>(R.id.seekBarDeleteFood)
+        val txtViewQuantity = findViewById<TextView>(R.id.textViewDeleteQuantity)
 
         // populate the fields
         val food = intent.getSerializableExtra("FOOD") as Food
 
         txtFoodName.text = food.name
-        txtFoodQuantity.setText(food.quantity.toString())
 
-        btnEatFood.setOnClickListener{
-            val quantityString = txtFoodQuantity.text.toString()
+        var units = "g" // temp
+
+        // Set the seek bar max to the current quantity of food
+        seekBarQuantity.max = food.quantity.toInt()
+        seekBarQuantity.progress = food.quantity.toInt()
+
+        txtViewQuantity.text = "${seekBarQuantity.progress} $units"
+
+        // detect changes in seek bar value
+        seekBarQuantity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                // get the seekbar's current value and display it as text
+                txtViewQuantity.text = "$progress $units"
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+        })
+
+        btnDeleteFood.setOnClickListener{
+            val quantityString = seekBarQuantity.progress.toString()
             if (!quantityString.isNullOrEmpty())
             {
                 ServiceHandler.callAccountService(
