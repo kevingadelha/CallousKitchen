@@ -130,7 +130,6 @@
     <Content Include="AccountService.svc" />
     <Content Include="AccountServiceMvc.svc" />
     <Content Include="BarcodeService.svc" />
-    <Content Include="ExpiryEstimationService.svc" />
     <Content Include="ExpiryService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -155,13 +154,9 @@
     <Compile Include="Classes\Kitchen.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="EmailClient.cs" />
-    <Compile Include="ExpiryEstimationService.svc.cs">
-      <DependentUpon>ExpiryEstimationService.svc</DependentUpon>
-    </Compile>
     <Compile Include="IAccountService.cs" />
     <Compile Include="IAccountServiceMvc.cs" />
     <Compile Include="IBarcodeService.cs" />
-    <Compile Include="IExpiryEstimationService.cs" />
     <Compile Include="IExpiryService.cs" />
     <Compile Include="Migrations\202011220707452_init.cs" />
     <Compile Include="Migrations\202011220707452_init.designer.cs">
