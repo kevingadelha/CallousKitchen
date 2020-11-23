@@ -26,7 +26,7 @@ namespace Capstone
 
         public void SendConfirmEmail(string Reciever,Guid guid)
         {
-            string url = @"http://localhost:59869"; // change for production
+            string url = @"http://142.55.32.86:50241"; // change for production
             url += @"/AccountService.svc/ConfirmEmail?key=" + guid;
 
             MailMessage message = new MailMessage(Sender, Reciever);

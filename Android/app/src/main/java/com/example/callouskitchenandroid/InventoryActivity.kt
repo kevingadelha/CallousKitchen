@@ -6,6 +6,7 @@ package com.example.callouskitchenandroid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.android.volley.Response
@@ -19,26 +20,44 @@ class InventoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //This intent comes from the notification
         if (intent.getBooleanExtra("Expiring Soon",false)){
+            //If the user clicked the notification and is not logged in, get them to log in
+            if (ServiceHandler.userId == -1){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
             title = "Expiring Soon"
-            //This might not be necessary but I want to make sure I don't break anything
             ServiceHandler.lastCategory = "Expiring Soon"
         }
         else{
             // set the title of the activity
             title = ServiceHandler.lastCategory
         }
+
         setContentView(R.layout.activity_inventory)
         // set up bottom nav bar
         setNavigation()
+
+        val btnAddFood = findViewById<FloatingActionButton>(R.id.btnAddFood)
+
+        //TODO: When categories can actually be edited add this button back in
+        if (ServiceHandler.lastCategory == "All" || ServiceHandler.lastCategory == "Expiring Soon"){
+            btnAddFood.visibility = View.GONE
+        }
+        else{
+            btnAddFood.setOnClickListener{
+                val intent = Intent(this@InventoryActivity, AddFoodActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
         ServiceHandler.callAccountService(
             "GetInventory",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
             Response.Listener { response ->
 
                 val json = JSONObject(response.toString())
-                val foodsJson = json.getJSONArray("GetInventoryResult")
+                val foodsJson = json.optJSONArray("GetInventoryResult")
                 var foods: ArrayList<Food> = arrayListOf<Food>()
-                    for (i in 0 until foodsJson.length()) {
+                    for (i in 0 until (foodsJson?.length() ?: 0)) {
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
                         if (ServiceHandler.lastCategory == foodJson.getString("Storage")){
                             var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
@@ -75,12 +94,6 @@ class InventoryActivity : AppCompatActivity() {
                 listViewFood.adapter = foodListAdapter
             })
 
-        val btnAddFood = findViewById<FloatingActionButton>(R.id.btnAddFood)
-
-        btnAddFood.setOnClickListener{
-            val intent = Intent(this@InventoryActivity, AddFoodActivity::class.java)
-            startActivity(intent)
-        }
 
     }
 

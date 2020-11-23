@@ -62,7 +62,7 @@ namespace Capstone
             return (new SerializableUser(db.Users.Where(x => x.Email == email && x.Password == pass).FirstOrDefault()));
         }
 
-        public bool ConfirmEmail(string key)
+        public string ConfirmEmail(string key)
         {
             Guid keyGuid = Guid.Parse(key);
             Guid blankGuid = new Guid();
@@ -72,9 +72,9 @@ namespace Capstone
                 user.IsConfirmed = true;
                 user.EmailConfirmKey = blankGuid; // can't set a null guid, closest thing
                 db.SaveChanges();
-                return true;
+                return "Success";
             }
-            return false;
+            return "Failed";
         }
 
         public bool AnotherTest()
@@ -363,6 +363,8 @@ namespace Capstone
             //Assume that if the user is editing the food they don't want to delete by having the quantity be zero
             item.Name = name;
             item.Quantity = quantity;
+            //Assume that the user editing the food means they are resetting their initial quantity
+            item.InitialQuantity = quantity;
             item.ExpiryDate = expiryDate;
             await db.SaveChangesAsync();
             return true;

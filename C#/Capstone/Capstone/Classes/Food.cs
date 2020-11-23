@@ -32,7 +32,9 @@ namespace Capstone.Classes
 			Storage = storage;
 			ExpiryDate = expiryDate;
 			Quantity = quantity;
+			InitialQuantity = quantity;
 			QuantityClassifier = quantityClassifier;
+			InitialQuantityClassifier = quantityClassifier;
 			Vegan = vegan;
 			Vegetarian = vegetarian;
 			Ingredients = string.Join("|", ingredients);
@@ -49,6 +51,8 @@ namespace Capstone.Classes
 		public Nullable<DateTime> CalculatedExpiryDate { get; set; }
 		public double Quantity { get; set; }
 		public string QuantityClassifier { get; set; }
+		public double InitialQuantity { get; set; }
+		public string InitialQuantityClassifier { get; set; }
 		public int Vegan { get; set; }
 		public int Vegetarian { get; set; }
 		public string Ingredients { get; set; }

@@ -212,6 +212,7 @@ class AddFoodActivity : AppCompatActivity() {
                 val quantityClassifier = spinnerUnits.selectedItem.toString()
                 ServiceHandler.callAccountService(
                     "AddFoodComplete", hashMapOf(
+                        "userId" to ServiceHandler.userId,
                         "kitchenId" to ServiceHandler.primaryKitchenId,
                         "name" to foodName,
                         "storage" to ServiceHandler.lastCategory,
@@ -227,10 +228,16 @@ class AddFoodActivity : AppCompatActivity() {
                     ), this,
                     Response.Listener { response ->
                         val json = JSONObject(response.toString())
-                        val kitchenId = json.getBoolean("AddFoodCompleteResult")
-                        // return to the food list
-                        val intent = Intent(this@AddFoodActivity, InventoryActivity::class.java)
-                        startActivity(intent)
+
+                        val success = json.getBoolean("AddFoodCompleteResult")
+                        if (!success){
+                            Toast.makeText(applicationContext,"Please confirm your email before adding food!", Toast.LENGTH_LONG).show()
+                        }
+                        else{
+                            // return to the food list
+                            val intent = Intent(this@AddFoodActivity, InventoryActivity::class.java)
+                            startActivity(intent)
+                        }
 
                     })
             }
