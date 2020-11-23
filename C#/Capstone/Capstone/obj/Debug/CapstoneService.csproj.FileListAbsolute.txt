@@ -90,3 +90,28 @@ F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.pdb
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.init.resources
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.GenerateResource.cache
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Capstone.dll.config
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Capstone.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Capstone.pdb
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.SqlServer.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Newtonsoft.Json.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\System.Net.Http.Extensions.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\System.Net.Http.Formatting.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\System.Net.Http.Primitives.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.SqlServer.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.pdb
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.pdb
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Newtonsoft.Json.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.init.resources
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.GenerateResource.cache
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.CoreCompileInputs.cache
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.CopyComplete
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.pdb
