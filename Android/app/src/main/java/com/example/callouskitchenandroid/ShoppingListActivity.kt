@@ -1,3 +1,6 @@
+/* Authors: Kevin Gadelha, Laura Stewart
+ *
+ */
 package com.example.callouskitchenandroid
 
 import android.content.Intent
@@ -48,6 +51,9 @@ class ShoppingListActivity : AppCompatActivity() {
      * Override Android's default back button press
      */
     override fun onBackPressed() {
+        // TODO: save the state of the check boxes
+
+
         // go back to the category list
         val intent = Intent(this@ShoppingListActivity, KitchenListActivity::class.java)
         startActivity(intent)
