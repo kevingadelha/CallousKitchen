@@ -54,3 +54,33 @@ F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Release\CapstoneService.csproj
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Release\CapstoneService.csproj.CopyComplete
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.dll
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.pdb
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Capstone.dll.config
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Capstone.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Capstone.pdb
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.SqlServer.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Newtonsoft.Json.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\System.Net.Http.Extensions.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\System.Net.Http.Formatting.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\System.Net.Http.Primitives.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\EntityFramework.SqlServer.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.pdb
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.pdb
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Microsoft.Exchange.WebServices.Auth.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\bin\Newtonsoft.Json.xml
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\CapstoneService.csprojAssemblyReference.cache
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.Migrations.Init.resources
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.Migrations.PasswordHash.resources
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.Migrations.storage.resources
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.Migrations.storageInFood.resources
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.Migrations.storageWithIds.resources
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.Migrations.refactor.resources
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\CapstoneService.csproj.GenerateResource.cache
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\CapstoneService.csproj.CoreCompileInputs.cache
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\CapstoneService.csproj.CopyComplete
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.dll
+C:\Users\Vlad\Documents\Unity Projects\hrusha_assignment1\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.pdb

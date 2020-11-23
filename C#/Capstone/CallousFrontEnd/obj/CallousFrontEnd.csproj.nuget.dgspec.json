@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {}
+    "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {}
   },
   "projects": {
-    "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {
+    "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
+        "projectUniqueName": "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
         "projectName": "CallousFrontEnd",
-        "projectPath": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\obj\\",
+        "projectPath": "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
+        "packagesPath": "C:\\Users\\Vlad\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Vlad\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +27,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
-                "projectPath": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
+              "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
+                "projectPath": "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
               }
             }
           }
@@ -104,15 +101,15 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
+    "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj": {
       "restore": {
-        "projectUniqueName": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj",
+        "projectUniqueName": "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj",
         "projectName": "CapstoneService",
-        "projectPath": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
+        "projectPath": "C:\\Users\\Vlad\\Documents\\Unity Projects\\hrusha_assignment1\\CallousHippo\\C#\\Capstone\\Capstone\\CapstoneService.csproj"
       },
       "frameworks": {
         "net472": {}
