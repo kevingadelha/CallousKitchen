@@ -65,7 +65,8 @@ class KitchenListActivity : AppCompatActivity() {
             //val intent = Intent(this@KitchenListActivity, AddKitchenActivity::class.java)
             //startActivity(intent)
         }*/
-
+//Don't do this here anymore
+        /*
         ServiceHandler.callAccountService(
             "GetInventory",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
             Response.Listener { response ->
@@ -110,7 +111,7 @@ class KitchenListActivity : AppCompatActivity() {
                     }
                 }
 
-            })
+            })*/
     }
 
     private fun createNotificationChannel() {

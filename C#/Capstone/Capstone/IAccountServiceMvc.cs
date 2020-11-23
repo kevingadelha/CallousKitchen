@@ -150,7 +150,7 @@ namespace Capstone
 
         [OperationContract]
         [WebInvoke(Method = "GET")]
-        bool ConfirmEmail(string key);
+        string ConfirmEmail(string key);
     }
 
 }
