@@ -4,15 +4,18 @@
 package com.example.callouskitchenandroid
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
 import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_inventory.*
+import kotlinx.android.synthetic.main.activity_recipe_search.*
 import kotlinx.android.synthetic.main.activity_shopping_list.*
 import org.json.JSONObject
 
 class ShoppingListActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // set the title of the activity
@@ -20,6 +23,9 @@ class ShoppingListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shopping_list)
         // set up bottom nav bar
         setNavigation()
+
+        val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
+        listViewShoppingList.addFooterView(footerView)
 
         ServiceHandler.callAccountService(
             "GetInventory",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
@@ -40,7 +46,6 @@ class ShoppingListActivity : AppCompatActivity() {
 
                 }
 
-
                 val shoppingListAdapter = ShoppingListAdapter(this, foods)
                 listViewShoppingList.adapter = shoppingListAdapter
             })
@@ -51,9 +56,6 @@ class ShoppingListActivity : AppCompatActivity() {
      * Override Android's default back button press
      */
     override fun onBackPressed() {
-        // TODO: save the state of the check boxes
-
-
         // go back to the category list
         val intent = Intent(this@ShoppingListActivity, KitchenListActivity::class.java)
         startActivity(intent)
