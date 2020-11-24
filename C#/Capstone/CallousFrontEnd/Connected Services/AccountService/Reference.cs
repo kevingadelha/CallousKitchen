@@ -464,6 +464,8 @@ namespace AccountService
         
         private bool CalorieTrackerField;
         
+        private AccountService.CaloriesInDay[] CaloriesInDaysField;
+        
         private string EmailField;
         
         private System.Guid EmailConfirmKeyField;
@@ -503,6 +505,19 @@ namespace AccountService
             set
             {
                 this.CalorieTrackerField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AccountService.CaloriesInDay[] CaloriesInDays
+        {
+            get
+            {
+                return this.CaloriesInDaysField;
+            }
+            set
+            {
+                this.CaloriesInDaysField = value;
             }
         }
         
@@ -613,6 +628,58 @@ namespace AccountService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CaloriesInDay", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
+    public partial class CaloriesInDay : object
+    {
+        
+        private int CaloriesField;
+        
+        private System.DateTime DayField;
+        
+        private int IdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Calories
+        {
+            get
+            {
+                return this.CaloriesField;
+            }
+            set
+            {
+                this.CaloriesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Day
+        {
+            get
+            {
+                return this.DayField;
+            }
+            set
+            {
+                this.DayField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Kitchen", Namespace="http://schemas.datacontract.org/2004/07/Capstone.Classes")]
     public partial class Kitchen : object
     {
@@ -680,6 +747,10 @@ namespace AccountService
         private int IdField;
         
         private string IngredientsField;
+        
+        private double InitialQuantityField;
+        
+        private string InitialQuantityClassifierField;
         
         private string NameField;
         
@@ -770,6 +841,32 @@ namespace AccountService
             set
             {
                 this.IngredientsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double InitialQuantity
+        {
+            get
+            {
+                return this.InitialQuantityField;
+            }
+            set
+            {
+                this.InitialQuantityField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string InitialQuantityClassifier
+        {
+            get
+            {
+                return this.InitialQuantityClassifierField;
+            }
+            set
+            {
+                this.InitialQuantityClassifierField = value;
             }
         }
         
@@ -1156,16 +1253,16 @@ namespace AccountService
         System.Threading.Tasks.Task<AccountService.SerializableFoodFactsProductModel> GetAllOpenFoodFactsAsync(string barcode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
-        bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
+        bool AddFood(int userId, int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodResponse")]
-        System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
+        System.Threading.Tasks.Task<bool> AddFoodAsync(int userId, int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFoodComplete", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodCompleteResponse")]
-        bool AddFoodComplete(int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite);
+        bool AddFoodComplete(int userId, int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/AddFoodComplete", ReplyAction="http://tempuri.org/IAccountServiceMvc/AddFoodCompleteResponse")]
-        System.Threading.Tasks.Task<bool> AddFoodCompleteAsync(int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite);
+        System.Threading.Tasks.Task<bool> AddFoodCompleteAsync(int userId, int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EatFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EatFoodResponse")]
         bool EatFood(int id, double quantity);
@@ -1270,10 +1367,10 @@ namespace AccountService
         System.Threading.Tasks.Task<AccountService.SerializableRecipeModel[]> FeelingLuckyAsync(int count, string[] diets, int kitchenId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/ConfirmEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/ConfirmEmailResponse")]
-        bool ConfirmEmail(System.Guid guid);
+        string ConfirmEmail(string key);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/ConfirmEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/ConfirmEmailResponse")]
-        System.Threading.Tasks.Task<bool> ConfirmEmailAsync(System.Guid guid);
+        System.Threading.Tasks.Task<string> ConfirmEmailAsync(string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -1416,24 +1513,24 @@ namespace AccountService
             return base.Channel.GetAllOpenFoodFactsAsync(barcode);
         }
         
-        public bool AddFood(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
+        public bool AddFood(int userId, int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
         {
-            return base.Channel.AddFood(kitchenId, name, quantity, expiryDate);
+            return base.Channel.AddFood(userId, kitchenId, name, quantity, expiryDate);
         }
         
-        public System.Threading.Tasks.Task<bool> AddFoodAsync(int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
+        public System.Threading.Tasks.Task<bool> AddFoodAsync(int userId, int kitchenId, string name, int quantity, System.Nullable<System.DateTime> expiryDate)
         {
-            return base.Channel.AddFoodAsync(kitchenId, name, quantity, expiryDate);
+            return base.Channel.AddFoodAsync(userId, kitchenId, name, quantity, expiryDate);
         }
         
-        public bool AddFoodComplete(int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite)
+        public bool AddFoodComplete(int userId, int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite)
         {
-            return base.Channel.AddFoodComplete(kitchenId, name, storage, expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
+            return base.Channel.AddFoodComplete(userId, kitchenId, name, storage, expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
         }
         
-        public System.Threading.Tasks.Task<bool> AddFoodCompleteAsync(int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite)
+        public System.Threading.Tasks.Task<bool> AddFoodCompleteAsync(int userId, int kitchenId, string name, string storage, System.Nullable<System.DateTime> expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, string[] ingredients, string[] traces, bool favourite)
         {
-            return base.Channel.AddFoodCompleteAsync(kitchenId, name, storage, expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
+            return base.Channel.AddFoodCompleteAsync(userId, kitchenId, name, storage, expiryDate, quantity, quantityClassifier, vegan, vegetarian, ingredients, traces, favourite);
         }
         
         public bool EatFood(int id, double quantity)
@@ -1606,14 +1703,14 @@ namespace AccountService
             return base.Channel.FeelingLuckyAsync(count, diets, kitchenId);
         }
         
-        public bool ConfirmEmail(System.Guid guid)
+        public string ConfirmEmail(string key)
         {
-            return base.Channel.ConfirmEmail(guid);
+            return base.Channel.ConfirmEmail(key);
         }
         
-        public System.Threading.Tasks.Task<bool> ConfirmEmailAsync(System.Guid guid)
+        public System.Threading.Tasks.Task<string> ConfirmEmailAsync(string key)
         {
-            return base.Channel.ConfirmEmailAsync(guid);
+            return base.Channel.ConfirmEmailAsync(key);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

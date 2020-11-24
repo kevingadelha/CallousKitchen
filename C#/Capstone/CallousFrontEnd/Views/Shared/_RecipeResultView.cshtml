@@ -3,10 +3,32 @@
 @foreach (var x in Model)
 {
     <div class="container">
-        <div class="row"><h4>@x.Name.</h4></div>
-        <div class="row">Servings: @x.Yield</div>
-        <div class="row"><a href="@Href(x.Url)" target="_blank">@x.Source</a></div>
+        <div class="row recipeRow">
+            <div class="col-8">
+                <div class="row"><h4>@x.Name.</h4></div>
+                <div class="row">Servings: @x.Yield</div>
+                <div class="row"><a href="@Href(x.Url)" target="_blank">@x.Source</a></div>
+                <div class="row"><h5>Ingredients:</h5></div>
+                <div class="row">
+                    <ul>
+                        @foreach(var i in x.EdamanIngredients)
+                        {
+                            string ingred = "ingred";
+                            ingred += i.Score;
+                            <li class="@ingred">@i.Name</li> 
+                        }
+                    </ul>
+                </div>
 
+            </div>
+            <div class="col-4">
+                <div class="container">
+                    <a href="@x.Url">
+                        <img class="recipeImage align-middle" src="@x.Image" />
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
 }
