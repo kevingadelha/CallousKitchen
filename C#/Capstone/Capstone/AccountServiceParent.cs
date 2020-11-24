@@ -510,5 +510,67 @@ namespace Capstone
         {
             return db.Foods.Where(x => x.Id == id).FirstOrDefault();
         }
+
+
+        public bool DemoDb(string pass)
+        {
+            if (pass != "67X7C@&Aej*hS%")
+            {
+                return false;
+            }
+            else
+            {
+                // Truncate
+                db.CaloriesInDays.RemoveRange(db.CaloriesInDays);
+                db.Foods.RemoveRange(db.Foods);
+                db.Kitchens.RemoveRange(db.Kitchens);
+                db.Foods.RemoveRange(db.Foods);
+                db.Users.RemoveRange(db.Users);
+                db.SaveChanges();
+                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (Users, RESEED, 0);");
+                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (Foods, RESEED, 0);");
+                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (Kitchens, RESEED, 0);");
+                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (CaloriesInDays, RESEED, 0);");
+                db.SaveChanges();
+
+                //Create User
+                User demoUser = new User("demo@example.com", "pass");
+                demoUser.EmailConfirmKey = new Guid();
+                demoUser.IsConfirmed = true;
+                db.Users.Add(demoUser);
+                db.SaveChanges();
+
+                // Kitchens
+                demoUser.Kitchens = new List<Kitchen>();
+                demoUser.Kitchens.Add(db.Kitchens.Add(new Kitchen { Name = "Kitchen", Inventory = new List<Food>() }));
+                db.SaveChanges();
+
+                // Add Food
+
+                var kitch = demoUser.Kitchens.FirstOrDefault().Inventory;
+
+                kitch.Add(db.Foods.Add(new Food() { Name = "Butter", Quantity = 200, ExpiryDate = DateTime.Now.AddDays(7), Vegetarian = 1, Vegan = 0, Calories = -1, Storage = Storage.Fridge, QuantityClassifier = "g", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Garilic", Quantity = 7, ExpiryDate = DateTime.Now.AddDays(3), Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Fridge, QuantityClassifier = "item", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Steak", Quantity = 12, ExpiryDate = DateTime.Now.AddDays(3), Vegetarian = 0, Vegan = 0, Calories = -1, Storage = Storage.Fridge, QuantityClassifier = "oz", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Egg", Quantity = 11, ExpiryDate = DateTime.Now.AddDays(14), Vegetarian = 1, Vegan = 0, Calories = -1, Storage = Storage.Fridge, Favourite = true, QuantityClassifier = "item", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Apple", Quantity = 3, ExpiryDate = DateTime.Now.AddDays(4), Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Pantry, QuantityClassifier = "item", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Salt", Quantity = 10000, ExpiryDate = null, Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Cupboard, Favourite = true, QuantityClassifier = "g", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Pepper", Quantity = 1256, ExpiryDate = null, Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Cupboard, Favourite = true, QuantityClassifier = "g", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Cinnamon", Quantity = 300, ExpiryDate = null, Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Pantry, Favourite = true, QuantityClassifier = "g", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Heavy Cream", Quantity = 0.5, ExpiryDate = DateTime.Now.AddDays(20), Vegetarian = 1, Vegan = 0, Calories = -1, Storage = Storage.Fridge, Favourite = true, QuantityClassifier = "L", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Whole Milk", Quantity = 2, ExpiryDate = DateTime.Now.AddDays(14), Vegetarian = 1, Vegan = 0, Calories = -1, Storage = Storage.Fridge, Favourite = false, QuantityClassifier = "L", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Almond Milk", Quantity = 2, ExpiryDate = DateTime.Now.AddDays(14), Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Fridge, Favourite = false, QuantityClassifier = "L", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Coldbrew Coffee", Quantity = 1, ExpiryDate = DateTime.Now.AddDays(14), Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Fridge, Favourite = true, QuantityClassifier = "L", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Ground Beef", Quantity = 300, ExpiryDate = DateTime.Now.AddDays(25), Vegetarian = 0, Vegan = 0, Calories = -1, Storage = Storage.Freezer, Favourite = true, QuantityClassifier = "lb", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Orange Juice", Quantity = 1, ExpiryDate = DateTime.Now.AddDays(25), Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Fridge, Favourite = true, QuantityClassifier = "gallon", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Red Wine", Quantity = 750, ExpiryDate = null, Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Cellar, Favourite = true, QuantityClassifier = "mL", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Canned Chilli", Quantity = 3, ExpiryDate = null, Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Pantry, Favourite = true, QuantityClassifier = "item", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Canned Beans", Quantity = 3, ExpiryDate = null, Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Pantry, Favourite = true, QuantityClassifier = "item", Ingredients = "", Traces = "" }));
+
+
+                db.SaveChanges();
+                return true;
+            }
+        }
     }
 }
