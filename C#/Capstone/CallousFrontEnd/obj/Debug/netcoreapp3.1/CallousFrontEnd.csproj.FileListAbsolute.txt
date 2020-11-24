@@ -424,3 +424,4 @@ F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\sta
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.dll
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.pdb
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.genruntimeconfig.cache
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Email\Confirm.cshtml.g.cs

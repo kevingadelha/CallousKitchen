@@ -26,8 +26,8 @@ namespace Capstone
 
         public void SendConfirmEmail(string Reciever,Guid guid)
         {
-            string url = @"http://142.55.32.86:50241"; // change for production
-            url += @"/AccountService.svc/ConfirmEmail?key=" + guid;
+            string url = @"http://localhost:57991"; // change for production
+            url += @"/Email/Confirm?Key=" + guid;
 
             MailMessage message = new MailMessage(Sender, Reciever);
             message.Subject = "Callous Kitchen Account Confirmation";
