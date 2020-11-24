@@ -113,4 +113,33 @@ body {
     width: 10%;
     height: auto;
 }
+
+
+/*Begin Recipes*/
+.Ingred0 {
+}
+
+.Ingred1 {
+}
+
+.Ingred2 {
+    color: gold;
+}
+
+.Ingred3 {
+    color: greenyellow;
+}
+
+.recipeRow {
+    background-color: dimgray;
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+.recipeImage {
+    max-height: 500px;
+    height:90%;
+    width:auto;
+    display:block
+}
+/*End Recipies*/
 /*Custom Css*/

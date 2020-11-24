@@ -46,6 +46,7 @@ namespace CallousFrontEnd.Controllers
             if (serializableUser.Id != -1)
             {
                 UserSessionModel user = new UserSessionModel { Id = serializableUser.Id, Username = login.Username };
+                System.Diagnostics.Debug.WriteLine("UserId: " + serializableUser.Id);
                 HttpContext.Session.SetInt32("UserId", serializableUser.Id);
                 HttpContext.Session.SetString("Username", login.Username);
                 ViewBag.UserSession = user;
@@ -180,7 +181,7 @@ namespace CallousFrontEnd.Controllers
                     // FIX THIS
                     string[] Ingredients = {};
                     string[] Traces = { };
-                    Client.AddFoodComplete(foodKitchen.KitchenId, foodKitchen.Food.Name,foodKitchen.Food.Storage.ToString() , foodKitchen.Food.ExpiryDate, (int)foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1,-1, Ingredients, Traces, foodKitchen.Food.Favourite);
+                    Client.AddFoodComplete(userId,foodKitchen.KitchenId, foodKitchen.Food.Name,foodKitchen.Food.Storage.ToString() , foodKitchen.Food.ExpiryDate, (int)foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1,-1, Ingredients, Traces, foodKitchen.Food.Favourite);
                 }
                 else // edit food
                 {

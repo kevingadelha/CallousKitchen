@@ -162,6 +162,10 @@
     <Compile Include="Migrations\202011220707452_init.designer.cs">
       <DependentUpon>202011220707452_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011240241123_another.cs" />
+    <Compile Include="Migrations\202011240241123_another.designer.cs">
+      <DependentUpon>202011240241123_another.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EdamanIngredient.cs" />
     <Compile Include="Models\FoodFactsModel.cs" />
@@ -197,6 +201,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202011220707452_init.resx">
       <DependentUpon>202011220707452_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011240241123_another.resx">
+      <DependentUpon>202011240241123_another.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
