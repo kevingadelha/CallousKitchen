@@ -55,6 +55,9 @@ namespace CallousFrontEnd
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=User}/{action=LoginView}");
+                 endpoints.MapControllerRoute(
+                    name: "EmailConfirm",
+                    pattern: "{controller=Email}/{Action=ConfirmEmail}/{key}");
             });
         }
     }

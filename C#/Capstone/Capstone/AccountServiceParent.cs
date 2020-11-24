@@ -64,7 +64,8 @@ namespace Capstone
 
         public string ConfirmEmail(string key)
         {
-            Guid keyGuid = Guid.Parse(key);
+            Guid keyGuid;
+            Guid.TryParse(key, out keyGuid);
             Guid blankGuid = new Guid();
             if (keyGuid != blankGuid)
             {
@@ -74,6 +75,7 @@ namespace Capstone
                 db.SaveChanges();
                 return "Success";
             }
+
             return "Failed";
         }
 
