@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity() {
                                 putInt("primaryKitchenId", ServiceHandler.primaryKitchenId)
                                 apply()
                             }
-                            Toast.makeText(applicationContext,"Please confirm your email before adding food!", Toast.LENGTH_LONG).show()
                             val intent = Intent(this@MainActivity, KitchenListActivity::class.java)
                             startActivity(intent)
                         } else {
