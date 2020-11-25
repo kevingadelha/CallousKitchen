@@ -113,6 +113,19 @@ body {
     width: 10%;
     height: auto;
 }
+.foodRow {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    border-bottom: 0.1rem solid black;
+}
+
+.expiringSoon{
+    color:gold;
+}
+.expriringCritical{
+    color:red;
+}
+
 
 
 /*Begin Recipes*/

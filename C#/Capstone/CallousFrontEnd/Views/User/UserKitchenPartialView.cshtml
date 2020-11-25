@@ -4,7 +4,7 @@
 }
 @if (Model.Count != 0)
 {
-    <table>
+    <div class="container">
         @*   @foreach (var kitchen in Model) *@
         @if (Model[0].Inventory.Count() != 0)
         {
@@ -14,9 +14,9 @@
             {
                 @if (Model[0].Inventory.Where(x => x.Storage == StorageTypes[i]).Count() != 0)
                 {
-                    <tr>
-                        <th><strong>@Model[0].Inventory.Where(x => x.Storage == StorageTypes[i]).FirstOrDefault().Storage</strong></th>
-                    </tr>
+                    <div class="row">
+                        <h4><em>@Model[0].Inventory.Where(x => x.Storage == StorageTypes[i]).FirstOrDefault().Storage</em></h4>
+                    </div>
                 }
 
 
@@ -24,15 +24,38 @@
 
                 @foreach (var food in Model[0].Inventory.Where(x => x.Storage == StorageTypes[i]))
                 {
-                    <tr>
-                        <td>@food.Name</td>
-                        <td>@food.Quantity @food.QuantityClassifier</td>
-                        <td>
+                    <div class="foodRow row">
+                        <div class="col-8">
+                            <div class="row"><h5>@food.Name</h5> </div>
+                            <div class="row">@food.Quantity @food.QuantityClassifier</div>
+                            @if (food.ExpiryDate != null)
+                            {
+                                string expiryString = "";
+                                DateTime date2 = DateTime.Now.AddDays(3);
+                                TimeSpan time = date2 - food.ExpiryDate.Value;
+
+                                if (time.Days == 0)
+                                {
+                                    expiryString = "expiringSoon";
+                                }
+                                else if (time.Days >= 0)
+                                {
+                                    expiryString = "expriringCritical";
+
+                                }
+                                else
+                                {
+
+                                }
+                                <div class="row @expiryString">Expires: @food.ExpiryDate</div>
+                            }
+                        </div>
+                        <div class="col-4">
                             <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@Model[0].Id">Edit</button>
                             <button type="button" class="btn btn-primary eatFoodBtn" data-toggle="modal" data-target="#EatFood" data-food-Id="@food.Id">Eat</button>
                             <button type="button" class="btn btn-danger deleteFoodBtn" data-food-Id="@food.Id">Delete</button>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                 }
 
 
@@ -41,17 +64,17 @@
         }
         else
         {
-            <tr><td><em>You have no food, add some</em></td></tr>
+            <div class="row"><em>You have no food, add some</em></div>
 
         }
-        <tr>
-            <td>
-                <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@Model[0].Id">Add Food</button>
-            </td>
-        </tr>
+        <div class="row">
+
+            <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@Model[0].Id">Add Food</button>
+
+        </div>
 
 
-    </table>
+    </div>
 
 }
 else
