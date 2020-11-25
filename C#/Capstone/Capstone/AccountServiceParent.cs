@@ -293,7 +293,6 @@ namespace Capstone
                     {
                         searchString += f.Name + "+";
                     }
-                    searchString = System.Web.HttpUtility.UrlEncode(searchString);
                     recipes = SearchRecipesRanked(searchString, count, diets, kitchenId);
                     take--;
                 }
