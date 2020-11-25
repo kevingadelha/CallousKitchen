@@ -120,15 +120,14 @@ body {
 }
 
 .Ingred1 {
-}
-
-.Ingred2 {
     color: gold;
 }
 
-.Ingred3 {
+.Ingred2 {
     color: greenyellow;
 }
+
+
 
 .recipeRow {
     background-color: dimgray;

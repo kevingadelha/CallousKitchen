@@ -247,7 +247,7 @@ namespace Capstone
                             i.Score = 2;
 
                         }
-                        else if (i.Score != 2 && f.Name.ToLower().Contains(i.Name.ToLower()))
+                        else if (i.Score != 2 && (f.Name.ToLower().Contains(i.Name.ToLower()) || i.Name.ToLower().Contains(f.Name.ToLower())))
                         {
                             i.Score = 1;
                         }

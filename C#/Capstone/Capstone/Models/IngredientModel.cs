@@ -31,7 +31,6 @@ namespace Capstone.Models
 
         public IngredientModel(string name)
         {
-            System.Diagnostics.Debug.WriteLine(name);
             Name = name;
             OriginalName = name;
             Score = 0;
