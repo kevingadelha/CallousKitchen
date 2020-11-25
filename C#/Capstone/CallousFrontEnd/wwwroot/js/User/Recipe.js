@@ -1,4 +1,4 @@
-﻿$("#btnSearchRecipe").on("click", function () {
+﻿function recipeSearch() {
     $.ajax({
         type: 'Post',
         url: "SearchRecipes",
@@ -7,8 +7,13 @@
         },
         success: function (result) {
             $("#recipeContainer").html(result);
+            console.log("recipe searched");
         }
     });
+}
+
+$("#btnSearchRecipe").on("click", function () {
+    recipeSearch();
 });
 
 $("#btnFeelingLucky").on("click", function () {
@@ -19,4 +24,10 @@ $("#btnFeelingLucky").on("click", function () {
             $("#recipeContainer").html(result);
         }
     });
+});
+
+$("#tbRecipeSearch").on("keydown", function (e) {
+    if (e.keyCode == 13) { // if pressed enter
+        recipeSearch();
+    }
 });

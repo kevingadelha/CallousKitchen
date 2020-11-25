@@ -15,13 +15,13 @@ namespace CallousFrontEnd.Controllers
     public class UserController : Controller
     {
 
-            AccountService.AccountServiceMvcClient Client = new AccountService.AccountServiceMvcClient();
+        AccountService.AccountServiceMvcClient Client = new AccountService.AccountServiceMvcClient();
         // AccountServiceOther.AccountServiceMvcClient Client = new AccountServiceMvcClient();
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateUser(Capstone.Classes.User user)
         {
-            
+
             SerializableUser serializableUser = Client.CreateAccount(user.Email, user.Password);
             if (serializableUser.Id > 0)
             {
@@ -126,7 +126,7 @@ namespace CallousFrontEnd.Controllers
             KitchenModel kM = new KitchenModel();
             kM.Kitchens = kitchens;
             kM.Storages = Client.GetStorages().ToList();
-            
+
 
 
             return PartialView("UserKitchenPartialView", kM);
@@ -172,16 +172,16 @@ namespace CallousFrontEnd.Controllers
 
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
-            
+
 
             try
             {
                 if (foodKitchen.Food.Id == 0) // add food
                 {
                     // FIX THIS
-                    string[] Ingredients = {};
+                    string[] Ingredients = { };
                     string[] Traces = { };
-                    Client.AddFoodComplete(userId,foodKitchen.KitchenId, foodKitchen.Food.Name,foodKitchen.Food.Storage.ToString() , foodKitchen.Food.ExpiryDate, (int)foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1,-1, Ingredients, Traces, foodKitchen.Food.Favourite);
+                    Client.AddFoodComplete(userId, foodKitchen.KitchenId, foodKitchen.Food.Name, foodKitchen.Food.Storage.ToString(), foodKitchen.Food.ExpiryDate, (int)foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1, -1, Ingredients, Traces, foodKitchen.Food.Favourite);
                 }
                 else // edit food
                 {
@@ -233,7 +233,7 @@ namespace CallousFrontEnd.Controllers
 
             search = System.Web.HttpUtility.UrlEncode(search);
             int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            SerializableRecipeModel[] recs = Client.FeelingLucky(5,Client.GetSerializableUser(Id).Allergies, Id);
+            SerializableRecipeModel[] recs = Client.FeelingLucky(5, Client.GetSerializableUser(Id).Allergies, Id);
 
             return PartialView("_RecipeResultView", recs);
         }
@@ -256,12 +256,14 @@ namespace CallousFrontEnd.Controllers
             FoodKitchen foodKitchen = new FoodKitchen();
             foodKitchen.KitchenId = kId;
             ViewBag.StorageTypesList = Client.GetStorages();
-
+            List<string> qClassifiers = new List<string> { "item", "g", "mg", "kg",
+                "mL", "L", "oz", "fl. oz.", "gallon", "lb" };
+            ViewBag.Classifier = qClassifiers;
 
             if (fId != 0)
             {
                 foodKitchen.Food = Client.GetFood(fId);
-                
+
             }
             else
             {
@@ -331,7 +333,7 @@ namespace CallousFrontEnd.Controllers
         {
             // chop off leading zeros
 
-          //  barcode = barcode.TrimStart('0');
+            //  barcode = barcode.TrimStart('0');
             string test = Client.GetBarcodeData(barcode);
             return test;
         }
