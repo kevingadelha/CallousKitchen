@@ -260,7 +260,6 @@ namespace Capstone
                         if (i.Score > tempScore)
                         {
                             tempScore = i.Score;
-                            i.Score = tempScore;
                         }
 
                     }

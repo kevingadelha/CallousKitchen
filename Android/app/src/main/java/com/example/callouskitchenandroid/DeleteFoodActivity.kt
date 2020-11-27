@@ -14,8 +14,6 @@ import org.json.JSONObject
 
 class DeleteFoodActivity : AppCompatActivity() {
 
-    // The number of steps in the food quantity slider
-    private val SLIDER_MAX = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,46 +26,13 @@ class DeleteFoodActivity : AppCompatActivity() {
         val btnDeleteFood = findViewById<Button>(R.id.btnDeleteFoodItem)
         val btnCancel = findViewById<Button>(R.id.btnCancelDeleteFood)
 
-        // Slider and text representation
-        val seekBarQuantity = findViewById<SeekBar>(R.id.seekBarDeleteFood)
-        val txtViewQuantity = findViewById<TextView>(R.id.textViewDeleteQuantity)
-
         // populate the fields
         val food = intent.getSerializableExtra("FOOD") as Food
 
         txtFoodName.text = food.name
 
-        var units = food.quantityClassifier
-
-        // Set the seekbar max to 10 so there will be 10 "steps" in the bar
-        // food quantity will be calculated using percentages
-        seekBarQuantity.max = SLIDER_MAX
-        seekBarQuantity.progress = SLIDER_MAX
-
-        txtViewQuantity.text = "${food.quantity} $units"
-
-        // detect changes in seek bar value
-        seekBarQuantity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                // convert seekbar's current value to a percent
-                val percent = progress.toDouble() / SLIDER_MAX.toDouble()
-
-                // calculate the amount of food remaining
-                val remainingQuantity = food.quantity * percent
-
-                txtViewQuantity.text = "$remainingQuantity $units"
-            }
-            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-        })
 
         btnDeleteFood.setOnClickListener{
-            // calculate the amount of food remaining
-            val remainingQuantity = food.quantity * (seekBarQuantity.progress.toDouble() / SLIDER_MAX.toDouble())
-
-            val quantityString = remainingQuantity.toString()
-            if (!quantityString.isNullOrEmpty())
-            {
                 ServiceHandler.callAccountService(
                     "RemoveItem",hashMapOf("id" to food.id),this,
                     Response.Listener { response ->
@@ -81,12 +46,6 @@ class DeleteFoodActivity : AppCompatActivity() {
                         val intent = Intent(this@DeleteFoodActivity, InventoryActivity::class.java)
                         startActivity(intent)
                     })
-
-            }
-            else
-            {
-                Toast.makeText(applicationContext,"Please enter a quantity", Toast.LENGTH_LONG).show()
-            }
 
         }
 
