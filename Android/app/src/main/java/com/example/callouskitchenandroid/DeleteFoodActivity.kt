@@ -14,6 +14,7 @@ import org.json.JSONObject
 
 class DeleteFoodActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delete_food)
@@ -25,37 +26,13 @@ class DeleteFoodActivity : AppCompatActivity() {
         val btnDeleteFood = findViewById<Button>(R.id.btnDeleteFoodItem)
         val btnCancel = findViewById<Button>(R.id.btnCancelDeleteFood)
 
-        // Slider and text representation
-        val seekBarQuantity = findViewById<SeekBar>(R.id.seekBarDeleteFood)
-        val txtViewQuantity = findViewById<TextView>(R.id.textViewDeleteQuantity)
-
         // populate the fields
         val food = intent.getSerializableExtra("FOOD") as Food
 
         txtFoodName.text = food.name
 
-        var units = food.quantityClassifier
-
-        // Set the seek bar max to the current quantity of food
-        seekBarQuantity.max = food.quantity.toInt()
-        seekBarQuantity.progress = food.quantity.toInt()
-
-        txtViewQuantity.text = "${seekBarQuantity.progress} $units"
-
-        // detect changes in seek bar value
-        seekBarQuantity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                // get the seekbar's current value and display it as text
-                txtViewQuantity.text = "$progress $units"
-            }
-            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-        })
 
         btnDeleteFood.setOnClickListener{
-            val quantityString = seekBarQuantity.progress.toString()
-            if (!quantityString.isNullOrEmpty())
-            {
                 ServiceHandler.callAccountService(
                     "RemoveItem",hashMapOf("id" to food.id),this,
                     Response.Listener { response ->
@@ -69,12 +46,6 @@ class DeleteFoodActivity : AppCompatActivity() {
                         val intent = Intent(this@DeleteFoodActivity, InventoryActivity::class.java)
                         startActivity(intent)
                     })
-
-            }
-            else
-            {
-                Toast.makeText(applicationContext,"Please enter a quantity", Toast.LENGTH_LONG).show()
-            }
 
         }
 

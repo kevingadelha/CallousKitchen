@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity() {
                                 putInt("primaryKitchenId", ServiceHandler.primaryKitchenId)
                                 apply()
                             }
-                            Toast.makeText(applicationContext,"Please confirm your email before adding food!", Toast.LENGTH_LONG).show()
                             val intent = Intent(this@MainActivity, KitchenListActivity::class.java)
                             startActivity(intent)
                         } else {
@@ -119,8 +118,8 @@ class MainActivity : AppCompatActivity() {
 
     fun myAlarm() {
         val calendar: Calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 17)
-        calendar.set(Calendar.MINUTE, 56)
+        calendar.set(Calendar.HOUR_OF_DAY, 9)
+        calendar.set(Calendar.MINUTE, 0)
         if (calendar.getTime().compareTo(Date()) < 0)
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         val intent = Intent(applicationContext, NotificationReceiver::class.java)

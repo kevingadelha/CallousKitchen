@@ -19,6 +19,10 @@ import java.time.format.DateTimeParseException
 import java.util.*
 
 class EatFoodActivity : AppCompatActivity() {
+
+    // The number of steps in the food quantity slider
+    private val SLIDER_MAX = 10
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eat_food)
@@ -36,29 +40,45 @@ class EatFoodActivity : AppCompatActivity() {
 
         // populate the fields
         val food = intent.getSerializableExtra("FOOD") as Food
-
+        var warningMessage = ServiceHandler.generateWarningMessage(food,true)
+        if (!warningMessage.isNullOrEmpty())
+            Toast.makeText(
+                applicationContext,
+                warningMessage,
+                Toast.LENGTH_LONG
+            ).show()
         txtFoodName.text = food.name
 
         var units = food.quantityClassifier
 
-        // Set the seek bar max to the current quantity of food
-        seekBarQuantity.max = food.quantity.toInt()
-        seekBarQuantity.progress = food.quantity.toInt()
+        // Set the seekbar max to 10 so there will be 10 "steps" in the bar
+        // food quantity will be calculated using percentages
+        seekBarQuantity.max = SLIDER_MAX
+        seekBarQuantity.progress = SLIDER_MAX
 
-        txtViewQuantity.text = "${seekBarQuantity.progress} $units"
+        txtViewQuantity.text = "${food.quantity} $units"
 
         // detect changes in seek bar value
         seekBarQuantity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                // get the seekbar's current value and display it as text
-                txtViewQuantity.text = "$progress $units"
+                // convert seekbar's current value to a percent
+                val percent = progress.toDouble() / SLIDER_MAX.toDouble()
+
+                // calculate the amount of food remaining
+                val remainingQuantity = food.quantity * percent
+
+                txtViewQuantity.text = "$remainingQuantity $units"
             }
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
         btnEatFood.setOnClickListener{
-            val quantityString = seekBarQuantity.progress.toString()
+
+            // calculate the amount of food remaining
+            val remainingQuantity = food.quantity * (seekBarQuantity.progress.toDouble() / SLIDER_MAX.toDouble())
+
+            val quantityString = remainingQuantity.toString()
             if (!quantityString.isNullOrEmpty())
             {
                 val quantity = quantityString.toDouble()
