@@ -8,11 +8,39 @@
     android:background="?attr/bgColor"
     tools:context=".InventoryActivity">
 
-    <ListView
-        android:id="@+id/listViewFood"
+    <LinearLayout
+        android:id="@+id/linearLayoutQuantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"/>
+        android:orientation="vertical"
+        android:layout_marginBottom="56dp">
+        <EditText
+            android:id="@+id/searchFood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/textColor"
+            android:ems="10"
+            android:hint="search"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/metaTextColor"
+            android:layout_margin="5dp"
+            />
+        <Spinner
+            android:id="@+id/spinnerSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"
+            android:backgroundTint="?attr/textColor"
+            android:layout_margin="5dp"/>
+
+        <ListView
+            android:id="@+id/listViewFood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddFood"
