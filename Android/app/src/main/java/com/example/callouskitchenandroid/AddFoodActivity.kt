@@ -48,6 +48,12 @@ class AddFoodActivity : AppCompatActivity() {
         val categoryAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, categories)
         spinnerCategory.adapter = categoryAdapter
 
+        //Default is fridge
+        var category = "Fridge"
+        if (ServiceHandler.lastCategory != "All")
+            category = ServiceHandler.lastCategory
+        spinnerCategory.setSelection(categories.indexOf(category))
+
         var cal = Calendar.getInstance()
         var foodName: String?
         var quantity: Double?
@@ -175,7 +181,7 @@ class AddFoodActivity : AppCompatActivity() {
                         "userId" to ServiceHandler.userId,
                         "kitchenId" to ServiceHandler.primaryKitchenId,
                         "name" to foodName,
-                        "storage" to ServiceHandler.lastCategory,
+                        "storage" to spinnerCategory.selectedItem.toString(),
                         "quantity" to quantity,
                         "quantityClassifier" to quantityClassifier,
                         "expiryDate" to ServiceHandler.serializeDate(expiryDate),

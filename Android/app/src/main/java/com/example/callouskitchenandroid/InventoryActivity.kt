@@ -61,16 +61,10 @@ class InventoryActivity : AppCompatActivity() {
 
         val btnAddFood = findViewById<FloatingActionButton>(R.id.btnAddFood)
 
-        //TODO: When categories can actually be edited add this button back in
-        if (ServiceHandler.lastCategory == "All"){
-            btnAddFood.visibility = View.GONE
-        }
-        else{
             btnAddFood.setOnClickListener{
                 val intent = Intent(this@InventoryActivity, AddFoodActivity::class.java)
                 startActivity(intent)
             }
-        }
 
         ServiceHandler.callAccountService(
             "GetInventory",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
@@ -157,6 +151,7 @@ class InventoryActivity : AppCompatActivity() {
                 when {
                     a.expiryDate == null && b.expiryDate != null -> 1
                     a.expiryDate != null && b.expiryDate == null -> -1
+                    a.expiryDate == null && b.expiryDate == null -> 0
                     a.expiryDate!! > b.expiryDate!! -> 1
                     a.expiryDate!! < b.expiryDate!! -> -1
                     else -> 0
