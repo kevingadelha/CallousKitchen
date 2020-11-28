@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
 import com.android.volley.Response
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_inventory.*
@@ -36,6 +38,10 @@ class InventoryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_inventory)
         // set up bottom nav bar
         setNavigation()
+
+        // TODO: implement search and sort
+        val txtSearchInventory = findViewById<EditText>(R.id.searchFood)
+        val spinnerSort = findViewById<Spinner>(R.id.spinnerSort)
 
         val btnAddFood = findViewById<FloatingActionButton>(R.id.btnAddFood)
 
