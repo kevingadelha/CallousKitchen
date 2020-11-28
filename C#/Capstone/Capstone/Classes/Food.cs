@@ -107,9 +107,10 @@ namespace Capstone.Classes
 			Vegan = food.Vegan;
 			Vegetarian = food.Vegetarian;
 			Favourite = food.Favourite;
-			//I hope I don't have to make a deep copy of this
-			Ingredients = food.Ingredients.Split('|').ToList();
-			Traces = food.Traces.Split('|').ToList();
+			if (food.Ingredients.Count() > 0)
+				Ingredients = food.Ingredients.Split('|').ToList();
+			if (food.Traces.Count() > 0)
+				Traces = food.Traces.Split('|').ToList();
 		}
 	}
 }

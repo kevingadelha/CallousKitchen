@@ -59,20 +59,28 @@ class InventoryActivity : AppCompatActivity() {
                 var foods: ArrayList<Food> = arrayListOf<Food>()
                     for (i in 0 until (foodsJson?.length() ?: 0)) {
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
-                        if (ServiceHandler.lastCategory == foodJson.getString("Storage")){
+                        if (ServiceHandler.lastCategory == foodJson.getString("Storage") || ServiceHandler.lastCategory == "Expiring Soon" || intent.getBooleanExtra("Expiring Soon",false) || ServiceHandler.lastCategory == "All"){
                             var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
                             food.quantity = foodJson.getDouble("Quantity")
                             food.quantityClassifier = foodJson.getString("QuantityClassifier")
                             food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                             food.favourite = foodJson.getBoolean("Favourite")
-                            foods.add(food)
-                        }
-                        else {
-                            var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
-                            food.quantity = foodJson.getDouble("Quantity")
-                            food.quantityClassifier = foodJson.getString("QuantityClassifier")
-                            food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
-                            food.favourite = foodJson.getBoolean("Favourite")
+                            var ingredientsArray = foodJson.getJSONArray("Ingredients")
+                            food.ingredients =
+                                Array<String>(ingredientsArray.length()) { "n = $it" }
+                            for (i in 0 until (ingredientsArray.length())) {
+                                food.ingredients[i] =
+                                    ingredientsArray[i].toString()
+                            }
+                            var tracesArray = foodJson.getJSONArray("Traces")
+                            food.traces =
+                                Array<String>(tracesArray.length()) { "n = $it" }
+                            for (i in 0 until (tracesArray.length())) {
+                                food.traces[i] =
+                                    tracesArray[i].toString()
+                            }
+                            food.vegan = foodJson.getInt("Vegan")
+                            food.vegetarian = foodJson.getInt("Vegetarian")
                             foods.add(food)
                         }
 

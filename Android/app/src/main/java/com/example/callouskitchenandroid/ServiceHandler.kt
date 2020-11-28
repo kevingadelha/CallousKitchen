@@ -97,6 +97,89 @@ class ServiceHandler {
 
 
         }
+
+
+        fun generateWarningMessage(food : Food, onlyWarning : Boolean) : String?{
+
+            var warningMessage = ""
+            if (ServiceHandler.vegan == true && food.vegan == 0) {
+                warningMessage = addToWarningMessage(warningMessage, "is not vegan")
+            } else if (ServiceHandler.vegan == true && food.vegan == 1 && !onlyWarning) {
+                warningMessage = addToWarningMessage(warningMessage, "is vegan")
+            } else if (ServiceHandler.vegetarian == true && food.vegetarian == 0) {
+                warningMessage = addToWarningMessage(warningMessage, "is not vegetarian")
+            } else if (ServiceHandler.vegetarian == true && food.vegetarian == 1 && !onlyWarning) {
+                warningMessage = addToWarningMessage(warningMessage, "is vegetarian")
+            }
+
+            var containedAllergens =
+                getElementsOfArrayThatAreContainedInAnotherArray(
+                    ServiceHandler.allergies!!,
+                    food.ingredients?.toList()
+                )
+
+            containedAllergens.forEach() {
+                warningMessage = addToWarningMessage(warningMessage, "contains $it")
+            }
+
+            var containedTraces =
+                getElementsOfArrayThatAreContainedInAnotherArray(
+                    ServiceHandler.allergies!!,
+                    food.traces?.toList()
+                )
+
+            containedTraces.forEach() {
+                warningMessage = addToWarningMessage(warningMessage, "contains traces of $it")
+            }
+
+
+            if (food.ingredients.size > 0 || food.traces.size > 0){
+                if (containedAllergens.size == 0 && food.traces.size == 0) {
+                    warningMessage = addToWarningMessage(
+                        warningMessage,
+                        "does not contain allergens but traces are unknown"
+                    )
+                } else if (containedTraces.size == 0 && food.ingredients.size == 0) {
+                    warningMessage = addToWarningMessage(
+                        warningMessage,
+                        "does not have traces allergens but ingredients are unknown"
+                    )
+                } else if (containedAllergens.size == 0 && containedTraces.size == 0 && !onlyWarning) {
+                    warningMessage = addToWarningMessage(
+                        warningMessage,
+                        "does not contain allergens or traces of allergens"
+                    )
+                }
+            }
+
+            return warningMessage
+        }
+
+
+        fun getElementsOfArrayThatAreContainedInAnotherArray(
+            sourceArray: List<String>?, checkingArray: List<String>?
+        ): ArrayList<String> {
+            var containedElements = ArrayList<String>()
+            sourceArray?.forEach() {
+                checkingArray?.forEach() { it2: String ->
+                    if (it2.contains(it)) {
+                        containedElements.add(it2)
+                    }
+                }
+            }
+            return containedElements
+        }
+
+        fun addToWarningMessage(warningMessage: String, addition: String): String {
+            var newWarningMessage = warningMessage
+            if (newWarningMessage.isNullOrEmpty()) {
+                newWarningMessage = "Food "
+            } else {
+                newWarningMessage += " and "
+            }
+            newWarningMessage += addition
+            return newWarningMessage
+        }
     }
 
 }
