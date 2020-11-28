@@ -32,7 +32,14 @@ class InventoryActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             title = "Expiring Soon"
-            ServiceHandler.lastCategory = "Expiring Soon"
+            //If the user clicked the expiring soon notification, select expiring soon for sort
+            //1 is the index for expiring soon
+            with(sharedPref.edit()) {
+                putInt("lastIndex", 1)
+                apply()
+            }
+            //And show everything
+            ServiceHandler.lastCategory = "All"
         }
         else{
             // set the title of the activity
@@ -55,7 +62,7 @@ class InventoryActivity : AppCompatActivity() {
         val btnAddFood = findViewById<FloatingActionButton>(R.id.btnAddFood)
 
         //TODO: When categories can actually be edited add this button back in
-        if (ServiceHandler.lastCategory == "All" || ServiceHandler.lastCategory == "Expiring Soon"){
+        if (ServiceHandler.lastCategory == "All"){
             btnAddFood.visibility = View.GONE
         }
         else{
@@ -73,7 +80,7 @@ class InventoryActivity : AppCompatActivity() {
                 val foodsJson = json.optJSONArray("GetInventoryResult")
                     for (i in 0 until (foodsJson?.length() ?: 0)) {
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
-                        if (ServiceHandler.lastCategory == foodJson.getString("Storage") || ServiceHandler.lastCategory == "Expiring Soon" || intent.getBooleanExtra("Expiring Soon",false) || ServiceHandler.lastCategory == "All"){
+                        if (ServiceHandler.lastCategory == foodJson.getString("Storage") || ServiceHandler.lastCategory == "All"){
                             var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
                             food.quantity = foodJson.getDouble("Quantity")
                             food.quantityClassifier = foodJson.getString("QuantityClassifier")
@@ -101,10 +108,6 @@ class InventoryActivity : AppCompatActivity() {
                     }
 
                 updateSortedAndFilteredList()
-
-                if (ServiceHandler.lastCategory == "Expiring Soon" || intent.getBooleanExtra("Expiring Soon",false)){
-                    foods = ArrayList(foods.sortedWith(compareBy({ it.expiryDate })))
-                }
             })
 
         txtSearchInventory.addTextChangedListener(object : TextWatcher {
