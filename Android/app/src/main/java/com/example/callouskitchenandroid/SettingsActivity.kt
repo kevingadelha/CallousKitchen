@@ -6,10 +6,7 @@ package com.example.callouskitchenandroid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONArray
@@ -45,8 +42,7 @@ class SettingsActivity : AppCompatActivity() {
         val btnResetPassword = findViewById<Button>(R.id.btnResetPassword)
 
         // dietary restriction and allergy checkboxes
-        val chkBxVegetarian = findViewById<CheckBox>(R.id.chkBxVegetarian)
-        val chkBxVegan = findViewById<CheckBox>(R.id.chkBxVegan)
+        val spinnerDiet = findViewById<Spinner>(R.id.spinnerDiet)
         val chkBxPeanuts = findViewById<CheckBox>(R.id.chkBxPeanuts)
         val chkBxTreeNuts = findViewById<CheckBox>(R.id.chkBxTreeNuts)
         val chkBxDairy = findViewById<CheckBox>(R.id.chkBxDairy)
@@ -62,11 +58,27 @@ class SettingsActivity : AppCompatActivity() {
 
         val checkBoxes = listOf(chkBxPeanuts, chkBxTreeNuts, chkBxDairy, chkBxGluten, chkBxShellfish, chkBxFish, chkBxSoy, chkBxEggs)
 
+        // populate the diet spinner
+        val diets = listOf("Omnivore", "Vegetarian", "Vegan")
+        val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, diets)
+        spinnerDiet.adapter = adapter
+
         // Disable the allergy field unless the box is checked
         txtAllergy.isEnabled = false
 
-        chkBxVegan.isChecked = ServiceHandler.vegan ?: false
-        chkBxVegetarian.isChecked = ServiceHandler.vegetarian ?: false
+        // Set the spinner of dietary restrictions to the correct value
+        when {
+            ServiceHandler.vegan -> {
+                spinnerDiet.setSelection(diets.indexOf("Vegan"))
+            }
+            ServiceHandler.vegetarian -> {
+                spinnerDiet.setSelection(diets.indexOf("Vegetarian"))
+            }
+            else -> {
+                spinnerDiet.setSelection(diets.indexOf("Omnivore"))
+            }
+        }
+
         val allergies = ServiceHandler.allergies
         checkBoxes.forEach(){
             if (allergies?.contains(it.text.toString().toLowerCase()) ?: false){
@@ -171,8 +183,16 @@ class SettingsActivity : AppCompatActivity() {
                     allergies.add(txtAllergy.text.toString().toLowerCase())
                 }
             }
-            var vegan = chkBxVegan.isChecked
-            var vegetarian = chkBxVegetarian.isChecked
+
+            var vegan = false
+            var vegetarian = false
+
+            if (spinnerDiet.selectedItem == "Vegan") {
+                vegan = true
+            }
+            else if (spinnerDiet.selectedItem == "Vegetarian") {
+                vegetarian = true
+            }
 
             ServiceHandler.callAccountService(
                 "EditUserDietaryRestrictions", hashMapOf(

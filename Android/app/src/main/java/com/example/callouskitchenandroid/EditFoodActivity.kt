@@ -7,19 +7,14 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_edit_food.*
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import kotlinx.android.synthetic.main.activity_kitchen_list.bottomNav
 import org.json.JSONObject
-import org.json.JSONObject.NULL
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.*
@@ -38,6 +33,18 @@ class EditFoodActivity : AppCompatActivity() {
         val txtFoodExpiry = findViewById<EditText>(R.id.editFoodExpiry)
         val btnEditFood = findViewById<Button>(R.id.btnEditFoodItem)
         val btnCancel = findViewById<Button>(R.id.btnCancelEditFood)
+        val spinnerUnits = findViewById<Spinner>(R.id.spinnerUnits)
+        val spinnerCategories = findViewById<Spinner>(R.id.spinnerCategory)
+
+        // populate the categories spinner
+        var categories = listOf("Fridge", "Freezer", "Pantry", "Cupboard", "Cellar", "Other")
+        val categoryAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, categories)
+        spinnerCategories.adapter = categoryAdapter
+
+        // Populate the Units spinner
+        val unitsArray = resources.getStringArray(R.array.units)
+        val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, unitsArray)
+        spinnerUnits.adapter = adapter
 
         // populate the fields
         val food = intent.getSerializableExtra("FOOD") as Food
@@ -46,6 +53,8 @@ class EditFoodActivity : AppCompatActivity() {
         txtFoodQuantity.setText(food.quantity.toString())
        // var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
        // txtFoodExpiry.setText(food.expiryDate?.format(formatter))
+
+        spinnerUnits.setSelection(unitsArray.indexOf(food.quantityClassifier))
 
         var cal = Calendar.getInstance()
         if (food.expiryDate != null){
