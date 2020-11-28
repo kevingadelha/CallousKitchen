@@ -53,4 +53,15 @@
         <item>gallon</item>
         <item>lb</item>
     </string-array>
+
+    <string-array name="sortingOptions">
+        <item>Recently Added</item>
+        <item>Expiring Soon</item>
+        <item>Running Low</item>
+        <item>Favourited</item>
+        <item>Oldest Added</item>
+        <item>Alphabetical</item>
+        <item>Greatest Quantity</item>
+        <item>Quantity Type</item>
+    </string-array>
 </resources>

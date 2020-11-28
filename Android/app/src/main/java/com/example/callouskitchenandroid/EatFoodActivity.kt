@@ -40,7 +40,13 @@ class EatFoodActivity : AppCompatActivity() {
 
         // populate the fields
         val food = intent.getSerializableExtra("FOOD") as Food
-
+        var warningMessage = ServiceHandler.generateWarningMessage(food,true)
+        if (!warningMessage.isNullOrEmpty())
+            Toast.makeText(
+                applicationContext,
+                warningMessage,
+                Toast.LENGTH_LONG
+            ).show()
         txtFoodName.text = food.name
 
         var units = food.quantityClassifier

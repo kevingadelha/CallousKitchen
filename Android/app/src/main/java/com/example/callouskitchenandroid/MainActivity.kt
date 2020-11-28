@@ -118,8 +118,8 @@ class MainActivity : AppCompatActivity() {
 
     fun myAlarm() {
         val calendar: Calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 17)
-        calendar.set(Calendar.MINUTE, 56)
+        calendar.set(Calendar.HOUR_OF_DAY, 9)
+        calendar.set(Calendar.MINUTE, 0)
         if (calendar.getTime().compareTo(Date()) < 0)
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         val intent = Intent(applicationContext, NotificationReceiver::class.java)

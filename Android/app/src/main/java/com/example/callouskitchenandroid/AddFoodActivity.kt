@@ -109,60 +109,14 @@ class AddFoodActivity : AppCompatActivity() {
                 traces = intent.getStringArrayExtra("TRACES")
             } catch (exc: Exception) {
             }
-            var warningMessage = ""
-            if (ServiceHandler.vegan == true && vegan == 0) {
-                warningMessage = AddToWarningMessage(warningMessage, "is not vegan")
-            } else if (ServiceHandler.vegan == true && vegan == 1) {
-                warningMessage = AddToWarningMessage(warningMessage, "is vegan")
-            } else if (ServiceHandler.vegetarian == true && vegetarian == 0) {
-                warningMessage = AddToWarningMessage(warningMessage, "is not vegetarian")
-            } else if (ServiceHandler.vegetarian == true && vegetarian == 1) {
-                warningMessage = AddToWarningMessage(warningMessage, "is vegetarian")
-            }
-
-            var containedAllergens =
-                GetElementsOfArrayThatAreContainedInAnotherArray(
-                    ServiceHandler.allergies!!,
-                    ingredients?.toList()
-                )
-
-            containedAllergens.forEach() {
-                warningMessage = AddToWarningMessage(warningMessage, "contains $it")
-            }
-
-            var containedTraces =
-                GetElementsOfArrayThatAreContainedInAnotherArray(
-                    ServiceHandler.allergies!!,
-                    traces?.toList()
-                )
-
-            containedTraces.forEach() {
-                warningMessage = AddToWarningMessage(warningMessage, "contains traces of $it")
-            }
-
-
-            if (ingredients.size > 0 || traces.size > 0){
-                if (containedAllergens.size == 0 && traces.size == 0) {
-                    warningMessage = AddToWarningMessage(
-                        warningMessage,
-                        "does not contain allergens but traces are unknown"
-                    )
-                } else if (containedTraces.size == 0 && ingredients.size == 0) {
-                    warningMessage = AddToWarningMessage(
-                        warningMessage,
-                        "does not have traces allergens but ingredients are unknown"
-                    )
-                } else if (containedAllergens.size == 0 && containedTraces.size == 0) {
-                    warningMessage = AddToWarningMessage(
-                        warningMessage,
-                        "does not contain allergens or traces of allergens"
-                    )
-                }
-            }
-
-            if (!warningMessage.isNullOrEmpty()) {
-                Toast.makeText(applicationContext, warningMessage, Toast.LENGTH_LONG).show()
-            }
+            var tempFood = Food(ingredients,traces,vegan,vegetarian)
+            var warningMessage = ServiceHandler.generateWarningMessage(tempFood, false)
+            if (!warningMessage.isNullOrEmpty())
+                Toast.makeText(
+                    applicationContext,
+                    warningMessage,
+                    Toast.LENGTH_LONG
+                ).show()
         }
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
@@ -265,31 +219,6 @@ class AddFoodActivity : AppCompatActivity() {
             ).show()
         }
 
-    }
-
-    public fun GetElementsOfArrayThatAreContainedInAnotherArray(
-        sourceArray: List<String>?, checkingArray: List<String>?
-    ): ArrayList<String> {
-        var containedElements = ArrayList<String>()
-        sourceArray?.forEach() {
-            checkingArray?.forEach() { it2: String ->
-                if (it2.contains(it)) {
-                    containedElements.add(it2)
-                }
-            }
-        }
-        return containedElements
-    }
-
-    public fun AddToWarningMessage(warningMessage: String, addition: String): String {
-        var newWarningMessage = warningMessage
-        if (newWarningMessage.isNullOrEmpty()) {
-            newWarningMessage = "Food "
-        } else {
-            newWarningMessage += " and "
-        }
-        newWarningMessage += addition
-        return newWarningMessage
     }
 
 

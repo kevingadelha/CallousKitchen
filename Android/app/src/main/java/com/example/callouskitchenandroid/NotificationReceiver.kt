@@ -41,24 +41,26 @@ class NotificationReceiver : BroadcastReceiver() {
                     val json = JSONObject(response.toString())
                     val foodsJson = json.getJSONArray("GetInventoryResult")
                     var foods: ArrayList<Food> = arrayListOf<Food>()
-                    var expiringFoods: ArrayList<String> = arrayListOf<String>()
                     for (i in 0 until foodsJson.length()) {
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
                         var food = Food(foodJson.getInt("Id"), foodJson.getString("Name"))
-                        food.quantity = foodJson.getDouble("Quantity")
                         food.expiryDate =
                             ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
-                        food.favourite = foodJson.getBoolean("Favourite")
                         foods.add(food)
-                        if (food.expiryDate != null && (food.expiryDate!! < LocalDate.now()
-                                .plusDays(3))
-                        ) {
-                            expiringFoods.add(food.name)
-                        }
                     }
+                    var expiringFoods = foods.filter { food -> food.expiryDate != null && (food.expiryDate!! < LocalDate.now()
+                        .plusDays(3)) }
+                    //Show expiring soonest first
+                    expiringFoods = expiringFoods.sortedWith(Comparator<Food>{ a, b ->
+                        when {
+                            a.expiryDate == null && b.expiryDate != null -> 1
+                            a.expiryDate != null && b.expiryDate == null -> -1
+                            a.expiryDate!! > b.expiryDate!! -> 1
+                            a.expiryDate!! < b.expiryDate!! -> -1
+                            else -> 0
+                        }
+                    })
                     if (expiringFoods.size > 0) {
-
-
                         notificationManager =
                             context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -92,12 +94,12 @@ class NotificationReceiver : BroadcastReceiver() {
                             NotificationCompat.Builder(context, "primary_notification_channel").apply {
                                 setSmallIcon(R.drawable.hippo)
                                 setContentTitle("Expiring")
-                                setContentText(expiringFoods.joinToString { it -> it })
+                                setContentText(expiringFoods.joinToString { it -> it.name })
                                 setPriority(NotificationCompat.PRIORITY_DEFAULT)
                                 setContentIntent(pendingIntent)
                                 setStyle(
                                     NotificationCompat.BigTextStyle()
-                                        .bigText(expiringFoods.joinToString { it -> it })
+                                        .bigText(expiringFoods.joinToString { it -> it.name })
                                 )
                             }
 
