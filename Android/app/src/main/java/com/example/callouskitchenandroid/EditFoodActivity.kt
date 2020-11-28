@@ -55,6 +55,7 @@ class EditFoodActivity : AppCompatActivity() {
        // txtFoodExpiry.setText(food.expiryDate?.format(formatter))
 
         spinnerUnits.setSelection(unitsArray.indexOf(food.quantityClassifier))
+        spinnerCategories.setSelection(categories.indexOf(food.storage))
 
         var cal = Calendar.getInstance()
         if (food.expiryDate != null){
@@ -112,7 +113,7 @@ class EditFoodActivity : AppCompatActivity() {
                 }
 
                 ServiceHandler.callAccountService(
-                    "EditFood",hashMapOf("id" to food.id, "name" to foodName, "quantity" to quantity, "expiryDate" to ServiceHandler.serializeDate(expiryDate)),this,
+                    "EditFood",hashMapOf("id" to food.id, "name" to foodName, "quantity" to quantity, "quantityClassifier" to spinnerUnits.selectedItem.toString(), "storage" to spinnerCategories.selectedItem.toString(), "expiryDate" to ServiceHandler.serializeDate(expiryDate)),this,
                     Response.Listener { response ->
 
                         val json = JSONObject(response.toString())

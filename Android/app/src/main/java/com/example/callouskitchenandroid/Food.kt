@@ -12,6 +12,7 @@ class Food: Serializable {
     var expiryDate: LocalDate? = LocalDate.parse("2020-01-01")
     var quantity: Double = 0.0
     var quantityClassifier: String = ""
+    var storage: String = ""
     var favourite: Boolean = false
     var vegan: Int? = -1
     var vegetarian: Int? = -1
