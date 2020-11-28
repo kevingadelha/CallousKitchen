@@ -55,6 +55,7 @@ class NotificationReceiver : BroadcastReceiver() {
                         when {
                             a.expiryDate == null && b.expiryDate != null -> 1
                             a.expiryDate != null && b.expiryDate == null -> -1
+                            a.expiryDate == null && b.expiryDate == null -> 0
                             a.expiryDate!! > b.expiryDate!! -> 1
                             a.expiryDate!! < b.expiryDate!! -> -1
                             else -> 0

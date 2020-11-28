@@ -96,6 +96,15 @@
             android:textColorHint="?attr/metaTextColor"
             android:layout_marginBottom="5dp" />
 
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="?attr/textColor"
+            android:backgroundTint="?attr/textColor"/>
+
         <Button
             android:id="@+id/btnAddFoodItem"
             android:layout_width="match_parent"

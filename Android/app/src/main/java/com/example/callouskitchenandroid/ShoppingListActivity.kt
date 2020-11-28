@@ -40,12 +40,15 @@ class ShoppingListActivity : AppCompatActivity() {
                         food.quantity = foodJson.getDouble("Quantity")
                         food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                         food.favourite = foodJson.getBoolean("Favourite")
-                    if (food.favourite && food.quantity < 3){
                         foods.add(food)
-                    }
 
                 }
 
+                //Sorting twice basically accomplishes grouping
+                //Sort by lowest quantity first
+                foods = ArrayList(foods.sortedWith(compareBy({ it.quantity })))
+                //Then make sure to show all the favourited foods first
+                foods = ArrayList(foods.sortedWith(compareByDescending({ it.favourite })))
                 val shoppingListAdapter = ShoppingListAdapter(this, foods)
                 listViewShoppingList.adapter = shoppingListAdapter
             })

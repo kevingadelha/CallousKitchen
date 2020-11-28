@@ -36,11 +36,23 @@ class AddFoodActivity : AppCompatActivity() {
         val btnCancel = findViewById<Button>(R.id.btnCancelAddFood)
         val btnScanBarcode = findViewById<Button>(R.id.btnScanBarcode)
         val spinnerUnits = findViewById<Spinner>(R.id.spinnerUnits)
+        val spinnerCategory = findViewById<Spinner>(R.id.spinnerCategory)
 
         // Populate the Units spinner
         val unitsArray = resources.getStringArray(R.array.units)
         val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, unitsArray)
         spinnerUnits.adapter = adapter
+
+        // Populate the category spinner
+        var categories = listOf("Fridge", "Freezer", "Pantry", "Cupboard", "Cellar", "Other")
+        val categoryAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, categories)
+        spinnerCategory.adapter = categoryAdapter
+
+        //Default is fridge
+        var category = "Fridge"
+        if (ServiceHandler.lastCategory != "All")
+            category = ServiceHandler.lastCategory
+        spinnerCategory.setSelection(categories.indexOf(category))
 
         var cal = Calendar.getInstance()
         var foodName: String?
@@ -169,7 +181,7 @@ class AddFoodActivity : AppCompatActivity() {
                         "userId" to ServiceHandler.userId,
                         "kitchenId" to ServiceHandler.primaryKitchenId,
                         "name" to foodName,
-                        "storage" to ServiceHandler.lastCategory,
+                        "storage" to spinnerCategory.selectedItem.toString(),
                         "quantity" to quantity,
                         "quantityClassifier" to quantityClassifier,
                         "expiryDate" to ServiceHandler.serializeDate(expiryDate),

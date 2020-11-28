@@ -58,7 +58,6 @@ class KitchenListActivity : AppCompatActivity() {
         // Get add button
   /*      val btnAddKitchen = findViewById<FloatingActionButton>(R.id.btnAddKitchen)
 
-        //TODO: Incorporate some way to manage categories maybe
         btnAddKitchen.setOnClickListener(){
             // go to add kitchen view
             //val intent = Intent(this@KitchenListActivity, AddKitchenActivity::class.java)
