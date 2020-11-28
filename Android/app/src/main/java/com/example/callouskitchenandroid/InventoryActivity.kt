@@ -5,15 +5,14 @@ package com.example.callouskitchenandroid
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import com.android.volley.Response
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_inventory.*
@@ -22,6 +21,7 @@ import java.time.LocalDate
 
 class InventoryActivity : AppCompatActivity() {
     var foods: ArrayList<Food> = arrayListOf<Food>()
+    private val sharedPref: SharedPreferences = ServiceHandler.sharedPref
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //This intent comes from the notification
@@ -43,9 +43,14 @@ class InventoryActivity : AppCompatActivity() {
         // set up bottom nav bar
         setNavigation()
 
-        // TODO: implement search and sort
         val txtSearchInventory = findViewById<EditText>(R.id.searchFood)
         val spinnerSort = findViewById<Spinner>(R.id.spinnerSort)
+        // Populate the Sorting spinner
+        val sortingArray = resources.getStringArray(R.array.sortingOptions)
+        val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, sortingArray)
+        spinnerSort.adapter = adapter
+        spinnerSort.setSelection(sharedPref.getInt("lastIndex", 0))
+        txtSearchInventory.setText(sharedPref.getString("lastSearch", ""))
 
         val btnAddFood = findViewById<FloatingActionButton>(R.id.btnAddFood)
 
@@ -94,13 +99,12 @@ class InventoryActivity : AppCompatActivity() {
                         }
 
                     }
+
+                updateSortedAndFilteredList()
+
                 if (ServiceHandler.lastCategory == "Expiring Soon" || intent.getBooleanExtra("Expiring Soon",false)){
                     foods = ArrayList(foods.sortedWith(compareBy({ it.expiryDate })))
                 }
-                val foodListAdapter = FoodListAdapter(this, foods)
-                val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
-                listViewFood.addFooterView(footerView)
-                listViewFood.adapter = foodListAdapter
             })
 
         txtSearchInventory.addTextChangedListener(object : TextWatcher {
@@ -113,21 +117,68 @@ class InventoryActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                if (s.isNotEmpty()){
-                    val filteredFoods = foods.filter { food -> food.name.contains(s)  }
-                    val foodListAdapter = FoodListAdapter(this@InventoryActivity, filteredFoods)
-                    val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
-                    listViewFood.addFooterView(footerView)
-                    listViewFood.adapter = foodListAdapter
+                with(sharedPref.edit()) {
+                    putString("lastSearch", s.toString())
+                    apply()
                 }
-                else{
-                    val foodListAdapter = FoodListAdapter(this@InventoryActivity, foods)
-                    val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
-                    listViewFood.addFooterView(footerView)
-                    listViewFood.adapter = foodListAdapter
-                }
+                updateSortedAndFilteredList()
             }
         })
+        spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                with(sharedPref.edit()) {
+                    putInt("lastIndex", position)
+                    apply()
+                }
+                updateSortedAndFilteredList()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // another interface callback
+            }
+        }
+    }
+
+    private fun updateSortedAndFilteredList(){
+        val txtSearchInventory = findViewById<EditText>(R.id.searchFood)
+        val spinnerSort = findViewById<Spinner>(R.id.spinnerSort)
+        var sort = spinnerSort.getSelectedItem().toString();
+        when (sort) {
+            "Recently Added" -> foods = ArrayList(foods.sortedWith(compareByDescending ({ it.id })))
+            "Expiring Soon" -> foods = ArrayList(foods.sortedWith(Comparator<Food>{ a, b ->
+                when {
+                    a.expiryDate == null && b.expiryDate != null -> 1
+                    a.expiryDate != null && b.expiryDate == null -> -1
+                    a.expiryDate!! > b.expiryDate!! -> 1
+                    a.expiryDate!! < b.expiryDate!! -> -1
+                    else -> 0
+                }
+            }))
+            "Running Low" -> foods = ArrayList(foods.sortedWith(compareBy({ it.quantity })))
+            "Favourited" -> foods = ArrayList(foods.sortedWith(compareByDescending({ it.favourite })))
+            "Oldest Added" -> foods = ArrayList(foods.sortedWith(compareBy({ it.id })))
+            "Alphabetical" -> foods = ArrayList(foods.sortedWith(compareBy({ it.name })))
+            "Greatest Quantity" -> foods = ArrayList(foods.sortedWith(compareByDescending ({ it.quantity })))
+            "Quantity Type" -> foods = ArrayList(foods.sortedWith(compareBy({ it.quantityClassifier })))
+        }
+        if (txtSearchInventory.text.isNotEmpty()){
+            val filteredFoods = foods.filter { food -> food.name.contains(txtSearchInventory.text)  }
+            val foodListAdapter = FoodListAdapter(this@InventoryActivity, filteredFoods)
+            val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
+            listViewFood.addFooterView(footerView)
+            listViewFood.adapter = foodListAdapter
+        }
+        else{
+            val foodListAdapter = FoodListAdapter(this@InventoryActivity, foods)
+            val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
+            listViewFood.addFooterView(footerView)
+            listViewFood.adapter = foodListAdapter
+        }
     }
 
     /*
