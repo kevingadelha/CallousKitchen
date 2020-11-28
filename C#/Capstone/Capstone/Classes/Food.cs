@@ -109,8 +109,12 @@ namespace Capstone.Classes
 			Favourite = food.Favourite;
 			if (food.Ingredients.Count() > 0)
 				Ingredients = food.Ingredients.Split('|').ToList();
+			else
+				Ingredients = new List<string>();
 			if (food.Traces.Count() > 0)
 				Traces = food.Traces.Split('|').ToList();
+			else
+				Traces = new List<string>();
 		}
 	}
 }
