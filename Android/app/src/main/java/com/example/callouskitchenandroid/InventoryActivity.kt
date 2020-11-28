@@ -3,9 +3,12 @@
  */
 package com.example.callouskitchenandroid
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -18,6 +21,7 @@ import org.json.JSONObject
 import java.time.LocalDate
 
 class InventoryActivity : AppCompatActivity() {
+    var foods: ArrayList<Food> = arrayListOf<Food>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //This intent comes from the notification
@@ -62,7 +66,6 @@ class InventoryActivity : AppCompatActivity() {
 
                 val json = JSONObject(response.toString())
                 val foodsJson = json.optJSONArray("GetInventoryResult")
-                var foods: ArrayList<Food> = arrayListOf<Food>()
                     for (i in 0 until (foodsJson?.length() ?: 0)) {
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
                         if (ServiceHandler.lastCategory == foodJson.getString("Storage") || ServiceHandler.lastCategory == "Expiring Soon" || intent.getBooleanExtra("Expiring Soon",false) || ServiceHandler.lastCategory == "All"){
@@ -100,7 +103,31 @@ class InventoryActivity : AppCompatActivity() {
                 listViewFood.adapter = foodListAdapter
             })
 
+        txtSearchInventory.addTextChangedListener(object : TextWatcher {
 
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                if (s.isNotEmpty()){
+                    val filteredFoods = foods.filter { food -> food.name.contains(s)  }
+                    val foodListAdapter = FoodListAdapter(this@InventoryActivity, filteredFoods)
+                    val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
+                    listViewFood.addFooterView(footerView)
+                    listViewFood.adapter = foodListAdapter
+                }
+                else{
+                    val foodListAdapter = FoodListAdapter(this@InventoryActivity, foods)
+                    val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
+                    listViewFood.addFooterView(footerView)
+                    listViewFood.adapter = foodListAdapter
+                }
+            }
+        })
     }
 
     /*
