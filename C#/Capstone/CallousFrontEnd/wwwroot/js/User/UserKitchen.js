@@ -110,3 +110,16 @@ $("#btnShoppingListModal").on("click", function () {
         }
     });
 });
+
+$("#btSearchbar").on("keyup", function () {
+    var search = $(this).val().toLowerCase();
+    if (search.length !== 0) {
+        $(".foodRow").hide();
+        $("[data-foodname*=" + search + "]").show();
+    }
+    else {
+        $(".foodRow").show();
+    }
+
+});
+

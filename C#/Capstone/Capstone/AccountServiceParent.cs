@@ -549,7 +549,7 @@ namespace Capstone
                 var kitch = demoUser.Kitchens.FirstOrDefault().Inventory;
 
                 kitch.Add(db.Foods.Add(new Food() { Name = "Butter", Quantity = 200, ExpiryDate = DateTime.Now.AddDays(7), Vegetarian = 1, Vegan = 0, Calories = -1, Storage = Storage.Fridge, QuantityClassifier = "g", Ingredients = "", Traces = "" }));
-                kitch.Add(db.Foods.Add(new Food() { Name = "Garilic", Quantity = 7, ExpiryDate = DateTime.Now.AddDays(3), Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Fridge, QuantityClassifier = "item", Ingredients = "", Traces = "" }));
+                kitch.Add(db.Foods.Add(new Food() { Name = "Garlic", Quantity = 7, ExpiryDate = DateTime.Now.AddDays(3), Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Fridge, QuantityClassifier = "item", Ingredients = "", Traces = "" }));
                 kitch.Add(db.Foods.Add(new Food() { Name = "Steak", Quantity = 12, ExpiryDate = DateTime.Now.AddDays(3), Vegetarian = 0, Vegan = 0, Calories = -1, Storage = Storage.Fridge, QuantityClassifier = "oz", Ingredients = "", Traces = "" }));
                 kitch.Add(db.Foods.Add(new Food() { Name = "Egg", Quantity = 11, ExpiryDate = DateTime.Now.AddDays(14), Vegetarian = 1, Vegan = 0, Calories = -1, Storage = Storage.Fridge, Favourite = true, QuantityClassifier = "item", Ingredients = "", Traces = "" }));
                 kitch.Add(db.Foods.Add(new Food() { Name = "Apple", Quantity = 3, ExpiryDate = DateTime.Now.AddDays(4), Vegetarian = 1, Vegan = 1, Calories = -1, Storage = Storage.Pantry, QuantityClassifier = "item", Ingredients = "", Traces = "" }));
