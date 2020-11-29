@@ -181,11 +181,11 @@ namespace CallousFrontEnd.Controllers
                     // FIX THIS
                     string[] Ingredients = { };
                     string[] Traces = { };
-                    Client.AddFoodComplete(userId, foodKitchen.KitchenId, foodKitchen.Food.Name, foodKitchen.Food.Storage.ToString(), foodKitchen.Food.ExpiryDate, (int)foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1, -1, Ingredients, Traces, foodKitchen.Food.Favourite);
+                    Client.AddFoodComplete(userId, foodKitchen.KitchenId, foodKitchen.Food.Name, foodKitchen.Food.Storage.ToString(), foodKitchen.Food.ExpiryDate, foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1, -1, Ingredients, Traces, foodKitchen.Food.Favourite);
                 }
                 else // edit food
                 {
-                    Client.EditFood(foodKitchen.Food.Id, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
+                    Client.EditFood(foodKitchen.Food.Id, foodKitchen.Food.Name, foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, foodKitchen.Food.Storage.ToString(), foodKitchen.Food.ExpiryDate);
                 }
             }
             catch

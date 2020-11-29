@@ -1271,10 +1271,10 @@ namespace AccountService
         System.Threading.Tasks.Task<bool> EatFoodAsync(int id, double quantity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditFoodResponse")]
-        bool EditFood(int id, string name, double quantity, System.Nullable<System.DateTime> expiryDate);
+        bool EditFood(int id, string name, double quantity, string quantityClassifier, string storage, System.Nullable<System.DateTime> expiryDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditFoodResponse")]
-        System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, double quantity, System.Nullable<System.DateTime> expiryDate);
+        System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, double quantity, string quantityClassifier, string storage, System.Nullable<System.DateTime> expiryDate);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictions", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictionsResponse")]
         bool EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, string[] allergies);
@@ -1371,6 +1371,12 @@ namespace AccountService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/ConfirmEmail", ReplyAction="http://tempuri.org/IAccountServiceMvc/ConfirmEmailResponse")]
         System.Threading.Tasks.Task<string> ConfirmEmailAsync(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/DemoDb", ReplyAction="http://tempuri.org/IAccountServiceMvc/DemoDbResponse")]
+        bool DemoDb(string pass);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/DemoDb", ReplyAction="http://tempuri.org/IAccountServiceMvc/DemoDbResponse")]
+        System.Threading.Tasks.Task<bool> DemoDbAsync(string pass);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -1543,14 +1549,14 @@ namespace AccountService
             return base.Channel.EatFoodAsync(id, quantity);
         }
         
-        public bool EditFood(int id, string name, double quantity, System.Nullable<System.DateTime> expiryDate)
+        public bool EditFood(int id, string name, double quantity, string quantityClassifier, string storage, System.Nullable<System.DateTime> expiryDate)
         {
-            return base.Channel.EditFood(id, name, quantity, expiryDate);
+            return base.Channel.EditFood(id, name, quantity, quantityClassifier, storage, expiryDate);
         }
         
-        public System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, double quantity, System.Nullable<System.DateTime> expiryDate)
+        public System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, double quantity, string quantityClassifier, string storage, System.Nullable<System.DateTime> expiryDate)
         {
-            return base.Channel.EditFoodAsync(id, name, quantity, expiryDate);
+            return base.Channel.EditFoodAsync(id, name, quantity, quantityClassifier, storage, expiryDate);
         }
         
         public bool EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, string[] allergies)
@@ -1711,6 +1717,16 @@ namespace AccountService
         public System.Threading.Tasks.Task<string> ConfirmEmailAsync(string key)
         {
             return base.Channel.ConfirmEmailAsync(key);
+        }
+        
+        public bool DemoDb(string pass)
+        {
+            return base.Channel.DemoDb(pass);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DemoDbAsync(string pass)
+        {
+            return base.Channel.DemoDbAsync(pass);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
