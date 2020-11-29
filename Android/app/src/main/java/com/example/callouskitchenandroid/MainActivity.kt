@@ -1,7 +1,5 @@
 package com.example.callouskitchenandroid
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,8 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import org.json.JSONObject
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        myAlarm()
+        startService(Intent(this, NotificationService::class.java))
 
         ServiceHandler.sharedPref = getPreferences(Context.MODE_PRIVATE)
 
@@ -116,27 +112,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun myAlarm() {
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 9)
-        calendar.set(Calendar.MINUTE, 0)
-        if (calendar.getTime().compareTo(Date()) < 0)
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-        val intent = Intent(applicationContext, NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            0,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager?.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.getTimeInMillis(),
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
-    }
 
     /*
      * Override Android's default back button press
