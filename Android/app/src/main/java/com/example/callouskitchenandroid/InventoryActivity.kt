@@ -50,6 +50,10 @@ class InventoryActivity : AppCompatActivity() {
         // set up bottom nav bar
         setNavigation()
 
+        // set the footer for the food list
+        val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
+        listViewFood.addFooterView(footerView)
+
         val txtSearchInventory = findViewById<EditText>(R.id.searchFood)
         val spinnerSort = findViewById<Spinner>(R.id.spinnerSort)
         // Populate the Sorting spinner
@@ -174,8 +178,6 @@ class InventoryActivity : AppCompatActivity() {
         }
         else{
             val foodListAdapter = FoodListAdapter(this@InventoryActivity, foods)
-            val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
-            listViewFood.addFooterView(footerView)
             listViewFood.adapter = foodListAdapter
         }
     }

@@ -45,6 +45,10 @@ class ShoppingListAdapter(private val context: Activity,
             }
         }
 
+        // Show the food quantity
+        val txtQuantity = rowView.findViewById<TextView>(R.id.textViewShopQuantity)
+        txtQuantity.text = "Quantity remaining: ${foods[position].quantity} ${foods[position].quantityClassifier}"
+
         return rowView
     }
 }
