@@ -128,6 +128,8 @@ class FoodListAdapter(private val context: Activity,
                             btnFavourite.setImageResource(R.drawable.filledstar)
                         else
                             btnFavourite.setImageResource(R.drawable.star)
+                        //Update the entry in the original list
+                        foods[position].favourite = isFavourite
                     }
                 })
         }

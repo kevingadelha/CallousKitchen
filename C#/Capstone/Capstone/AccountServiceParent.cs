@@ -262,7 +262,6 @@ namespace Capstone
                         if (i.Score > tempScore)
                         {
                             tempScore = i.Score;
-                            i.Score = tempScore;
                         }
 
                     }
@@ -358,12 +357,14 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> EditFood(int id, string name, double quantity, DateTime? expiryDate)
+        public async Task<bool> EditFood(int id, string name, double quantity, string quantityClassifier, string storage, DateTime? expiryDate)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
             //Assume that if the user is editing the food they don't want to delete by having the quantity be zero
             item.Name = name;
             item.Quantity = quantity;
+            item.QuantityClassifier = quantityClassifier;
+            item.Storage = (Storage)Enum.Parse(typeof(Storage), storage, true);
             //Assume that the user editing the food means they are resetting their initial quantity
             item.InitialQuantity = quantity;
             item.ExpiryDate = expiryDate;

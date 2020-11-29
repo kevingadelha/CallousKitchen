@@ -73,7 +73,7 @@ namespace Capstone
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-		Task<bool> EditFood(int id, string name, double quantity, DateTime? expiryDate);
+		Task<bool> EditFood(int id, string name, double quantity, string quantityClassifier, string storage, DateTime? expiryDate);
 
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,

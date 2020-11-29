@@ -53,6 +53,7 @@ class CreateAccountActivity : AppCompatActivity() {
                                 var kitchens = user.getJSONArray("Kitchens")
                                 var kitchen = kitchens.getJSONObject(0)
                                 ServiceHandler.primaryKitchenId = kitchen.getInt("Id")
+                                Toast.makeText(applicationContext,"Please confirm your email before adding food!", Toast.LENGTH_LONG).show()
                                 val intent = Intent(this@CreateAccountActivity, KitchenListActivity::class.java)
                                 startActivity(intent)
                             }

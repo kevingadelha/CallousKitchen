@@ -47,7 +47,7 @@ class RecipeSearchActivity : AppCompatActivity() {
         btnGetSuggestions.setOnClickListener {
             ServiceHandler.callAccountService(
                 "FeelingLuckyUser", hashMapOf(
-                    "count" to 15,
+                    "count" to 100,
                     "userId" to ServiceHandler.userId
                 ), this,
                 Response.Listener { response ->
@@ -74,7 +74,7 @@ class RecipeSearchActivity : AppCompatActivity() {
         ServiceHandler.callAccountService(
             "SearchRecipesUser", hashMapOf(
                 "search" to query,
-                "count" to 15,
+                "count" to 100,
                 "userId" to ServiceHandler.userId
             ), this,
             Response.Listener { response ->
