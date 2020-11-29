@@ -172,8 +172,6 @@ class InventoryActivity : AppCompatActivity() {
         if (txtSearchInventory.text.isNotEmpty()){
             val filteredFoods = foods.filter { food -> food.name.contains(txtSearchInventory.text)  }
             val foodListAdapter = FoodListAdapter(this@InventoryActivity, filteredFoods)
-            val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
-            listViewFood.addFooterView(footerView)
             listViewFood.adapter = foodListAdapter
         }
         else{
