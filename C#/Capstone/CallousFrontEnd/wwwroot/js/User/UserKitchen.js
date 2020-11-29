@@ -57,9 +57,12 @@ $(document).ready(function () {
                 "fId": FoodId
             },
             success: function (result) {
-                console.log(result);
                 $("#Kitchens").html(result);
                 console.log("Refresh");
+            }
+            ,
+            complete: function (result) {
+                console.log(result);
             }
 
         });

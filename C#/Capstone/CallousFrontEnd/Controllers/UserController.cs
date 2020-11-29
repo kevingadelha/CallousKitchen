@@ -118,6 +118,7 @@ namespace CallousFrontEnd.Controllers
 
 
         // Author Peter Szadurski
+        [HttpPost]
         public ActionResult KitchenPartialView(List<SerializableKitchen> kitchens)
         {
             ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
@@ -322,10 +323,15 @@ namespace CallousFrontEnd.Controllers
             {
                 Debug.WriteLine("remove failed");
             }
-            ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            List<SerializableKitchen> kitchens = Client.GetKitchens((int)ViewBag.UserId).ToList();
+            int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            ViewBag.UserId = userId;
+            var user = Client.GetSerializableUser(userId);
+            KitchenModel kM = new KitchenModel();
 
-            return KitchenPartialView(kitchens);
+
+
+
+            return PartialView("UserKitchenPartialView", user.Kitchens.ToList());
         }
 
         [HttpGet]
