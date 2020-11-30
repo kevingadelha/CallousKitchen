@@ -316,10 +316,7 @@ namespace CallousFrontEnd.Controllers
             {
                 if (foodKitchen.Food.Id == 0) // add food
                 {
-                    // FIX THIS
-                    string[] Ingredients = { };
-                    string[] Traces = { };
-                    Client.AddFoodComplete(userId, foodKitchen.KitchenId, foodKitchen.Food.Name, foodKitchen.Food.Storage.ToString(), foodKitchen.Food.ExpiryDate, foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1, -1, Ingredients, Traces, foodKitchen.Food.Favourite);
+                    Client.AddFoodComplete(userId, foodKitchen.KitchenId, foodKitchen.Food.Name, foodKitchen.Food.Storage.ToString(), foodKitchen.Food.ExpiryDate, foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, foodKitchen.Food.Vegan, foodKitchen.Food.Vegetarian, new string[0], new string[0], foodKitchen.Food.Favourite);
                 }
                 else // edit food
                 {
@@ -397,7 +394,7 @@ namespace CallousFrontEnd.Controllers
             List<string> qClassifiers = new List<string> { "item", "g", "mg", "kg",
                 "mL", "L", "oz", "fl. oz.", "gallon", "lb" };
             ViewBag.Classifier = qClassifiers;
-
+            ViewBag.VegVegan = DropdownModel.VegVeganDropdown();
             if (fId != 0)
             {
                 foodKitchen.Food = Client.GetFood(fId);
