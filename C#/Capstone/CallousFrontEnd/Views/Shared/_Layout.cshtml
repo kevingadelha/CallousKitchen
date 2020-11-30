@@ -53,15 +53,19 @@
                     </ul>
                 </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    @if (ViewBag.UserId != null)
+                    {
+
                     <ul class="navbar-nav ml-auto">
 
+                        <li class="nav-item Nav-LeftText">
+                            @Html.ActionLink("Logout", "Logout", "User")
+                        </li>
                         <li class="nav-item">
-                            @if (ViewBag.UserId != null)
-                            {
-                                @Html.ActionLink("Logout", "Logout", "User")
-                            }
+                            @Html.ActionLink("Settings", "Settings", "User")
                         </li>
                     </ul>
+                    }
                 </div>
             </div>
         </nav>
