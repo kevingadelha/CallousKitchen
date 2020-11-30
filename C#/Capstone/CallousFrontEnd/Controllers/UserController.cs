@@ -30,7 +30,8 @@ namespace CallousFrontEnd.Controllers
                     allergiesList.Add(a);
                 }
             }
-            if (form["other"] !="" || form["other"].Count() != 0) {
+            if (form["other"] != "" || form["other"].Count() != 0)
+            {
                 allergiesList.Add(form["other"]);
             }
 
@@ -56,6 +57,7 @@ namespace CallousFrontEnd.Controllers
         public ActionResult Settings()
         {
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            ViewBag.UserId = userId;
             var user = Client.GetSerializableUser(userId);
             string[] selected = new string[3];
             if (user.Vegan)
@@ -82,6 +84,13 @@ namespace CallousFrontEnd.Controllers
                     aM.Add("");
                 }
             }
+
+            // set other
+            if (!Allergies.GetAllergies().Contains(user.Allergies.Last())) {
+                ViewBag.Other = user.Allergies.Last();
+            }
+
+
             ViewBag.Checked = aM;
             ViewBag.Selected = selected;
             return View("Settings", user);
@@ -90,6 +99,8 @@ namespace CallousFrontEnd.Controllers
         [HttpPost]
         public ActionResult Settings(SerializableUser user, IFormCollection form)
         {
+            ViewBag.UserId = user.Id;
+
             List<string> allergiesList = new List<string>();
 
             foreach (var a in Allergies.GetAllergies())
@@ -98,6 +109,11 @@ namespace CallousFrontEnd.Controllers
                 {
                     allergiesList.Add(a);
                 }
+            }
+
+            if(form["other"] != "" || form["other"].Count() != 0)
+            {
+                allergiesList.Add(form["other"]);
             }
 
             try
@@ -111,6 +127,12 @@ namespace CallousFrontEnd.Controllers
             }
 
             user = Client.GetSerializableUser(user.Id);
+
+            // set other
+            if (!Allergies.GetAllergies().Contains(user.Allergies.Last()))
+            {
+                ViewBag.Other = user.Allergies.Last();
+            }
 
             string[] selected = new string[3];
             if (user.Vegan)
@@ -137,6 +159,8 @@ namespace CallousFrontEnd.Controllers
                     aM.Add("");
                 }
             }
+
+
             ViewBag.Checked = aM;
             ViewBag.Selected = selected;
             return View("Settings", user);
@@ -187,9 +211,14 @@ namespace CallousFrontEnd.Controllers
         [HttpPost]
         public ActionResult AccountView(UserSessionModel userSession)
         {
-            System.Diagnostics.Debug.WriteLine("Account View");
             TempData["userId"] = userSession.Id;
             return RedirectToAction("HomeView");
+        }
+
+        public ActionResult KitchenView()
+        {
+            TempData["userId"] = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            return HomeView();
         }
 
         public ActionResult HomeView()

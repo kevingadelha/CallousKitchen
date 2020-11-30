@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string otherValue = "";
 }
 
 @model AccountService.SerializableUser
@@ -63,9 +64,17 @@
             </div>
 
         }
+        <div class="row">
+            @if (ViewBag.Other != null)
+            {
+                otherValue = ViewBag.Other;
+            }
+            <input type="text" placeholder="Other" class="form-control" name="Other" id="tbOther" value="@otherValue" />
+
+        </div>
     </div>
     <div class="row">
-        <button type="submit" class="btn btn-sm btn-primary" id="btnSave">Save Changes</button>
+        <button type="submit" class="btn btn-sm btn-primary" id="btnSubmit">Save Changes</button>
     </div>
 }
 <div class="row">
@@ -76,4 +85,6 @@
         }
     </em>
 </div>
+<script type="text/javascript" src="~/js/User/Settings.js"></script>
+
 
