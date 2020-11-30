@@ -1,9 +1,6 @@
-/* Authors: Kevin Gadelha, Laura Stewart
- *
- */
+/* Authors: Kevin Gadelha, Laura Stewart */
 package com.example.callouskitchenandroid
 
-import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +14,6 @@ import com.android.volley.Response
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_inventory.*
 import org.json.JSONObject
-import java.time.LocalDate
 
 class InventoryActivity : AppCompatActivity() {
     var foods: ArrayList<Food> = arrayListOf<Food>()

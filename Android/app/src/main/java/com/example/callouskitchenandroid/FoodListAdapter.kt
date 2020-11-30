@@ -1,3 +1,4 @@
+/* Authors: Laura Stewart */
 package com.example.callouskitchenandroid
 
 import android.app.Activity

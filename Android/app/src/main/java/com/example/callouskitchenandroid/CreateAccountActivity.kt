@@ -1,3 +1,4 @@
+/* Authors: Kevin Gadelha, Laura Stewart */
 package com.example.callouskitchenandroid
 
 import android.content.Intent

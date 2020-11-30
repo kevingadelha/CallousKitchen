@@ -1,6 +1,6 @@
+/* Authors: Kevin Gadelha, Laura Stewart */
 package com.example.callouskitchenandroid
 
-import android.icu.text.BidiClassifier
 import java.io.Serializable
 import java.time.LocalDate
 
