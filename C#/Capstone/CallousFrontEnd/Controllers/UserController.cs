@@ -86,8 +86,10 @@ namespace CallousFrontEnd.Controllers
             }
 
             // set other
-            if (!Allergies.GetAllergies().Contains(user.Allergies.Last())) {
-                ViewBag.Other = user.Allergies.Last();
+
+            if (!Allergies.GetAllergies().Contains(user.Allergies.LastOrDefault()))
+            {
+                ViewBag.Other = user.Allergies.LastOrDefault();
             }
 
 
@@ -111,7 +113,7 @@ namespace CallousFrontEnd.Controllers
                 }
             }
 
-            if(form["other"] != "" || form["other"].Count() != 0)
+            if (form["other"] != "" || form["other"].Count() != 0)
             {
                 allergiesList.Add(form["other"]);
             }
@@ -129,9 +131,9 @@ namespace CallousFrontEnd.Controllers
             user = Client.GetSerializableUser(user.Id);
 
             // set other
-            if (!Allergies.GetAllergies().Contains(user.Allergies.Last()))
+            if (!Allergies.GetAllergies().Contains(user.Allergies.LastOrDefault()))
             {
-                ViewBag.Other = user.Allergies.Last();
+                ViewBag.Other = user.Allergies.LastOrDefault();
             }
 
             string[] selected = new string[3];
@@ -258,7 +260,11 @@ namespace CallousFrontEnd.Controllers
         [HttpPost]
         public ActionResult KitchenPartialView(List<SerializableKitchen> kitchens)
         {
-            ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            ViewBag.UserId = userId;
+            var user = Client.GetSerializableUser(userId);
+            ViewBag.IsVegan = user.Vegan;
+            ViewBag.IsVeg = user.Vegetarian;
 
             ViewBag.StoragesList = Client.GetStorages();
             KitchenModel kM = new KitchenModel();
@@ -413,14 +419,10 @@ namespace CallousFrontEnd.Controllers
         {
             try
             {
-                if (food.Quantity >= 0)
-                {
-                    Client.EatFood(food.Id, (int)food.Quantity);
-                }
-                else
-                {
-                    Client.RemoveItem(food.Id);
-                }
+
+                Client.EatFood(food.Id, food.Quantity);
+
+
             }
             catch
             {
@@ -460,6 +462,8 @@ namespace CallousFrontEnd.Controllers
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
             var user = Client.GetSerializableUser(userId);
+            ViewBag.IsVegan = user.Vegan;
+            ViewBag.IsVeg = false;
             KitchenModel kM = new KitchenModel();
 
 

@@ -35,6 +35,14 @@ $(document).ready(function () {
     });
     $(".eatFoodBtn").click(function () {
         var FoodId = $(this).data("foodId");
+        var isVegan = $(this).data("vegan");
+        var isVeg = $(this).data("veg");
+        var userVegan = $("#isVegan").val();
+        var userVeg = $("#isVeg").val();
+        console.log("Vegan: " + userVegan);
+        console.log("Veg: " + userVeg);
+
+        if ((userVeg == true && isVeg != 1) || (userVegan == true && isVegan != 1)) {}
         $.ajax({
             type: 'GET',
             url: "EatFoodView",
@@ -44,7 +52,6 @@ $(document).ready(function () {
             success: function (result) {
                 $("#EatFoodBody").html(result);
             }
-
         });
     });
     $(".deleteFoodBtn").click(function () {
