@@ -53,7 +53,6 @@ namespace CallousFrontEnd.Controllers
         public ActionResult Settings()
         {
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            ViewBag.UserId = userId;
             var user = Client.GetSerializableUser(userId);
             string[] selected = new string[3];
             if (user.Vegan)
@@ -69,7 +68,7 @@ namespace CallousFrontEnd.Controllers
                 selected[0] = "checked";
             }
             List<string> aM = new List<string>();
-            foreach(var a in Allergies.GetAllergies())
+            foreach (var a in Allergies.GetAllergies())
             {
                 if (user.Allergies.Contains(a))
                 {
@@ -84,6 +83,65 @@ namespace CallousFrontEnd.Controllers
             ViewBag.Selected = selected;
             return View("Settings", user);
         }
+
+        [HttpPost]
+        public ActionResult Settings(SerializableUser user, IFormCollection form)
+        {
+            List<string> allergiesList = new List<string>();
+
+            foreach (var a in Allergies.GetAllergies())
+            {
+                if (form[a] == "on")
+                {
+                    allergiesList.Add(a);
+                }
+            }
+
+            try
+            {
+                Client.EditUserDietaryRestrictions(user.Id, form["Diet"] == "Vegan", form["Diet"] == "Vegetarian", allergiesList.ToArray());
+                ViewBag.Result = "Settings Changed";
+            }
+            catch
+            {
+                ViewBag.Result = "There was a problem saving data.";
+            }
+
+            user = Client.GetSerializableUser(user.Id);
+
+            string[] selected = new string[3];
+            if (user.Vegan)
+            {
+                selected[2] = "checked";
+            }
+            else if (user.Vegetarian)
+            {
+                selected[1] = "checked";
+            }
+            else
+            {
+                selected[0] = "checked";
+            }
+            List<string> aM = new List<string>();
+            foreach (var a in Allergies.GetAllergies())
+            {
+                if (user.Allergies.Contains(a))
+                {
+                    aM.Add("checked");
+                }
+                else
+                {
+                    aM.Add("");
+                }
+            }
+            ViewBag.Checked = aM;
+            ViewBag.Selected = selected;
+            return View("Settings", user);
+
+        }
+
+
+
 
         [HttpPost]
         public ActionResult Login(LoginModel login)
