@@ -125,7 +125,9 @@ body {
 .expriringCritical{
     color:red;
 }
-
+.form-control::-webkit-input-placeholder {
+    color: lightgray;
+}
 
 
 /*Begin Recipes*/
@@ -153,5 +155,6 @@ body {
     width:auto;
     display:block
 }
+
 /*End Recipies*/
 /*Custom Css*/

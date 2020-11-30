@@ -35,6 +35,28 @@ $(document).ready(function () {
     });
     $(".eatFoodBtn").click(function () {
         var FoodId = $(this).data("foodId");
+        var isVegan = $(this).data("vegan");
+        var isVeg = $(this).data("veg");
+        var userVegan = $("#isVegan").val();
+        var userVeg = $("#isVeg").val();
+
+        // hidden inputs are always strings, check string instead of bool
+
+        if ((userVeg == "True" && isVeg != 1) || (userVegan == "True" && isVegan != 1)) {
+            $.ajax({
+                type: 'GET',
+                url: "EatFoodView",
+                data: {
+                    "fId": FoodId
+                },
+                beforeSend: function () {
+                    return confirm("This food does not match your diet preferences.");
+                },
+                success: function (result) {
+                    $("#EatFoodBody").html(result);
+                }
+            });
+        }
         $.ajax({
             type: 'GET',
             url: "EatFoodView",
@@ -42,9 +64,12 @@ $(document).ready(function () {
                 "fId": FoodId
             },
             success: function (result) {
-                $("#EatFoodBody").html(result);
+                if (result.d == "OK") {
+                    console.log("ok");
+                    $('#EatFood').modal('show');
+                    $("#EatFoodBody").html(result);
+                }
             }
-
         });
     });
     $(".deleteFoodBtn").click(function () {
@@ -57,9 +82,12 @@ $(document).ready(function () {
                 "fId": FoodId
             },
             success: function (result) {
-                console.log(result);
                 $("#Kitchens").html(result);
                 console.log("Refresh");
+            }
+            ,
+            complete: function (result) {
+                console.log(result);
             }
 
         });
@@ -110,3 +138,16 @@ $("#btnShoppingListModal").on("click", function () {
         }
     });
 });
+
+$("#btSearchbar").on("keyup", function () {
+    var search = $(this).val().toLowerCase();
+    if (search.length !== 0) {
+        $(".foodRow").hide();
+        $("[data-foodname*=" + search + "]").show();
+    }
+    else {
+        $(".foodRow").show();
+    }
+
+});
+

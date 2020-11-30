@@ -34,12 +34,14 @@
                     <ul class="navbar-nav ml-auto">
                         @if (ViewBag.UserId != null)
                         {
-                            <li class="nav-item">
-                                <a data-toggle="modal" data-target="#RecipeModal" href="" class="Nav-LeftText" id="btnRecipeModal">Recipes</a>
+                            <li class="nav-item Nav-LeftText">
+                                @Html.ActionLink("Kitchen", "KitchenView", "User")
                             </li>
-
                             <li class="nav-item">
                                 <a data-toggle="modal" data-target="#ShoppingListModal" href="" class="Nav-LeftText" id="btnShoppingListModal">Shopping List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a data-toggle="modal" data-target="#RecipeModal" href="" class="Nav-LeftText" id="btnRecipeModal">Recipes</a>
                             </li>
                         }
                         else
@@ -53,15 +55,19 @@
                     </ul>
                 </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav ml-auto">
+                    @if (ViewBag.UserId != null)
+                    {
 
-                        <li class="nav-item">
-                            @if (ViewBag.UserId != null)
-                            {
-                                @Html.ActionLink("Logout", "Logout", "User")
-                            }
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item Nav-LeftText">
+                            @Html.ActionLink("Settings", "Settings", "User")
                         </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Logout", "Logout", "User")
+                        </li>
+
                     </ul>
+                    }
                 </div>
             </div>
         </nav>

@@ -19,12 +19,27 @@ namespace CallousFrontEnd.Controllers
         // AccountServiceOther.AccountServiceMvcClient Client = new AccountServiceMvcClient();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateUser(Capstone.Classes.User user)
+        public ActionResult CreateUser(Capstone.Classes.User user, IFormCollection form)
         {
+            List<string> allergiesList = new List<string>();
+
+            foreach (var a in Allergies.GetAllergies())
+            {
+                if (form[a] == "on")
+                {
+                    allergiesList.Add(a);
+                }
+            }
+            if (form["other"] != "" || form["other"].Count() != 0)
+            {
+                allergiesList.Add(form["other"]);
+            }
+
 
             SerializableUser serializableUser = Client.CreateAccount(user.Email, user.Password);
             if (serializableUser.Id > 0)
             {
+                Client.EditUserDietaryRestrictions(serializableUser.Id, form["Diet"] == "Vegan", form["Diet"] == "Vegetarian", allergiesList.ToArray());
                 UserSessionModel userSession = new UserSessionModel { Id = serializableUser.Id, Username = user.Email };
                 HttpContext.Session.SetInt32("UserId", serializableUser.Id);
                 HttpContext.Session.SetString("Username", user.Email);
@@ -35,9 +50,128 @@ namespace CallousFrontEnd.Controllers
         [HttpGet]
         public ActionResult CreateUserView()
         {
-
             return View("CreateUser");
         }
+
+        [HttpGet]
+        public ActionResult Settings()
+        {
+            int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            ViewBag.UserId = userId;
+            var user = Client.GetSerializableUser(userId);
+            string[] selected = new string[3];
+            if (user.Vegan)
+            {
+                selected[2] = "checked";
+            }
+            else if (user.Vegetarian)
+            {
+                selected[1] = "checked";
+            }
+            else
+            {
+                selected[0] = "checked";
+            }
+            List<string> aM = new List<string>();
+            foreach (var a in Allergies.GetAllergies())
+            {
+                if (user.Allergies.Contains(a))
+                {
+                    aM.Add("checked");
+                }
+                else
+                {
+                    aM.Add("");
+                }
+            }
+
+            // set other
+
+            if (!Allergies.GetAllergies().Contains(user.Allergies.LastOrDefault()))
+            {
+                ViewBag.Other = user.Allergies.LastOrDefault();
+            }
+
+
+            ViewBag.Checked = aM;
+            ViewBag.Selected = selected;
+            return View("Settings", user);
+        }
+
+        [HttpPost]
+        public ActionResult Settings(SerializableUser user, IFormCollection form)
+        {
+            ViewBag.UserId = user.Id;
+
+            List<string> allergiesList = new List<string>();
+
+            foreach (var a in Allergies.GetAllergies())
+            {
+                if (form[a] == "on")
+                {
+                    allergiesList.Add(a);
+                }
+            }
+
+            if (form["other"] != "" || form["other"].Count() != 0)
+            {
+                allergiesList.Add(form["other"]);
+            }
+
+            try
+            {
+                Client.EditUserDietaryRestrictions(user.Id, form["Diet"] == "Vegan", form["Diet"] == "Vegetarian", allergiesList.ToArray());
+                ViewBag.Result = "Settings Changed";
+            }
+            catch
+            {
+                ViewBag.Result = "There was a problem saving data.";
+            }
+
+            user = Client.GetSerializableUser(user.Id);
+
+            // set other
+            if (!Allergies.GetAllergies().Contains(user.Allergies.LastOrDefault()))
+            {
+                ViewBag.Other = user.Allergies.LastOrDefault();
+            }
+
+            string[] selected = new string[3];
+            if (user.Vegan)
+            {
+                selected[2] = "checked";
+            }
+            else if (user.Vegetarian)
+            {
+                selected[1] = "checked";
+            }
+            else
+            {
+                selected[0] = "checked";
+            }
+            List<string> aM = new List<string>();
+            foreach (var a in Allergies.GetAllergies())
+            {
+                if (user.Allergies.Contains(a))
+                {
+                    aM.Add("checked");
+                }
+                else
+                {
+                    aM.Add("");
+                }
+            }
+
+
+            ViewBag.Checked = aM;
+            ViewBag.Selected = selected;
+            return View("Settings", user);
+
+        }
+
+
+
+
         [HttpPost]
         public ActionResult Login(LoginModel login)
         {
@@ -79,9 +213,14 @@ namespace CallousFrontEnd.Controllers
         [HttpPost]
         public ActionResult AccountView(UserSessionModel userSession)
         {
-            System.Diagnostics.Debug.WriteLine("Account View");
             TempData["userId"] = userSession.Id;
             return RedirectToAction("HomeView");
+        }
+
+        public ActionResult KitchenView()
+        {
+            TempData["userId"] = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            return HomeView();
         }
 
         public ActionResult HomeView()
@@ -92,7 +231,11 @@ namespace CallousFrontEnd.Controllers
                 TempData.Keep();
                 SerializableUser user = Client.GetSerializableUser(userId);
                 ViewBag.UserId = user.Id;
+
+                ViewBag.IsVegan = user.Vegan.ToString();
+                ViewBag.IsVeg = user.Vegetarian.ToString();
                 //user.Kitchens = Client.GetKitchens(userSession.Id).ToList();
+
                 user.Kitchens = Client.GetKitchens(userId);
                 return View("Account", user);
             }
@@ -118,9 +261,16 @@ namespace CallousFrontEnd.Controllers
 
 
         // Author Peter Szadurski
+        [HttpPost]
         public ActionResult KitchenPartialView(List<SerializableKitchen> kitchens)
         {
-            ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            ViewBag.UserId = userId;
+            var user = Client.GetSerializableUser(userId);
+            ViewBag.IsVegan = user.Vegan.ToString();
+            System.Diagnostics.Debug.WriteLine("Vegan: " + user.Vegan.ToString());
+            ViewBag.IsVeg = user.Vegetarian.ToString();
+            System.Diagnostics.Debug.WriteLine("Veg: " + user.Vegetarian.ToString());
 
             ViewBag.StoragesList = Client.GetStorages();
             KitchenModel kM = new KitchenModel();
@@ -178,14 +328,11 @@ namespace CallousFrontEnd.Controllers
             {
                 if (foodKitchen.Food.Id == 0) // add food
                 {
-                    // FIX THIS
-                    string[] Ingredients = { };
-                    string[] Traces = { };
-                    Client.AddFoodComplete(userId, foodKitchen.KitchenId, foodKitchen.Food.Name, foodKitchen.Food.Storage.ToString(), foodKitchen.Food.ExpiryDate, (int)foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, -1, -1, Ingredients, Traces, foodKitchen.Food.Favourite);
+                    Client.AddFoodComplete(userId, foodKitchen.KitchenId, foodKitchen.Food.Name, foodKitchen.Food.Storage.ToString(), foodKitchen.Food.ExpiryDate, foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, foodKitchen.Food.Vegan, foodKitchen.Food.Vegetarian, new string[0], new string[0], foodKitchen.Food.Favourite);
                 }
                 else // edit food
                 {
-                    Client.EditFood(foodKitchen.Food.Id, foodKitchen.Food.Name, (int)foodKitchen.Food.Quantity, foodKitchen.Food.ExpiryDate);
+                    Client.EditFood(foodKitchen.Food.Id, foodKitchen.Food.Name, foodKitchen.Food.Quantity, foodKitchen.Food.QuantityClassifier, foodKitchen.Food.Storage.ToString(), foodKitchen.Food.ExpiryDate);
                 }
             }
             catch
@@ -259,7 +406,7 @@ namespace CallousFrontEnd.Controllers
             List<string> qClassifiers = new List<string> { "item", "g", "mg", "kg",
                 "mL", "L", "oz", "fl. oz.", "gallon", "lb" };
             ViewBag.Classifier = qClassifiers;
-
+            ViewBag.VegVegan = DropdownModel.VegVeganDropdown();
             if (fId != 0)
             {
                 foodKitchen.Food = Client.GetFood(fId);
@@ -278,14 +425,10 @@ namespace CallousFrontEnd.Controllers
         {
             try
             {
-                if (food.Quantity >= 0)
-                {
-                    Client.EatFood(food.Id, (int)food.Quantity);
-                }
-                else
-                {
-                    Client.RemoveItem(food.Id);
-                }
+
+                Client.EatFood(food.Id, food.Quantity);
+
+
             }
             catch
             {
@@ -322,10 +465,18 @@ namespace CallousFrontEnd.Controllers
             {
                 Debug.WriteLine("remove failed");
             }
-            ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            List<SerializableKitchen> kitchens = Client.GetKitchens((int)ViewBag.UserId).ToList();
+            int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
+            ViewBag.UserId = userId;
+            var user = Client.GetSerializableUser(userId);
+            ViewBag.IsVegan = user.Vegan.ToString();
+            ViewBag.IsVeg = user.Vegetarian.ToString();
 
-            return KitchenPartialView(kitchens);
+            KitchenModel kM = new KitchenModel();
+
+
+
+
+            return PartialView("UserKitchenPartialView", user.Kitchens.ToList());
         }
 
         [HttpGet]
@@ -337,6 +488,7 @@ namespace CallousFrontEnd.Controllers
             string test = Client.GetBarcodeData(barcode);
             return test;
         }
+
     }
 
 
