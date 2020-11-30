@@ -14,6 +14,7 @@ class Food: Serializable {
     var quantityClassifier: String = ""
     var storage: String = ""
     var favourite: Boolean = false
+    var onShoppingList: Boolean = false
     var vegan: Int? = -1
     var vegetarian: Int? = -1
     var ingredients = arrayOf<String>()

@@ -378,6 +378,23 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
+        public async Task<bool> ShoppingListFood(int foodId, bool onShoppingList)
+        {
+            var item = db.Foods.Where(x => x.Id == foodId).FirstOrDefault();
+            item.OnShoppingList = onShoppingList;
+            await db.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> ClearShoppingList(int kitchenId)
+        {
+            var kitchen = db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault();
+            foreach (Food food in kitchen.Inventory)
+			{
+                food.OnShoppingList = false;
+			}
+            await db.SaveChangesAsync();
+            return true;
+        }
         public async Task<bool> RemoveItem(int id)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();

@@ -40,6 +40,7 @@ class ShoppingListActivity : AppCompatActivity() {
                         food.quantity = foodJson.getDouble("Quantity")
                         food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                         food.favourite = foodJson.getBoolean("Favourite")
+                        food.onShoppingList = foodJson.getBoolean("OnShoppingList")
                         foods.add(food)
 
                 }
