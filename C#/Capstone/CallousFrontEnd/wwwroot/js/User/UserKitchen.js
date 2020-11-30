@@ -1,4 +1,4 @@
-﻿
+﻿// Author: Peter Szadurski
 $(document).ready(function () {
     console.log("Activated");
     $(".addFoodBtn").click(function () {
@@ -43,6 +43,7 @@ $(document).ready(function () {
         // hidden inputs are always strings, check string instead of bool
 
         if ((userVeg == "True" && isVeg != 1) || (userVegan == "True" && isVegan != 1)) {
+            var com = false;
             $.ajax({
                 type: 'GET',
                 url: "EatFoodView",
@@ -50,27 +51,31 @@ $(document).ready(function () {
                     "fId": FoodId
                 },
                 beforeSend: function () {
-                    return confirm("This food does not match your diet preferences.");
+
+                    com = (confirm("This food does not match your diet preferences."));
                 },
                 success: function (result) {
-                    $("#EatFoodBody").html(result);
+                    if (com) {
+                        $('#EatFood').modal('show');
+                        $("#EatFoodBody").html(result);
+                    }
                 }
             });
         }
-        $.ajax({
-            type: 'GET',
-            url: "EatFoodView",
-            data: {
-                "fId": FoodId
-            },
-            success: function (result) {
-                if (result.d == "OK") {
-                    console.log("ok");
+        else {
+            $.ajax({
+                type: 'GET',
+                url: "EatFoodView",
+                data: {
+                    "fId": FoodId
+                },
+                success: function (result) {
                     $('#EatFood').modal('show');
                     $("#EatFoodBody").html(result);
+
                 }
-            }
-        });
+            });
+        }
     });
     $(".deleteFoodBtn").click(function () {
         var FoodId = $(this).data("foodId");

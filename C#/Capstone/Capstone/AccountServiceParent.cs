@@ -81,6 +81,7 @@ namespace Capstone
 
         public bool AnotherTest()
         {
+            DemoDb("67X7C@&Aej*hS%");
             return true;
         }
 
