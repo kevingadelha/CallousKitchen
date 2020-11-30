@@ -19,12 +19,26 @@ namespace CallousFrontEnd.Controllers
         // AccountServiceOther.AccountServiceMvcClient Client = new AccountServiceMvcClient();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateUser(Capstone.Classes.User user)
+        public ActionResult CreateUser(Capstone.Classes.User user, IFormCollection form)
         {
+            System.Diagnostics.Debug.WriteLine("Al1:" + form["Peanut"]);
+            System.Diagnostics.Debug.WriteLine("Al2: " + form["Dairy"]);
+
+            List<string> allergiesList = new List<string>();
+
+            foreach(var a in Allergies.GetAllergies())
+            {
+                if(form[a] == "on")
+                {
+                    allergiesList.Add(a);
+                }
+            }
+
 
             SerializableUser serializableUser = Client.CreateAccount(user.Email, user.Password);
             if (serializableUser.Id > 0)
             {
+                Client.EditUserDietaryRestrictions(serializableUser.Id, false, false, allergiesList.ToArray());
                 UserSessionModel userSession = new UserSessionModel { Id = serializableUser.Id, Username = user.Email };
                 HttpContext.Session.SetInt32("UserId", serializableUser.Id);
                 HttpContext.Session.SetString("Username", user.Email);
@@ -35,7 +49,6 @@ namespace CallousFrontEnd.Controllers
         [HttpGet]
         public ActionResult CreateUserView()
         {
-
             return View("CreateUser");
         }
         [HttpPost]
@@ -343,6 +356,7 @@ namespace CallousFrontEnd.Controllers
             string test = Client.GetBarcodeData(barcode);
             return test;
         }
+
     }
 
 
