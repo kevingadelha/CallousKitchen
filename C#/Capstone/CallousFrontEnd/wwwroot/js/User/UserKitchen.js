@@ -39,10 +39,24 @@ $(document).ready(function () {
         var isVeg = $(this).data("veg");
         var userVegan = $("#isVegan").val();
         var userVeg = $("#isVeg").val();
-        console.log("Vegan: " + userVegan);
-        console.log("Veg: " + userVeg);
 
-        if ((userVeg == true && isVeg != 1) || (userVegan == true && isVegan != 1)) {}
+        // hidden inputs are always strings, check string instead of bool
+
+        if ((userVeg == "True" && isVeg != 1) || (userVegan == "True" && isVegan != 1)) {
+            $.ajax({
+                type: 'GET',
+                url: "EatFoodView",
+                data: {
+                    "fId": FoodId
+                },
+                beforeSend: function () {
+                    return confirm("This food does not match your diet preferences.");
+                },
+                success: function (result) {
+                    $("#EatFoodBody").html(result);
+                }
+            });
+        }
         $.ajax({
             type: 'GET',
             url: "EatFoodView",
@@ -50,7 +64,11 @@ $(document).ready(function () {
                 "fId": FoodId
             },
             success: function (result) {
-                $("#EatFoodBody").html(result);
+                if (result.d == "OK") {
+                    console.log("ok");
+                    $('#EatFood').modal('show');
+                    $("#EatFoodBody").html(result);
+                }
             }
         });
     });

@@ -231,7 +231,11 @@ namespace CallousFrontEnd.Controllers
                 TempData.Keep();
                 SerializableUser user = Client.GetSerializableUser(userId);
                 ViewBag.UserId = user.Id;
+
+                ViewBag.IsVegan = user.Vegan.ToString();
+                ViewBag.IsVeg = user.Vegetarian.ToString();
                 //user.Kitchens = Client.GetKitchens(userSession.Id).ToList();
+
                 user.Kitchens = Client.GetKitchens(userId);
                 return View("Account", user);
             }
@@ -263,8 +267,10 @@ namespace CallousFrontEnd.Controllers
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
             var user = Client.GetSerializableUser(userId);
-            ViewBag.IsVegan = user.Vegan;
-            ViewBag.IsVeg = user.Vegetarian;
+            ViewBag.IsVegan = user.Vegan.ToString();
+            System.Diagnostics.Debug.WriteLine("Vegan: " + user.Vegan.ToString());
+            ViewBag.IsVeg = user.Vegetarian.ToString();
+            System.Diagnostics.Debug.WriteLine("Veg: " + user.Vegetarian.ToString());
 
             ViewBag.StoragesList = Client.GetStorages();
             KitchenModel kM = new KitchenModel();
@@ -462,8 +468,9 @@ namespace CallousFrontEnd.Controllers
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
             var user = Client.GetSerializableUser(userId);
-            ViewBag.IsVegan = user.Vegan;
-            ViewBag.IsVeg = false;
+            ViewBag.IsVegan = user.Vegan.ToString();
+            ViewBag.IsVeg = user.Vegetarian.ToString();
+
             KitchenModel kM = new KitchenModel();
 
 
