@@ -1,3 +1,4 @@
+/* Author: Laura Stewart */
 package com.example.callouskitchenandroid
 
 import android.app.Activity
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 
 class RecipeListAdapter (private val context: Activity,
                          private val recipes: List<Recipe>)
@@ -24,7 +26,10 @@ class RecipeListAdapter (private val context: Activity,
         txtRecipeTitle.text = recipes[position].name
         txtRecipeYield.text = "Servings: " + recipes[position].recipeYield
         txtRecipeSource.text = recipes[position].source
-        // TODO: set image
+        val url = recipes[position].image
+        if (!url.isNullOrEmpty()) {
+            Picasso.get().load(url).into(imgRecipe)
+        }
 
         rowView.setOnClickListener {
             // open recipe activity

@@ -1,3 +1,4 @@
+/* Authors: Kevin Gadelha, Laura Stewart */
 package com.example.callouskitchenandroid
 
 import android.app.DatePickerDialog
@@ -66,8 +67,6 @@ class AddFoodActivity : AppCompatActivity() {
 
         // Get the food data from the barcode scanner
         if (intent != null) {
-
-
             try {
                 foodName = intent.getStringExtra("FOODNAME")
                 txtFoodName.setText(foodName)

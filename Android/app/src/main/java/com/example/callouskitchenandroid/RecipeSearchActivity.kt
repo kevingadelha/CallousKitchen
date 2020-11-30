@@ -1,10 +1,7 @@
-/* Authors: Kevin Gadelha, Laura Stewart
- *
- */
+/* Authors: Kevin Gadelha, Laura Stewart */
 
 package com.example.callouskitchenandroid
 
-import android.app.SearchManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,11 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SearchView
 import com.android.volley.Response
-import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_inventory.*
 import kotlinx.android.synthetic.main.activity_kitchen_list.bottomNav
 import kotlinx.android.synthetic.main.activity_recipe_search.*
-import org.json.JSONArray
 import org.json.JSONObject
 
 class RecipeSearchActivity : AppCompatActivity() {

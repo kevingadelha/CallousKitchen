@@ -1,6 +1,4 @@
-/* Authors: Kevin Gadelha, Laura Stewart
- *
- */
+/* Authors: Kevin Gadelha, Laura Stewart */
 
 package com.example.callouskitchenandroid
 
@@ -13,8 +11,6 @@ import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 
 class DeleteFoodActivity : AppCompatActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delete_food)

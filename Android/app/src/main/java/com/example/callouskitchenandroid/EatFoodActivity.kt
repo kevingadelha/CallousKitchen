@@ -1,10 +1,6 @@
-/* Authors: Kevin Gadelha, Laura Stewart
- *
- */
-
+/* Authors: Kevin Gadelha, Laura Stewart */
 package com.example.callouskitchenandroid
 
-import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,10 +8,6 @@ import android.widget.*
 import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
 import java.util.*
 
 class EatFoodActivity : AppCompatActivity() {

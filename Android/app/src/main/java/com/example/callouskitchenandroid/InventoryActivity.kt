@@ -1,9 +1,6 @@
-/* Authors: Kevin Gadelha, Laura Stewart
- *
- */
+/* Authors: Kevin Gadelha, Laura Stewart */
 package com.example.callouskitchenandroid
 
-import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +14,6 @@ import com.android.volley.Response
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_inventory.*
 import org.json.JSONObject
-import java.time.LocalDate
 
 class InventoryActivity : AppCompatActivity() {
     var foods: ArrayList<Food> = arrayListOf<Food>()
@@ -49,6 +45,10 @@ class InventoryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_inventory)
         // set up bottom nav bar
         setNavigation()
+
+        // set the footer for the food list
+        val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
+        listViewFood.addFooterView(footerView)
 
         val txtSearchInventory = findViewById<EditText>(R.id.searchFood)
         val spinnerSort = findViewById<Spinner>(R.id.spinnerSort)
@@ -168,14 +168,10 @@ class InventoryActivity : AppCompatActivity() {
         if (txtSearchInventory.text.isNotEmpty()){
             val filteredFoods = foods.filter { food -> food.name.contains(txtSearchInventory.text)  }
             val foodListAdapter = FoodListAdapter(this@InventoryActivity, filteredFoods)
-            val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
-            listViewFood.addFooterView(footerView)
             listViewFood.adapter = foodListAdapter
         }
         else{
             val foodListAdapter = FoodListAdapter(this@InventoryActivity, foods)
-            val footerView = layoutInflater.inflate(R.layout.footer_view, listViewFood, false) as ViewGroup
-            listViewFood.addFooterView(footerView)
             listViewFood.adapter = foodListAdapter
         }
     }
