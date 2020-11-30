@@ -30,6 +30,9 @@ namespace CallousFrontEnd.Controllers
                     allergiesList.Add(a);
                 }
             }
+            if (form["other"] !="" || form["other"].Count() != 0) {
+                allergiesList.Add(form["other"]);
+            }
 
 
             SerializableUser serializableUser = Client.CreateAccount(user.Email, user.Password);

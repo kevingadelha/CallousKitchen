@@ -15,37 +15,37 @@
     </div>
     <div class="form-group">
         @Html.Label("Diet: ")
-            <div class="row">
-                <div class="col-2">
-                    <input class="form-input" type="radio" name="Diet" id="rbOmnivore" value="Omnivore" checked>
-                </div>
-                <div class="col-10">
-                    <label class="form-label" for="rdOmnivore">
-                        Omnivore
-                    </label>
-                </div>
+        <div class="row">
+            <div class="col-2">
+                <input class="form-input" type="radio" name="Diet" id="rbOmnivore" value="Omnivore" checked>
             </div>
-            <div class="row">
-                <div class="col-2">
-                    <input class="form-input" type="radio" name="Diet" id="rbVegetarian" value="Vegetarian">
-                </div>
-                <div class="col-10">
-                    <label class="form-label" for="rdVegetarian">
-                        Vegetarian
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-2">
-                    <input class="form-input" type="radio" name="Diet" id="rbVegan" value="Vegan">
-                </div>
-                <div class="col-10">
-                    <label class="form-label" for="rdVegan">
-                        Vegan
-                    </label>
-                </div>
+            <div class="col-10">
+                <label class="form-label" for="rdOmnivore">
+                    Omnivore
+                </label>
             </div>
         </div>
+        <div class="row">
+            <div class="col-2">
+                <input class="form-input" type="radio" name="Diet" id="rbVegetarian" value="Vegetarian">
+            </div>
+            <div class="col-10">
+                <label class="form-label" for="rdVegetarian">
+                    Vegetarian
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <input class="form-input" type="radio" name="Diet" id="rbVegan" value="Vegan">
+            </div>
+            <div class="col-10">
+                <label class="form-label" for="rdVegan">
+                    Vegan
+                </label>
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(x => x.Allergies, "Allergies:")
         @for (int i = 0; i < CallousFrontEnd.Models.Allergies.GetAllergies().Length; i++)
@@ -58,9 +58,12 @@
                     <label class="form-label">@CallousFrontEnd.Models.Allergies.GetAllergiesLabels()[i]</label>
                 </div>
             </div>
-
         }
+        <div class="row">
+            <input type="text" placeholder="Other" class="form-control" name="Other" id="tbOther" />
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
 
 }
+<script type="text/javascript" src="~/js/User/Settings.js"></script>
