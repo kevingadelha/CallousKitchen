@@ -24,6 +24,12 @@
       "jQuery/3.0.0": {
         "type": "package"
       },
+      "jQuery.Ajax.Unobtrusive/2.0.20710": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.jQuery.Unobtrusive.Ajax": "2.0.20613"
+        }
+      },
       "Microsoft.AspNet.Mvc/5.2.7": {
         "type": "package",
         "dependencies": {
@@ -2380,6 +2386,17 @@
         "Tools/uninstall.ps1",
         "jquery.3.0.0.nupkg.sha512",
         "jquery.nuspec"
+      ]
+    },
+    "jQuery.Ajax.Unobtrusive/2.0.20710": {
+      "sha512": "Pi9soMRdzL30AMb/gXPLjTLzjYs3/Ac0S51h4M28Iyc4rYQ4ln1fZxPTEmEbnUYRZzuP2b5P2saBq9llJ1e1tg==",
+      "type": "package",
+      "path": "jquery.ajax.unobtrusive/2.0.20710",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "jquery.ajax.unobtrusive.2.0.20710.nupkg.sha512",
+        "jquery.ajax.unobtrusive.nuspec"
       ]
     },
     "Microsoft.AspNet.Mvc/5.2.7": {
@@ -7605,7 +7622,8 @@
       "System.ServiceModel.Http >= 4.7.0",
       "System.ServiceModel.NetTcp >= 4.7.0",
       "System.ServiceModel.Security >= 4.7.0",
-      "bootstrap >= 4.4.1"
+      "bootstrap >= 4.4.1",
+      "jQuery.Ajax.Unobtrusive >= 2.0.20710"
     ]
   },
   "packageFolders": {
@@ -7692,6 +7710,10 @@
           "bootstrap": {
             "target": "Package",
             "version": "[4.4.1, )"
+          },
+          "jQuery.Ajax.Unobtrusive": {
+            "target": "Package",
+            "version": "[2.0.20710, )"
           }
         },
         "imports": [

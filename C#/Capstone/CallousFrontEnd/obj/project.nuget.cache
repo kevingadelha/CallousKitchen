@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "C9E1dgZwRWDWhRLcE6+Y8yHzfGBKUwHl+UI0u6tDODrzMVKor3noR09Ep5OfQtFezHLywmFlJoRJFMCm+KbiGg==",
+  "dgSpecHash": "ngywhbd1GP/bm6GZN61WNMuTBZTgB0DdZ9dUurWDl1XHXhv2UC8ciBp17n8PnC+ug0Ulvukh9kipMrdaA6DqBA==",
   "success": true,
   "projectFilePath": "F:\\Capstone\\CallousHippo\\C#\\Capstone\\CallousFrontEnd\\CallousFrontEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bootstrap\\4.4.1\\bootstrap.4.4.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\documentformat.openxml\\2.10.1\\documentformat.openxml.2.10.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\jquery\\3.0.0\\jquery.3.0.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\jquery.ajax.unobtrusive\\2.0.20710\\jquery.ajax.unobtrusive.2.0.20710.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnet.mvc\\5.2.7\\microsoft.aspnet.mvc.5.2.7.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.7\\microsoft.aspnet.razor.3.2.7.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnet.webpages\\3.2.7\\microsoft.aspnet.webpages.3.2.7.nupkg.sha512",

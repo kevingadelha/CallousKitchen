@@ -396,8 +396,7 @@ namespace Capstone
         }
         public async Task<bool> EditShoppingListMultiple(int kId, List<SerializableFood> shoppingList)
         {
-            var foods = db.Kitchens.Where(x => x.Id == kId).FirstOrDefault()?.Inventory?
-                .Select(o => new SerializableFood(o)).ToList();
+            var foods = db.Kitchens.Where(x => x.Id == kId).FirstOrDefault()?.Inventory;
             for (int i = 0; i < foods.Count(); i++)
             {
                 foods[i].OnShoppingList = shoppingList[i].OnShoppingList;

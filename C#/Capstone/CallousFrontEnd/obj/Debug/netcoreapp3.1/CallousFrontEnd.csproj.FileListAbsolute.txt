@@ -390,8 +390,6 @@ F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\bin\Debug\netcoreapp3.1\Ent
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csprojAssemblyReference.cache
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.AssemblyInfoInputs.cache
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.AssemblyInfo.cs
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csproj.CoreCompileInputs.cache
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.MvcApplicationPartsAssemblyInfo.cache
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorAssemblyInfo.cache
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorAssemblyInfo.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.TagHelpers.input.cache
@@ -426,3 +424,5 @@ F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Cal
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.genruntimeconfig.cache
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Email\Confirm.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\Settings.cshtml.g.cs
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.csproj.CoreCompileInputs.cache
+F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.MvcApplicationPartsAssemblyInfo.cache

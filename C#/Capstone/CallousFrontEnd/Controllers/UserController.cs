@@ -396,16 +396,15 @@ namespace CallousFrontEnd.Controllers
         }
 
         [HttpPost]
-        async public Task<ActionResult> SetShoppingList(List<SerializableFood> shoppingList, IFormCollection form)
+        async public Task<string> SetShoppingList(List<SerializableFood> shoppingList, IFormCollection form)
         {
             int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             int kID = Convert.ToInt32(form["kID"]);
-            ViewBag.kID = kID;
             var sL = Client.GetKitchens(Id).FirstOrDefault().Inventory.OrderByDescending(x => x.Favourite).ToList();
 
             await Client.EditShoppingListMultipleAsync(kID, shoppingList.ToArray());
 
-            return PartialView("_ShoppingListPartial", sL);
+            return "Shopping List Updated";
         }
 
 
