@@ -144,7 +144,7 @@ $("#btnShoppingListModal").on("click", function () {
     });
 });
 
-$("#btSearchbar").on("keyup", function () {
+$("#tbSearchbar").on("keyup", function () {
     var search = $(this).val().toLowerCase();
     if (search.length !== 0) {
         $(".foodRow").hide();
