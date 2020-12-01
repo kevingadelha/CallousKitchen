@@ -9,10 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_inventory.*
 import kotlinx.android.synthetic.main.activity_recipe_search.*
@@ -58,6 +55,28 @@ class ShoppingListActivity : AppCompatActivity() {
                 updateSortedAndFilteredList()
 
             })
+
+        val btnClear = findViewById<Button>(R.id.btnClearChecked)
+
+        btnClear.setOnClickListener {
+            ServiceHandler.callAccountService(
+                "ClearShoppingList",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
+                Response.Listener { response ->
+
+                    val json = JSONObject(response.toString())
+                    val success = json.getBoolean("ClearShoppingListResult")
+                    if (success){
+                        // reset variables locally because calling the service was sometimes crashing the app
+                        for (food in foods) {
+                            food.onShoppingList = false
+                        }
+                        updateSortedAndFilteredList()
+                    }
+                    else {
+                        Toast.makeText(applicationContext,"Could not clear list", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
 
         val txtSearchShopping = findViewById<EditText>(R.id.searchShoppingList)
         val spinnerSort = findViewById<Spinner>(R.id.spinnerSortShopping)

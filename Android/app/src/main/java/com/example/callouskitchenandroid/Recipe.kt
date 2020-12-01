@@ -1,4 +1,4 @@
-/* Authors: Kevin Gadelha, Laura Stewart */
+/* Author: Laura Stewart */
 package com.example.callouskitchenandroid
 
 class Recipe {
