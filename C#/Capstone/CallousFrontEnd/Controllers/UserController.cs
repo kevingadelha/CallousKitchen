@@ -368,7 +368,7 @@ namespace CallousFrontEnd.Controllers
 
             search = System.Web.HttpUtility.UrlEncode(search);
             int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            SerializableRecipeModel[] recs = Client.SearchRecipesUser(search, 5, Id);
+            SerializableRecipeModel[] recs = Client.SearchRecipesUser(search, 100, Id);
 
             return PartialView("_RecipeResultView", recs);
         }
@@ -380,7 +380,7 @@ namespace CallousFrontEnd.Controllers
 
             search = System.Web.HttpUtility.UrlEncode(search);
             int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            SerializableRecipeModel[] recs = Client.FeelingLucky(5, Client.GetSerializableUser(Id).Allergies, Id);
+            SerializableRecipeModel[] recs = Client.FeelingLuckyUser(100, Id);
 
             return PartialView("_RecipeResultView", recs);
         }

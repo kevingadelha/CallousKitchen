@@ -177,6 +177,8 @@ namespace AccountService
         
         private string NameField;
         
+        private bool OnShoppingListField;
+        
         private double QuantityField;
         
         private string QuantityClassifierField;
@@ -251,6 +253,19 @@ namespace AccountService
             set
             {
                 this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool OnShoppingList
+        {
+            get
+            {
+                return this.OnShoppingListField;
+            }
+            set
+            {
+                this.OnShoppingListField = value;
             }
         }
         
@@ -754,6 +769,8 @@ namespace AccountService
         
         private string NameField;
         
+        private bool OnShoppingListField;
+        
         private double QuantityField;
         
         private string QuantityClassifierField;
@@ -880,6 +897,19 @@ namespace AccountService
             set
             {
                 this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool OnShoppingList
+        {
+            get
+            {
+                return this.OnShoppingListField;
+            }
+            set
+            {
+                this.OnShoppingListField = value;
             }
         }
         
@@ -1276,6 +1306,24 @@ namespace AccountService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditFoodResponse")]
         System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, double quantity, string quantityClassifier, string storage, System.Nullable<System.DateTime> expiryDate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/FavouriteFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/FavouriteFoodResponse")]
+        bool FavouriteFood(int foodId, bool favourite);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/FavouriteFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/FavouriteFoodResponse")]
+        System.Threading.Tasks.Task<bool> FavouriteFoodAsync(int foodId, bool favourite);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/ShoppingListFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/ShoppingListFoodResponse")]
+        bool ShoppingListFood(int foodId, bool onShoppingList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/ShoppingListFood", ReplyAction="http://tempuri.org/IAccountServiceMvc/ShoppingListFoodResponse")]
+        System.Threading.Tasks.Task<bool> ShoppingListFoodAsync(int foodId, bool onShoppingList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/ClearShoppingList", ReplyAction="http://tempuri.org/IAccountServiceMvc/ClearShoppingListResponse")]
+        bool ClearShoppingList(int kitchenId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/ClearShoppingList", ReplyAction="http://tempuri.org/IAccountServiceMvc/ClearShoppingListResponse")]
+        System.Threading.Tasks.Task<bool> ClearShoppingListAsync(int kitchenId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictions", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditUserDietaryRestrictionsResponse")]
         bool EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, string[] allergies);
         
@@ -1557,6 +1605,36 @@ namespace AccountService
         public System.Threading.Tasks.Task<bool> EditFoodAsync(int id, string name, double quantity, string quantityClassifier, string storage, System.Nullable<System.DateTime> expiryDate)
         {
             return base.Channel.EditFoodAsync(id, name, quantity, quantityClassifier, storage, expiryDate);
+        }
+        
+        public bool FavouriteFood(int foodId, bool favourite)
+        {
+            return base.Channel.FavouriteFood(foodId, favourite);
+        }
+        
+        public System.Threading.Tasks.Task<bool> FavouriteFoodAsync(int foodId, bool favourite)
+        {
+            return base.Channel.FavouriteFoodAsync(foodId, favourite);
+        }
+        
+        public bool ShoppingListFood(int foodId, bool onShoppingList)
+        {
+            return base.Channel.ShoppingListFood(foodId, onShoppingList);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ShoppingListFoodAsync(int foodId, bool onShoppingList)
+        {
+            return base.Channel.ShoppingListFoodAsync(foodId, onShoppingList);
+        }
+        
+        public bool ClearShoppingList(int kitchenId)
+        {
+            return base.Channel.ClearShoppingList(kitchenId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ClearShoppingListAsync(int kitchenId)
+        {
+            return base.Channel.ClearShoppingListAsync(kitchenId);
         }
         
         public bool EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, string[] allergies)
