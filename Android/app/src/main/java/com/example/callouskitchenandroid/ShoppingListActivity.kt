@@ -55,13 +55,7 @@ class ShoppingListActivity : AppCompatActivity() {
 
                 }
 
-                //Sorting twice basically accomplishes grouping
-                //Sort by lowest quantity first
-                foods = ArrayList(foods.sortedWith(compareBy({ it.quantity })))
-                //Then make sure to show all the favourited foods first
-                foods = ArrayList(foods.sortedWith(compareByDescending({ it.favourite })))
-                val shoppingListAdapter = ShoppingListAdapter(this, foods)
-                listViewShoppingList.adapter = shoppingListAdapter
+                updateSortedAndFilteredList()
 
             })
 
@@ -129,6 +123,7 @@ class ShoppingListActivity : AppCompatActivity() {
                 //Then make sure to show all the favourited foods first
                 foods = ArrayList(foods.sortedWith(compareByDescending({ it.favourite })))
             }
+            "Checked" -> foods = ArrayList(foods.sortedWith(compareByDescending({ it.onShoppingList })))
             "Recently Added" -> foods = ArrayList(foods.sortedWith(compareByDescending ({ it.id })))
             "Expiring Soon" -> foods = ArrayList(foods.sortedWith(Comparator<Food>{ a, b ->
                 when {

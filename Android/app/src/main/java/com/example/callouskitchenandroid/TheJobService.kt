@@ -14,6 +14,9 @@ import com.example.callouskitchenandroid.Util.scheduleJob
 class TheJobService : JobService() {
     override fun onStartJob(params: JobParameters): Boolean {
         val service = Intent(applicationContext, NotificationService::class.java)
+        if (service == null){
+            return false
+        }
         applicationContext.startService(service)
         scheduleJob(applicationContext) // reschedule the job
         return true

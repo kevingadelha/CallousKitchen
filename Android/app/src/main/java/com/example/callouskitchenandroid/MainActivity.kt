@@ -16,10 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ServiceHandler.sharedPref = getPreferences(Context.MODE_PRIVATE)
         setContentView(R.layout.activity_main)
         startService(Intent(this, NotificationService::class.java))
 
-        ServiceHandler.sharedPref = getPreferences(Context.MODE_PRIVATE)
 
         var userId = ServiceHandler.sharedPref.getInt("userId", -1)
         if (userId != -1){

@@ -67,6 +67,7 @@
 
     <string-array name="sortingOptionsShopping">
         <item>Default</item>
+        <item>Checked</item>
         <item>Recently Added</item>
         <item>Expiring Soon</item>
         <item>Running Low</item>
