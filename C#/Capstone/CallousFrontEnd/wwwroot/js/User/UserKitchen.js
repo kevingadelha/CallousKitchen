@@ -159,6 +159,8 @@ $("#tbSearchbar").on("keyup", function () {
 
 function SortRows(rowId, asc) {
 
+    var direction = asc ? 1 : -1;
+
     const fridge = $("#Fridge > .foodRow");
     const cellar = $("#Cellar > .foodRow");
     const pantry = $("#Pantry > .foodRow");
@@ -166,7 +168,6 @@ function SortRows(rowId, asc) {
     const other = $("#Other > .foodRow");
     const freezer = $("#Freezer > .foodRow");
 
-    const dirMod = 1;
     const arrFridge = Array.from(fridge);
     const arrCeller = Array.from(cellar);
     const arrPantry = Array.from(pantry);
@@ -176,12 +177,12 @@ function SortRows(rowId, asc) {
 
 
 
-    const sortedFridge = SortRow(rowId, arrFridge, dirMod);
-    const sortedCellar = SortRow(rowId, arrCeller, dirMod);
-    const sortedPantry = SortRow(rowId, arrPantry, dirMod);
-    const sortedCuboard = SortRow(rowId, arrCuboard, dirMod);
-    const sortedOther = SortRow(rowId, arrOther, dirMod);
-    const sortedFreezer = SortRow(rowId, arrFreezer, dirMod);
+    const sortedFridge = SortRow(rowId, arrFridge, direction);
+    const sortedCellar = SortRow(rowId, arrCeller, direction);
+    const sortedPantry = SortRow(rowId, arrPantry, direction);
+    const sortedCuboard = SortRow(rowId, arrCuboard, direction);
+    const sortedOther = SortRow(rowId, arrOther, direction);
+    const sortedFreezer = SortRow(rowId, arrFreezer, direction);
 
 
     fridge.parent().html(sortedFridge);
@@ -240,17 +241,83 @@ function SortRow(rowId, arr, dirMod) {
 };
 
 $("#btnName").on("click", function () {
-    SortRows(0);
+    if ($(this).hasClass("btn-secondary")) {
+        $(this).removeClass("btn-secondary")
+        $(this).addClass("btn-dark");
+        SortRows(0, false);
+    }
+    else if ($(this).hasClass("btn-dark")) {
+        $(this).removeClass("btn-dark");
+        $(this).addClass("btn-light");
+        SortRows(0, true);
+    }
+    else if ($(this).hasClass("btn-light")) {
+        $(this).removeClass("btn-light");
+        $(this).addClass("btn-dark");
+        SortRows(0, false);
+    }
 });
 $("#btnCount").on("click", function () {
-    SortRows(1);
-});
+    if ($(this).hasClass("btn-secondary")) {
+        $(this).removeClass("btn-secondary")
+        $(this).addClass("btn-dark");
+        SortRows(1, false);
+    }
+    else if ($(this).hasClass("btn-dark")) {
+        $(this).removeClass("btn-dark");
+        $(this).addClass("btn-light");
+        SortRows(1, true);
+    }
+    else if ($(this).hasClass("btn-light")) {
+        $(this).removeClass("btn-light");
+        $(this).addClass("btn-dark");
+        SortRows(1, false);
+    }});
 $("#btnClassifier").on("click", function () {
-    SortRows(2);
-});
+    if ($(this).hasClass("btn-secondary")) {
+        $(this).removeClass("btn-secondary")
+        $(this).addClass("btn-dark");
+        SortRows(2, false);
+    }
+    else if ($(this).hasClass("btn-dark")) {
+        $(this).removeClass("btn-dark");
+        $(this).addClass("btn-light");
+        SortRows(2, true);
+    }
+    else if ($(this).hasClass("btn-light")) {
+        $(this).removeClass("btn-light");
+        $(this).addClass("btn-dark");
+        SortRows(2, false);
+    }});
 $("#btnExpDate").on("click", function () {
-    SortRows(3);
-});
+    if ($(this).hasClass("btn-secondary")) {
+        $(this).removeClass("btn-secondary")
+        $(this).addClass("btn-dark");
+        SortRows(3, false);
+    }
+    else if ($(this).hasClass("btn-dark")) {
+        $(this).removeClass("btn-dark");
+        $(this).addClass("btn-light");
+        SortRows(3, true);
+    }
+    else if ($(this).hasClass("btn-light")) {
+        $(this).removeClass("btn-light");
+        $(this).addClass("btn-dark");
+        SortRows(3, false);
+    }});
 $("#btnFav").on("click", function () {
-    SortRows(4);
-});
+    if ($(this).hasClass("btn-secondary")) {
+        $(this).removeClass("btn-secondary")
+        $(this).addClass("btn-dark");
+        SortRows(4, false);
+    }
+    else if ($(this).hasClass("btn-dark")) {
+        $(this).removeClass("btn-dark");
+        $(this).addClass("btn-light");
+        SortRows(4, true);
+    }
+    else if ($(this).hasClass("btn-light")) {
+        $(this).removeClass("btn-light");
+        $(this).addClass("btn-dark");
+        SortRows(4, false);
+    }});
