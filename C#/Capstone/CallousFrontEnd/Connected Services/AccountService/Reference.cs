@@ -1425,6 +1425,12 @@ namespace AccountService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/DemoDb", ReplyAction="http://tempuri.org/IAccountServiceMvc/DemoDbResponse")]
         System.Threading.Tasks.Task<bool> DemoDbAsync(string pass);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditShoppingListMultiple", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditShoppingListMultipleResponse")]
+        bool EditShoppingListMultiple(int kId, AccountService.SerializableFood[] shoppingList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountServiceMvc/EditShoppingListMultiple", ReplyAction="http://tempuri.org/IAccountServiceMvc/EditShoppingListMultipleResponse")]
+        System.Threading.Tasks.Task<bool> EditShoppingListMultipleAsync(int kId, AccountService.SerializableFood[] shoppingList);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -1805,6 +1811,16 @@ namespace AccountService
         public System.Threading.Tasks.Task<bool> DemoDbAsync(string pass)
         {
             return base.Channel.DemoDbAsync(pass);
+        }
+        
+        public bool EditShoppingListMultiple(int kId, AccountService.SerializableFood[] shoppingList)
+        {
+            return base.Channel.EditShoppingListMultiple(kId, shoppingList);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EditShoppingListMultipleAsync(int kId, AccountService.SerializableFood[] shoppingList)
+        {
+            return base.Channel.EditShoppingListMultipleAsync(kId, shoppingList);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

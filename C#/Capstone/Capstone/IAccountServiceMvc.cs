@@ -170,6 +170,10 @@ namespace Capstone
         [OperationContract]
         [WebInvoke(Method = "GET")]
         bool DemoDb(string pass);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST")]
+        Task<bool> EditShoppingListMultiple(int kId, List<SerializableFood> shoppingList);
     }
 
 }

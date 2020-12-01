@@ -394,6 +394,17 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
+        public async Task<bool> EditShoppingListMultiple(int kId, List<SerializableFood> shoppingList)
+        {
+            var foods = db.Kitchens.Where(x => x.Id == kId).FirstOrDefault()?.Inventory?
+                .Select(o => new SerializableFood(o)).ToList();
+            for (int i = 0; i < foods.Count(); i++)
+            {
+                foods[i].OnShoppingList = shoppingList[i].OnShoppingList;
+            }
+            await db.SaveChangesAsync();
+            return true;
+        }
         public async Task<bool> ClearShoppingList(int kitchenId)
         {
             var kitchen = db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault();

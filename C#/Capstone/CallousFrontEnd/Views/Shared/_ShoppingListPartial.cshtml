@@ -1,6 +1,28 @@
-﻿    <div class="container">
-        @foreach (var x in ViewBag.ShoppingList)
+﻿@model List<AccountService.SerializableFood>
+<div class="container" id="shoppingListForm">
+    <form id="form0" asp-action="SetShoppingList" asp-controller="User" data-ajax-method="Post" method="post" data-ajax="true"
+          data-ajax-update="#shoppingListForm" data-ajax-mode="replace">
+        <input type="hidden" value="@ViewBag.kID" name="kID" />
+
+        @for (int i = 0; i < Model.Count; i++)
         {
-            <div class="row"><h4>@x</h4></div>
+            string qaunt = Model[i].Quantity + Model[i].QuantityClassifier;
+            <div class="row">
+                <div class="col-2">
+                    @Html.CheckBoxFor(x => Model[i].OnShoppingList)
+                </div>
+                <div class="col-10">
+                    @Model[i].Name @qaunt
+                </div>
+            </div>
         }
-    </div>
+        <button class="btn btn-sm" type="submit">Save Changes</button>
+    </form>
+
+    @if (ViewBag.Result != null)
+    {
+        <em class="row">@ViewBag.Result</em>
+    }
+
+
+</div>
