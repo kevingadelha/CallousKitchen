@@ -197,7 +197,7 @@ namespace Capstone
         {
             var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
             List<string> diets = new List<string>();
-            if (user.Allergies != "" && user.Allergies != null)
+            if (!String.IsNullOrWhiteSpace(user.Allergies))
             {
                 diets = user.Allergies.Split('|').ToList();
             }
@@ -319,7 +319,7 @@ namespace Capstone
         {
             var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
             List<string> diets = new List<string>();
-            if (user.Allergies != "" && user.Allergies != null)
+            if (!String.IsNullOrWhiteSpace(user.Allergies))
             {
                 diets = user.Allergies.Split('|').ToList();
             }

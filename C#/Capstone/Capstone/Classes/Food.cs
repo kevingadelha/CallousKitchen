@@ -111,14 +111,12 @@ namespace Capstone.Classes
 			Vegetarian = food.Vegetarian;
 			Favourite = food.Favourite;
 			OnShoppingList = food.OnShoppingList;
-			if (food.Ingredients.Count() > 0)
+			Ingredients = new List<string>();
+			if (!String.IsNullOrWhiteSpace(food.Ingredients))
 				Ingredients = food.Ingredients.Split('|').ToList();
-			else
-				Ingredients = new List<string>();
-			if (food.Traces.Count() > 0)
+			Traces = new List<string>();
+			if (!String.IsNullOrWhiteSpace(food.Traces))
 				Traces = food.Traces.Split('|').ToList();
-			else
-				Traces = new List<string>();
 		}
 	}
 }

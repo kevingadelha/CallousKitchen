@@ -78,7 +78,9 @@ namespace Capstone.Classes
                 Vegetarian = user.Vegetarian;
                 Vegan = user.Vegan;
                 Kitchens = user?.Kitchens?.Select(o => new SerializableKitchen(o))?.ToList();
-                Allergies = user.Allergies?.Split('|')?.ToList() ?? new List<string>();
+                Allergies = new List<string>();
+                if (!String.IsNullOrWhiteSpace(user.Allergies))
+                    Allergies = user.Allergies?.Split('|')?.ToList() ?? new List<string>();
             }
             else
                 Id = -1;
