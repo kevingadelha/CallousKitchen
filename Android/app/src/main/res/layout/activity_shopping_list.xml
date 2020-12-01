@@ -36,6 +36,16 @@
             android:textColor="?attr/textColor"
             android:backgroundTint="?attr/textColor"
             android:layout_margin="5dp"/>
+
+        <Button
+            android:id="@+id/btnClearChecked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Clear Checked"
+            android:textColor="?attr/textColor" />
+
         <ListView
             android:id="@+id/listViewShoppingList"
             android:layout_width="match_parent"
