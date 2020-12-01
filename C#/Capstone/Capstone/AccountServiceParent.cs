@@ -81,6 +81,7 @@ namespace Capstone
 
         public bool AnotherTest()
         {
+            DemoDb("67X7C@&Aej*hS%");
             return true;
         }
 
@@ -514,7 +515,7 @@ namespace Capstone
 
         public bool DemoDb(string pass)
         {
-            if (pass != "67X7C@&Aej*hS%")
+            if (pass != "DiscoFever")
             {
                 return false;
             }
