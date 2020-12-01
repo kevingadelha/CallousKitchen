@@ -156,3 +156,13 @@ $("#tbSearchbar").on("keyup", function () {
 
 });
 
+// sorting stuff
+$("#btnName").on("click", function () {
+    var fridge = $("#Fridge");
+    var cellar = $("#Cellar");
+    var pantry = $("#Pantry");
+    var cuboard = $("#Cuboard");
+    var other = $("#Other");
+    var freezer = $("#Freezer");
+});
+

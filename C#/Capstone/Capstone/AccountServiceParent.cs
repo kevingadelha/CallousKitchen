@@ -196,7 +196,11 @@ namespace Capstone
         public Models.SerializableRecipeModel[] SearchRecipesUser(string search, int count, int userId)
         {
             var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
-            List<string> diets = user.Allergies?.Split('|')?.ToList() ?? new List<string>();
+            List<string> diets = new List<string>();
+            if (user.Allergies != "" && user.Allergies != null)
+            {
+                diets = user.Allergies.Split('|').ToList();
+            }
             if (user.Vegan)
                 diets.Add("vegan");
             if (user.Vegetarian)
@@ -314,7 +318,11 @@ namespace Capstone
         public Models.SerializableRecipeModel[] FeelingLuckyUser(int count, int userId)
         {
             var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
-            List<string> diets = user.Allergies?.Split('|')?.ToList() ?? new List<string>();
+            List<string> diets = new List<string>();
+            if (user.Allergies != "" && user.Allergies != null)
+            {
+                diets = user.Allergies.Split('|').ToList();
+            }
             if (user.Vegan)
                 diets.Add("vegan");
             if (user.Vegetarian)
@@ -390,9 +398,9 @@ namespace Capstone
         {
             var kitchen = db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault();
             foreach (Food food in kitchen.Inventory)
-			{
+            {
                 food.OnShoppingList = false;
-			}
+            }
             await db.SaveChangesAsync();
             return true;
         }

@@ -166,6 +166,10 @@
     <Compile Include="Migrations\202011240241123_another.designer.cs">
       <DependentUpon>202011240241123_another.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012010255580_shopping-list.cs" />
+    <Compile Include="Migrations\202012010255580_shopping-list.designer.cs">
+      <DependentUpon>202012010255580_shopping-list.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EdamanIngredient.cs" />
     <Compile Include="Models\FoodFactsModel.cs" />
@@ -204,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011240241123_another.resx">
       <DependentUpon>202011240241123_another.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012010255580_shopping-list.resx">
+      <DependentUpon>202012010255580_shopping-list.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

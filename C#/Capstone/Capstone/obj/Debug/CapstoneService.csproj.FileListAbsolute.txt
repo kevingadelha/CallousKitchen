@@ -91,3 +91,4 @@ F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.init
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csproj.GenerateResource.cache
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\CapstoneService.csprojAssemblyReference.cache
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.another.resources
+F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Debug\Capstone.Migrations.shoppinglist.resources
