@@ -139,16 +139,31 @@ $("#tbSearchbar").on("keyup", function () {
 
 });
 
-var fridge = $("#Fridge > .foodRow");
-var cellar = $("#Cellar > .foodRow");
-var pantry = $("#Pantry > .foodRow");
-var cuboard = $("#Cuboard > .foodRow");
-var other = $("#Other > .foodRow");
-var freezer = $("#Freezer > .foodRow");
+
 
 // sorting stuff
 
-function SortRows(rowName) {
+/**
+ * rowIds:
+ *  0 = Name
+ *  1 = Count
+ *  2 = Classifier
+ *  3 = ExpDAte
+ *  4 = Favourites
+ *  
+ *  
+ * @param {Number} rowId
+ */
+
+function SortRows(rowId) {
+
+    const fridge = $("#Fridge > .foodRow");
+    const cellar = $("#Cellar > .foodRow");
+    const pantry = $("#Pantry > .foodRow");
+    const cuboard = $("#Cuboard > .foodRow");
+    const other = $("#Other > .foodRow");
+    const freezer = $("#Freezer > .foodRow");
+
     const dirMod = 1;
     const arrFridge = Array.from(fridge);
     const arrCeller = Array.from(cellar);
@@ -157,12 +172,15 @@ function SortRows(rowName) {
     const arrOther = Array.from(other);
     const arrFreezer = Array.from(freezer);
 
-    const sortedFridge = arrFridge.sort((x, y) => {
-        const sortx = $(x).data(rowName);
-        const sorty = $(y).data(rowName);
-        return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
-    });
+    /* const sortedFridge = arrFridge.sort((x, y) => {
+         const sortx = $(x).data(rowName);
+         const sorty = $(y).data(rowName);
+         return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
+     });
+     */
 
+    const sortedFridge = SortRow(rowId, arrFridge, dirMod);
+    /*
     const sortedCellar = arrCeller.sort((x, y) => {
         const sortx = $(x).data(rowName);
         const sorty = $(y).data(rowName);
@@ -192,20 +210,47 @@ function SortRows(rowName) {
         const sorty = $(y).data(rowName);
         return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
     });
-
+    */
 
     fridge.parent().html(sortedFridge);
+    /*
     cellar.parent().html(sortedCellar);
     pantry.parent().html(sortedPantry);
     cuboard.parent().html(sortedCuboard);
     other.parent().html(sortedOther);
     freezer.parent().html(sortedFreezer);
+    */
 }
 
+function SortRow(rowId, arr, dirMod) {
+    var sorted;
+    switch (rowId) {
+        case 0:
+            console.log("inside name");
+            sorted = arr.sort((x, y) => {
+                const sortx = $(x).data("foodname");
+                const sorty = $(y).data("foodname");
+                return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
+            });
+            return sorted;
+            break;
+        case 1:
+            console.log("inside count");
+
+            sorted = arr.sort((x, y) => {
+                const sortx = Number($(x).data("foodcount"));
+                const sorty = Number($(y).data("foodcount"));
+                return sortx < sorty ? (1 * dirMod) : (-1 * dirMod);
+            });
+            return sorted;
+            break;
+    }
+};
+
 $("#btnName").on("click", function () {
-    SortRows("foodname");
+    SortRows(0);
 });
 $("#btnCount").on("click", function () {
-    SortRows("foodcount");
+    SortRows(1);
 });
 
