@@ -1,3 +1,4 @@
+/* Author: Laura Stewart */
 package com.example.callouskitchenandroid
 
 import android.app.Activity
@@ -6,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
-
 
 class KitchenListAdapter (private val context: Activity,
                           private val kitchens: List<Kitchen>)

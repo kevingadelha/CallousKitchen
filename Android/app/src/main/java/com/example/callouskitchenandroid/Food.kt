@@ -1,6 +1,6 @@
+/* Authors: Kevin Gadelha, Laura Stewart */
 package com.example.callouskitchenandroid
 
-import android.icu.text.BidiClassifier
 import java.io.Serializable
 import java.time.LocalDate
 
@@ -14,6 +14,7 @@ class Food: Serializable {
     var quantityClassifier: String = ""
     var storage: String = ""
     var favourite: Boolean = false
+    var onShoppingList: Boolean = false
     var vegan: Int? = -1
     var vegetarian: Int? = -1
     var ingredients = arrayOf<String>()

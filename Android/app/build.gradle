@@ -32,6 +32,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     def camerax_version = "1.0.0-beta07"
+    // Picasso for loading images
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 // CameraX core library using camera2 implementation
     implementation "androidx.camera:camera-camera2:$camerax_version"
 // CameraX Lifecycle Library

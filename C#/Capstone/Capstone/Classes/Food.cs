@@ -59,6 +59,7 @@ namespace Capstone.Classes
 		public string Traces { get; set; }
 		public int Calories { get; set; }
 		public bool Favourite { get; set; }
+		public bool OnShoppingList { get; set; }
 	}
 
 	public enum Storage
@@ -96,6 +97,8 @@ namespace Capstone.Classes
 		public List<string> Traces { get; set; }
 		[DataMember]
 		public bool Favourite { get; set; }
+		[DataMember]
+		public bool OnShoppingList { get; set; }
 		public SerializableFood(Food food)
 		{
 			Id = food.Id;
@@ -107,6 +110,7 @@ namespace Capstone.Classes
 			Vegan = food.Vegan;
 			Vegetarian = food.Vegetarian;
 			Favourite = food.Favourite;
+			OnShoppingList = food.OnShoppingList;
 			if (food.Ingredients.Count() > 0)
 				Ingredients = food.Ingredients.Split('|').ToList();
 			else

@@ -1,3 +1,5 @@
+/* Author: Kevin Gadelha */
+
 package com.example.callouskitchenandroid
 
 import android.Manifest

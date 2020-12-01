@@ -1,3 +1,4 @@
+/* Author: Kevin Gadelha */
 package com.example.callouskitchenandroid
 
 import android.content.Context
@@ -133,7 +134,7 @@ class ServiceHandler {
             }
 
 
-            if (food.ingredients.size > 0 || food.traces.size > 0){
+            if (ServiceHandler.allergies != null && ServiceHandler.allergies!!.count() > 0 && food.ingredients.size > 0 || food.traces.size > 0){
                 if (containedAllergens.size == 0 && food.traces.size == 0) {
                     warningMessage = addToWarningMessage(
                         warningMessage,

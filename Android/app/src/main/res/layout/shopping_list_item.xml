@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:paddingVertical="8dp"
     android:paddingHorizontal="8dp"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="?attr/bgColorLight">
 
 
@@ -20,4 +20,12 @@
         android:text="CheckBox"
         android:textColor="@color/whiteText"
         android:buttonTint="@color/whiteText"/>
+    <TextView
+        android:id="@+id/textViewShopQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Quantity"
+        android:layout_marginStart="27dp"
+        android:textColor="?attr/textColor" />
 </LinearLayout>

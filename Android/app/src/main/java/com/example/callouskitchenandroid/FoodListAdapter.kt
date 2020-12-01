@@ -1,8 +1,8 @@
+/* Authors: Laura Stewart */
 package com.example.callouskitchenandroid
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -11,13 +11,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.android.volley.Response
-import org.json.JSONArray
 import org.json.JSONObject
 import java.time.LocalDate
 
 class FoodListAdapter(private val context: Activity,
                       private val foods: List<Food>)
     : ArrayAdapter<Food>(context, R.layout.food_item_list, foods) {
+
+    private val EXP_SOON_THRESHOLD = 3
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
@@ -38,7 +39,7 @@ class FoodListAdapter(private val context: Activity,
         val currentDate = LocalDate.now()
         val expiryDate = foods[position].expiryDate
         if (expiryDate != null){
-            val expiryMinusThree = expiryDate?.minusDays(3) // for checking if an item is about to expire
+            val expiryMinusThree = expiryDate?.minusDays(EXP_SOON_THRESHOLD.toLong()) // for checking if an item is about to expire
             if (expiryDate!! < currentDate) // food is expired
             {
                 txtExpiry.text = "EXPIRED: ${foods[position].expiryDate?.toString()}"

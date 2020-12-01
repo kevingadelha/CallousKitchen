@@ -1,6 +1,4 @@
-/*
- * Author: Laura Stewart
- */
+/* Author: Laura Stewart */
 package com.example.callouskitchenandroid
 
 import android.app.Activity
@@ -8,12 +6,12 @@ import android.content.SharedPreferences
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.android.volley.Response
+import org.json.JSONObject
 
 class ShoppingListAdapter(private val context: Activity,
                           private val foods: List<Food>)
     : ArrayAdapter<Food>(context, R.layout.food_item_list, foods) {
-
-    private val sharedPref: SharedPreferences = context.getSharedPreferences("ShoppingList", 0)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
@@ -24,26 +22,34 @@ class ShoppingListAdapter(private val context: Activity,
         chkBxFoodName.text = foods[position].name
 
         // Check shared preferences to see if this checkbox should be checked
-        chkBxFoodName.isChecked = sharedPref.getBoolean(foods[position].name, false)
+        chkBxFoodName.isChecked = foods[position].onShoppingList
 
         // When the check box value is changed, update the shared preferences
         chkBxFoodName.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (chkBxFoodName.isChecked) {
-                // store in Shared Preferences
-                with(sharedPref.edit()) {
-                    putBoolean(foods[position].name, true)
-                    apply()
-                }
-            }
-            else
-            {
-                // delete from shared preferences
-                with(sharedPref.edit()) {
-                    remove(foods[position].name)
-                    apply()
-                }
-            }
+            ServiceHandler.callAccountService(
+                "ShoppingListFood", hashMapOf(
+                    "foodId" to foods[position].id,
+                    "onShoppingList" to isChecked
+                ), context,
+                Response.Listener { response ->
+                    val json = JSONObject(response.toString())
+                    val success = json.getBoolean("ShoppingListFoodResult")
+                    // return to the food list
+                    if (!success){
+                        Toast.makeText(context,"Failed :(", Toast.LENGTH_LONG).show()
+                        //Undo if fail
+                        chkBxFoodName.isChecked = !isChecked
+                    }
+                    else{
+                        //Update the entry in the original list
+                        foods[position].onShoppingList = isChecked
+                    }
+                })
         }
+
+        // Show the food quantity
+        val txtQuantity = rowView.findViewById<TextView>(R.id.textViewShopQuantity)
+        txtQuantity.text = "Quantity remaining: ${foods[position].quantity} ${foods[position].quantityClassifier}"
 
         return rowView
     }
