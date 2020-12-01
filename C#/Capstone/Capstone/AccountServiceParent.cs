@@ -528,10 +528,10 @@ namespace Capstone
                 db.Foods.RemoveRange(db.Foods);
                 db.Users.RemoveRange(db.Users);
                 db.SaveChanges();
-                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (Users, RESEED, 0);");
-                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (Foods, RESEED, 0);");
-                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (Kitchens, RESEED, 0);");
-                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (CaloriesInDays, RESEED, 0);");
+                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (Users, RESEED, 1);");
+                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (Foods, RESEED, 1);");
+                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (Kitchens, RESEED, 1);");
+                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT (CaloriesInDays, RESEED, 1);");
                 db.SaveChanges();
 
                 //Create User
