@@ -187,9 +187,11 @@ class SettingsActivity : AppCompatActivity() {
 
             if (spinnerDiet.selectedItem == "Vegan") {
                 vegan = true
+                vegetarian = true
             }
             else if (spinnerDiet.selectedItem == "Vegetarian") {
                 vegetarian = true
+                vegan = false
             }
 
             ServiceHandler.callAccountService(
