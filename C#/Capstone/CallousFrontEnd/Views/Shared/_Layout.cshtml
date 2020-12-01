@@ -58,15 +58,15 @@
                     @if (ViewBag.UserId != null)
                     {
 
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item Nav-LeftText">
-                            @Html.ActionLink("Settings", "Settings", "User")
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("Logout", "Logout", "User")
-                        </li>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item Nav-LeftText">
+                                @Html.ActionLink("Settings", "Settings", "User")
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Logout", "Logout", "User")
+                            </li>
 
-                    </ul>
+                        </ul>
                     }
                 </div>
             </div>
@@ -77,6 +77,38 @@
             @RenderBody()
         </main>
     </div>
+    <script type="text/javascript" src="~/js/User/Main.js"></script>
+
+    <div class="modal fade" role="dialog" id="ShoppingListModal">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">Shopping List</div>
+                <div class="modal-body" id="shoppingListBody">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" id="RecipeModal">
+        <div class="modal-dialog modal-xl" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">Search Recipe</div>
+                <div class="modal-body" id="recipeSearchBody">
+
+                </div>
+                <div class="modal-footer">
+                    <div id="edamam-badge" data-color="transparent"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
     <footer class="border-top footer text-muted">
         <div class="container">

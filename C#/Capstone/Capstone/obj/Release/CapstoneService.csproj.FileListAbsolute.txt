@@ -50,3 +50,4 @@ F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Release\CapstoneService.csproj
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.dll
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.pdb
 F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.Migrations.another.resources
+F:\Capstone\CallousHippo\C#\Capstone\Capstone\obj\Release\Capstone.Migrations.shoppinglist.resources
