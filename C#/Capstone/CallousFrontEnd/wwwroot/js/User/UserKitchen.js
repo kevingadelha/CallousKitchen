@@ -139,13 +139,73 @@ $("#tbSearchbar").on("keyup", function () {
 
 });
 
+var fridge = $("#Fridge > .foodRow");
+var cellar = $("#Cellar > .foodRow");
+var pantry = $("#Pantry > .foodRow");
+var cuboard = $("#Cuboard > .foodRow");
+var other = $("#Other > .foodRow");
+var freezer = $("#Freezer > .foodRow");
+
 // sorting stuff
+
+function SortRows(rowName) {
+    const dirMod = 1;
+    const arrFridge = Array.from(fridge);
+    const arrCeller = Array.from(cellar);
+    const arrPantry = Array.from(pantry);
+    const arrCuboard = Array.from(cuboard);
+    const arrOther = Array.from(other);
+    const arrFreezer = Array.from(freezer);
+
+    const sortedFridge = arrFridge.sort((x, y) => {
+        const sortx = $(x).data(rowName);
+        const sorty = $(y).data(rowName);
+        return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
+    });
+
+    const sortedCellar = arrCeller.sort((x, y) => {
+        const sortx = $(x).data(rowName);
+        const sorty = $(y).data(rowName);
+        return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
+    });
+
+    const sortedPantry = arrPantry.sort((x, y) => {
+        const sortx = $(x).data(rowName);
+        const sorty = $(y).data(rowName);
+        return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
+    });
+
+    const sortedCuboard = arrCuboard.sort((x, y) => {
+        const sortx = $(x).data(rowName);
+        const sorty = $(y).data(rowName);
+        return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
+    });
+
+    const sortedOther = arrOther.sort((x, y) => {
+        const sortx = $(x).data(rowName);
+        const sorty = $(y).data(rowName);
+        return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
+    });
+
+    const sortedFreezer = arrFreezer.sort((x, y) => {
+        const sortx = $(x).data(rowName);
+        const sorty = $(y).data(rowName);
+        return sortx > sorty ? (1 * dirMod) : (-1 * dirMod);
+    });
+
+
+    fridge.parent().html(sortedFridge);
+    cellar.parent().html(sortedCellar);
+    pantry.parent().html(sortedPantry);
+    cuboard.parent().html(sortedCuboard);
+    other.parent().html(sortedOther);
+    freezer.parent().html(sortedFreezer);
+}
+
 $("#btnName").on("click", function () {
-    var fridge = $("#Fridge");
-    var cellar = $("#Cellar");
-    var pantry = $("#Pantry");
-    var cuboard = $("#Cuboard");
-    var other = $("#Other");
-    var freezer = $("#Freezer");
+    SortRows("foodname");
+});
+$("#btnCount").on("click", function () {
+    SortRows("foodcount");
 });
 
