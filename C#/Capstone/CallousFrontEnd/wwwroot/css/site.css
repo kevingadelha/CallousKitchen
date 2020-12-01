@@ -38,7 +38,10 @@ a {
 }
 
 
-
+.favStar {
+    width: 25px;
+    height: 25px;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */

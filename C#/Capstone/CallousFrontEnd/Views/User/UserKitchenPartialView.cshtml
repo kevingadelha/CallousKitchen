@@ -8,7 +8,8 @@
 </div>
 <div class="row">
     <button class="btn btn-secondary btn-sm" id="btnName">Sort By: Name</button>
-    <button class="btn btn-secondary btn-sm" id="btnCount">Sort By: Count</button>
+    <button class="btn btn-secondary btn-sm" id="btnCount">Sort By: Quantity</button>
+    <button class="btn btn-secondary btn-sm" id="btnClassifier">Sort By: Quantity Classifier</button>
     <button class="btn btn-secondary btn-sm" id="btnExpDate">Sort By: Expiry Date</button>
     <button class="btn btn-secondary btn-sm" id="btnFav">Sort By: Favourite</button>
 </div>
@@ -40,9 +41,12 @@
 
                     @foreach (var food in Model[0].Inventory.Where(x => x.Storage == StorageTypes[i]))
                     {
-                        <div class="foodRow row" data-foodName="@food.Name.ToLower()" data-foodCount="@food.Quantity" data-foodDate="@food.ExpiryDate" data-foodFav="@food.Favourite">
+                        <div class="foodRow row" data-foodName="@food.Name.ToLower()" data-foodCount="@food.Quantity" data-foodDate="@food.ExpiryDate" data-foodFav="@food.Favourite" data-foodClassifier="@food.QuantityClassifier">
                             <div class="col-8">
-                                <div class="row"><h5>@food.Name</h5> </div>
+                                <div class="row">
+                                    <h5>@food.Name</h5>
+
+                                </div>
                                 <div class="row">@food.Quantity @food.QuantityClassifier</div>
                                 @if (food.ExpiryDate != null)
                                 {
@@ -66,7 +70,13 @@
                                     <div class="row @expiryString">Expires: @food.ExpiryDate</div>
                                 }
                             </div>
-                            <div class="col-4">
+                            <div class="col-1">
+                                @if (food.Favourite)
+                                {
+                                    <img class="favStar align-middle" src="~/Assets/Icons/filledstar.png" />
+                                }
+                            </div>
+                            <div class="col-3">
                                 <button type="button" class="btn btn-primary editFoodBtn" data-toggle="modal" data-target="#AddFood" data-food-Id="@food.Id" data-kitchen-Id="@Model[0].Id">Edit</button>
                                 <button type="button" class="btn btn-primary eatFoodBtn" data-food-Id="@food.Id" data-vegan="@food.Vegan" data-veg="@food.Vegetarian">Eat</button>
                                 <button type="button" class="btn btn-danger deleteFoodBtn" data-food-Id="@food.Id">Delete</button>
