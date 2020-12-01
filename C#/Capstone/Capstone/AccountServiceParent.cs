@@ -515,7 +515,7 @@ namespace Capstone
 
         public bool DemoDb(string pass)
         {
-            if (pass != "67X7C@&Aej*hS%")
+            if (pass != "DiscoFever")
             {
                 return false;
             }

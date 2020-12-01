@@ -153,6 +153,7 @@ namespace Capstone
         string ConfirmEmail(string key);
 
         [OperationContract]
+        [WebInvoke(Method = "GET")]
         bool DemoDb(string pass);
     }
 
