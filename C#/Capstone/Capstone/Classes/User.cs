@@ -67,6 +67,8 @@ namespace Capstone.Classes
         public List<SerializableKitchen> Kitchens { get; set; }
         [DataMember]
         public List<string> Allergies { get; set; }
+        [DataMember]
+        public bool IsConfirmed { get; set; }
         public SerializableUser(User user)
 		{
             if (user != null)
@@ -81,6 +83,7 @@ namespace Capstone.Classes
                 Allergies = new List<string>();
                 if (!String.IsNullOrWhiteSpace(user.Allergies))
                     Allergies = user.Allergies?.Split('|')?.ToList() ?? new List<string>();
+                IsConfirmed = user.IsConfirmed;
             }
             else
                 Id = -1;

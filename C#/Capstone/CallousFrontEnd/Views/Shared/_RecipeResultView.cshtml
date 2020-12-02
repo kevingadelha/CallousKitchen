@@ -1,37 +1,42 @@
 ﻿@model AccountService.SerializableRecipeModel[]
-
-@foreach (var x in Model)
+@if (Model.Length != 0)
 {
-    <div class="container">
-        <div class="row recipeRow">
-            <div class="col-8">
-                <div class="row"><h4>@x.Name.</h4></div>
-                <div class="row">Servings: @x.Yield</div>
-                <div class="row"><a href="@Href(x.Url)" target="_blank">@x.Source</a></div>
-                <div class="row"><h5>Ingredients:</h5></div>
-                <div class="row">
-                    <ul>
-                        @foreach (var i in x.EdamanIngredients)
-                        {
-                            string ingred = "Ingred";
-                            if (i.Score > 2)
-                                i.Score = 2;
-                            ingred += i.Score;
-                            <li class="@ingred">@i.Name</li>
+    @foreach (var x in Model)
+    {
+        <div class="container">
+            <div class="row recipeRow">
+                <div class="col-8">
+                    <div class="row"><h4>@x.Name</h4></div>
+                    <div class="row">Servings: @x.Yield</div>
+                    <div class="row"><a href="@Href(x.Url)" target="_blank">@x.Source</a></div>
+                    <div class="row"><h5>Ingredients:</h5></div>
+                    <div class="row">
+                        <ul>
+                            @foreach (var i in x.EdamanIngredients)
+                            {
+                                string ingred = "Ingred";
+                                if (i.Score > 2)
+                                    i.Score = 2;
+                                ingred += i.Score;
+                                <li class="@ingred">@i.Name</li>
 
-                        }
-                    </ul>
+                            }
+                        </ul>
+                    </div>
+
                 </div>
-
-            </div>
-            <div class="col-4">
-                <div class="container">
-                    <a href="@x.Url">
-                        <img class="recipeImage align-middle" src="@x.Image" />
-                    </a>
+                <div class="col-4">
+                    <div class="container">
+                        <a href="@x.Url">
+                            <img class="recipeImage align-middle" src="@x.Image" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    }
+}
+else {
+    <em>Over api limit, please try again in one minute</em>
 }
