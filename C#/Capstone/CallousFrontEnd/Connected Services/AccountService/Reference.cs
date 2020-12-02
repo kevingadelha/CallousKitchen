@@ -1866,7 +1866,7 @@ namespace AccountService
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IAccountServiceMvc))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:59869/AccountServiceMvc.svc");
+                return new System.ServiceModel.EndpointAddress("http://142.55.32.86:50241/AccountServiceMvc.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
