@@ -85,6 +85,36 @@
         }
     </em>
 </div>
+
+<div class="row">
+    <h3>
+        Password
+    </h3>
+</div>
+<div class="row">
+    <div class="form-group">
+        @Html.Label("Old Password:")
+        <input type="password" class="form-control" id="tbOldPassword" />
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="form-group">
+        @Html.Label("New Password:")
+        <input type="password" class="form-control passChange" id="tbNewPassword" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        @Html.Label("Confirm New Password:")
+        <input type="password" class="form-control passChange" id="tbConfirmNewPassword" />
+    </div>
+</div>
+<em class="row" id="passwordResult"></em>
+<button type="button" class="btn btn-sm btn-primary" id="btnPassword" disabled>Change Password</button>
+
 <script type="text/javascript" src="~/js/User/Settings.js"></script>
 
 
