@@ -6,7 +6,7 @@
   },
   "ExtendedData": {
     "inputs": [
-      "http://localhost:59869/AccountServiceMvc.svc"
+      "http://142.55.32.86:50241/AccountServiceMvc.svc?wsdl"
     ],
     "collectionTypes": [
       "System.Array",

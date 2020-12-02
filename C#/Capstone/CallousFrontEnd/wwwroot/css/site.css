@@ -42,7 +42,10 @@ a {
     width: 25px;
     height: 25px;
 }
-
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
