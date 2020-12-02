@@ -1,6 +1,5 @@
 ﻿const passResult = $("#passwordResult");
 const passBtn = $("#btnPassword");
-console.log("settings");
 $("#tbOther").on("input", function () {
     var input = $(this).val();
     if (input.includes("|")) {
@@ -19,19 +18,32 @@ $(".passChange").on("keyup", function () {
         if (pass1 != pass2) {
             passResult.html("Passwords do not match!");
             passBtn.prop('disabled', true);
-            console.log("here");
         }
         else {
             passResult.html("");
             passBtn.prop('disabled', false);
-            console.log("there");
-
         }
     }
     else {
         passResult.html("");
         passBtn.prop('disabled', true);
-        console.log("where");
-
     }
+});
+
+passBtn.on("click", function () {
+    const newPass = $("#tbNewPassword").val();
+    const oldPass = $("#tbOldPassword").val();
+    const id = $("#Id").val();
+    $.ajax({
+        type: 'Post',
+        url: "ChangePassword",
+        data: {
+            "userId": Number(id),
+            "old": oldPass,
+            "newPass": newPass
+        },
+        success: function (result) {
+            passResult.html(result);
+        }
+    });
 });

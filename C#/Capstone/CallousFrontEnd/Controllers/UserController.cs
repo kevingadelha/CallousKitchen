@@ -472,6 +472,23 @@ namespace CallousFrontEnd.Controllers
             return AccountView(user);
         }
 
+        [HttpPost]
+        public string ChangePassword(int userId,string old, string newPass)
+        {
+            SerializableUser user = Client.GetSerializableUser(userId);
+
+            
+            if(Client.LoginAccount(user.Email, old).Id != -1)
+            {
+                Client.EditUserPassword(userId, newPass);
+                return "Password Changed!";
+            }
+            else
+            {
+                return "Old password does not match.";
+            }
+        }
+
         [HttpGet]
         public ActionResult EatFoodView(int fId)
         {
