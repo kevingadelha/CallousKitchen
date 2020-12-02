@@ -11,11 +11,14 @@
                 <div class="row"><h5>Ingredients:</h5></div>
                 <div class="row">
                     <ul>
-                        @foreach(var i in x.EdamanIngredients)
+                        @foreach (var i in x.EdamanIngredients)
                         {
                             string ingred = "Ingred";
+                            if (i.Score > 2)
+                                i.Score = 2;
                             ingred += i.Score;
-                            <li class="@ingred">@i.Name</li> 
+                            <li class="@ingred">@i.Name</li>
+
                         }
                     </ul>
                 </div>

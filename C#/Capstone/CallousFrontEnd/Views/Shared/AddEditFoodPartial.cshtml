@@ -29,7 +29,7 @@
         @Html.LabelFor(x => x.Food.Storage, "Storage")
         @Html.DropDownListFor(x => x.Food.Storage, new SelectList(ViewBag.StorageTypesList), new { htmlAttributes = new { @class = "form-control" } })
     </div>
-    @if (Model.Food.Id != 0)
+    @if (Model.Food.Id == 0)
     {
 
         <div class="form-group">
