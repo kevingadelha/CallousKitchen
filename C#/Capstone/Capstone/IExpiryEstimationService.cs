@@ -11,7 +11,10 @@ namespace Capstone
     [ServiceContract]
     public interface IExpiryEstimationService
     {
+        //input product name get an estimated expiry date 
         [OperationContract]
         DateTime GetDate(string productName);
+        [OperationContract]
+        DateTime GetDateBasedOnStorage(string productName, string storage);
     }
 }
