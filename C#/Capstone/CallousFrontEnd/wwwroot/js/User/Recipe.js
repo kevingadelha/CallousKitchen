@@ -26,19 +26,18 @@ $("#btnSearchRecipe").on("click", function () {
 });
 
 $("#btnFeelingLucky").on("click", function () {
-    if ($("#tbRecipeSearch").val()) {
-        $.ajax({
-            type: 'Post',
-            url: "FeelingLucky",
-            beforeSend: function () {
-                loading.show();
-            },
-            success: function (result) {
-                $("#recipeContainer").html(result);
-                loading.hide();
-            }
-        });
-    }
+    $.ajax({
+        type: 'Post',
+        url: "FeelingLucky",
+        beforeSend: function () {
+            loading.show();
+        },
+        success: function (result) {
+            $("#recipeContainer").html(result);
+            loading.hide();
+        }
+    });
+
 });
 
 $("#tbRecipeSearch").on("keydown", function (e) {
