@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace Capstone
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IAccountServiceMvc" in both code and config file together.
+    //Authors: Kevin and Peter
+    //Same as the other accountservice interface
+    //Nothing interesting, just shows the contract for the methods in the accountservice
     [ServiceContract]
     public interface IAccountServiceMvc
     {
