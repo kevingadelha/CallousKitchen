@@ -102,6 +102,7 @@ namespace Capstone.Classes
                 Id = -1;
 		}
 
+        //Made this in case I wanted to send a unique error id like -2 in specefic cases
 		public SerializableUser(int id)
 		{
 			Id = id;

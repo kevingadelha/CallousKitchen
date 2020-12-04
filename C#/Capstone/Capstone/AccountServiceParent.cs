@@ -14,23 +14,28 @@ using Capstone.Classes;
 
 namespace Capstone
 {
+    //Authors: Kevin and Peter
+    //This is where all the methods that the app and the web app use stay
+    //We were initially going to use different services for different things but we found out that would be a pain so now there's just one
     public class AccountServiceParent
     {
         //private  static HttpClient client = ApiHelper.ApiClient;
 
 
-
+        //The entityframework database
         private CallousHipposDb db = new CallousHipposDb();
 
         public object KeyDerivationPrf { get; private set; }
 
-
+        //Author: Mostly Peter with some help from Kevin
+        //Returns the created user or an error message
         public SerializableUser CreateAccount(string email, string pass)
         {
             if (IsValidEmail(email))
             {
                 if (db.Users.Where(x => x.Email == email).Count() != 0)
                 {
+                    //If the email exists, return -1
                     return new SerializableUser(-1);
                 }
                 else
@@ -54,11 +59,15 @@ namespace Capstone
                     return new SerializableUser(returnedUser);
                 }
             }
+            //If the email is not valid send -2
             return new SerializableUser(-2);
         }
 
+        //Author: Kevin and Peter
+        //Return the user with the correct credentials or -1 if not found
         public SerializableUser LoginAccount(string email, string pass)
         {
+            //Firstordefault returns null if not found and the constructor returns -1 if null
             return (new SerializableUser(db.Users.Where(x => x.Email == email && x.Password == pass).FirstOrDefault()));
         }
 
@@ -79,14 +88,18 @@ namespace Capstone
             return "Failed";
         }
 
+        //Testing method, remove in production
         public bool AnotherTest()
         {
             DemoDb("67X7C@&Aej*hS%");
             return true;
         }
 
+        //Author: Kevin Gadelha
+        //Returns true if success
         public async Task<bool> EditUserDietaryRestrictions(int id, bool vegan, bool vegetarian, List<string> allergies)
         {
+            //Update the user's stuff
             var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
             user.Vegan = vegan;
             user.Vegetarian = vegetarian;
@@ -95,14 +108,18 @@ namespace Capstone
             return true;
         }
 
+        //Author:Kevin Gadelha
         public async Task<bool> EditUserPassword(int id, string password)
         {
+            //Update the password
             var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
             user.Password = password;
             await db.SaveChangesAsync();
             return true;
         }
 
+        //Author:Kevin Gadelha
+        //Return false if exists
         public async Task<bool> EditUserEmail(int id, string email)
         {
             if (db.Users.Where(x => x.Email == email).Count() != 0)
@@ -111,6 +128,7 @@ namespace Capstone
             }
             else
             {
+                //Update email
                 var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
                 user.Email = email;
                 await db.SaveChangesAsync();
@@ -118,6 +136,8 @@ namespace Capstone
             }
         }
 
+        //Author: Peter
+        //Adds a kitchen for a user
         public int AddKitchen(int userId, string name)
         {
             Kitchen kitchen = db.Kitchens.Add(new Kitchen() { Name = name });
@@ -125,16 +145,23 @@ namespace Capstone
             db.SaveChanges();
             return kitchen.Id;
         }
+        //Author: Kevin and Peter
+        //Gets the inventory for a user's first kitchen, which is the only one
+        //Shorthand method
         public List<SerializableFood> GetPrimaryInventory(int userId)
         {
             return db.Users.Where(x => x.Id == userId).FirstOrDefault()?.Kitchens?.FirstOrDefault()?.Inventory?
                 .Select(o => new SerializableFood(o)).ToList();
         }
+        //Author: Kevin and Peter
+        //Gets all the kitchens a user has
         public List<SerializableKitchen> GetKitchens(int userId)
         {
             return db.Users.Where(x => x.Id == userId).FirstOrDefault()?.Kitchens?
                 .Select(o => new SerializableKitchen(o)).ToList();
         }
+        //Author: Kevin and Peter
+        //Gets the inventory for a specified kitchen
         public List<SerializableFood> GetInventory(int kitchenId)
         {
             return db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault()?.Inventory?
@@ -154,6 +181,8 @@ namespace Capstone
             return storages;
         }
 
+        //Author: Kevin Gadelha
+        //Gets the user info from their id
         public SerializableUser GetSerializableUser(int id)
         {
             SerializableUser user = new SerializableUser(db.Users.Where(x => x.Id == id).FirstOrDefault());
@@ -186,6 +215,7 @@ namespace Capstone
 
         }
 
+        //From when the shopping list was more limited
         public List<string> GenerateShoppingList(int kichenId)
         {
             List<string> shoppingList;
@@ -193,9 +223,12 @@ namespace Capstone
             return shoppingList;
         }
 
+        //Author: Kevin, Modified by Peter
+        //Search recipes from user's account info
         public Models.SerializableRecipeModel[] SearchRecipesUser(string search, int count, int userId)
         {
             var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
+            //The diets include things that can't be in the recipe or recipe requirements
             List<string> diets = new List<string>();
             if (!String.IsNullOrWhiteSpace(user.Allergies))
             {
@@ -205,6 +238,7 @@ namespace Capstone
                 diets.Add("vegan");
             if (user.Vegetarian)
                 diets.Add("vegetarian");
+            //Use ranked by default
             return SearchRecipesRanked(search, count, diets, user.Kitchens.FirstOrDefault().Id);
         }
 
@@ -280,6 +314,7 @@ namespace Capstone
             return recipes;
         }
 
+        //Author: Peter modified by Kevin
         public Models.SerializableRecipeModel[] FeelingLucky(int count, List<string> diets, int kitchenId)
         {
             string searchString = "";
@@ -315,6 +350,8 @@ namespace Capstone
             return recipes ?? new Models.SerializableRecipeModel[0];
         }
 
+        //Author:Kevin, modified by Peter
+        //Feeling lucky  but taking into account a user's dietary requirements
         public Models.SerializableRecipeModel[] FeelingLuckyUser(int count, int userId)
         {
             var user = db.Users.Where(x => x.Id == userId).FirstOrDefault();
@@ -330,17 +367,21 @@ namespace Capstone
             return FeelingLucky(count, diets, user.Kitchens.FirstOrDefault().Id);
         }
 
-
+        //Author: Kevin and Peter
+        //Add food to a user's kitchen
         public async Task<bool> AddFood(int userId, int kitchenId, string name, int quantity, DateTime? expiryDate)
         {
             //Don't let user add food if they're not confirmed
             if (!db.Users.Where(x => x.Id == userId).FirstOrDefault().IsConfirmed)
                 return false;
+            //Some default values are added
             db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault().Inventory
                 .Add(db.Foods.Add(new Food() { Name = name, Quantity = quantity, ExpiryDate = expiryDate, Vegetarian = -1, Vegan = -1, Calories = -1 }));
             await db.SaveChangesAsync();
             return true;
         }
+        //Author:Kevin
+        //Same as the above method but with more parameters
         public async Task<bool> AddFoodComplete(int userId, int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite)
         {
             //Don't let user add food if they're not confirmed
@@ -352,20 +393,26 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
+        //Author:Kevin and Peter
+        //Simplified edit
         public async Task<bool> EatFood(int id, double quantity)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
+            //If the food has run out and it's not a favorite, remove it
             if (quantity == 0 && !item.Favourite)
             {
                 db.Foods.Remove(item);
             }
             else
             {
+                //Update the quantity
                 item.Quantity = quantity;
             }
             await db.SaveChangesAsync();
             return true;
         }
+        //Author:Kevin and Peter
+        //Self explanatory
         public async Task<bool> EditFood(int id, string name, double quantity, string quantityClassifier, string storage, DateTime? expiryDate)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
@@ -373,6 +420,7 @@ namespace Capstone
             item.Name = name;
             item.Quantity = quantity;
             item.QuantityClassifier = quantityClassifier;
+            //Convert the string parameter to an enum
             item.Storage = (Storage)Enum.Parse(typeof(Storage), storage, true);
             //Assume that the user editing the food means they are resetting their initial quantity
             item.InitialQuantity = quantity;
@@ -380,6 +428,8 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
+        //Author:Kevin
+        //Update whether food is favorite
         public async Task<bool> FavouriteFood(int foodId, bool favourite)
         {
             var item = db.Foods.Where(x => x.Id == foodId).FirstOrDefault();
@@ -387,6 +437,8 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
+        //Author:Kevin
+        //Update whether food is on the user's shopping list
         public async Task<bool> ShoppingListFood(int foodId, bool onShoppingList)
         {
             var item = db.Foods.Where(x => x.Id == foodId).FirstOrDefault();
@@ -404,6 +456,9 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
+        //Author: Kevin
+        //Take everything off the shopping list
+        //Used when the user's done shopping
         public async Task<bool> ClearShoppingList(int kitchenId)
         {
             var kitchen = db.Kitchens.Where(x => x.Id == kitchenId).FirstOrDefault();
@@ -414,6 +469,8 @@ namespace Capstone
             await db.SaveChangesAsync();
             return true;
         }
+        //Author: Kevin and Peter
+        //Delete the food
         public async Task<bool> RemoveItem(int id)
         {
             var item = db.Foods.Where(x => x.Id == id).FirstOrDefault();
@@ -487,6 +544,7 @@ namespace Capstone
                 return false;
             }
         }
+        //Never used since it's we can't figure out how to hash a password the same way in android
         public string HashPassword(string password)
         {
             //I am hashing using Rcf2898DeriveBytes method
@@ -546,7 +604,6 @@ namespace Capstone
         {
             return db.Foods.Where(x => x.Id == id).FirstOrDefault();
         }
-
 
         public bool DemoDb(string pass)
         {
