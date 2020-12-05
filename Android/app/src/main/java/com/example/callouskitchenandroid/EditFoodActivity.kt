@@ -17,8 +17,21 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.*
 
+/**
+ * Activity for editting a food (name, quantity, expiry date, quantity classifier, etc.).
+ * Intended to be used for correcting errors made when adding food.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class EditFoodActivity : AppCompatActivity() {
 
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_food)
@@ -49,8 +62,6 @@ class EditFoodActivity : AppCompatActivity() {
 
         txtFoodName.setText(food.name)
         txtFoodQuantity.setText(food.quantity.toString())
-       // var formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-       // txtFoodExpiry.setText(food.expiryDate?.format(formatter))
 
         spinnerUnits.setSelection(unitsArray.indexOf(food.quantityClassifier))
         spinnerCategories.setSelection(categories.indexOf(food.storage))
@@ -66,6 +77,7 @@ class EditFoodActivity : AppCompatActivity() {
             txtFoodExpiry.setText(sdf.format(cal.time))
         }
 
+        // When the date is changed in the datepicker, update the expiry date field
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
                                    dayOfMonth: Int) {
@@ -86,6 +98,7 @@ class EditFoodActivity : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
+        // Update the food in the database
         btnEditFood.setOnClickListener{
             val foodName = txtFoodName.text.toString()
 
@@ -126,12 +139,13 @@ class EditFoodActivity : AppCompatActivity() {
             }
         }
 
+        // Return to the inventory list
         btnCancel.setOnClickListener{
             val intent = Intent(this@EditFoodActivity, InventoryActivity::class.java)
             startActivity(intent)
         }
 
-
+        // Open the date picker to the correct month, day, and year when the expiry date field is clicked
         txtFoodExpiry.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus){
                 val year = food.expiryDate?.year
@@ -148,8 +162,10 @@ class EditFoodActivity : AppCompatActivity() {
         }
     }
 
-    /*
-     * Override Android's default back button press
+    /**
+     * Override the default back button press so that it always goes to the inventory
+     *
+     * @author Laura Stewart
      */
     override fun onBackPressed() {
         // do nothing for now
@@ -157,8 +173,10 @@ class EditFoodActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    /*
-     * Links the bottom navigation buttons to the correct activities
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
      */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {

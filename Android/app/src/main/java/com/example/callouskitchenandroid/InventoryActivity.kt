@@ -16,8 +16,20 @@ import kotlinx.android.synthetic.main.activity_inventory.*
 import org.json.JSONObject
 
 class InventoryActivity : AppCompatActivity() {
+
+    // the foods to be shown in the inventory
     var foods: ArrayList<Food> = arrayListOf<Food>()
+
+    // locally stored data
     private val sharedPref: SharedPreferences = ServiceHandler.sharedPref
+
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //This intent comes from the notification
@@ -52,6 +64,7 @@ class InventoryActivity : AppCompatActivity() {
 
         val txtSearchInventory = findViewById<EditText>(R.id.searchFood)
         val spinnerSort = findViewById<Spinner>(R.id.spinnerSort)
+
         // Populate the Sorting spinner
         val sortingArray = resources.getStringArray(R.array.sortingOptions)
         val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, sortingArray)
@@ -61,11 +74,12 @@ class InventoryActivity : AppCompatActivity() {
 
         val btnAddFood = findViewById<FloatingActionButton>(R.id.btnAddFood)
 
-            btnAddFood.setOnClickListener{
-                val intent = Intent(this@InventoryActivity, AddFoodActivity::class.java)
-                startActivity(intent)
-            }
+        btnAddFood.setOnClickListener{
+            val intent = Intent(this@InventoryActivity, AddFoodActivity::class.java)
+            startActivity(intent)
+        }
 
+        // Call the service to get all the food in the inventory
         ServiceHandler.callAccountService(
             "GetInventory",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
             Response.Listener { response ->
@@ -105,6 +119,7 @@ class InventoryActivity : AppCompatActivity() {
                 updateSortedAndFilteredList()
             })
 
+        // Detect changes in the search bar
         txtSearchInventory.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {}
@@ -115,6 +130,7 @@ class InventoryActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
+                // Store the search in local storage
                 with(sharedPref.edit()) {
                     putString("lastSearch", s.toString())
                     apply()
@@ -122,6 +138,8 @@ class InventoryActivity : AppCompatActivity() {
                 updateSortedAndFilteredList()
             }
         })
+
+        // Sort the food using a dropdown
         spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -129,6 +147,7 @@ class InventoryActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
+                //
                 with(sharedPref.edit()) {
                     putInt("lastIndex", position)
                     apply()
@@ -142,6 +161,11 @@ class InventoryActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Update the food list according to search/sort parameters
+     *
+     * @author Kevin Gadelha
+     */
     private fun updateSortedAndFilteredList(){
         val txtSearchInventory = findViewById<EditText>(R.id.searchFood)
         val spinnerSort = findViewById<Spinner>(R.id.spinnerSort)
@@ -176,8 +200,10 @@ class InventoryActivity : AppCompatActivity() {
         }
     }
 
-    /*
-     * Override Android's default back button press
+    /**
+     * Override the default back button press so that it always goes to the inventory
+     *
+     * @author Laura Stewart
      */
     override fun onBackPressed() {
         // do nothing for now
@@ -185,8 +211,10 @@ class InventoryActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    /*
-     * Links the bottom navigation buttons to the correct activities
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
      */
     private fun setNavigation() {
         bottomNavInventory.setOnNavigationItemSelectedListener {

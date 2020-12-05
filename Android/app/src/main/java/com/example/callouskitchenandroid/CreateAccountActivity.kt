@@ -10,18 +10,32 @@ import android.widget.Toast
 import com.android.volley.Response
 import org.json.JSONObject
 
+/**
+ * Activity for creating an account
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class CreateAccountActivity : AppCompatActivity() {
 
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
 
+        // references to the UI
         val btnCreate = findViewById<Button>(R.id.btnConfirmCreateAccount)
         val btnCancel = findViewById<Button>(R.id.btnCancelCreateAccount)
         val txtUsername = findViewById<EditText>(R.id.editTextUsernameCreate)
         val txtPassword = findViewById<EditText>(R.id.editTextCreatePassword)
         val txtConfirmPassword  = findViewById<EditText>(R.id.editTextConfirmPassword)
 
+        // Validates input and calls the service to create an account
         btnCreate.setOnClickListener{
             // client side validation
             // all fields full?

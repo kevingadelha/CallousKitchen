@@ -30,10 +30,22 @@ import java.util.concurrent.Executors
 
 typealias ResultListener = (result: String) -> Unit
 
+/**
+ * Activity that uses the camera to scan a barcode.
+ *
+ * @author Kevin Gadelha
+ */
 class activity_barcode_scan : AppCompatActivity() {
 
     private lateinit var cameraExecutor: ExecutorService
 
+    /**
+     * Called when the activity is created. Requests camera permission (if needed)
+     * and starts the camera.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_barcode_scan)
@@ -50,23 +62,46 @@ class activity_barcode_scan : AppCompatActivity() {
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
+    /**
+     * Checks if the permissions are granted
+     *
+     * @author Kevin Gadelha
+     */
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
             baseContext, it
         ) == PackageManager.PERMISSION_GRANTED
     }
 
+    /**
+     * Shutdown the camera executor when this activity closes.
+     *
+     * @author Kevin Gadelha
+     */
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
     }
 
+    /**
+     * Stores tag and permission information needed for working with the camera.
+     *
+     * @author Kevin Gadelha
+     */
     companion object {
         private const val TAG = "CameraXBasic"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     }
 
+    /**
+     * Starts the camera if permissions are granted.
+     *
+     * @param requestCode Code being passed in
+     * @param permissions All permissions being requested
+     * @param grantResults Results for the permissions (granted or denied)
+     * @author Kevin Gadelha
+     */
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>, grantResults:
         IntArray
@@ -84,6 +119,13 @@ class activity_barcode_scan : AppCompatActivity() {
             }
         }
     }
+
+    /**
+     * Starts the camera, binds use cases, and performs image analysis by calling Open Food Facts
+     * to get the barcode result.
+     *
+     * @author Kevin Gadelha
+     */
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
@@ -144,6 +186,7 @@ class activity_barcode_scan : AppCompatActivity() {
                                         FormatString(ingredientsTags!![i].toString())
                                 }
 
+                                // Go back to the AddFoodActivity and send all the food data
                                 val intent = Intent(this, AddFoodActivity::class.java)
                                 intent.putExtra("FOODNAME", foodName)
                                 intent.putExtra("QUANTITY", quantity)
@@ -180,6 +223,13 @@ class activity_barcode_scan : AppCompatActivity() {
         }, ContextCompat.getMainExecutor(this))
     }
 
+    /**
+     * Turns a string quantity into a double.
+     *
+     * @param quantity The quantity as a String
+     * @return The quantity as a double (will be 0.0 if it can't be cast as a double)
+     * @author Kevin Gadelha
+     */
     private fun ExtrapolateQuantity(quantity: String?) : Double{
         if (quantity.isNullOrEmpty())
             return 0.0
@@ -187,6 +237,13 @@ class activity_barcode_scan : AppCompatActivity() {
             return quantity.filter { it.isDigit() }.toDoubleOrNull() ?: 0.0
     }
 
+    /**
+     * Determine quantity classifier (ex: item, g, mL).
+     *
+     * @param quantity The quantity as a string
+     * @return The quantity classifier
+     * @author Kevin Gadelha
+     */
     private fun ExtrapolateQuantityClassifier(quantity: String?) : String{
         if (quantity.isNullOrEmpty())
             return "item"
@@ -216,6 +273,13 @@ class activity_barcode_scan : AppCompatActivity() {
             }
     }
 
+    /**
+     * Convert the expiry date String to a LocalDate object.
+     *
+     * @param date The date as a String
+     * @return The date as a localDate (will be null if it can't be converted)
+     * @author Kevin Gadelha
+     */
     private fun StringToDate(date: String?) : LocalDate?{
         if (date.isNullOrEmpty())
             return null
@@ -252,6 +316,13 @@ class activity_barcode_scan : AppCompatActivity() {
         return null
     }
 
+    /**
+     * Trim whitespace from a string and replace underscores with spaces
+     *
+     * @param theString The original string
+     * @return The formatted string
+     * @author Kevin Gadelha
+     */
     private fun FormatString(theString: String) : String{
         var formattedString = RemovePrefix(theString)
         formattedString = formattedString.trim()
@@ -260,6 +331,13 @@ class activity_barcode_scan : AppCompatActivity() {
         return formattedString
     }
 
+    /**
+     * Remove text before a colon.
+     *
+     * @param textWithPrefix Text with a colon indicating there is a prefix
+     * @return String without the prefix
+     * @author Kevin Gadelha
+     */
     private fun RemovePrefix(textWithPrefix: String) : String{
         val colonLocation = textWithPrefix.indexOf(':')
         if (colonLocation != -1)
@@ -268,6 +346,13 @@ class activity_barcode_scan : AppCompatActivity() {
     }
 
     //Remove spaces and split
+    /**
+     * Remove spaces and split a comma delimited array
+     *
+     * @param commaDelimitedArray A string containing a comma delimited array
+     * @return An Array of Strings that were in the comma delimited array
+     * @author Kevin Gadelha
+     */
     private fun StringToArray(commaDelimitedArray: String?) : Array<String>?{
         if (commaDelimitedArray.isNullOrEmpty())
             return null
@@ -275,9 +360,18 @@ class activity_barcode_scan : AppCompatActivity() {
             return commaDelimitedArray.split(",").map { FormatString(it) }.toTypedArray()
     }
 
-    //This gets run whenever there's new camera info
+    /**
+     * Image analyzer that looks for barcodes. This gets run whenever there's new camera info.
+     *
+     * @author Kevin Gadelha
+     */
     private class ImageAnalyzer(private val listener: ResultListener) : ImageAnalysis.Analyzer {
 
+        /**
+         *
+         * @param imageProxy
+         * @author Kevin Gadelha
+         */
         @androidx.camera.core.ExperimentalGetImage
         override fun analyze(imageProxy: ImageProxy) {
                 //Conversions
@@ -292,9 +386,17 @@ class activity_barcode_scan : AppCompatActivity() {
                 else
                     imageProxy.close()
         }
+
+        /**
+         * Processes the image to find barcodes.
+         *
+         * @param image
+         * @param imageProxy
+         * @author Kevin Gadelha
+         */
         fun scanBarcodes(image: InputImage, imageProxy: ImageProxy) {
             // [START set_detector_options]
-            //I though upc and product were the same thing but they're seperate here so accept either
+            //I though upc and product were the same thing but they're separate here so accept either
             val options = BarcodeScannerOptions.Builder()
                 .setBarcodeFormats(
                     Barcode.TYPE_PRODUCT,

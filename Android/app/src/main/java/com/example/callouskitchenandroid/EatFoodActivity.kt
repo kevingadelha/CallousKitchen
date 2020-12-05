@@ -10,11 +10,23 @@ import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 import java.util.*
 
+/**
+ * Activity for eating a food item. The quantity eaten will vary.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class EatFoodActivity : AppCompatActivity() {
 
     // The number of steps in the food quantity slider
     private val SLIDER_MAX = 10
 
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eat_food)
@@ -102,8 +114,10 @@ class EatFoodActivity : AppCompatActivity() {
         }
     }
 
-    /*
-     * Override Android's default back button press
+    /**
+     * Override the default back button press so that it always goes to the inventory
+     *
+     * @author Laura Stewart
      */
     override fun onBackPressed() {
         // do nothing for now
@@ -111,8 +125,10 @@ class EatFoodActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    /*
-     * Links the bottom navigation buttons to the correct activities
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
      */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {

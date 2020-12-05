@@ -4,6 +4,11 @@ package com.example.callouskitchenandroid
 import java.io.Serializable
 import java.time.LocalDate
 
+/**
+ * Represents a food item
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class Food: Serializable {
 
     var id: Int = 0;
@@ -20,6 +25,9 @@ class Food: Serializable {
     var ingredients = arrayOf<String>()
     var traces = arrayOf<String>()
 
+    /**
+     * Creates a food with no expiry date.
+     */
     constructor(id: Int, name: String, quantity: Double = 1.0, barcode: Int = 0, quantityClassifier: String = "")
     {
         this.id = id
@@ -29,6 +37,9 @@ class Food: Serializable {
         this.barcode = barcode
     }
 
+    /**
+     * Creates a food with only the data needed to check for allergens or to check if it is vegan/vegetarian
+     */
     constructor(ingredients : Array<String>,traces : Array<String>, vegan : Int?, vegetarian : Int?)
     {
         this.ingredients = ingredients
@@ -37,6 +48,9 @@ class Food: Serializable {
         this.vegetarian = vegetarian
     }
 
+    /**
+     * Creates a food with all data (except vegetarian/vegan/allergen data)
+     */
     constructor(id: Int, name: String, quantity: Double = 1.0, barcode: Int = 0, expiry: LocalDate, quantityClassifier: String = "")
     {
         this.id = id

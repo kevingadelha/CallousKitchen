@@ -10,7 +10,20 @@ import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 
+/**
+ * Activity for deleting a food item. This deletes all of the food.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class DeleteFoodActivity : AppCompatActivity() {
+
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delete_food)
@@ -27,7 +40,7 @@ class DeleteFoodActivity : AppCompatActivity() {
 
         txtFoodName.text = food.name
 
-
+        // Delete the food from the database
         btnDeleteFood.setOnClickListener{
                 ServiceHandler.callAccountService(
                     "RemoveItem",hashMapOf("id" to food.id),this,
@@ -45,23 +58,27 @@ class DeleteFoodActivity : AppCompatActivity() {
 
         }
 
+        // Return to the inventory
         btnCancel.setOnClickListener{
             val intent = Intent(this@DeleteFoodActivity, InventoryActivity::class.java)
             startActivity(intent)
         }
     }
 
-    /*
-     * Override Android's default back button press
+    /**
+     * Override the default back button press so that it always goes to the inventory
+     *
+     * @author Laura Stewart
      */
     override fun onBackPressed() {
-        // do nothing for now
         val intent = Intent(this@DeleteFoodActivity, InventoryActivity::class.java)
         startActivity(intent)
     }
 
-    /*
-     * Links the bottom navigation buttons to the correct activities
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
      */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {

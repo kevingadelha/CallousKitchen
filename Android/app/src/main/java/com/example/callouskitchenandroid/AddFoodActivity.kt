@@ -16,13 +16,27 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.*
 
-
+/**
+ * Activity for adding a food to the inventory.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class AddFoodActivity : AppCompatActivity() {
 
+    /**
+     * Stores a tag with this activity's name
+     */
     companion object {
         private const val ADD_FOOD_TAG = "AddFoodActivity"
     }
 
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_food)
@@ -55,6 +69,7 @@ class AddFoodActivity : AppCompatActivity() {
             category = ServiceHandler.lastCategory
         spinnerCategory.setSelection(categories.indexOf(category))
 
+        // variables for storing food data
         var cal = Calendar.getInstance()
         var foodName: String?
         var quantity: Double?
@@ -65,7 +80,7 @@ class AddFoodActivity : AppCompatActivity() {
         var ingredients = arrayOf<String>()
         var traces = arrayOf<String>()
 
-        // Get the food data from the barcode scanner
+        // Get the food data passed in from the barcode scanner
         if (intent != null) {
             try {
                 foodName = intent.getStringExtra("FOODNAME")
@@ -114,6 +129,8 @@ class AddFoodActivity : AppCompatActivity() {
                 traces = intent.getStringArrayExtra("TRACES")
             } catch (exc: Exception) {
             }
+
+            // Show allergy and dietary restriction warnings
             var tempFood = Food(ingredients,traces,vegan,vegetarian)
             var warningMessage = ServiceHandler.generateWarningMessage(tempFood, false)
             if (!warningMessage.isNullOrEmpty())
@@ -124,6 +141,7 @@ class AddFoodActivity : AppCompatActivity() {
                 ).show()
         }
 
+        // Detect when the expiry date is set in the calendar
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(
                 view: DatePicker, year: Int, monthOfYear: Int,
@@ -144,9 +162,11 @@ class AddFoodActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Add the food (if all required variable are valid
         btnAddFood.setOnClickListener {
             val foodName = txtFoodName.text.toString()
 
+            // Validate input to check that it's good
             if (foodName.isNullOrEmpty()) {
                 Toast.makeText(applicationContext, "Please enter the food name", Toast.LENGTH_LONG)
                     .show()
@@ -174,6 +194,8 @@ class AddFoodActivity : AppCompatActivity() {
                         return@setOnClickListener
                     }
                 }
+
+                // Add the food to the database (will only be called if required fields have been filled)
                 val quantityClassifier = spinnerUnits.selectedItem.toString()
                 ServiceHandler.callAccountService(
                     "AddFoodComplete", hashMapOf(
@@ -208,11 +230,13 @@ class AddFoodActivity : AppCompatActivity() {
             }
         }
 
+        // Return to the inventory activity
         btnCancel.setOnClickListener {
             val intent = Intent(this@AddFoodActivity, InventoryActivity::class.java)
             startActivity(intent)
         }
 
+        // Open a date picker to the correct month, day, and year
         txtFoodExpiry.setOnFocusChangeListener { v, hasFocus ->
             DatePickerDialog(
                 this@AddFoodActivity,
@@ -226,7 +250,21 @@ class AddFoodActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Override the default back button press so that it always goes to the inventory
+     *
+     * @author Laura Stewart
+     */
+    override fun onBackPressed() {
+        val intent = Intent(this@AddFoodActivity, InventoryActivity::class.java)
+        startActivity(intent)
+    }
 
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
+     */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId){

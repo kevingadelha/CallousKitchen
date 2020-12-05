@@ -6,9 +6,19 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 
-
+/**
+ *
+ *
+ * @author Kevin Gadelha
+ */
 object Util {
-    // schedule the start of the service every 10 - 30 seconds
+
+    /**
+     * Schedule the start of the service every 10 - 30 seconds
+     *
+     * @param context
+     * @author Kevin Gadelha
+     */
     fun scheduleJob(context: Context) {
         val serviceComponent = ComponentName(context, TheJobService::class.java)
         val builder = JobInfo.Builder(0, serviceComponent)
