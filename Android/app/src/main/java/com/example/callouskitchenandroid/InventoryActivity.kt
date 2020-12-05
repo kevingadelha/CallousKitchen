@@ -207,7 +207,7 @@ class InventoryActivity : AppCompatActivity() {
      */
     override fun onBackPressed() {
         // do nothing for now
-        val intent = Intent(this@InventoryActivity, KitchenListActivity::class.java)
+        val intent = Intent(this@InventoryActivity, CategoryListActivity::class.java)
         startActivity(intent)
     }
 
@@ -227,7 +227,7 @@ class InventoryActivity : AppCompatActivity() {
                 }
                 R.id.navigation_inventory -> {
                     // go to the categories list
-                    val intent = Intent(this@InventoryActivity, KitchenListActivity::class.java)
+                    val intent = Intent(this@InventoryActivity, CategoryListActivity::class.java)
                     startActivity(intent)
                     true
                 }

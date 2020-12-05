@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 "primaryKitchenId",
                 -1
             )
-            val intent = Intent(this@MainActivity, KitchenListActivity::class.java)
+            val intent = Intent(this@MainActivity, CategoryListActivity::class.java)
             startActivity(intent)
         }
 
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                                 putInt("primaryKitchenId", ServiceHandler.primaryKitchenId)
                                 apply()
                             }
-                            val intent = Intent(this@MainActivity, KitchenListActivity::class.java)
+                            val intent = Intent(this@MainActivity, CategoryListActivity::class.java)
                             startActivity(intent)
                         } else {
                             Toast.makeText(

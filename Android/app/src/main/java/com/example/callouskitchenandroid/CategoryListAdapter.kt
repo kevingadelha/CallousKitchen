@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 
-class KitchenListAdapter (private val context: Activity,
-                          private val kitchens: List<Kitchen>)
-    : ArrayAdapter<Kitchen>(context, R.layout.kitchen_list, kitchens)
+class CategoryListAdapter (private val context: Activity,
+                           private val categories: List<Category>)
+    : ArrayAdapter<Category>(context, R.layout.kitchen_list, categories)
 {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
@@ -18,21 +18,21 @@ class KitchenListAdapter (private val context: Activity,
 
         // change the button text to match the kitchen name
         val kitchenBtn = rowView.findViewById<Button>(R.id.btnKitchen)
-        kitchenBtn.text = kitchens[position].name
+        kitchenBtn.text = categories[position].name
 
         // set on click listener for the button to go to the inventory view
         kitchenBtn.setOnClickListener(){
             val host = kitchenBtn.context as Activity
-            if (kitchens[position].name != "Shopping List")
+            if (categories[position].name != "Shopping List")
             {
                 val intent = Intent(host, InventoryActivity::class.java)
-                ServiceHandler.lastCategory = kitchens[position].name
+                ServiceHandler.lastCategory = categories[position].name
                 host.startActivity(intent)
             }
             else
             {
                 val intent = Intent(host, ShoppingListActivity::class.java)
-                ServiceHandler.lastCategory = kitchens[position].name
+                ServiceHandler.lastCategory = categories[position].name
                 host.startActivity(intent)
             }
 

@@ -177,7 +177,7 @@ class ShoppingListActivity : AppCompatActivity() {
      */
     override fun onBackPressed() {
         // go back to the category list
-        val intent = Intent(this@ShoppingListActivity, KitchenListActivity::class.java)
+        val intent = Intent(this@ShoppingListActivity, CategoryListActivity::class.java)
         startActivity(intent)
     }
 
@@ -195,7 +195,7 @@ class ShoppingListActivity : AppCompatActivity() {
                 }
                 R.id.navigation_inventory -> {
                     // go to the categories list
-                    val intent = Intent(this@ShoppingListActivity, KitchenListActivity::class.java)
+                    val intent = Intent(this@ShoppingListActivity, CategoryListActivity::class.java)
                     startActivity(intent)
                     true
                 }

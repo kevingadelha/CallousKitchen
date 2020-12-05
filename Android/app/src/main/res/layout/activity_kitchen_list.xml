@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/container"
     android:background="?attr/bgColor"
-    tools:context=".KitchenListActivity">
+    tools:context=".CategoryListActivity">
 
     <ListView
         android:id="@+id/listView"

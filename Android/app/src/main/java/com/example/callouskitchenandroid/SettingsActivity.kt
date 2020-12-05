@@ -252,7 +252,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
                 R.id.navigation_inventory -> {
                     // go to the categories list
-                    val intent = Intent(this@SettingsActivity, KitchenListActivity::class.java)
+                    val intent = Intent(this@SettingsActivity, CategoryListActivity::class.java)
                     startActivity(intent)
                     true
                 }

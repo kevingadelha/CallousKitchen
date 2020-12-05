@@ -13,7 +13,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 
-class KitchenListActivity : AppCompatActivity() {
+class CategoryListActivity : AppCompatActivity() {
 
     //declaring variables
     lateinit var notificationManager : NotificationManager
@@ -25,19 +25,19 @@ class KitchenListActivity : AppCompatActivity() {
         // set the bottom nav bar
         setNavigation()
 
-        var kitchens: ArrayList<Kitchen> = arrayListOf<Kitchen>()
-        kitchens.add(Kitchen(0,"All"))
-        kitchens.add(Kitchen(1,"Fridge"))
-        kitchens.add(Kitchen(2,"Freezer"))
-        kitchens.add(Kitchen(3,"Pantry"))
-        kitchens.add(Kitchen(4,"Cupboard"))
-        kitchens.add(Kitchen(5,"Cellar"))
-        kitchens.add(Kitchen(6,"Other"))
-        kitchens.add(Kitchen(7, "Shopping List"))
-        val kitchenListAdapter = KitchenListAdapter(this, kitchens)
+        var categories: ArrayList<Category> = arrayListOf<Category>()
+        categories.add(Category(0,"All"))
+        categories.add(Category(1,"Fridge"))
+        categories.add(Category(2,"Freezer"))
+        categories.add(Category(3,"Pantry"))
+        categories.add(Category(4,"Cupboard"))
+        categories.add(Category(5,"Cellar"))
+        categories.add(Category(6,"Other"))
+        categories.add(Category(7, "Shopping List"))
+        val categoryListAdapter = CategoryListAdapter(this, categories)
         val footerView = layoutInflater.inflate(R.layout.footer_view, listView, false) as ViewGroup
         listView.addFooterView(footerView)
-        listView.adapter = kitchenListAdapter
+        listView.adapter = categoryListAdapter
 
         // Get add button
   /*      val btnAddKitchen = findViewById<FloatingActionButton>(R.id.btnAddKitchen)
@@ -129,7 +129,7 @@ class KitchenListActivity : AppCompatActivity() {
             when (it.itemId){
                 R.id.navigation_recipes -> {
                     // go to recipes
-                    val intent = Intent(this@KitchenListActivity, RecipeSearchActivity::class.java)
+                    val intent = Intent(this@CategoryListActivity, RecipeSearchActivity::class.java)
                     startActivity(intent)
                     true
                 }
@@ -139,7 +139,7 @@ class KitchenListActivity : AppCompatActivity() {
                 }
                 R.id.navigation_settings -> {
                     // go to settings
-                    val intent = Intent(this@KitchenListActivity, SettingsActivity::class.java)
+                    val intent = Intent(this@CategoryListActivity, SettingsActivity::class.java)
                     startActivity(intent)
                     true
                 }

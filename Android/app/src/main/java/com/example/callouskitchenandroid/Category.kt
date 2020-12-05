@@ -1,7 +1,7 @@
 /* Authors: Kevin Gadelha, Laura Stewart */
 package com.example.callouskitchenandroid
 
-class Kitchen
+class Category
 {
     var id: Int = 0
     var name: String = ""

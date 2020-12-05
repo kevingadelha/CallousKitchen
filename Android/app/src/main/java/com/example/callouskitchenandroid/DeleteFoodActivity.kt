@@ -91,7 +91,7 @@ class DeleteFoodActivity : AppCompatActivity() {
                 }
                 R.id.navigation_inventory -> {
                     // go to the categories list
-                    val intent = Intent(this@DeleteFoodActivity, KitchenListActivity::class.java)
+                    val intent = Intent(this@DeleteFoodActivity, CategoryListActivity::class.java)
                     startActivity(intent)
                     true
                 }

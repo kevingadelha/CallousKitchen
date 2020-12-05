@@ -141,7 +141,7 @@ class EatFoodActivity : AppCompatActivity() {
                 }
                 R.id.navigation_inventory -> {
                     // go to the categories list
-                    val intent = Intent(this@EatFoodActivity, KitchenListActivity::class.java)
+                    val intent = Intent(this@EatFoodActivity, CategoryListActivity::class.java)
                     startActivity(intent)
                     true
                 }

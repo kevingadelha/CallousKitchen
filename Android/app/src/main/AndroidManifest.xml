@@ -50,7 +50,7 @@
             android:name=".InventoryActivity"
             android:label="Inventory" />
         <activity
-            android:name=".KitchenListActivity"
+            android:name=".CategoryListActivity"
             android:label="Categories" />
         <activity
             android:name=".MainActivity"

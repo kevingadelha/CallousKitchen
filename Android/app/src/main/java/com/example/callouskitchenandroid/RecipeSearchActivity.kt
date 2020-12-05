@@ -109,7 +109,7 @@ class RecipeSearchActivity : AppCompatActivity() {
                 }
                 R.id.navigation_inventory -> {
                     // go to the categories list
-                    val intent = Intent(this@RecipeSearchActivity, KitchenListActivity::class.java)
+                    val intent = Intent(this@RecipeSearchActivity, CategoryListActivity::class.java)
                     startActivity(intent)
                     true
                 }
