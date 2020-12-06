@@ -53,7 +53,7 @@ class AddFoodActivity : AppCompatActivity() {
         val spinnerUnits = findViewById<Spinner>(R.id.spinnerUnits)
         val spinnerCategory = findViewById<Spinner>(R.id.spinnerCategory)
 
-        // Populate the Units spinner
+        // Populate the Units spinner with custom adapter
         val unitsArray = resources.getStringArray(R.array.units)
         val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, unitsArray)
         spinnerUnits.adapter = adapter
@@ -65,8 +65,11 @@ class AddFoodActivity : AppCompatActivity() {
 
         //Default is fridge
         var category = "Fridge"
+        //The category should be based on what the user's last selected category was
+        //But all doesn't count of course, in which case use the default
         if (ServiceHandler.lastCategory != "All")
             category = ServiceHandler.lastCategory
+        //Set the category in the UI
         spinnerCategory.setSelection(categories.indexOf(category))
 
         // variables for storing food data
@@ -111,6 +114,7 @@ class AddFoodActivity : AppCompatActivity() {
             }
 
             try {
+                //Default to unknown
                 vegan = intent.getIntExtra("VEGAN", -1)
             } catch (exc: Exception) {
             }
@@ -132,6 +136,7 @@ class AddFoodActivity : AppCompatActivity() {
 
             // Show allergy and dietary restriction warnings
             var tempFood = Food(ingredients,traces,vegan,vegetarian)
+            //Tell the user if the food has bad stuff or if it doesn't
             var warningMessage = ServiceHandler.generateWarningMessage(tempFood, false)
             if (!warningMessage.isNullOrEmpty())
                 Toast.makeText(
@@ -217,6 +222,7 @@ class AddFoodActivity : AppCompatActivity() {
                         val json = JSONObject(response.toString())
 
                         val success = json.getBoolean("AddFoodCompleteResult")
+                        //If it failed, it's cause the user's not confirmed yet
                         if (!success){
                             Toast.makeText(applicationContext,"Please confirm your email before adding food!", Toast.LENGTH_LONG).show()
                         }

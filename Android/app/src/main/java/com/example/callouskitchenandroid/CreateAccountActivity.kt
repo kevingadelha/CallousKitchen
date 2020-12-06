@@ -48,6 +48,7 @@ class CreateAccountActivity : AppCompatActivity() {
                     val username = txtUsername.text.toString()
                     val password = txtPassword.text.toString()
 
+                    //Couldn't find a good way to hash passwords the same in C# as kotlin
                     ServiceHandler.callAccountService(
                         "CreateAccount",hashMapOf("email" to username,"pass" to password),this,
                         Response.Listener { response ->
@@ -55,9 +56,12 @@ class CreateAccountActivity : AppCompatActivity() {
                             val user = json.getJSONObject("CreateAccountResult")
                             val userId = user.getInt("Id")
 
+
                             if (userId != -1){
                                 ServiceHandler.userId = userId
                                 ServiceHandler.email = user.getString("Email")
+                                //Some of this stuff will be the default since new user
+                                //But better safe than sorry
                                 ServiceHandler.vegan = user.getBoolean("Vegan")
                                 ServiceHandler.vegetarian = user.getBoolean("Vegetarian")
                                 var allergies = user.getJSONArray("Allergies")
@@ -65,9 +69,11 @@ class CreateAccountActivity : AppCompatActivity() {
                                 for (i in 0 until allergies.length()) {
                                     ServiceHandler.allergies!!.add(allergies.getString(i))
                                 }
+                                //Default kitchen
                                 var kitchens = user.getJSONArray("Kitchens")
                                 var kitchen = kitchens.getJSONObject(0)
                                 ServiceHandler.primaryKitchenId = kitchen.getInt("Id")
+                                //Remind the user
                                 Toast.makeText(applicationContext,"Please confirm your email before adding food!", Toast.LENGTH_LONG).show()
                                 val intent = Intent(this@CreateAccountActivity, CategoryListActivity::class.java)
                                 startActivity(intent)

@@ -44,6 +44,7 @@ class EatFoodActivity : AppCompatActivity() {
 
         // populate the fields
         val food = intent.getSerializableExtra("FOOD") as Food
+        //Only warn the user if it's something important
         var warningMessage = ServiceHandler.generateWarningMessage(food,true)
         if (!warningMessage.isNullOrEmpty())
             Toast.makeText(

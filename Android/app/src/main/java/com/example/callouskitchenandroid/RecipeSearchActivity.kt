@@ -37,11 +37,13 @@ class RecipeSearchActivity : AppCompatActivity() {
         val footerView = layoutInflater.inflate(R.layout.recipe_footer_view, listViewRecipe, false) as ViewGroup
         listViewRecipe.addFooterView(footerView)
 
-        // Search for food by ingredient
+        // Search for recipes by name
         val searchBar = findViewById<SearchView>(R.id.searchViewRecipes)
 
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                //Searches when the user clicks enter
+                //Kind of finicky, just like all of android
                 searchRecipes(query)
                 return false
             }
@@ -56,6 +58,7 @@ class RecipeSearchActivity : AppCompatActivity() {
         btnGetSuggestions.setOnClickListener {
             ServiceHandler.callAccountService(
                 "FeelingLuckyUser", hashMapOf(
+                    //Call more recipes for better results
                     "count" to 100,
                     "userId" to ServiceHandler.userId
                 ), this,

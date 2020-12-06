@@ -23,30 +23,33 @@ import java.util.*
 import kotlin.collections.HashMap
 
 /**
- * Handler for communicating with the C# web service
+ * Handles all the C# communication stuff
+ * And also handles singlton stuff
+ * Like methods I need across the app
+ * And variables I want to use across the app
  *
  * @author Kevin Gadelha
  */
 class ServiceHandler {
     /**
-     * Basically makes the ServiceHandler a Singleton
-     *
+     * I need a companion object since kotlin doesn't have static stuff
      * @author Kevin Gadelha
      */
     companion object Static {
-        //I don't know where I should put variables that I want to be accessible to the whole app
-        //So I'm putting them here for now
-        //
         //Some getters and setters might have been a good idea
+        //I blame the fact we were never taught them in class
+        //And it's too late now
         var userId = -1
         var email : String? = null
         var vegan : Boolean = false
         var vegetarian : Boolean = false
         var allergies : ArrayList<String>? = null
         var primaryKitchenId = -1
+        //This will always be set on app start
         lateinit var sharedPref : SharedPreferences
         //this is better than passing stuff through intents all the time
         var lastCategory = ""
+        //The service url
         val baseUrl =  "http://142.55.32.86:50241"
 
         /**
@@ -78,6 +81,10 @@ class ServiceHandler {
 
         /**
          * Specifically calls the account service.
+         * I would have loved to make a method for each accountservice method
+         * But kotlin sucks and wouldn't let me
+         * Because the results happen in a different thread or something
+         * And as far as I can tell, I can't just wait for it and then return it here
          *
          * @param method The method name being called
          * @param parameters The parameters for the method in a hashmap
@@ -101,6 +108,7 @@ class ServiceHandler {
          */
         fun callOpenFoodFacts(barcode : String, context: Context, response : Response.Listener<JSONObject>){
             val queue = Volley.newRequestQueue(context)
+            //Public url
             val url = "https://world.openfoodfacts.org/api/v0/product/$barcode.json"
             var jsonObject = JSONObject()
             val request = JsonObjectRequest(Request.Method.GET, url, jsonObject,
@@ -110,7 +118,7 @@ class ServiceHandler {
         }
 
         /**
-         * Turns a LocalDate object into a String so it can be saved.
+         * Turns a LocalDate object into a C# String so it can be saved.
          *
          * @param date The date as a LocalDate
          * @return The date as a String
@@ -120,17 +128,18 @@ class ServiceHandler {
             if (date == null)
                 return null
             var dateStart = date.atStartOfDay()
-            //Some conversion is off because I need to subtract this to get the correct date
+            //Something is off because I need to subtract this to get the correct date
             dateStart = dateStart.minusDays(166)
             //Adds 4 hours in seconds to make up for timezone differences
             //I don't know what the rest of the numbers and dashes mean but they might be important
             //The first three zeros are actually important though as they change it milliseconds
+            //I really should have just changed the service to accept a string
+            //Because C# date serialization is a nightmare
             return "/Date("+(dateStart.toEpochSecond(ZoneOffset.UTC)+14400000).toString()+"000-00-00T00:00:00.0-00:00)/"
         }
 
-        //this is the hackiest thing in the worl
         /**
-         * Turns a String into a LocalDate
+         * Turns a C# String into a LocalDate
          *
          * @param date The date as a String
          * @return The date as a LocalDate
@@ -141,6 +150,10 @@ class ServiceHandler {
                 return null
             }
             //get the miliseconds since 1970 from the string
+            //Don't blame me, blame C# serialization
+            //I could probably get this number a better way
+            //But there are a lot of things I probably could have and should have done better
+            //At least this works
             var epoch = date.substring(6,date.length-10)
             //convert that to a date
             return LocalDateTime.ofEpochSecond(epoch.toLong(),0,ZoneOffset.UTC).toLocalDate()
@@ -156,6 +169,7 @@ class ServiceHandler {
         fun generateWarningMessage(food : Food, onlyWarning : Boolean) : String?{
 
             var warningMessage = ""
+            //Only show warning messages if applicable
             if (vegan && food.vegan == 0) {
                 warningMessage = addToWarningMessage(warningMessage, "is not vegan")
             } else if (vegan && food.vegan == 1 && !onlyWarning) {
@@ -186,7 +200,9 @@ class ServiceHandler {
                 warningMessage = addToWarningMessage(warningMessage, "contains traces of $it")
             }
 
-
+            //Interpret empty ingredients or traces  as unknown
+            //Only shows these if the user has allergies
+            //Look at what warning message is generated and then backtrack to find out why the condition makes sense
             if (ServiceHandler.allergies != null && ServiceHandler.allergies!!.count() > 0 && food.ingredients.size > 0 || food.traces.size > 0){
                 if (containedAllergens.size == 0 && food.traces.size == 0) {
                     warningMessage = addToWarningMessage(
@@ -242,11 +258,15 @@ class ServiceHandler {
          */
         fun addToWarningMessage(warningMessage: String, addition: String): String {
             var newWarningMessage = warningMessage
+            //Start the warning message with food and then follow with whatever the message is
             if (newWarningMessage.isNullOrEmpty()) {
                 newWarningMessage = "Food "
+            //Add "and" if it's an adendum to an existing message
+            //There can be multiple ands, I'm not a stickler for grammar
             } else {
                 newWarningMessage += " and "
             }
+            //Add the actual message
             newWarningMessage += addition
             return newWarningMessage
         }

@@ -10,7 +10,6 @@ class Category
 {
     var id: Int = 0
     var name: String = ""
-    var foods: ArrayList<Food> = arrayListOf<Food>()
 
     /**
      * Creates a Category with an Id and name
@@ -23,20 +22,5 @@ class Category
     {
         this.id = id
         this.name = name
-    }
-
-    /**
-     * Creates a Category with an Id, name, and list of foods in it (never used)
-     *
-     * @param id The category's index
-     * @param name The category title
-     * @param foods All food in this category
-     * @author Laura Stewart
-     */
-    constructor(id:Int, name:String, foods: ArrayList<Food>)
-    {
-        this.id = id
-        this.name = name
-        this.foods = foods
     }
 }

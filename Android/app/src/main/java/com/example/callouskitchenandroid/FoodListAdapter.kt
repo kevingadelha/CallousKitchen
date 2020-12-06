@@ -19,7 +19,7 @@ import java.time.LocalDate
  *
  * @param context The current context of the activity
  * @param foods A list of Food objects to be displayed
- * @author Laura Stewart, modified by Kevin Gadelha
+ * @author Laura Stewart mostly, with favoriting logic by Kevin Gadelha
  */
 class FoodListAdapter(private val context: Activity,
                       private val foods: List<Food>)
@@ -72,7 +72,7 @@ class FoodListAdapter(private val context: Activity,
             }
         }
         else{
-            //It shows textview without a default for some reason
+            //It shows "textview" without a default for some reason
             txtExpiry.text = ""
             txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.whiteText))
         }
@@ -126,6 +126,7 @@ class FoodListAdapter(private val context: Activity,
 
         // toggle the favourite button
         // author: Kevin Gadelha
+        // The only part of the android app that's kind of async
         btnFavourite.setOnClickListener{
             isFavourite = !isFavourite
 
@@ -141,6 +142,7 @@ class FoodListAdapter(private val context: Activity,
                     // return to the food list
                     if (!success){
                         Toast.makeText(context,"Failed :(", Toast.LENGTH_LONG).show()
+                        //Undo the favorite if failed
                         isFavourite = !isFavourite
                     }
                     else{

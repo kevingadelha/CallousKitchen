@@ -27,13 +27,17 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Set the sharedprefernces to be used throughout the app
         ServiceHandler.sharedPref = getPreferences(Context.MODE_PRIVATE)
         setContentView(R.layout.activity_main)
+        //Start the notification service
         startService(Intent(this, NotificationService::class.java))
 
         // Keep the user logged in if their data is in local storage
         var userId = ServiceHandler.sharedPref.getInt("userId", -1)
         if (userId != -1){
+            //Since I shouldn't save a password
+            //I instead save all the user's info
             ServiceHandler.userId = userId
             ServiceHandler.email = ServiceHandler.sharedPref.getString("email", null)
             ServiceHandler.vegan = ServiceHandler.sharedPref.getBoolean("vegan", false)
@@ -46,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                 "primaryKitchenId",
                 -1
             )
+            //Auto login
             val intent = Intent(this@MainActivity, CategoryListActivity::class.java)
             startActivity(intent)
         }
@@ -90,6 +95,7 @@ class MainActivity : AppCompatActivity() {
                             var kitchen = kitchens.getJSONObject(0)
                             ServiceHandler.primaryKitchenId = kitchen.getInt("Id")
                             //I really wish there was an easy way to serialize all of this
+                            //Save the user's info when they login
                             with(ServiceHandler.sharedPref.edit()) {
                                 putInt("userId", ServiceHandler.userId)
                                 putString("email", ServiceHandler.email)

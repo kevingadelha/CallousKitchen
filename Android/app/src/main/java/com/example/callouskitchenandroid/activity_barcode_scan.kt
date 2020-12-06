@@ -34,6 +34,10 @@ typealias ResultListener = (result: String) -> Unit
  * Activity that uses the camera to scan a barcode.
  *
  * @author Kevin Gadelha
+ * Uses camerax and ml kit barcode identifier to get barcode and get info from openfoodfacts
+ *
+ * And then send it back to the add food
+ * I copied some of this code off the internet
  */
 class activity_barcode_scan : AppCompatActivity() {
 
@@ -44,7 +48,6 @@ class activity_barcode_scan : AppCompatActivity() {
      * and starts the camera.
      *
      * @param savedInstanceState Can be used to save application state
-     * @author Kevin Gadelha
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +68,6 @@ class activity_barcode_scan : AppCompatActivity() {
     /**
      * Checks if the permissions are granted
      *
-     * @author Kevin Gadelha
      */
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
@@ -76,7 +78,6 @@ class activity_barcode_scan : AppCompatActivity() {
     /**
      * Shutdown the camera executor when this activity closes.
      *
-     * @author Kevin Gadelha
      */
     override fun onDestroy() {
         super.onDestroy()
@@ -86,7 +87,6 @@ class activity_barcode_scan : AppCompatActivity() {
     /**
      * Stores tag and permission information needed for working with the camera.
      *
-     * @author Kevin Gadelha
      */
     companion object {
         private const val TAG = "CameraXBasic"
@@ -100,7 +100,6 @@ class activity_barcode_scan : AppCompatActivity() {
      * @param requestCode Code being passed in
      * @param permissions All permissions being requested
      * @param grantResults Results for the permissions (granted or denied)
-     * @author Kevin Gadelha
      */
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>, grantResults:
@@ -121,8 +120,8 @@ class activity_barcode_scan : AppCompatActivity() {
     }
 
     /**
-     * Starts the camera, binds use cases, and performs image analysis by calling Open Food Facts
-     * to get the barcode result.
+     * Starts the camera, starts the barcode analysis and calls openfoodfacts with the barcode
+     * Then sends it back to the add food activity
      *
      * @author Kevin Gadelha
      */
@@ -153,6 +152,7 @@ class activity_barcode_scan : AppCompatActivity() {
                                 val product = json.optJSONObject("product")
                                 //If product is null these are all null
                                 val foodName = product?.optString("product_name")
+                                //Convert quantity
                                 val sourceQuantity = product?.optString("quantity")
                                 var quantity = ExtrapolateQuantity(sourceQuantity)
                                 var quantityClassifer = ExtrapolateQuantityClassifier(
@@ -160,14 +160,16 @@ class activity_barcode_scan : AppCompatActivity() {
                                 )
                                 val expirationDate =
                                     StringToDate(product?.optString("expiration_date"))
-                                //To be implemented
+                                //Source info from which I get vegan/vegetarian info
                                 val ingredientsAnalysis =
                                     product?.optJSONArray("ingredients_analysis_tags")
                                 //1 means true, 0 means false, -1 means unknown
                                 var vegan: Int? = -1
                                 var vegetarian: Int? = -1
                                 for (i in 0 until (ingredientsAnalysis?.length() ?: 0)) {
+                                    //Get the real info
                                     val item = RemovePrefix(ingredientsAnalysis!![i].toString())
+                                    //Decide the facts based on the info
                                     when (item) {
                                         "vegan" -> vegan = 1
                                         "non-vegan" -> vegan = 0
@@ -177,10 +179,14 @@ class activity_barcode_scan : AppCompatActivity() {
                                         "vegetarian-status-unknown" -> vegetarian = -1
                                     }
                                 }
+                                //Traces are one long string
                                 var traces = StringToArray(product?.optString("traces"))
+                                //But the ingredients are an an actual array
                                 var ingredientsTags = product?.optJSONArray("ingredients_tags")
+                                //No easy way to convert jsonarray
                                 var ingredients =
                                     Array<String>(ingredientsTags?.length() ?: 0) { "n = $it" }
+                                //Go through each one
                                 for (i in 0 until (ingredientsTags?.length() ?: 0)) {
                                     ingredients[i] =
                                         FormatString(ingredientsTags!![i].toString())
@@ -191,6 +197,7 @@ class activity_barcode_scan : AppCompatActivity() {
                                 intent.putExtra("FOODNAME", foodName)
                                 intent.putExtra("QUANTITY", quantity)
                                 intent.putExtra("QUANTITYCLASSIFIER", quantityClassifer)
+                                //Format the date
                                 val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
                                 intent.putExtra("EXPIRY", expirationDate?.format(formatter))
                                 intent.putExtra("VEGAN", vegan)
@@ -227,12 +234,13 @@ class activity_barcode_scan : AppCompatActivity() {
      * Turns a string quantity into a double.
      *
      * @param quantity The quantity as a String
-     * @return The quantity as a double (will be 0.0 if it can't be cast as a double)
+     * @return The quantity as a double (will be 0.0 if it can't be cast as a double or it's null)
      * @author Kevin Gadelha
      */
     private fun ExtrapolateQuantity(quantity: String?) : Double{
         if (quantity.isNullOrEmpty())
             return 0.0
+        //Only get the numbers from the string
         else
             return quantity.filter { it.isDigit() }.toDoubleOrNull() ?: 0.0
     }
@@ -245,11 +253,14 @@ class activity_barcode_scan : AppCompatActivity() {
      * @author Kevin Gadelha
      */
     private fun ExtrapolateQuantityClassifier(quantity: String?) : String{
+        //Default is item
         if (quantity.isNullOrEmpty())
             return "item"
         else
             {
                 //Honestly, the quantity has always been in g or ml so this is probably overkill
+                //And I can't use the source list because it needs to be in a different order
+                //Starting with longer strings and going to shorter
                 var orderedClassifiers = listOf<String>(
                     "kg",
                     "mg",
@@ -264,11 +275,13 @@ class activity_barcode_scan : AppCompatActivity() {
                 if (quantity!!.toLowerCase().contains("fl") && quantity!!.toLowerCase().contains("oz")){
                     return "fl. oz."
                 }
+                //If the source contains the classifier, return it
                 orderedClassifiers.forEach{
                     if (quantity!!.toLowerCase().contains(it.toLowerCase())){
                         return it
                     }
                 }
+                //Return item by default
                 return "item"
             }
     }
@@ -277,7 +290,7 @@ class activity_barcode_scan : AppCompatActivity() {
      * Convert the expiry date String to a LocalDate object.
      *
      * @param date The date as a String
-     * @return The date as a localDate (will be null if it can't be converted)
+     * @return The date as a localDate (will be null if it can't be converted or if it's null)
      * @author Kevin Gadelha
      */
     private fun StringToDate(date: String?) : LocalDate?{
@@ -317,7 +330,8 @@ class activity_barcode_scan : AppCompatActivity() {
     }
 
     /**
-     * Trim whitespace from a string and replace underscores with spaces
+     * Trim whitespace from a string and replace underscores and dashes with spaces
+     * And remove some unimportant stuff
      *
      * @param theString The original string
      * @return The formatted string
@@ -340,6 +354,7 @@ class activity_barcode_scan : AppCompatActivity() {
      */
     private fun RemovePrefix(textWithPrefix: String) : String{
         val colonLocation = textWithPrefix.indexOf(':')
+        //Don't do anything to stuff without a colon
         if (colonLocation != -1)
             return textWithPrefix.substring(colonLocation + 1, textWithPrefix.length)
         return textWithPrefix
@@ -362,6 +377,7 @@ class activity_barcode_scan : AppCompatActivity() {
 
     /**
      * Image analyzer that looks for barcodes. This gets run whenever there's new camera info.
+     * Takes a listener and then runs activates the listener with the barcode
      *
      * @author Kevin Gadelha
      */
@@ -381,8 +397,10 @@ class activity_barcode_scan : AppCompatActivity() {
                         mediaImage,
                         imageProxy.imageInfo.rotationDegrees
                     )
+                    //Where the magic happens
                     scanBarcodes(image, imageProxy);
                 }
+                //Close the imageproxy if it's not being used
                 else
                     imageProxy.close()
         }
@@ -399,6 +417,7 @@ class activity_barcode_scan : AppCompatActivity() {
             //I though upc and product were the same thing but they're separate here so accept either
             val options = BarcodeScannerOptions.Builder()
                 .setBarcodeFormats(
+                    //Only take food barcodes
                     Barcode.TYPE_PRODUCT,
                     Barcode.FORMAT_UPC_A
                 )
@@ -418,10 +437,11 @@ class activity_barcode_scan : AppCompatActivity() {
                     // [START_EXCLUDE]
                     // [START get_barcodes]
                     for (barcode in barcodes) {
+                        //get the actual barcode
                         val rawValue = barcode.rawValue
 
                         val valueType = barcode.valueType
-                        // See API reference for complete list of supported types
+                        // Only proceed if it's what we're looking for
                         if (valueType == Barcode.TYPE_PRODUCT || valueType == Barcode.FORMAT_UPC_A) {
                             if (!rawValue.isNullOrEmpty()) { //Only proceed if barcode was found
                                 //basically this returns the result in a listener

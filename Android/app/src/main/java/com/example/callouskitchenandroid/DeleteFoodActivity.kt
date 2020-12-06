@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
 
 /**
- * Activity for deleting a food item. This deletes all of the food.
+ * Activity for deleting a food item. This deletes the food item
  *
  * @author Kevin Gadelha, Laura Stewart
  */
@@ -35,7 +35,7 @@ class DeleteFoodActivity : AppCompatActivity() {
         val btnDeleteFood = findViewById<Button>(R.id.btnDeleteFoodItem)
         val btnCancel = findViewById<Button>(R.id.btnCancelDeleteFood)
 
-        // populate the fields
+        // populate the field
         val food = intent.getSerializableExtra("FOOD") as Food
 
         txtFoodName.text = food.name

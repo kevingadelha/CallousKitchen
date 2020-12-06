@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 
 /**
- * Schedules expiry notifications.
+ * Calls the scheduler
  *
  * @author Kevin Gadelha
  */

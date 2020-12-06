@@ -18,7 +18,7 @@ import java.util.*
 
 /**
  *
- *
+ * The part where I actually show the notification
  * @author Kevin Gadelha
  */
 class NotificationService : Service() {
@@ -61,11 +61,13 @@ class NotificationService : Service() {
                         var foods: ArrayList<Food> = arrayListOf<Food>()
                         for (i in 0 until foodsJson.length()) {
                             var foodJson: JSONObject = foodsJson.getJSONObject(i)
+                            //Only get the important info
                             var food = Food(foodJson.getInt("Id"), foodJson.getString("Name"))
                             food.expiryDate =
                                 ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
                             foods.add(food)
                         }
+                        //Only the stuff expiring soon
                         var expiringFoods = foods.filter { food -> food.expiryDate != null && (food.expiryDate!! < LocalDate.now()
                             .plusDays(3)) }
                         //Show expiring soonest first
@@ -79,6 +81,7 @@ class NotificationService : Service() {
                                 else -> 0
                             }
                         })
+                        //Only show notification if stuff is actually expiring
                         if (expiringFoods.size > 0) {
                             notificationManager =
                                 context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -95,17 +98,18 @@ class NotificationService : Service() {
                                 channel.description = "Messages Notification"
                                 notificationManager.createNotificationChannel(channel)
                             }
-                            // creating the notification and its parameters.!
 
-                            // Create an explicit intent for an Activity in your app
+                            // Go to the inventory
                             val intent = Intent(context, InventoryActivity::class.java).apply {
                                 this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             }
+                            //And make sure to sort by expiring
                             intent.putExtra("Expiring Soon", true)
                             val pendingIntent: PendingIntent = PendingIntent.getActivity(
                                 context,
                                 0,
                                 intent,
+                                //Update with the extra
                                 PendingIntent.FLAG_UPDATE_CURRENT
                             )
 
@@ -117,6 +121,8 @@ class NotificationService : Service() {
                                     setPriority(NotificationCompat.PRIORITY_DEFAULT)
                                     setContentIntent(pendingIntent)
                                     setStyle(
+                                        //If there's overflow
+                                        //Then this sets the expandable text
                                         NotificationCompat.BigTextStyle()
                                             .bigText(expiringFoods.joinToString { it -> it.name })
                                     )
@@ -130,6 +136,7 @@ class NotificationService : Service() {
                     }
                 })
         }
+        //Start sticky basically means to keep restarting this service when necessary
         return START_STICKY
     }
 }

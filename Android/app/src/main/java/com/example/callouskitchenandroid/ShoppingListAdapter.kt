@@ -11,10 +11,11 @@ import org.json.JSONObject
 
 /**
  * Extends the ArrayAdapter class so that the food items can be displayed in a shopping list
+ * Similar to inventory but with onshoppinglist instead of favoriting
  *
  * @param context The current context of the activity
  * @param foods A list of Food objects to be displayed
- * @author Laura Stewart, modified by Kevin Gadelha
+ * @author Laura Stewart mostly with on shoppinglist selection by Kevin Gadelha
  */
 class ShoppingListAdapter(private val context: Activity,
                           private val foods: List<Food>)
@@ -35,10 +36,11 @@ class ShoppingListAdapter(private val context: Activity,
         val chkBxFoodName = rowView.findViewById<CheckBox>(R.id.checkBoxFood)
         chkBxFoodName.text = foods[position].name
 
-        // Check shared preferences to see if this checkbox should be checked
+        // Check the box based on food's info
         chkBxFoodName.isChecked = foods[position].onShoppingList
 
-        // When the check box value is changed, update the shared preferences
+        // When the check box value is changed, update the database
+        //Similar to the favoriting process
         chkBxFoodName.setOnCheckedChangeListener { buttonView, isChecked ->
             ServiceHandler.callAccountService(
                 "ShoppingListFood", hashMapOf(

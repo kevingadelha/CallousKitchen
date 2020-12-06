@@ -37,7 +37,7 @@ class CategoryListActivity : AppCompatActivity() {
         // set the bottom nav bar
         setNavigation()
 
-        // make the categories
+        // make the hard coded categories cause some of them are unique
         var categories: ArrayList<Category> = arrayListOf<Category>()
         categories.add(Category(0,"All"))
         categories.add(Category(1,"Fridge"))
@@ -55,28 +55,6 @@ class CategoryListActivity : AppCompatActivity() {
         listView.adapter = categoryListAdapter
     }
 
-    /**
-     * Display a notification (unused?)
-     *
-     * @author Kevin Gadelha
-     */
-    private fun createNotificationChannel() {
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "primary_notification_channel",
-                "Messages",
-                NotificationManager.IMPORTANCE_HIGH
-            )
-
-            channel.enableLights(true)
-            channel.lightColor = Color.RED
-            channel.enableVibration(true)
-            channel.description = "Messages Notification"
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
 
     /**
      * Override the default back button press so that it does nothing

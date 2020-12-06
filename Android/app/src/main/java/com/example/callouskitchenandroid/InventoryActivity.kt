@@ -1,4 +1,6 @@
 /* Authors: Kevin Gadelha, Laura Stewart */
+//Shows food items in a list
+//Re-used for different categories
 package com.example.callouskitchenandroid
 
 import android.content.Intent
@@ -69,6 +71,7 @@ class InventoryActivity : AppCompatActivity() {
         val sortingArray = resources.getStringArray(R.array.sortingOptions)
         val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, sortingArray)
         spinnerSort.adapter = adapter
+        //Use the last values
         spinnerSort.setSelection(sharedPref.getInt("lastIndex", 0))
         txtSearchInventory.setText(sharedPref.getString("lastSearch", ""))
 
@@ -88,6 +91,8 @@ class InventoryActivity : AppCompatActivity() {
                 val foodsJson = json.optJSONArray("GetInventoryResult")
                     for (i in 0 until (foodsJson?.length() ?: 0)) {
                         var foodJson: JSONObject = foodsJson.getJSONObject(i)
+                        //Add the foods belonging to the selected category
+                        //Or add everything if the category is all
                         if (ServiceHandler.lastCategory == foodJson.getString("Storage") || ServiceHandler.lastCategory == "All"){
                             var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
                             food.quantity = foodJson.getDouble("Quantity")
@@ -116,6 +121,7 @@ class InventoryActivity : AppCompatActivity() {
 
                     }
 
+                //Update the UI
                 updateSortedAndFilteredList()
             })
 
@@ -172,6 +178,7 @@ class InventoryActivity : AppCompatActivity() {
         var sort = spinnerSort.getSelectedItem().toString();
         when (sort) {
             "Recently Added" -> foods = ArrayList(foods.sortedWith(compareByDescending ({ it.id })))
+            //Expiring soon needs a custom sorter to show nulls last
             "Expiring Soon" -> foods = ArrayList(foods.sortedWith(Comparator<Food>{ a, b ->
                 when {
                     a.expiryDate == null && b.expiryDate != null -> 1
@@ -183,13 +190,18 @@ class InventoryActivity : AppCompatActivity() {
                 }
             }))
             "Running Low" -> foods = ArrayList(foods.sortedWith(compareBy({ it.quantity })))
+            //Sort by descending so that true comes first
             "Favourited" -> foods = ArrayList(foods.sortedWith(compareByDescending({ it.favourite })))
             "Oldest Added" -> foods = ArrayList(foods.sortedWith(compareBy({ it.id })))
             "Alphabetical" -> foods = ArrayList(foods.sortedWith(compareBy({ it.name })))
             "Greatest Quantity" -> foods = ArrayList(foods.sortedWith(compareByDescending ({ it.quantity })))
             "Quantity Type" -> foods = ArrayList(foods.sortedWith(compareBy({ it.quantityClassifier })))
         }
+        //Filter if there's a search
         if (txtSearchInventory.text.isNotEmpty()){
+            //While sorting sorts the original list, filters should be more temporary
+            //In order not to mess with the sort and not to remove items from the original list
+            //This is a simple search
             val filteredFoods = foods.filter { food -> food.name.contains(txtSearchInventory.text)  }
             val foodListAdapter = FoodListAdapter(this@InventoryActivity, filteredFoods)
             listViewFood.adapter = foodListAdapter

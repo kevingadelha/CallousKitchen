@@ -14,12 +14,13 @@ class Food: Serializable {
     var id: Int = 0;
     var name: String = ""
     var barcode: Int = 0
-    var expiryDate: LocalDate? = LocalDate.parse("2020-01-01")
+    var expiryDate: LocalDate? = LocalDate.parse("2022-01-01")
     var quantity: Double = 0.0
     var quantityClassifier: String = ""
     var storage: String = ""
     var favourite: Boolean = false
     var onShoppingList: Boolean = false
+    //Default of unknown
     var vegan: Int? = -1
     var vegetarian: Int? = -1
     var ingredients = arrayOf<String>()

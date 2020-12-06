@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.activity_shopping_list.*
 import org.json.JSONObject
 
 /**
- * Activity that displays a recipe in a web view
+ * Activity that displays the shopping list
+ * Similar to inventory but with UI
  *
  * @author Kevin Gadelha (backend), Laura Stewart (UI)
  */
@@ -26,7 +27,7 @@ class ShoppingListActivity : AppCompatActivity() {
     // local storage
     private val sharedPref: SharedPreferences = ServiceHandler.sharedPref
 
-    // foods on the shopping list
+    // The user's foods
     var foods: ArrayList<Food> = arrayListOf<Food>()
 
     /**
@@ -160,6 +161,7 @@ class ShoppingListActivity : AppCompatActivity() {
         // update the sorting
         var sort = spinnerSort.selectedItem.toString()
         when (sort) {
+            //Default sort for shopping list is favorited items first sorted by lowest quantity
             "Default" -> {
                 //Sort by lowest quantity first
                 foods = ArrayList(foods.sortedWith(compareBy({ it.quantity })))

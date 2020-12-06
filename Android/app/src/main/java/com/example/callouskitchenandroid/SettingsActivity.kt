@@ -32,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
         // set up bottom nav bar
         setNavigation()
 
-        // log the user out by deleting their data from shared preferences and taking them to the login page
+        // log the user out by deleting their important data from shared preferences and taking them to the login page
         val btnLogout = findViewById<Button>(R.id.btnLogout)
         btnLogout.setOnClickListener {
             with (ServiceHandler.sharedPref.edit()) {
@@ -75,7 +75,7 @@ class SettingsActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, diets)
         spinnerDiet.adapter = adapter
 
-        // Disable the allergy field unless the box is checked
+        // Disable the custom allergy field unless the box is checked
         txtAllergy.isEnabled = false
 
         // Set the spinner of dietary restrictions to the correct value
@@ -101,6 +101,9 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         // handle the custom "other" allergy
+        //I'm assuming anything that wasn't included in the hardcoded allergies is the custom allergy
+        //Can't currently have multiple custom allergies
+        //As that's too much work
         if (allergies?.size!! > 0){
             txtAllergy.setText(allergies!![0])
             chkBxAllergy.isChecked = true
@@ -186,6 +189,7 @@ class SettingsActivity : AppCompatActivity() {
                     allergies.add(it.text.toString().toLowerCase())
                 }
             }
+            //Handle the custom allergy
             if (chkBxAllergy.isChecked){
                 if (txtAllergy.text.toString().isNullOrEmpty()){
                     Toast.makeText(applicationContext,"Type in your allergy", Toast.LENGTH_LONG).show()
@@ -201,6 +205,7 @@ class SettingsActivity : AppCompatActivity() {
             var vegetarian = false
 
             if (spinnerDiet.selectedItem == "Vegan") {
+                //All vegans are vegetarians
                 vegan = true
                 vegetarian = true
             }
