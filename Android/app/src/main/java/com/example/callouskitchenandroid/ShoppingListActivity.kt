@@ -16,12 +16,26 @@ import kotlinx.android.synthetic.main.activity_recipe_search.*
 import kotlinx.android.synthetic.main.activity_shopping_list.*
 import org.json.JSONObject
 
+/**
+ * Activity that displays a recipe in a web view
+ *
+ * @author Kevin Gadelha (backend), Laura Stewart (UI)
+ */
 class ShoppingListActivity : AppCompatActivity() {
 
+    // local storage
     private val sharedPref: SharedPreferences = ServiceHandler.sharedPref
 
+    // foods on the shopping list
     var foods: ArrayList<Food> = arrayListOf<Food>()
 
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // set the title of the activity
@@ -34,6 +48,7 @@ class ShoppingListActivity : AppCompatActivity() {
         val footerView = layoutInflater.inflate(R.layout.footer_view, listViewShoppingList, false) as ViewGroup
         listViewShoppingList.addFooterView(footerView)
 
+        // get all of the food from the inventory
         ServiceHandler.callAccountService(
             "GetInventory",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
             Response.Listener { response ->
@@ -56,6 +71,7 @@ class ShoppingListActivity : AppCompatActivity() {
 
             })
 
+        // Clear all the checkboxes
         val btnClear = findViewById<Button>(R.id.btnClearChecked)
 
         btnClear.setOnClickListener {
@@ -78,8 +94,10 @@ class ShoppingListActivity : AppCompatActivity() {
                 })
         }
 
+        // Searching and sorting UI elements
         val txtSearchShopping = findViewById<EditText>(R.id.searchShoppingList)
         val spinnerSort = findViewById<Spinner>(R.id.spinnerSortShopping)
+
         // Populate the Sorting spinner
         val sortingArray = resources.getStringArray(R.array.sortingOptionsShopping)
         val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, sortingArray)
@@ -128,12 +146,18 @@ class ShoppingListActivity : AppCompatActivity() {
 
     }
 
-    /*
-     * Sort the shopping list based on the dropdown
+    /**
+     * Update the filtering and sorting on the list of food depending on the values in the
+     * search bar and the sort dropdown.
+     *
+     * @author Kevin Gadelha, modified by Laura Stewart
      */
     private fun updateSortedAndFilteredList(){
+        // get references to UI
         val txtSearchShopping = findViewById<EditText>(R.id.searchShoppingList)
         val spinnerSort = findViewById<Spinner>(R.id.spinnerSortShopping)
+
+        // update the sorting
         var sort = spinnerSort.selectedItem.toString()
         when (sort) {
             "Default" -> {
@@ -161,6 +185,8 @@ class ShoppingListActivity : AppCompatActivity() {
             "Greatest Quantity" -> foods = ArrayList(foods.sortedWith(compareByDescending ({ it.quantity })))
             "Quantity Type" -> foods = ArrayList(foods.sortedWith(compareBy({ it.quantityClassifier })))
         }
+
+        // Update the filtering based on the search
         if (txtSearchShopping.text.isNotEmpty()){
             val filteredFoods = foods.filter { food -> food.name.contains(txtSearchShopping.text)  }
             val shoppingListAdapter = ShoppingListAdapter(this@ShoppingListActivity, filteredFoods)
@@ -172,8 +198,10 @@ class ShoppingListActivity : AppCompatActivity() {
         }
     }
 
-    /*
-     * Override Android's default back button press
+    /**
+     * Override the default back button press so that it goes back to the inventory
+     *
+     * @author Laura Stewart
      */
     override fun onBackPressed() {
         // go back to the category list
@@ -181,8 +209,10 @@ class ShoppingListActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    /*
-     * Links the bottom navigation buttons to the correct activities
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
      */
     private fun setNavigation() {
         bottomNavShoppingList.setOnNavigationItemSelectedListener {

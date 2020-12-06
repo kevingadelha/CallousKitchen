@@ -266,14 +266,6 @@
             android:text="Save"
             android:textColor="?attr/textColor" />
 
-        <Button
-            android:id="@+id/btnCancelEditDiet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/colorDarkBtn"
-            android:text="@string/cancel"
-            android:textColor="?attr/textColor" />
     </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

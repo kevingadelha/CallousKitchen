@@ -10,8 +10,16 @@ import com.example.callouskitchenandroid.Util.scheduleJob
 /**
  * JobService to be scheduled by the JobScheduler.
  * start another service
+ *
+ * @author Kevin Gadelha
  */
 class TheJobService : JobService() {
+
+    /**
+     *
+     * @param params
+     * @return true if the notification service is not null
+     */
     override fun onStartJob(params: JobParameters): Boolean {
         val service = Intent(applicationContext, NotificationService::class.java)
         if (service == null){
@@ -22,6 +30,9 @@ class TheJobService : JobService() {
         return true
     }
 
+    /**
+     * Not implemented
+     */
     override fun onStopJob(params: JobParameters): Boolean {
         return true
     }

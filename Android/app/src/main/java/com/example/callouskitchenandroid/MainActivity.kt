@@ -11,16 +11,27 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import org.json.JSONObject
 
-
+/**
+ * Login screen.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ServiceHandler.sharedPref = getPreferences(Context.MODE_PRIVATE)
         setContentView(R.layout.activity_main)
         startService(Intent(this, NotificationService::class.java))
 
-
+        // Keep the user logged in if their data is in local storage
         var userId = ServiceHandler.sharedPref.getInt("userId", -1)
         if (userId != -1){
             ServiceHandler.userId = userId
@@ -39,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // get UI elements
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val txtName = findViewById<EditText>(R.id.editTextUsername)
         val txtPassword = findViewById<EditText>(R.id.editTextPassword)
@@ -46,7 +58,6 @@ class MainActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener{
             // validate username and password
-
             if (txtName.text.isNullOrEmpty() || txtPassword.text.isNullOrEmpty())
                 Toast.makeText(
                     applicationContext,
@@ -55,7 +66,6 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             else
             {
-
                 ServiceHandler.callAccountService(
                     "LoginAccount", hashMapOf(
                         "email" to txtName.text.toString(),
@@ -98,12 +108,8 @@ class MainActivity : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show()
                         }
-
                     })
-
-
             }
-
         }
 
         btnCreateAccount.setOnClickListener{
@@ -114,10 +120,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    /*
-     * Override Android's default back button press
+    /**
+     * Override the default back button press so that it does nothing
+     *
+     * @author Laura Stewart
      */
     override fun onBackPressed() {
-        // do nothing for now
+        // do nothing
     }
 }

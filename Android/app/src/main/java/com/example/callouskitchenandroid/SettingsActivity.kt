@@ -10,7 +10,21 @@ import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONArray
 import org.json.JSONObject
 
+/**
+ * Activity for updating the user's account settings. Settings include email, password, dietary
+ * restrictions, and allergies. They can also logout from here.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class SettingsActivity : AppCompatActivity() {
+
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -18,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
         // set up bottom nav bar
         setNavigation()
 
-        // log the user out
+        // log the user out by deleting their data from shared preferences and taking them to the login page
         val btnLogout = findViewById<Button>(R.id.btnLogout)
         btnLogout.setOnClickListener {
             with (ServiceHandler.sharedPref.edit()) {
@@ -32,9 +46,9 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Get the UI elements
         val txtEmail = findViewById<EditText>(R.id.editSettingEmail)
         val btnSaveEmail = findViewById<Button>(R.id.btnSaveEmail)
-
         val txtPassword = findViewById<EditText>(R.id.editSettingPassword)
         val txtConfirmPassword = findViewById<EditText>(R.id.editSettingConfirmPassword)
         val btnResetPassword = findViewById<Button>(R.id.btnResetPassword)
@@ -52,8 +66,8 @@ class SettingsActivity : AppCompatActivity() {
         val chkBxAllergy = findViewById<CheckBox>(R.id.chkBxAllergy)
         val txtAllergy = findViewById<EditText>(R.id.editAllergyText)
         val btnSaveDiet = findViewById<Button>(R.id.btnSaveDiet)
-        val btnCancel = findViewById<Button>(R.id.btnCancelEditDiet)
 
+        // store all check boxes in a list for ease of access
         val checkBoxes = listOf(chkBxPeanuts, chkBxTreeNuts, chkBxDairy, chkBxGluten, chkBxShellfish, chkBxFish, chkBxSoy, chkBxEggs)
 
         // populate the diet spinner
@@ -77,6 +91,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
+        // Set the allergy checkboxes according to what allergies are in local storage
         val allergies = ServiceHandler.allergies
         checkBoxes.forEach(){
             if (allergies?.contains(it.text.toString().toLowerCase()) ?: false){
@@ -85,12 +100,14 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
+        // handle the custom "other" allergy
         if (allergies?.size!! > 0){
             txtAllergy.setText(allergies!![0])
             chkBxAllergy.isChecked = true
             txtAllergy.isEnabled = true
         }
 
+        // update the email
         btnSaveEmail.setOnClickListener {
             val email = txtEmail.text.toString()
 
@@ -125,6 +142,7 @@ class SettingsActivity : AppCompatActivity() {
 
         }
 
+        // Change the password
         btnResetPassword.setOnClickListener {
             if (!(txtPassword.text.isNullOrEmpty() || txtConfirmPassword.text.isNullOrEmpty()))
             {
@@ -132,7 +150,6 @@ class SettingsActivity : AppCompatActivity() {
                 if (txtPassword.text.toString() == txtConfirmPassword.text.toString())
                 {
                     val password = txtPassword.text.toString()
-
 
                     ServiceHandler.callAccountService(
                         "EditUserPassword", hashMapOf(
@@ -148,22 +165,19 @@ class SettingsActivity : AppCompatActivity() {
                             else{
                                 Toast.makeText(applicationContext,"Failed :(", Toast.LENGTH_LONG).show()
                             }
-
                         })
-
                 }
-                else
-                {
+                else {
                     Toast.makeText(applicationContext,"Passwords don't match", Toast.LENGTH_LONG).show()
                 }
             }
-            else
-            {
+            else {
                 Toast.makeText(applicationContext,"Please fill all fields", Toast.LENGTH_LONG).show()
             }
 
         }
 
+        // Save the allergies and dietary restrictions in local storage and in the database
         btnSaveDiet.setOnClickListener {
 
             var allergies = ArrayList<String>()
@@ -182,6 +196,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
+            // Check the diet dropdown value
             var vegan = false
             var vegetarian = false
 
@@ -194,6 +209,7 @@ class SettingsActivity : AppCompatActivity() {
                 vegan = false
             }
 
+            // Save in the database and in local storage if successful
             ServiceHandler.callAccountService(
                 "EditUserDietaryRestrictions", hashMapOf(
                     "id" to ServiceHandler.userId,
@@ -221,25 +237,27 @@ class SettingsActivity : AppCompatActivity() {
                     }
 
                 })
-
-
         }
 
+        // Enable the other allergy text input if the checkbox is checked
         chkBxAllergy.setOnClickListener {
             txtAllergy.isEnabled = chkBxAllergy.isChecked
         }
-
     }
 
-    /*
-     * Override Android's default back button press
+    /**
+     * Override the default back button press so that it stays on this activity
+     *
+     * @author Laura Stewart
      */
     override fun onBackPressed() {
-        // do nothing for now
+        // do nothing
     }
 
-    /*
-     * Links the bottom navigation buttons to the correct activities
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
      */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {

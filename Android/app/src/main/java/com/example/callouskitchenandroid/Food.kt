@@ -27,6 +27,12 @@ class Food: Serializable {
 
     /**
      * Creates a food with no expiry date.
+     *
+     * @param id
+     * @param name
+     * @param quantity
+     * @param barcode
+     * @param quantityClassifier
      */
     constructor(id: Int, name: String, quantity: Double = 1.0, barcode: Int = 0, quantityClassifier: String = "")
     {
@@ -39,6 +45,11 @@ class Food: Serializable {
 
     /**
      * Creates a food with only the data needed to check for allergens or to check if it is vegan/vegetarian
+     *
+     * @param ingredients Array of all ingredients in the food
+     * @param traces Array of all ingredients the food may contain traces of
+     * @param vegan Whether the food is vegan (1) or not (0)
+     * @param vegetarian Whether the food is vegetarian (1) or not (0)
      */
     constructor(ingredients : Array<String>,traces : Array<String>, vegan : Int?, vegetarian : Int?)
     {
@@ -50,6 +61,13 @@ class Food: Serializable {
 
     /**
      * Creates a food with all data (except vegetarian/vegan/allergen data)
+     *
+     * @param id
+     * @param name
+     * @param quantity
+     * @param barcode
+     * @param expiry
+     * @param quantityClassifier
      */
     constructor(id: Int, name: String, quantity: Double = 1.0, barcode: Int = 0, expiry: LocalDate, quantityClassifier: String = "")
     {

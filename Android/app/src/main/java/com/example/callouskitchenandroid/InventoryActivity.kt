@@ -201,7 +201,7 @@ class InventoryActivity : AppCompatActivity() {
     }
 
     /**
-     * Override the default back button press so that it always goes to the inventory
+     * Override the default back button press so that it always goes to the category list
      *
      * @author Laura Stewart
      */

@@ -9,12 +9,24 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SearchView
 import com.android.volley.Response
-import kotlinx.android.synthetic.main.activity_inventory.*
 import kotlinx.android.synthetic.main.activity_kitchen_list.bottomNav
 import kotlinx.android.synthetic.main.activity_recipe_search.*
 import org.json.JSONObject
 
+/**
+ * Activity that allows the user to search for a recipe and generate recipes based on expired food.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class RecipeSearchActivity : AppCompatActivity() {
+
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_search)
@@ -22,9 +34,10 @@ class RecipeSearchActivity : AppCompatActivity() {
         // set up bottom nav bar
         setNavigation()
 
-        val footerView = layoutInflater.inflate(R.layout.recipe_footer_view, listViewFood, false) as ViewGroup
+        val footerView = layoutInflater.inflate(R.layout.recipe_footer_view, listViewRecipe, false) as ViewGroup
         listViewRecipe.addFooterView(footerView)
 
+        // Search for food by ingredient
         val searchBar = findViewById<SearchView>(R.id.searchViewRecipes)
 
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -37,6 +50,7 @@ class RecipeSearchActivity : AppCompatActivity() {
             }
         })
 
+        // Get recipe suggestions based on expiring food
         val btnGetSuggestions = findViewById<Button>(R.id.btnGetRecipeSuggestions)
 
         btnGetSuggestions.setOnClickListener {
@@ -64,6 +78,12 @@ class RecipeSearchActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Search for recipes
+     *
+     * @param query The query to search for recipes with
+     * @author Kevin Gadelha
+     */
     private fun searchRecipes(query: String)
     {
         ServiceHandler.callAccountService(
@@ -90,15 +110,19 @@ class RecipeSearchActivity : AppCompatActivity() {
             })
     }
 
-    /*
-     * Override Android's default back button press
+    /**
+     * Override the default back button press so that it does nothing
+     *
+     * @author Laura Stewart
      */
     override fun onBackPressed() {
         // do nothing for now
     }
 
-    /*
-     * Links the bottom navigation buttons to the correct activities
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
      */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {

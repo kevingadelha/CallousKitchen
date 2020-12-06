@@ -9,10 +9,24 @@ import android.widget.*
 import com.android.volley.Response
 import org.json.JSONObject
 
+/**
+ * Extends the ArrayAdapter class so that the food items can be displayed in a shopping list
+ *
+ * @param context The current context of the activity
+ * @param foods A list of Food objects to be displayed
+ * @author Laura Stewart, modified by Kevin Gadelha
+ */
 class ShoppingListAdapter(private val context: Activity,
                           private val foods: List<Food>)
     : ArrayAdapter<Food>(context, R.layout.food_item_list, foods) {
 
+    /**
+     * Called when the list item is being created.
+     *
+     * @param position Index of the current element in the list
+     * @param convertView
+     * @param parent
+     */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView = inflater.inflate(R.layout.shopping_list_item, null, true)

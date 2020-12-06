@@ -16,17 +16,39 @@ import org.json.JSONObject
 import java.time.LocalDate
 import java.util.*
 
-
+/**
+ *
+ *
+ * @author Kevin Gadelha
+ */
 class NotificationService : Service() {
+
     lateinit var notificationManager: NotificationManager
+
+    /**
+     *
+     *
+     * @param arg0
+     * @author Kevin Gadelha
+     */
     override fun onBind(arg0: Intent): IBinder? {
         return null
     }
 
+    /**
+     *
+     *
+     * @param intent
+     * @param flags
+     * @param startId
+     * @return
+     * @author Kevin Gadleha
+     */
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-var context = applicationContext
-//Only do the notification if the user is logged in and this magical context I'm getting from somewhere isn't null
+        var context = applicationContext
+
+        //Only do the notification if the user is logged in and this magical context I'm getting from somewhere isn't null
         if (ServiceHandler.userId != -1 && context != null) {
 
             ServiceHandler.callAccountService(

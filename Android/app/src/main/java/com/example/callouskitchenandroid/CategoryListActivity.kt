@@ -13,11 +13,23 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 
+/**
+ * Activity for displaying a list of all categories that can be clicked to go to the inventory activity.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class CategoryListActivity : AppCompatActivity() {
 
     //declaring variables
     lateinit var notificationManager : NotificationManager
 
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kitchen_list)
@@ -25,6 +37,7 @@ class CategoryListActivity : AppCompatActivity() {
         // set the bottom nav bar
         setNavigation()
 
+        // make the categories
         var categories: ArrayList<Category> = arrayListOf<Category>()
         categories.add(Category(0,"All"))
         categories.add(Category(1,"Fridge"))
@@ -34,68 +47,19 @@ class CategoryListActivity : AppCompatActivity() {
         categories.add(Category(5,"Cellar"))
         categories.add(Category(6,"Other"))
         categories.add(Category(7, "Shopping List"))
+
+        // display the category list
         val categoryListAdapter = CategoryListAdapter(this, categories)
         val footerView = layoutInflater.inflate(R.layout.footer_view, listView, false) as ViewGroup
         listView.addFooterView(footerView)
         listView.adapter = categoryListAdapter
-
-        // Get add button
-  /*      val btnAddKitchen = findViewById<FloatingActionButton>(R.id.btnAddKitchen)
-
-        btnAddKitchen.setOnClickListener(){
-            // go to add kitchen view
-            //val intent = Intent(this@KitchenListActivity, AddKitchenActivity::class.java)
-            //startActivity(intent)
-        }*/
-//Don't do this here anymore
-        /*
-        ServiceHandler.callAccountService(
-            "GetInventory",hashMapOf("kitchenId" to ServiceHandler.primaryKitchenId),this,
-            Response.Listener { response ->
-                val json = JSONObject(response.toString())
-                val foodsJson = json.getJSONArray("GetInventoryResult")
-                var foods: ArrayList<Food> = arrayListOf<Food>()
-                var expiringFoods: ArrayList<String> = arrayListOf<String>()
-                for (i in 0 until foodsJson.length()) {
-                    var foodJson: JSONObject = foodsJson.getJSONObject(i)
-                        var food = Food(foodJson.getInt("Id"),foodJson.getString("Name"))
-                        food.quantity = foodJson.getDouble("Quantity")
-                        food.expiryDate = ServiceHandler.deSerializeDate(foodJson.getString("ExpiryDate"))
-                        food.favourite = foodJson.getBoolean("Favourite")
-                        foods.add(food)
-                        if (food.expiryDate != null && (food.expiryDate!! < LocalDate.now().plusDays(3))){
-                            expiringFoods.add(food.name)
-                        }
-                }
-                if (expiringFoods.size > 0){
-                    createNotificationChannel()
-                    // creating the notification and its parameters.!
-
-                    // Create an explicit intent for an Activity in your app
-                    val intent = Intent(this, InventoryActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    }
-                    intent.putExtra("Expiring Soon",true)
-                    val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-                    val builder = NotificationCompat.Builder(this, "primary_notification_channel").apply {
-                        setSmallIcon(R.drawable.hippo)
-                        setContentTitle("Expiring")
-                        setContentText(expiringFoods.joinToString {  it -> it  })
-                        setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        setContentIntent(pendingIntent)
-                        setStyle(NotificationCompat.BigTextStyle().bigText(expiringFoods.joinToString {  it -> it  }))
-                    }
-
-                    // displaying the notification with NotificationManagerCompat.
-                    with(NotificationManagerCompat.from(this)) {
-                        notify(112, builder.build())
-                    }
-                }
-
-            })*/
     }
 
+    /**
+     * Display a notification (unused?)
+     *
+     * @author Kevin Gadelha
+     */
     private fun createNotificationChannel() {
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -114,15 +78,19 @@ class CategoryListActivity : AppCompatActivity() {
         }
     }
 
-    /*
-     * Override Android's default back button press
+    /**
+     * Override the default back button press so that it does nothing
+     *
+     * @author Laura Stewart
      */
     override fun onBackPressed() {
-        // do nothing for now
+        // stay on the same activity
     }
 
-    /*
-     * Links the bottom navigation buttons to the correct activities
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
      */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {

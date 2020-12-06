@@ -22,9 +22,17 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.HashMap
 
-
+/**
+ * Handler for communicating with the C# web service
+ *
+ * @author Kevin Gadelha
+ */
 class ServiceHandler {
-    //this is basically a singleton
+    /**
+     * Basically makes the ServiceHandler a Singleton
+     *
+     * @author Kevin Gadelha
+     */
     companion object Static {
         //I don't know where I should put variables that I want to be accessible to the whole app
         //So I'm putting them here for now
@@ -40,9 +48,17 @@ class ServiceHandler {
         //this is better than passing stuff through intents all the time
         var lastCategory = ""
         val baseUrl =  "http://142.55.32.86:50241"
-        //The name of the service with extension, the name of the method, the parameters where the string
-        //is the parameter name and any is the value, for context use this and use response as your listener
-        //I really tried to eliminate the listener and return the response as a string, but it's not possible
+
+        /**
+         * Calls a method in a service and uses a response listener to return the result
+         *
+         * @param service The name of the service with the file extension
+         * @param method The method name being called
+         * @param parameters The parameters for the method in a hashmap
+         * @param context The current context
+         * @param response The response listener
+         * @author Kevin Gadelha
+         */
         fun callService(service : String, method : String, parameters : HashMap<String,Any?>, context: Context, response : Response.Listener<JSONObject>)
         {
             val queue = Volley.newRequestQueue(context)
@@ -59,11 +75,30 @@ class ServiceHandler {
                 Response.ErrorListener { println("request failed") })
             queue.add(request)
         }
+
+        /**
+         * Specifically calls the account service.
+         *
+         * @param method The method name being called
+         * @param parameters The parameters for the method in a hashmap
+         * @param context The current context
+         * @param response The response listener
+         * @author Kevin Gadelha
+         */
         fun callAccountService(method : String, parameters : HashMap<String,Any?>, context: Context, response : Response.Listener<JSONObject>)
         {
             callService("AccountService.svc",method,parameters,context, response)
         }
 
+        /**
+         * Calls OpenFoodFacts directly to get the result for a barcode (faster than going through
+         * the C# service)
+         *
+         * @param barcode The barcode to check
+         * @param context The current context
+         * @param response The response listener
+         * @author Kevin Gadelha
+         */
         fun callOpenFoodFacts(barcode : String, context: Context, response : Response.Listener<JSONObject>){
             val queue = Volley.newRequestQueue(context)
             val url = "https://world.openfoodfacts.org/api/v0/product/$barcode.json"
@@ -74,6 +109,13 @@ class ServiceHandler {
             queue.add(request)
         }
 
+        /**
+         * Turns a LocalDate object into a String so it can be saved.
+         *
+         * @param date The date as a LocalDate
+         * @return The date as a String
+         * @author Kevin Gadelha
+         */
         fun serializeDate(date : LocalDate?) : String?{
             if (date == null)
                 return null
@@ -87,6 +129,13 @@ class ServiceHandler {
         }
 
         //this is the hackiest thing in the worl
+        /**
+         * Turns a String into a LocalDate
+         *
+         * @param date The date as a String
+         * @return The date as a LocalDate
+         * @author Kevin Gadelha
+         */
         fun deSerializeDate(date : String) : LocalDate?{
             if (date.isNullOrEmpty() || date == "null"){
                 return null
@@ -95,21 +144,25 @@ class ServiceHandler {
             var epoch = date.substring(6,date.length-10)
             //convert that to a date
             return LocalDateTime.ofEpochSecond(epoch.toLong(),0,ZoneOffset.UTC).toLocalDate()
-
-
         }
 
-
+        /**
+         * Create a warning message if a food does not match the user's dietary requirements.
+         *
+         * @param food The food to check
+         * @param onlyWarning If true, messages will not be generated if the food is safe
+         * @return The warning message
+         */
         fun generateWarningMessage(food : Food, onlyWarning : Boolean) : String?{
 
             var warningMessage = ""
-            if (ServiceHandler.vegan == true && food.vegan == 0) {
+            if (vegan && food.vegan == 0) {
                 warningMessage = addToWarningMessage(warningMessage, "is not vegan")
-            } else if (ServiceHandler.vegan == true && food.vegan == 1 && !onlyWarning) {
+            } else if (vegan && food.vegan == 1 && !onlyWarning) {
                 warningMessage = addToWarningMessage(warningMessage, "is vegan")
-            } else if (ServiceHandler.vegetarian == true && food.vegetarian == 0) {
+            } else if (vegetarian && food.vegetarian == 0) {
                 warningMessage = addToWarningMessage(warningMessage, "is not vegetarian")
-            } else if (ServiceHandler.vegetarian == true && food.vegetarian == 1 && !onlyWarning) {
+            } else if (vegetarian && food.vegetarian == 1 && !onlyWarning) {
                 warningMessage = addToWarningMessage(warningMessage, "is vegetarian")
             }
 
@@ -156,7 +209,15 @@ class ServiceHandler {
             return warningMessage
         }
 
-
+        /**
+         * Compares two arrays to see if elements from one are in the other. Used for checking if
+         * the user's allergens are present in the food.
+         *
+         * @param sourceArray The source array to check
+         * @param checkingArray The array to check the source against
+         * @return And ArrayList of the elements that are in both arrays
+         * @author Kevin Gadelha
+         */
         fun getElementsOfArrayThatAreContainedInAnotherArray(
             sourceArray: List<String>?, checkingArray: List<String>?
         ): ArrayList<String> {
@@ -171,6 +232,14 @@ class ServiceHandler {
             return containedElements
         }
 
+        /**
+         * Format warning message properly when more warnings are being added to it.
+         *
+         * @param warningMessage The original warning message
+         * @param addition The String being added to the message
+         * @return The new warning message
+         * @author Kevin Gadelha
+         */
         fun addToWarningMessage(warningMessage: String, addition: String): String {
             var newWarningMessage = warningMessage
             if (newWarningMessage.isNullOrEmpty()) {
