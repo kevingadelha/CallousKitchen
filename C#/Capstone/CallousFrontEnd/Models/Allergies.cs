@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace CallousFrontEnd.Models
 {
+    // Author: Peter
+    // This class contains string arrays that match the allergy labels on dropdown, and how they presented the database.
+    // Both arrays line up with its relevant counterpart for convenient accessing
     public static class Allergies
     {
         public static string[] GetAllergies()
