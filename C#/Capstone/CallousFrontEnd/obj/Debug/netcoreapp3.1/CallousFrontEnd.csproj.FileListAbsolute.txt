@@ -410,7 +410,6 @@ F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Raz
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\CreateUser.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\Login.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\UserKitchenPartialView.cshtml.g.cs
-F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\User\View.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 F:\Capstone\CallousHippo\C#\Capstone\CallousFrontEnd\obj\Debug\netcoreapp3.1\CallousFrontEnd.RazorTargetAssemblyInfo.cache

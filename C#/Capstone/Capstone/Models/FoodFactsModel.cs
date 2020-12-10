@@ -6,6 +6,7 @@ using System.Web;
 
 namespace Capstone.Models
 {
+    // Author: Peter
     public class FoodFactsModel
     {
         [JsonProperty(PropertyName = "product")]
