@@ -1,8 +1,8 @@
+/* Authors: Laura Stewart, Kevin Gadelha */
 package com.example.callouskitchenandroid
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -11,14 +11,31 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.android.volley.Response
-import org.json.JSONArray
 import org.json.JSONObject
+import java.text.DecimalFormat
 import java.time.LocalDate
 
+/**
+ * Extends the ArrayAdapter class so that the food can be displayed in a custom ListView.
+ *
+ * @param context The current context of the activity
+ * @param foods A list of Food objects to be displayed
+ * @author Laura Stewart mostly, with favoriting logic by Kevin Gadelha
+ */
 class FoodListAdapter(private val context: Activity,
                       private val foods: List<Food>)
     : ArrayAdapter<Food>(context, R.layout.food_item_list, foods) {
 
+    // The food will be labelled as "expiring soon" if it is within 3 days of expiration
+    private val EXP_SOON_THRESHOLD = 3
+
+    /**
+     * Called when the list item is being created.
+     *
+     * @param position Index of the current element in the list
+     * @param convertView
+     * @param parent
+     */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView = inflater.inflate(R.layout.food_item_list, null, true)
@@ -30,27 +47,36 @@ class FoodListAdapter(private val context: Activity,
 
         // add expiry date and quantity
         val txtQuantity = rowView.findViewById<TextView>(R.id.textViewFoodQuantity)
-        txtQuantity.text = "Quantity: " + foods[position].quantity
+        val dec = DecimalFormat("#,###.##")
+        val formattedQuantity = dec.format(foods[position].quantity)
+        txtQuantity.text = "Quantity: ${formattedQuantity} ${foods[position].quantityClassifier}"
 
         val txtExpiry = rowView.findViewById<TextView>(R.id.textViewExpiry)
 
         // Compare dates to change colour
         val currentDate = LocalDate.now()
         val expiryDate = foods[position].expiryDate
-        val expiryMinusThree = expiryDate?.minusDays(3) // for checking if an item is about to expire
-        if (expiryDate!! < currentDate) // food is expired
-        {
-            txtExpiry.text = "EXPIRED: " + foods[position].expiryDate?.toString()
-            txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.redText))
+        if (expiryDate != null){
+            val expiryMinusThree = expiryDate?.minusDays(EXP_SOON_THRESHOLD.toLong()) // for checking if an item is about to expire
+            if (expiryDate!! < currentDate) // food is expired
+            {
+                txtExpiry.text = "EXPIRED: ${foods[position].expiryDate?.toString()}"
+                txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.redText))
+            }
+            else if (expiryMinusThree!! < currentDate)
+            {
+                txtExpiry.text = "EXPIRES SOON: ${foods[position].expiryDate?.toString()}"
+                txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.orangeText))
+            }
+            else
+            {
+                txtExpiry.text = "Expires on: ${foods[position].expiryDate?.toString()}"
+                txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.whiteText))
+            }
         }
-        else if (expiryMinusThree!! < currentDate)
-        {
-            txtExpiry.text = "EXPIRES SOON: " + foods[position].expiryDate?.toString()
-            txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.orangeText))
-        }
-        else
-        {
-            txtExpiry.text = "Expires on: " + foods[position].expiryDate?.toString()
+        else{
+            //It shows "textview" without a default for some reason
+            txtExpiry.text = ""
             txtExpiry.setTextColor(ContextCompat.getColor(context, R.color.whiteText))
         }
 
@@ -93,6 +119,7 @@ class FoodListAdapter(private val context: Activity,
             host.startActivity(intent)
         }
 
+        // Indicate a food is favourited by updating the image shown in the image button
         var isFavourite = foods[position].favourite
         if (isFavourite)
             btnFavourite.setImageResource(R.drawable.filledstar)
@@ -100,9 +127,13 @@ class FoodListAdapter(private val context: Activity,
             btnFavourite.setImageResource(R.drawable.star)
         var foodId = foods[position].id
 
+        // toggle the favourite button
+        // author: Kevin Gadelha
+        // The only part of the android app that's kind of async
         btnFavourite.setOnClickListener{
-
             isFavourite = !isFavourite
+
+            // update the food in the database
             ServiceHandler.callAccountService(
                 "FavouriteFood", hashMapOf(
                     "foodId" to foodId,
@@ -114,6 +145,7 @@ class FoodListAdapter(private val context: Activity,
                     // return to the food list
                     if (!success){
                         Toast.makeText(context,"Failed :(", Toast.LENGTH_LONG).show()
+                        //Undo the favorite if failed
                         isFavourite = !isFavourite
                     }
                     else{
@@ -121,6 +153,8 @@ class FoodListAdapter(private val context: Activity,
                             btnFavourite.setImageResource(R.drawable.filledstar)
                         else
                             btnFavourite.setImageResource(R.drawable.star)
+                        //Update the entry in the original list
+                        foods[position].favourite = isFavourite
                     }
                 })
         }

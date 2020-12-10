@@ -13,8 +13,8 @@ using System.ServiceModel;
 
 namespace Capstone
 {
-	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "AccountService" in code, svc and config file together.
-	// NOTE: In order to launch WCF Test Client for testing this service, please select AccountService.svc or AccountService.svc.cs at the Solution Explorer and start debugging.
+	//Use inheritance to have two services with the same methods
+	//The methods required in iaccountservice are found in parent
 	public class AccountService : AccountServiceParent, IAccountService
 	{
 	}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,7 +14,7 @@ namespace Capstone
     public interface IExpiryService
     {
         [OperationContract]
-        string GetDateStorage(string value);
+        Tuple<DateTime, DateTime, Storage> GetDateStorage(string food, Storage storage);
 
     }
 }

@@ -130,7 +130,6 @@
     <Content Include="AccountService.svc" />
     <Content Include="AccountServiceMvc.svc" />
     <Content Include="BarcodeService.svc" />
-    <Content Include="ExpiryEstimationService.svc" />
     <Content Include="ExpiryService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -150,40 +149,26 @@
       <DependentUpon>BarcodeService.svc</DependentUpon>
     </Compile>
     <Compile Include="CallousHipposDb.cs" />
+    <Compile Include="Classes\CaloriesInDay.cs" />
     <Compile Include="Classes\Food.cs" />
     <Compile Include="Classes\Kitchen.cs" />
     <Compile Include="Classes\User.cs" />
-    <Compile Include="ExpiryEstimationService.svc.cs">
-      <DependentUpon>ExpiryEstimationService.svc</DependentUpon>
-    </Compile>
+    <Compile Include="EmailClient.cs" />
     <Compile Include="IAccountService.cs" />
     <Compile Include="IAccountServiceMvc.cs" />
     <Compile Include="IBarcodeService.cs" />
-    <Compile Include="IExpiryEstimationService.cs" />
     <Compile Include="IExpiryService.cs" />
-    <Compile Include="Migrations\202004050645336_Init.cs" />
-    <Compile Include="Migrations\202004050645336_Init.designer.cs">
-      <DependentUpon>202004050645336_Init.cs</DependentUpon>
+    <Compile Include="Migrations\202011220707452_init.cs" />
+    <Compile Include="Migrations\202011220707452_init.designer.cs">
+      <DependentUpon>202011220707452_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004052200469_PasswordHash.cs" />
-    <Compile Include="Migrations\202004052200469_PasswordHash.designer.cs">
-      <DependentUpon>202004052200469_PasswordHash.cs</DependentUpon>
+    <Compile Include="Migrations\202011240241123_another.cs" />
+    <Compile Include="Migrations\202011240241123_another.designer.cs">
+      <DependentUpon>202011240241123_another.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010100611491_storage.cs" />
-    <Compile Include="Migrations\202010100611491_storage.designer.cs">
-      <DependentUpon>202010100611491_storage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010100654321_storageInFood.cs" />
-    <Compile Include="Migrations\202010100654321_storageInFood.designer.cs">
-      <DependentUpon>202010100654321_storageInFood.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010120341339_storageWithIds.cs" />
-    <Compile Include="Migrations\202010120341339_storageWithIds.designer.cs">
-      <DependentUpon>202010120341339_storageWithIds.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011070127383_refactor.cs" />
-    <Compile Include="Migrations\202011070127383_refactor.designer.cs">
-      <DependentUpon>202011070127383_refactor.cs</DependentUpon>
+    <Compile Include="Migrations\202012010255580_shopping-list.cs" />
+    <Compile Include="Migrations\202012010255580_shopping-list.designer.cs">
+      <DependentUpon>202012010255580_shopping-list.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EdamanIngredient.cs" />
@@ -218,23 +203,14 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004050645336_Init.resx">
-      <DependentUpon>202004050645336_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011220707452_init.resx">
+      <DependentUpon>202011220707452_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004052200469_PasswordHash.resx">
-      <DependentUpon>202004052200469_PasswordHash.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011240241123_another.resx">
+      <DependentUpon>202011240241123_another.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010100611491_storage.resx">
-      <DependentUpon>202010100611491_storage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010100654321_storageInFood.resx">
-      <DependentUpon>202010100654321_storageInFood.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010120341339_storageWithIds.resx">
-      <DependentUpon>202010120341339_storageWithIds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011070127383_refactor.resx">
-      <DependentUpon>202011070127383_refactor.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012010255580_shopping-list.resx">
+      <DependentUpon>202012010255580_shopping-list.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

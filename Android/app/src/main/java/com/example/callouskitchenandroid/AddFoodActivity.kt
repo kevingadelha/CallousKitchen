@@ -1,26 +1,42 @@
+/* Authors: Kevin Gadelha, Laura Stewart */
 package com.example.callouskitchenandroid
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.android.volley.Response
-import org.json.JSONObject
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.os.Bundle
 import android.widget.*
-import java.util.*
+import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
+import org.json.JSONArray
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
-import org.json.JSONArray
+import java.util.*
 
+/**
+ * Activity for adding a food to the inventory.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class AddFoodActivity : AppCompatActivity() {
 
+    /**
+     * Stores a tag with this activity's name
+     */
     companion object {
         private const val ADD_FOOD_TAG = "AddFoodActivity"
     }
 
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_food)
@@ -35,25 +51,40 @@ class AddFoodActivity : AppCompatActivity() {
         val btnCancel = findViewById<Button>(R.id.btnCancelAddFood)
         val btnScanBarcode = findViewById<Button>(R.id.btnScanBarcode)
         val spinnerUnits = findViewById<Spinner>(R.id.spinnerUnits)
+        val spinnerCategory = findViewById<Spinner>(R.id.spinnerCategory)
 
-        // Populate the Units spinner
+        // Populate the Units spinner with custom adapter
         val unitsArray = resources.getStringArray(R.array.units)
         val adapter = ArrayAdapter(this, R.layout.custom_spinner_item, unitsArray)
         spinnerUnits.adapter = adapter
 
+        // Populate the category spinner
+        var categories = listOf("Fridge", "Freezer", "Pantry", "Cupboard", "Cellar", "Other")
+        val categoryAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, categories)
+        spinnerCategory.adapter = categoryAdapter
+
+        //Default is fridge
+        var category = "Fridge"
+        //The category should be based on what the user's last selected category was
+        //But all doesn't count of course, in which case use the default
+        if (ServiceHandler.lastCategory != "All")
+            category = ServiceHandler.lastCategory
+        //Set the category in the UI
+        spinnerCategory.setSelection(categories.indexOf(category))
+
+        // variables for storing food data
         var cal = Calendar.getInstance()
         var foodName: String?
-        var quantity: String?
+        var quantity: Double?
+        var quantityClassifier: String?
         var expiryDate: String?
         var vegan: Int? = -1
         var vegetarian: Int? = -1
         var ingredients = arrayOf<String>()
         var traces = arrayOf<String>()
 
-        // Get the food data from the barcode scanner
+        // Get the food data passed in from the barcode scanner
         if (intent != null) {
-
-
             try {
                 foodName = intent.getStringExtra("FOODNAME")
                 txtFoodName.setText(foodName)
@@ -61,8 +92,18 @@ class AddFoodActivity : AppCompatActivity() {
             }
 
             try {
-                quantity = intent.getStringExtra("QUANTITY")
-                txtFoodQuantity.setText(quantity)
+                quantity = intent.getDoubleExtra("QUANTITY", 0.0)
+                txtFoodQuantity.setText(quantity.toString())
+            } catch (exc: Exception) {
+            }
+
+            try {
+                quantityClassifier = intent.getStringExtra("QUANTITYCLASSIFIER")
+                spinnerUnits.setSelection(
+                    (spinnerUnits.getAdapter() as ArrayAdapter<String?>).getPosition(
+                        quantityClassifier
+                    )
+                )
             } catch (exc: Exception) {
             }
 
@@ -73,6 +114,7 @@ class AddFoodActivity : AppCompatActivity() {
             }
 
             try {
+                //Default to unknown
                 vegan = intent.getIntExtra("VEGAN", -1)
             } catch (exc: Exception) {
             }
@@ -91,62 +133,20 @@ class AddFoodActivity : AppCompatActivity() {
                 traces = intent.getStringArrayExtra("TRACES")
             } catch (exc: Exception) {
             }
-            var warningMessage = ""
-            if (ServiceHandler.vegan == true && vegan == 0) {
-                warningMessage = AddToWarningMessage(warningMessage, "is not vegan")
-            } else if (ServiceHandler.vegan == true && vegan == 1) {
-                warningMessage = AddToWarningMessage(warningMessage, "is vegan")
-            } else if (ServiceHandler.vegetarian == true && vegetarian == 0) {
-                warningMessage = AddToWarningMessage(warningMessage, "is not vegetarian")
-            } else if (ServiceHandler.vegetarian == true && vegetarian == 1) {
-                warningMessage = AddToWarningMessage(warningMessage, "is vegetarian")
-            }
 
-            var containedAllergens =
-                GetElementsOfArrayThatAreContainedInAnotherArray(
-                    ServiceHandler.allergies!!,
-                    ingredients?.toList()
-                )
-
-            containedAllergens.forEach() {
-                warningMessage = AddToWarningMessage(warningMessage, "contains $it")
-            }
-
-            var containedTraces =
-                GetElementsOfArrayThatAreContainedInAnotherArray(
-                    ServiceHandler.allergies!!,
-                    traces?.toList()
-                )
-
-            containedTraces.forEach() {
-                warningMessage = AddToWarningMessage(warningMessage, "contains traces of $it")
-            }
-
-
-            if (ingredients.size > 0 || traces.size > 0){
-                if (containedAllergens.size == 0 && traces.size == 0) {
-                    warningMessage = AddToWarningMessage(
-                        warningMessage,
-                        "does not contain allergens but traces are unknown"
-                    )
-                } else if (containedTraces.size == 0 && ingredients.size == 0) {
-                    warningMessage = AddToWarningMessage(
-                        warningMessage,
-                        "does not have traces allergens but ingredients are unknown"
-                    )
-                } else if (containedAllergens.size == 0 && containedTraces.size == 0) {
-                    warningMessage = AddToWarningMessage(
-                        warningMessage,
-                        "does not contain allergens or traces of allergens"
-                    )
-                }
-            }
-
-            if (!warningMessage.isNullOrEmpty()) {
-                Toast.makeText(applicationContext, warningMessage, Toast.LENGTH_LONG).show()
-            }
+            // Show allergy and dietary restriction warnings
+            var tempFood = Food(ingredients,traces,vegan,vegetarian)
+            //Tell the user if the food has bad stuff or if it doesn't
+            var warningMessage = ServiceHandler.generateWarningMessage(tempFood, false)
+            if (!warningMessage.isNullOrEmpty())
+                Toast.makeText(
+                    applicationContext,
+                    warningMessage,
+                    Toast.LENGTH_LONG
+                ).show()
         }
 
+        // Detect when the expiry date is set in the calendar
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(
                 view: DatePicker, year: Int, monthOfYear: Int,
@@ -167,9 +167,11 @@ class AddFoodActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Add the food (if all required variable are valid
         btnAddFood.setOnClickListener {
             val foodName = txtFoodName.text.toString()
 
+            // Validate input to check that it's good
             if (foodName.isNullOrEmpty()) {
                 Toast.makeText(applicationContext, "Please enter the food name", Toast.LENGTH_LONG)
                     .show()
@@ -178,26 +180,34 @@ class AddFoodActivity : AppCompatActivity() {
                 var quantity: Double = 1.0
                 if (!quantityString.isNullOrEmpty())
                     quantity = quantityString.toDouble()
-                var expiryDate: LocalDate
-                try {
-                    expiryDate = LocalDate.parse(
-                        txtFoodExpiry.text.toString(),
-                        DateTimeFormatter.ofPattern("MM/dd/yyyy")
-                    )
-                } catch (e: DateTimeParseException) {
-                    Toast.makeText(
-                        applicationContext,
-                        "Please enter a valid date",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    return@setOnClickListener
+                var expiryDate: LocalDate?
+                if (txtFoodExpiry.text.isNullOrEmpty()){
+                    expiryDate = null
                 }
+                else{
+                    try {
+                        expiryDate = LocalDate.parse(
+                            txtFoodExpiry.text.toString(),
+                            DateTimeFormatter.ofPattern("MM/dd/yyyy")
+                        )
+                    } catch (e: DateTimeParseException) {
+                        Toast.makeText(
+                            applicationContext,
+                            "Please enter a valid date",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        return@setOnClickListener
+                    }
+                }
+
+                // Add the food to the database (will only be called if required fields have been filled)
                 val quantityClassifier = spinnerUnits.selectedItem.toString()
                 ServiceHandler.callAccountService(
                     "AddFoodComplete", hashMapOf(
+                        "userId" to ServiceHandler.userId,
                         "kitchenId" to ServiceHandler.primaryKitchenId,
                         "name" to foodName,
-                        "storage" to ServiceHandler.lastCategory,
+                        "storage" to spinnerCategory.selectedItem.toString(),
                         "quantity" to quantity,
                         "quantityClassifier" to quantityClassifier,
                         "expiryDate" to ServiceHandler.serializeDate(expiryDate),
@@ -210,20 +220,29 @@ class AddFoodActivity : AppCompatActivity() {
                     ), this,
                     Response.Listener { response ->
                         val json = JSONObject(response.toString())
-                        val kitchenId = json.getBoolean("AddFoodCompleteResult")
-                        // return to the food list
-                        val intent = Intent(this@AddFoodActivity, InventoryActivity::class.java)
-                        startActivity(intent)
+
+                        val success = json.getBoolean("AddFoodCompleteResult")
+                        //If it failed, it's cause the user's not confirmed yet
+                        if (!success){
+                            Toast.makeText(applicationContext,"Please confirm your email before adding food!", Toast.LENGTH_LONG).show()
+                        }
+                        else{
+                            // return to the food list
+                            val intent = Intent(this@AddFoodActivity, InventoryActivity::class.java)
+                            startActivity(intent)
+                        }
 
                     })
             }
         }
 
+        // Return to the inventory activity
         btnCancel.setOnClickListener {
             val intent = Intent(this@AddFoodActivity, InventoryActivity::class.java)
             startActivity(intent)
         }
 
+        // Open a date picker to the correct month, day, and year
         txtFoodExpiry.setOnFocusChangeListener { v, hasFocus ->
             DatePickerDialog(
                 this@AddFoodActivity,
@@ -237,32 +256,21 @@ class AddFoodActivity : AppCompatActivity() {
 
     }
 
-    public fun GetElementsOfArrayThatAreContainedInAnotherArray(
-        sourceArray: List<String>?, checkingArray: List<String>?
-    ): ArrayList<String> {
-        var containedElements = ArrayList<String>()
-        sourceArray?.forEach() {
-            checkingArray?.forEach() { it2: String ->
-                if (it2.contains(it)) {
-                    containedElements.add(it2)
-                }
-            }
-        }
-        return containedElements
+    /**
+     * Override the default back button press so that it always goes to the inventory
+     *
+     * @author Laura Stewart
+     */
+    override fun onBackPressed() {
+        val intent = Intent(this@AddFoodActivity, InventoryActivity::class.java)
+        startActivity(intent)
     }
 
-    public fun AddToWarningMessage(warningMessage: String, addition: String): String {
-        var newWarningMessage = warningMessage
-        if (newWarningMessage.isNullOrEmpty()) {
-            newWarningMessage = "Food "
-        } else {
-            newWarningMessage += " and "
-        }
-        newWarningMessage += addition
-        return newWarningMessage
-    }
-
-
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
+     */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId){
@@ -274,7 +282,7 @@ class AddFoodActivity : AppCompatActivity() {
                 }
                 R.id.navigation_inventory -> {
                     // go to the categories list
-                    val intent = Intent(this@AddFoodActivity, KitchenListActivity::class.java)
+                    val intent = Intent(this@AddFoodActivity, CategoryListActivity::class.java)
                     startActivity(intent)
                     true
                 }

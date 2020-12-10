@@ -11,7 +11,9 @@ using System.Threading.Tasks;
 
 namespace Capstone
 {
-	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IAccountService" in both code and config file together.
+	//Authors: Kevin and Peter
+	//Same as the other accountservice interface
+	//Nothing interesting, just shows the contract for the methods in the accountservice
 	[ServiceContract]
 	public interface IAccountService
 	{
@@ -58,27 +60,37 @@ namespace Capstone
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-		Task<bool> AddFood(int kitchenId, string name, int quantity, DateTime? expiryDate);
+		Task<bool> AddFood(int userId, int kitchenId, string name, int quantity, DateTime? expiryDate);
 
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-		Task<bool> AddFoodComplete(int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite);
+		Task<bool> AddFoodComplete(int userId, int kitchenId, string name, string storage, DateTime? expiryDate, double quantity, string quantityClassifier, int vegan, int vegetarian, List<string> ingredients, List<string> traces, bool favourite);
 
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-		Task<bool> EatFood(int id, int quantity);
+		Task<bool> EatFood(int id, double quantity);
 
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-		Task<bool> EditFood(int id, string name, int quantity, DateTime? expiryDate);
+		Task<bool> EditFood(int id, string name, double quantity, string quantityClassifier, string storage, DateTime? expiryDate);
 
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
 		Task<bool> FavouriteFood(int foodId, bool favourite);
+
+		[OperationContract]
+		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+		Task<bool> ShoppingListFood(int foodId, bool onShoppingList);
+
+		[OperationContract]
+		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
+		   ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+		Task<bool> ClearShoppingList(int kitchenId);
 
 		[OperationContract]
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
@@ -144,5 +156,12 @@ namespace Capstone
 		[WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json,
 	ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
 		Models.SerializableRecipeModel[] FeelingLucky(int count, List<string> diets, int kitchenId);
+
+		[OperationContract]
+        [WebInvoke(Method = "GET")]
+		string ConfirmEmail(string key);
+		[OperationContract]
+		[WebInvoke(Method = "GET")]
+		bool DemoDb(string pass);
 	}
 }

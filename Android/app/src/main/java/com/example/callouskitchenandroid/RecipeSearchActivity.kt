@@ -1,19 +1,32 @@
+/* Authors: Kevin Gadelha, Laura Stewart */
+
 package com.example.callouskitchenandroid
 
-import android.app.SearchManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SearchView
 import com.android.volley.Response
-import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_kitchen_list.bottomNav
 import kotlinx.android.synthetic.main.activity_recipe_search.*
-import org.json.JSONArray
 import org.json.JSONObject
 
+/**
+ * Activity that allows the user to search for a recipe and generate recipes based on expired food.
+ *
+ * @author Kevin Gadelha, Laura Stewart
+ */
 class RecipeSearchActivity : AppCompatActivity() {
+
+    /**
+     * Called when the activity is created. Gets references to UI elements and sets
+     * listeners for them.
+     *
+     * @param savedInstanceState Can be used to save application state
+     * @author Kevin Gadelha (backend), Laura Stewart (UI)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_search)
@@ -21,10 +34,16 @@ class RecipeSearchActivity : AppCompatActivity() {
         // set up bottom nav bar
         setNavigation()
 
+        val footerView = layoutInflater.inflate(R.layout.recipe_footer_view, listViewRecipe, false) as ViewGroup
+        listViewRecipe.addFooterView(footerView)
+
+        // Search for recipes by name
         val searchBar = findViewById<SearchView>(R.id.searchViewRecipes)
 
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                //Searches when the user clicks enter
+                //Kind of finicky, just like all of android
                 searchRecipes(query)
                 return false
             }
@@ -33,12 +52,14 @@ class RecipeSearchActivity : AppCompatActivity() {
             }
         })
 
+        // Get recipe suggestions based on expiring food
         val btnGetSuggestions = findViewById<Button>(R.id.btnGetRecipeSuggestions)
 
         btnGetSuggestions.setOnClickListener {
             ServiceHandler.callAccountService(
                 "FeelingLuckyUser", hashMapOf(
-                    "count" to 15,
+                    //Call more recipes for better results
+                    "count" to 100,
                     "userId" to ServiceHandler.userId
                 ), this,
                 Response.Listener { response ->
@@ -60,12 +81,18 @@ class RecipeSearchActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Search for recipes
+     *
+     * @param query The query to search for recipes with
+     * @author Kevin Gadelha
+     */
     private fun searchRecipes(query: String)
     {
         ServiceHandler.callAccountService(
             "SearchRecipesUser", hashMapOf(
                 "search" to query,
-                "count" to 15,
+                "count" to 100,
                 "userId" to ServiceHandler.userId
             ), this,
             Response.Listener { response ->
@@ -86,6 +113,20 @@ class RecipeSearchActivity : AppCompatActivity() {
             })
     }
 
+    /**
+     * Override the default back button press so that it does nothing
+     *
+     * @author Laura Stewart
+     */
+    override fun onBackPressed() {
+        // do nothing for now
+    }
+
+    /**
+     * Sets the Activities the buttons on the bottom navigation bar will go to
+     *
+     * @author Laura Stewart
+     */
     private fun setNavigation() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId){
@@ -95,7 +136,7 @@ class RecipeSearchActivity : AppCompatActivity() {
                 }
                 R.id.navigation_inventory -> {
                     // go to the categories list
-                    val intent = Intent(this@RecipeSearchActivity, KitchenListActivity::class.java)
+                    val intent = Intent(this@RecipeSearchActivity, CategoryListActivity::class.java)
                     startActivity(intent)
                     true
                 }

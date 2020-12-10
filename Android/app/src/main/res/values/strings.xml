@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CallousKitchenAndroid</string>
+    <string name="app_name">Callous Kitchen</string>
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="kitchen_name">kitchen name</string>
@@ -39,17 +39,43 @@
     <string name="action_settings">Settings</string>
     <string name="soy">Soy</string>
     <string name="get_recipe_suggestions">Get Recipe Suggestions</string>
+    <string name="logout">Logout</string>
+    <string name="confirm">Confirm</string>
 
     <string-array name="units">
+        <item>item</item>
         <item>g</item>
         <item>mg</item>
         <item>kg</item>
         <item>mL</item>
         <item>L</item>
-        <item>oz.</item>
+        <item>oz</item>
         <item>fl. oz.</item>
         <item>gallon</item>
         <item>lb</item>
-        <item>item</item>
+    </string-array>
+
+    <string-array name="sortingOptions">
+        <item>Recently Added</item>
+        <item>Expiring Soon</item>
+        <item>Running Low</item>
+        <item>Favourited</item>
+        <item>Oldest Added</item>
+        <item>Alphabetical</item>
+        <item>Greatest Quantity</item>
+        <item>Quantity Type</item>
+    </string-array>
+
+    <string-array name="sortingOptionsShopping">
+        <item>Default</item>
+        <item>Checked</item>
+        <item>Recently Added</item>
+        <item>Expiring Soon</item>
+        <item>Running Low</item>
+        <item>Favourited</item>
+        <item>Oldest Added</item>
+        <item>Alphabetical</item>
+        <item>Greatest Quantity</item>
+        <item>Quantity Type</item>
     </string-array>
 </resources>

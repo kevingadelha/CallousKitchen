@@ -48,13 +48,17 @@ namespace CallousFrontEnd
             app.UseRouting();
 
             app.UseAuthorization();
-
+            // Author: Peter
+            // Mapping and sessions have been setup manually
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=User}/{action=LoginView}");
+                 endpoints.MapControllerRoute(
+                    name: "EmailConfirm",
+                    pattern: "{controller=Email}/{Action=ConfirmEmail}/{key}");
             });
         }
     }
