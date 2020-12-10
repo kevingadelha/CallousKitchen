@@ -1,5 +1,11 @@
-﻿const passResult = $("#passwordResult");
+﻿// Author: Peter
+// Script File for settings page
+
+const passResult = $("#passwordResult");
 const passBtn = $("#btnPassword");
+
+
+// Disables the submit if "Other" field contains a '|'. 
 $("#tbOther").on("input", function () {
     var input = $(this).val();
     if (input.includes("|")) {
@@ -9,8 +15,9 @@ $("#tbOther").on("input", function () {
         $("#btnSubmit").prop("disabled", false);
     }
 });
+
+// Disables the password button if the passwords don't match
 $(".passChange").on("keyup", function () {
-    console.log("first");
 
     const pass1 = $("#tbNewPassword").val();
     const pass2 = $("#tbConfirmNewPassword").val();
@@ -30,6 +37,8 @@ $(".passChange").on("keyup", function () {
     }
 });
 
+
+// Calls the changepassowrd method on the usercontroller, returns if the password changed
 passBtn.on("click", function () {
     const newPass = $("#tbNewPassword").val();
     const oldPass = $("#tbOldPassword").val();

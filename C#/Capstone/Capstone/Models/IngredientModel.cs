@@ -9,6 +9,7 @@ using System.Web;
 namespace Capstone.Models
 {
     // Author Peter Szadurski /
+    // Includes ingredient normalization, it was used when we didn't have edamam's starup plan
 
     public static class IgnoredIngredientSections
     {

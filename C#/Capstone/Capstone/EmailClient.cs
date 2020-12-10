@@ -7,6 +7,8 @@ using System.Net;
 
 namespace Capstone
 {
+    // Author: Peter
+    // Used to send confirmation emails
     public class EmailClient
     {
         public SmtpClient Client { get; }

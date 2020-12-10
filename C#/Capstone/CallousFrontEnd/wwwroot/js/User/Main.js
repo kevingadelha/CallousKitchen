@@ -1,4 +1,6 @@
-﻿$("#btnRecipeModal").on("click", function () {
+﻿// Author: Peter
+// Script used on the layout page (Which makes it used on all pages) to open the two modals on the navbar
+$("#btnRecipeModal").on("click", function () {
     console.log("recipe");
     $.ajax({
         type: 'Get',
