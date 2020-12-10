@@ -7,6 +7,7 @@ using AccountService;
 namespace CallousFrontEnd.Models
 {
     // Author: Peter Szadurski
+    // Model for keeping track of a user's kitchens with the storage enums
     public class KitchenModel
     {
         public List<SerializableKitchen> Kitchens { get; set; }

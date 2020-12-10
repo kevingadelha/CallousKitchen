@@ -8,6 +8,8 @@ using System.Web;
 
 namespace Capstone.Apis
 {
+    // Author: Peter
+    // Client to handle all the apis
     public class ApiHelper
     {
         public HttpClient ApiClient { get; set; }

@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace CallousFrontEnd.Controllers
 {
-
+    // Author: Peter Szadurski
     public class UserController : Controller
     {
 

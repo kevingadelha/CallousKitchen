@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace CallousFrontEnd.Models
 {
+    // Author: Peter
+    // Model used by the session
     public class UserSessionModel
     {
         public int Id { get; set; }

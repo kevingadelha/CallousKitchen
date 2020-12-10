@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace CallousFrontEnd.Models
 {
+    // Author: Peter Szadurski
+    // Model for recipes, unused
     public class RecipeModel
     {
         public string Name { get; set; }

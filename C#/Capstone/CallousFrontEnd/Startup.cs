@@ -48,7 +48,8 @@ namespace CallousFrontEnd
             app.UseRouting();
 
             app.UseAuthorization();
-
+            // Author: Peter
+            // Mapping and sessions have been setup manually
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {

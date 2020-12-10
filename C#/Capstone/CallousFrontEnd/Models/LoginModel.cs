@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace CallousFrontEnd.Models
 {
+    // Author: Peter
+    // Model for logging in the user
     public class LoginModel
     {
         public string Username { get; set; }

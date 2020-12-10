@@ -7,6 +7,7 @@ using System.Web;
 
 namespace Capstone.Models
 {
+    // Author: Peter
     [DataContract]
     [Serializable]
     public class EdamanIngredient

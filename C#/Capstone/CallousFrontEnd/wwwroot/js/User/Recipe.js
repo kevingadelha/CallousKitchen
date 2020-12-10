@@ -1,8 +1,13 @@
-﻿const loading = $("#loading");
+﻿// Author: Peter
+// Script file used for the recipe modal
+
+// Loading indicator, recipe api might take a while
+const loading = $("#loading");
 loading.hide();
 
+
+// Function to call the recipe search
 function recipeSearch() {
-    console.log("new search");
     if ($("#tbRecipeSearch").val()) {
         $.ajax({
             type: 'Post',
@@ -21,10 +26,13 @@ function recipeSearch() {
     }
 }
 
+// Function for reciple search button
 $("#btnSearchRecipe").on("click", function () {
     recipeSearch();
 });
 
+
+// Function for the "feeling lucky" button
 $("#btnFeelingLucky").on("click", function () {
     $.ajax({
         type: 'Post',
@@ -40,6 +48,8 @@ $("#btnFeelingLucky").on("click", function () {
 
 });
 
+
+// Function to search for recipes when enter is pressed on the textbox
 $("#tbRecipeSearch").on("keydown", function (e) {
     if (e.keyCode == 13) { // if pressed enter
         recipeSearch();
