@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CallousFrontEnd.Controllers
 {
+
+    // Author Peter Szadurski
+    // Controller for email confirmations
     public class EmailController : Controller
     {
         AccountService.AccountServiceMvcClient Client = new AccountService.AccountServiceMvcClient();

@@ -1,4 +1,8 @@
-﻿@model AccountService.SerializableRecipeModel[]
+﻿@*
+    Author: Peter
+    Partial Page for recipe results
+*@
+@model AccountService.SerializableRecipeModel[]
 @if (Model.Length != 0)
 {
     @foreach (var x in Model)
@@ -37,6 +41,7 @@
 
     }
 }
-else {
+else
+{
     <em>Over api limit, please try again in one minute</em>
 }

@@ -6,7 +6,8 @@ using System.Web;
 
 namespace Capstone.Models
 {
-    
+    // Author: Perer
+    // Unused, taken from an experimental build to get usda barcode data
     public class USDAModel
     {
         [JsonProperty(PropertyName = "description")]

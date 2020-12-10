@@ -1,4 +1,7 @@
-﻿@model List<AccountService.SerializableKitchen>
+﻿@*
+    Author: Peter
+*@
+@model List<AccountService.SerializableKitchen>
 @{
     string[] StorageTypes = { "Fridge", "Freezer", "Pantry", "Cupboard", "Cellar", "Other" };
 
@@ -98,20 +101,20 @@
             <div class="row"><em>You have no food, add some</em></div>
 
         }
-    <div class="row">
-        @if (ViewBag.IsConfirmed != null)
-        {
-            @if (ViewBag.IsConfirmed)
+        <div class="row">
+            @if (ViewBag.IsConfirmed != null)
             {
-                <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@Model[0].Id">Add Food</button>
-            }
-            else
-            {
-                <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@Model[0].Id" disabled>Add Food</button>
-            }
+                @if (ViewBag.IsConfirmed)
+                {
+                    <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@Model[0].Id">Add Food</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary addFoodBtn" data-toggle="modal" data-target="#AddFood" data-kitchen-Id="@Model[0].Id" disabled>Add Food</button>
+                }
 
-        }
-    </div>
+            }
+        </div>
 
 
     </div>

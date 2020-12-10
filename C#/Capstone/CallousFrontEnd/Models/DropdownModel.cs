@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace CallousFrontEnd.Models
 {
+    // Author: Peter
+    // Model for the "Vegan" dropdown
+    // Id matches the database
     public class DropdownModel
     {
         public int Id { get; set; }

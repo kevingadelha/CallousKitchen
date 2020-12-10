@@ -11,17 +11,19 @@ using System.Diagnostics;
 
 namespace CallousFrontEnd.Controllers
 {
-
+    // Author: Peter Szadurski
     public class UserController : Controller
     {
 
         AccountService.AccountServiceMvcClient Client = new AccountService.AccountServiceMvcClient();
-        // AccountServiceOther.AccountServiceMvcClient Client = new AccountServiceMvcClient();
+        // Author: Peter Szadurski
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateUser(Capstone.Classes.User user, IFormCollection form)
         {
             List<string> allergiesList = new List<string>();
+
+            // Process the allergy checkboxes
 
             foreach (var a in Allergies.GetAllergies())
             {
@@ -30,6 +32,8 @@ namespace CallousFrontEnd.Controllers
                     allergiesList.Add(a);
                 }
             }
+
+            // Process the "Other" textbox
             if (form["other"] != "" || form["other"].Count() != 0)
             {
                 allergiesList.Add(form["other"]);
@@ -37,6 +41,7 @@ namespace CallousFrontEnd.Controllers
 
 
             SerializableUser serializableUser = Client.CreateAccount(user.Email, user.Password);
+            // Log in the user if the process is successful
             if (serializableUser.Id > 0)
             {
                 Client.EditUserDietaryRestrictions(serializableUser.Id, form["Diet"] == "Vegan", form["Diet"] == "Vegetarian", allergiesList.ToArray());
@@ -53,12 +58,16 @@ namespace CallousFrontEnd.Controllers
             return View("CreateUser");
         }
 
+
+        // Author: Peter
+        // ActionResult for Settings View
         [HttpGet]
         public ActionResult Settings()
         {
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
             var user = Client.GetSerializableUser(userId);
+            // Setup the checkboxes so it matches the user data
             string[] selected = new string[3];
             if (user.Vegan)
             {
@@ -72,6 +81,8 @@ namespace CallousFrontEnd.Controllers
             {
                 selected[0] = "checked";
             }
+
+            // Setup the allergies so it matches the user data
             List<string> aM = new List<string>();
             foreach (var a in Allergies.GetAllergies())
             {
@@ -98,13 +109,15 @@ namespace CallousFrontEnd.Controllers
             return View("Settings", user);
         }
 
+        // Author: Peter
+        // Settings form submit request
         [HttpPost]
         public ActionResult Settings(SerializableUser user, IFormCollection form)
         {
             ViewBag.UserId = user.Id;
 
+            // Process allergy checkboxes
             List<string> allergiesList = new List<string>();
-
             foreach (var a in Allergies.GetAllergies())
             {
                 if (form[a] == "on")
@@ -113,11 +126,14 @@ namespace CallousFrontEnd.Controllers
                 }
             }
 
+
+            // Process "Other"
             if (form["other"] != "" || form["other"].Count() != 0)
             {
                 allergiesList.Add(form["other"]);
             }
 
+            // Update viewbag to tell the user if the changes were saved or not
             try
             {
                 Client.EditUserDietaryRestrictions(user.Id, form["Diet"] == "Vegan", form["Diet"] == "Vegetarian", allergiesList.ToArray());
@@ -136,6 +152,8 @@ namespace CallousFrontEnd.Controllers
                 ViewBag.Other = user.Allergies.LastOrDefault();
             }
 
+            // Setup the settings view with the new data
+
             string[] selected = new string[3];
             if (user.Vegan)
             {
@@ -171,7 +189,7 @@ namespace CallousFrontEnd.Controllers
 
 
 
-
+        // Author: Peter, Kevin
         [HttpPost]
         public ActionResult Login(LoginModel login)
         {
@@ -181,12 +199,14 @@ namespace CallousFrontEnd.Controllers
             {
                 UserSessionModel user = new UserSessionModel { Id = serializableUser.Id, Username = login.Username };
                 System.Diagnostics.Debug.WriteLine("UserId: " + serializableUser.Id);
+                
+
+                // Any time the webapp needs to get a the user, its done through session variables.
                 HttpContext.Session.SetInt32("UserId", serializableUser.Id);
                 HttpContext.Session.SetString("Username", login.Username);
                 ViewBag.UserSession = user;
 
 
-                //return RedirectToAction("AccountView", user);
                 if (login.Remember)
                 {
                     //Setup the cookie
@@ -198,6 +218,8 @@ namespace CallousFrontEnd.Controllers
             }
             return RedirectToAction("LoginView");
         }
+        
+        // Author: Peter, Kevin
         public ActionResult LoginView()
         {
             if (HttpContext.Request.Cookies.ContainsKey("Username"))
@@ -210,6 +232,8 @@ namespace CallousFrontEnd.Controllers
             return View("Login");
         }
 
+        // Author Peter Szadurski
+        
         [HttpPost]
         public ActionResult AccountView(UserSessionModel userSession)
         {
@@ -217,12 +241,16 @@ namespace CallousFrontEnd.Controllers
             return RedirectToAction("HomeView");
         }
 
+        // Author: Peter
+        // This is the view that gets called if the "Kitchen" button is clicked
         public ActionResult KitchenView()
         {
             TempData["userId"] = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             return HomeView();
         }
 
+        // Author: Peter
+        // This is the view that gets caled upon a successful login
         public ActionResult HomeView()
         {
             if (TempData["userId"] != null)
@@ -247,7 +275,7 @@ namespace CallousFrontEnd.Controllers
             }
         }
 
-
+        // Author Peter, Kevin
         public ActionResult Logout()
         {
             // destory all cookies
@@ -263,6 +291,7 @@ namespace CallousFrontEnd.Controllers
 
 
         // Author Peter Szadurski
+        // This is the kithen partialview that gets rendered on the accounts page
         [HttpPost]
         public ActionResult KitchenPartialView(List<SerializableKitchen> kitchens)
         {
@@ -270,11 +299,13 @@ namespace CallousFrontEnd.Controllers
             ViewBag.UserId = userId;
             var user = Client.GetSerializableUser(userId);
             bool confirmed = user.IsConfirmed;
+            
+            // Viewbags needed to check user diet and if the user is confirmed
             ViewBag.IsVegan = user.Vegan.ToString();
-            System.Diagnostics.Debug.WriteLine("Vegan: " + user.Vegan.ToString());
             ViewBag.IsVeg = user.Vegetarian.ToString();
-            System.Diagnostics.Debug.WriteLine("Veg: " + user.Vegetarian.ToString());
             ViewBag.IsConfirmed = confirmed;
+            
+            // Non-HardCoded StorageList
             ViewBag.StoragesList = Client.GetStorages();
             KitchenModel kM = new KitchenModel();
             kM.Kitchens = kitchens;
@@ -285,6 +316,8 @@ namespace CallousFrontEnd.Controllers
             return PartialView("UserKitchenPartialView", kM);
         }
 
+        // Author Peter Szadurski
+        // Deprecated, multi-kitchens are not currently accessable
         [HttpPost]
         public ActionResult AddEditKitchen(KitchenUser kitchenUser)
         {
@@ -306,19 +339,27 @@ namespace CallousFrontEnd.Controllers
                 Username = HttpContext.Session.GetString("Username")
             };
             return AccountView(user);
-            //return KitchenPartialView(kitchens);
         }
 
+        // Author Peter Szadurski
+        // Deprecated, multi-kitchens are not currently accessable
         [HttpGet]
         public ActionResult AddEditKitchenView(KitchenUser kitchenUser)
         {
             ViewBag.UserId = kitchenUser.UserId;
-            //return PartialView("AddEditKitchenPartial", kitchenUser);
+
             UserSessionModel user = new UserSessionModel { Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault(), Username = HttpContext.Session.GetString("Username") };
 
             return AccountView(user);
 
         }
+
+        //Author: Peter
+        /// <summary>
+        /// Used for either submitting food adding or food editing
+        /// </summary>
+        /// <param name="foodKitchen"></param>
+        /// <returns>Brigns the user back to the account view</returns>
         [HttpPost]
         public ActionResult AddEditFood(FoodKitchen foodKitchen)
         {
@@ -340,7 +381,6 @@ namespace CallousFrontEnd.Controllers
             }
             catch
             {
-                Debug.WriteLine("eat failed");
             }
 
 
@@ -350,10 +390,11 @@ namespace CallousFrontEnd.Controllers
                 Username = HttpContext.Session.GetString("Username")
             };
             return AccountView(user);
-            //List<SerializableKitchen> kitchens = Client.GetKitchens(userId).ToList();
-            //return KitchenPartialView(kitchens);
+
         }
 
+        // Author: Peter
+        // Partial view used for the recipe search modal
         [HttpGet]
         public ActionResult RecipeSearchView()
         {
@@ -364,11 +405,11 @@ namespace CallousFrontEnd.Controllers
             return PartialView("_RecipeSearchPartial");
         }
 
+        // Author: Peter
+        // Method to used search recipes and return formated results
         [HttpPost]
         public ActionResult SearchRecipes(string search)
         {
-
-
             search = System.Web.HttpUtility.UrlEncode(search);
             int Id = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             List<SerializableRecipeModel> recs = new List<SerializableRecipeModel>();
@@ -376,10 +417,13 @@ namespace CallousFrontEnd.Controllers
             {
                 recs = Client.SearchRecipesUser(search, 100, Id).ToList();
             }
+            // Used to just prevent the app from crashing when Edamam is out of results, Partial page already handles null results
             catch { }
             return PartialView("_RecipeResultView", recs.ToArray()) ;
         }
 
+        // Author: Peter
+        // Method to auto used search recipes and return formated results
         [HttpPost]
         public ActionResult FeelingLucky(string search)
         {
@@ -392,13 +436,15 @@ namespace CallousFrontEnd.Controllers
             {
                 recs = Client.FeelingLuckyUser(100, Id).ToList();
             }
+            // Used to just prevent the app from crashing when Edamam is out of results, Partial page already handles null results
             catch
             {
 
             }
             return PartialView("_RecipeResultView", recs.ToArray());
         }
-
+        // Author: Peter
+        // Method used by the shopping list modal
         [HttpPost]
         public ActionResult ShoppingList()
         {
@@ -409,6 +455,8 @@ namespace CallousFrontEnd.Controllers
             return PartialView("_ShoppingListPartial",sL);
         }
 
+        // Author: Peter
+        // Method used by to save the shopping list. Uses Ajax forms in order to just update the modal instead of refreshing the whole page
         [HttpPost]
         async public Task<string> SetShoppingList(List<SerializableFood> shoppingList, IFormCollection form)
         {
@@ -421,6 +469,8 @@ namespace CallousFrontEnd.Controllers
             return "Shopping List Updated";
         }
 
+        // Author: Peter
+        // Method used by the Add/Edit food modal
 
         [HttpGet]
         public ActionResult AddEditFoodView(int kId, int fId)
@@ -445,7 +495,7 @@ namespace CallousFrontEnd.Controllers
             return PartialView("AddEditFoodPartial", foodKitchen);
         }
 
-
+        // Author: Peter
         [HttpPost]
         public ActionResult EatFood(Food food)
         {
@@ -461,8 +511,7 @@ namespace CallousFrontEnd.Controllers
                 Debug.WriteLine("eat failed");
             }
             ViewBag.UserId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
-            //List<SerializableKitchen> kitchens = Client.GetKitchens((int)ViewBag.UserId).ToList();
-            //return KitchenPartialView(kitchens);
+
 
             UserSessionModel user = new UserSessionModel
             {
@@ -472,6 +521,8 @@ namespace CallousFrontEnd.Controllers
             return AccountView(user);
         }
 
+        // Author: Peter
+        // Changes passowrd, uses ajax for faster validation
         [HttpPost]
         public string ChangePassword(int userId,string old, string newPass)
         {
@@ -489,6 +540,8 @@ namespace CallousFrontEnd.Controllers
             }
         }
 
+        // Author: Peter
+        // Method used by eat food modal
         [HttpGet]
         public ActionResult EatFoodView(int fId)
         {
@@ -497,6 +550,8 @@ namespace CallousFrontEnd.Controllers
             return PartialView("EatFoodPartial", food);
         }
 
+        // Author: Peter
+        // It deltes the food matching the id
         [HttpDelete]
         public ActionResult DeleteFood(int fId)
         {
@@ -508,6 +563,8 @@ namespace CallousFrontEnd.Controllers
             {
                 Debug.WriteLine("remove failed");
             }
+
+            // Setup for UserKitchenPartialView
             int userId = HttpContext.Session.GetInt32("UserId").GetValueOrDefault();
             ViewBag.UserId = userId;
             var user = Client.GetSerializableUser(userId);
@@ -523,6 +580,8 @@ namespace CallousFrontEnd.Controllers
             return PartialView("UserKitchenPartialView", user.Kitchens.ToList());
         }
 
+        // Author: Peter
+        // Returns Open Food Facts barcode data
         [HttpGet]
         public string GetBarcodeData(string barcode)
         {

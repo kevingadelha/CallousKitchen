@@ -168,6 +168,8 @@ namespace Capstone
                 .Select(o => new SerializableFood(o)).ToList();
         }
 
+        //Author: Peter
+        // Used to get all the storage enums so I don't have to hardcode it on the Web App
         public List<Storage> GetStorages()
         {
             List<Storage> storages = new List<Storage>();
@@ -277,7 +279,12 @@ namespace Capstone
                 */
                 foreach (var i in r.EdamanIngredients)
                 {
+                    // Keeps the current best score for an ingredient
                     int tempScore = 0;
+                    // Ranks Score based off normalized ingredients match
+                    // Full match is worth 2 points, partial partial is worth 1 point.
+                    // If the food is at least a partial match, expiry rate will be used to increase score
+                    // it will increase in score by 1 point of it will expire in 3 days, and add 1 for each day below 3, capping out at +3 extra score.
                     foreach (var f in foods)
                     {
 
@@ -304,7 +311,7 @@ namespace Capstone
                         }
 
                     }
-
+                    // Adds score to the recipe
                     r.Score += tempScore;
                 }
 
@@ -605,6 +612,9 @@ namespace Capstone
             return db.Foods.Where(x => x.Id == id).FirstOrDefault();
         }
 
+
+        // Author: Peter
+        // Sets up the database with demo data, it has a password so it can't be called by accident
         public bool DemoDb(string pass)
         {
             if (pass != "DiscoFever")

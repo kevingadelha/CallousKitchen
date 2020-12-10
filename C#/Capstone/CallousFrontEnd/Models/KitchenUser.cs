@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CallousFrontEnd.Models
 {
+    // Author: Peter
+    // Model for keeping track of a userId with a kitchen
+
     public class KitchenUser
     {
         public int UserId { get; set; }

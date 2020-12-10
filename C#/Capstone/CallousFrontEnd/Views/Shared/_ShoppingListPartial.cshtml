@@ -1,4 +1,8 @@
-﻿@model List<AccountService.SerializableFood>
+﻿@*
+    Author: Peter
+    Partial page for Shopping List modal
+*@
+@model List<AccountService.SerializableFood>
 <div class="container" id="shoppingListForm">
     <form id="form0" asp-action="SetShoppingList" asp-controller="User" data-ajax-method="Post" method="post" data-ajax="true"
           data-ajax-update="#shoppingResult" data-ajax-mode="replace">
