@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.android.volley.Response
 import org.json.JSONObject
+import java.text.DecimalFormat
 import java.time.LocalDate
 
 /**
@@ -46,7 +47,9 @@ class FoodListAdapter(private val context: Activity,
 
         // add expiry date and quantity
         val txtQuantity = rowView.findViewById<TextView>(R.id.textViewFoodQuantity)
-        txtQuantity.text = "Quantity: ${foods[position].quantity} ${foods[position].quantityClassifier}"
+        val dec = DecimalFormat("#,###.##")
+        val formattedQuantity = dec.format(foods[position].quantity)
+        txtQuantity.text = "Quantity: ${formattedQuantity} ${foods[position].quantityClassifier}"
 
         val txtExpiry = rowView.findViewById<TextView>(R.id.textViewExpiry)
 

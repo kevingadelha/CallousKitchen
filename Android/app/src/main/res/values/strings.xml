@@ -40,6 +40,7 @@
     <string name="soy">Soy</string>
     <string name="get_recipe_suggestions">Get Recipe Suggestions</string>
     <string name="logout">Logout</string>
+    <string name="confirm">Confirm</string>
 
     <string-array name="units">
         <item>item</item>

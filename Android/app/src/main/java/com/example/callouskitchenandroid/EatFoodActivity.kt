@@ -8,6 +8,7 @@ import android.widget.*
 import com.android.volley.Response
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import org.json.JSONObject
+import java.text.DecimalFormat
 import java.util.*
 
 /**
@@ -61,7 +62,10 @@ class EatFoodActivity : AppCompatActivity() {
         seekBarQuantity.max = SLIDER_MAX
         seekBarQuantity.progress = SLIDER_MAX
 
-        txtViewQuantity.text = "${food.quantity} $units"
+        val dec = DecimalFormat("#,###.##")
+        val formattedQuantity = dec.format(food.quantity)
+
+        txtViewQuantity.text = "${formattedQuantity} $units"
 
         // detect changes in seek bar value
         seekBarQuantity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -71,8 +75,9 @@ class EatFoodActivity : AppCompatActivity() {
 
                 // calculate the amount of food remaining
                 val remainingQuantity = food.quantity * percent
+                val formattedRemQuantity = dec.format(remainingQuantity)
 
-                txtViewQuantity.text = "$remainingQuantity $units"
+                txtViewQuantity.text = "$formattedRemQuantity $units"
             }
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
