@@ -8,6 +8,7 @@ using System.Text;
 
 namespace Capstone
 {
+    //Author: Vladyslav
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "ExpiryEstimationService" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select ExpiryEstimationService.svc or ExpiryEstimationService.svc.cs at the Solution Explorer and start debugging.
     public class ExpiryEstimationService : IExpiryEstimationService
@@ -157,9 +158,6 @@ namespace Capstone
 
 
                     
-
-
-                    
                     //storage temperature are assigned as an average temperature for type of storage in celcius
                     if (storage.ToLower().Equals("freezer")){
                         storageTemperature = -10;
@@ -251,8 +249,6 @@ namespace Capstone
 
 
 
-
-
         //receive products  from json file
         public List<Product> getJsonData()
         {
@@ -261,12 +257,15 @@ namespace Capstone
             return products;
         }
 
+
+        //custom product class, stores product info
         public class Product
         {
             public string CROP { get; set; }
             public string TEMPERATURE { get; set; }
             public string STORAGELIFE { get; set; }
         }
+        //custom result class, stores result that will be returned by service
         public class Result
         {
             public string RESULTSTORAGE { get; set; }
