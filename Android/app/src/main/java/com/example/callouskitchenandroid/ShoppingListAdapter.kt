@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.android.volley.Response
 import org.json.JSONObject
+import java.text.DecimalFormat
 
 /**
  * Extends the ArrayAdapter class so that the food items can be displayed in a shopping list
@@ -65,7 +66,9 @@ class ShoppingListAdapter(private val context: Activity,
 
         // Show the food quantity
         val txtQuantity = rowView.findViewById<TextView>(R.id.textViewShopQuantity)
-        txtQuantity.text = "Quantity remaining: ${foods[position].quantity} ${foods[position].quantityClassifier}"
+        val dec = DecimalFormat("#,###.##")
+        val formattedQuantity = dec.format(foods[position].quantity)
+        txtQuantity.text = "Quantity remaining: ${formattedQuantity} ${foods[position].quantityClassifier}"
 
         return rowView
     }

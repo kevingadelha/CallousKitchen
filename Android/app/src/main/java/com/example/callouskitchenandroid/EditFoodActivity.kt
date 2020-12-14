@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_edit_food.*
 import kotlinx.android.synthetic.main.activity_kitchen_list.*
 import kotlinx.android.synthetic.main.activity_kitchen_list.bottomNav
 import org.json.JSONObject
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -61,7 +62,9 @@ class EditFoodActivity : AppCompatActivity() {
         val food = intent.getSerializableExtra("FOOD") as Food
 
         txtFoodName.setText(food.name)
-        txtFoodQuantity.setText(food.quantity.toString())
+        val dec = DecimalFormat("#,###.##")
+        val formattedQuantity = dec.format(food.quantity)
+        txtFoodQuantity.setText(formattedQuantity)
 
         spinnerUnits.setSelection(unitsArray.indexOf(food.quantityClassifier))
         spinnerCategories.setSelection(categories.indexOf(food.storage))
